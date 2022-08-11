@@ -13,11 +13,14 @@ import matplotlib.pyplot as plt
 # FOR PRINCIPLE COMPONENT ANALYSIS
 from sklearn.decomposition import PCA
 
+# WHEN I RUN THIS I HAVE A FOLDER WHERE ALL THE CREATED FILES GO CALLED 'ExportedFiles'
 image_dir = 'ExportedFiles'
 
+# ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
     return (glob.glob(text+'*')+[None])[state]
 
+# STORAGE OF USEFUL FUNCTIONS
 def RepositoryofFunctions():
     # GIVE ALL ROWS WITH NO STUDENT (DOUBLE MAJOR)
     print(df.loc[df['Student'].isnull()])
@@ -30,8 +33,10 @@ def RepositoryofFunctions():
         print()
 
     # CAN SEPARATE DATA BY SPECIFIC CONDITIONS
-    # data_NSc = data.loc[data['Sch'].str.contains('E')]
+    data_NSc = data.loc[data['Sch'].str.contains('E')]
 
+# CREATE A FUNCCTION TO SAVE ANY FIGURE IN THE DESIRED DIRECTORY
+# CAN ALSO CREATE AN SVG FOR FIGURE TWEAKING LATER
 def save_fig(fig, figure_name):
     fname = os.path.expanduser(f'{image_dir}/{figure_name}')
     plt.savefig(fname + '.png')
@@ -43,7 +48,7 @@ def main():
     readline.set_completer(complete)
     my_file = input('SAGE Filename: ')
 
-    # READ IN DATA FROM SAGE BASED ON THE CSV COLUMN NAMES
+    # READ IN DATA FROM SAGE QULATRICS SURVEY BASED ON THE CSV COLUMN NAMES
     headers = [*pd.read_csv(my_file, nrows=1)]
     ExcludedHeaders = ['Start Date', 'End Date', 'Response Type', 'IP Address', 'Progress', 'Duration (in seconds)',
     'Finished', 'Recorded Date', 'Response ID', 'Recipient Last Name', 'Recipient First Name',
@@ -68,10 +73,9 @@ def main():
     df.mask(df == 'Somewhat agree', 4, inplace = True)
     df.mask(df == 'Strongly agree', 5, inplace = True)
 
-    # INVERT NEGATIVELY WORDED QUESTIONS, THEN COMBINE WITH POSITIVELY WORDED QUESTIONS
-    ### NEEDS TO CHANGE WITH NEW LANGUAGE ###
+    # INVERT NEGATIVELY WORDED QUESTIONS, THEN COMBINE COLUMNS WITH POSITIVELY WORDED QUESTIONS
     Neg_List = [
-    'The work takes less time to complete when I work with other students.', ####
+    'The work takes less time to complete when I work with other students.',
     'My group members do not respect my opinions.',
     'I prefer when no one takes on a leadership role.',
     'I do not let the other students do most of the work.',
@@ -79,8 +83,8 @@ def main():
     for i in Neg_List:
         df[i].replace([1,2,4,5],[5,4,2,1],inplace=True)
     df['The work takes more time to complete when I work with other students.'] = df[['The work takes more time to complete when I work with other students.', ###
-    'The work takes less time to complete when I work with other students.']].sum(axis=1) ####
-    df.drop(['The work takes less time to complete when I work with other students.'], axis=1, inplace=True) ###
+    'The work takes less time to complete when I work with other students.']].sum(axis=1)
+    df.drop(['The work takes less time to complete when I work with other students.'], axis=1, inplace=True)
     df['My group members respect my opinions.'] = df[['My group members respect my opinions.','My group members do not respect my opinions.']].sum(axis=1)
     df.drop(['My group members do not respect my opinions.'], axis=1, inplace=True)
     df['I prefer when one student regularly takes on a leadership role.'] = df[['I prefer when one student regularly takes on a leadership role.',
@@ -99,6 +103,7 @@ def main():
     # REMOVE PARTIAL RESPONSES
     df.dropna(axis=0, how='any', inplace = True)
 
+### WORKING UP TO HERE ###    
     # TAKE AVERAGES AND STD.DEV., PERCENTAGE SA+A, U, D+SD
     # df_norm = (df - df.mean())/df.std()
     # pca = PCA(n_components=4)
@@ -113,9 +118,11 @@ def main():
     # plt.ylabel('Explained Variance')
     # plt.xlabel('Components')
     # save_fig(fig, 'PCA')
-
+    
+    # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
     df.to_csv('ExportedFiles/SAGE_anony.csv', encoding = "utf-8", index=False)
 
+# WHERE THE CODE IS ACTUALLY RUN
 try:
     if __name__ == '__main__':
         main()
