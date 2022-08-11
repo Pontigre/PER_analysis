@@ -1,8 +1,9 @@
-# PER_analysis
+# Group Dynamics project Code
 
 All files written using Python 3.8.10
 
-Repository of files used for analysis of data in the Group Dynamics project at UT Austin
+Repository of files used for analysis of data in the Group Dynamics project at UT Austin.
+
 Included are:
 - BasicAnalysis.py: this is an old code that produced the initial figures in Sp22.
 - AnonyData.py: The file used to scrub traceable student results from raw data files.
