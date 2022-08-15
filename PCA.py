@@ -11,7 +11,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 # FOR PRINCIPLE COMPONENT ANALYSIS
+import factor_analyzer.factor_analyzer as fa
 from sklearn.decomposition import PCA
+import pingouin as pg
 
 # WHEN I RUN THIS I HAVE A FOLDER WHERE ALL THE CREATED FILES GO CALLED 'ExportedFiles'
 image_dir = 'ExportedFiles'
@@ -103,21 +105,40 @@ def main():
     # REMOVE PARTIAL RESPONSES
     df.dropna(axis=0, how='any', inplace = True)
 
-### WORKING UP TO HERE ###    
-    # TAKE AVERAGES AND STD.DEV., PERCENTAGE SA+A, U, D+SD
-    # df_norm = (df - df.mean())/df.std()
-    # pca = PCA(n_components=4)
-    # pca.fit(df_norm)
+    # RENORMALIZE DATA SUCH THAT 5-POINT AND 6-POINT ARE EQUAL
+    df_norm = ((df - df.mean())/df.std()).astype(float)
 
-    # # Reformat and view results
-    # loadings = pandas.DataFrame(pca.components_.T, columns=['PC%s' % _ for _ in range(len(df_norm.columns))],index=df.columns)
+    # BARTLETT'S TEST
+    chi_square_value, p_value = fa.calculate_bartlett_sphericity(df_norm)
+    print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
+
+    # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
+    kmo_all, kmo_model = fa.calculate_kmo(df_norm)
+    print('KMO Measure of Sampling Adequacy: ', kmo_model)
+
+    # CRONBACH'S ALPHA TEST OF CONSITENCY
+    print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_norm))
+
+    # PRINCIPLE COMPONENT ANALYSIS, N=4 AS PER KOUROS, ABRAMI
+    pca = PCA(n_components=4)
+    pca.fit(df_norm)
+    print('Number of components: 4', 'Explained Variance Ratio: ', pca.explained_variance_ratio_)
+    print('PCA Singular Values: ', pca.singular_values_)
+
+    # SCREE PLOT
+    PC_values = np.arange(pca.n_components_) + 1
+    fig, ax = plt.subplots()
+    plt.plot(PC_values, pca.explained_variance_ratio_, 'o-', linewidth=2, color='blue')
+    plt.title('Scree Plot')
+    plt.xlabel('Principal Component')
+    plt.ylabel('Variance Explained')
+    save_fig(fig, 'Scree')
+
+### WORKING UP TO HERE ###
+
+    # # REFORMAT AND VIEW RESULTS
+    # loadings = pd.DataFrame(pca.components_.T, columns=['PC%s' % _ for _ in range(len(df_norm.columns))],index=df_norm.columns)
     # print(loadings)
-
-    # fig, ax = plt.subplots()
-    # plt.plot(pca.explained_variance_ratio_)
-    # plt.ylabel('Explained Variance')
-    # plt.xlabel('Components')
-    # save_fig(fig, 'PCA')
     
     # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
     df.to_csv('ExportedFiles/SAGE_anony.csv', encoding = "utf-8", index=False)
