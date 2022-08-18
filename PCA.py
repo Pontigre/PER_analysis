@@ -75,6 +75,35 @@ def main():
     df.mask(df == 'Somewhat agree', 4, inplace = True)
     df.mask(df == 'Strongly agree', 5, inplace = True)
 
+    # REMOVE THE DEMOGRAPHICS QUESTIONS
+    df.drop(columns=df.columns[-4:], axis=1, inplace = True)
+
+    # CALCULATE MEAN, STD DEV OF EACH COLUMN
+    df_mean = df.mean()
+    df_stddev = df.std()
+    df_summary = pd.merge(df_mean.to_frame(), df_stddev.to_frame(), left_index = True , right_index =True)
+    df_summary.rename(columns={'0_x': 'Mean', '0_y': 'Std.Dev.'}, inplace = True)
+
+    # COUNT THE AMOUNT OF SD+D (1,2), N (3), AND SA+A (4,5) IN EACH COLUMN
+    my_list = list(df)
+    col_list = [x for x in my_list if x not in Phys_Int_Cols]
+    df_summary['SD+D'] = np.nan
+    df_summary['N'] = np.nan
+    df_summary['SA+A'] = np.nan
+    for i in col_list:
+        s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
+        df_summary.at[i,'SD+D'] = s[(s.unique_values == 1) | (s.unique_values == 2)].sum()['counts']
+        df_summary.at[i,'N'] = s[s.unique_values == 3].sum()['counts']
+        df_summary.at[i,'SA+A'] = s[(s.unique_values == 4) | (s.unique_values == 5)].sum()['counts']
+
+    for i in Phys_Int_Cols:
+        s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
+        df_summary.at[i,'SD+D'] = s[(s.unique_values == 1) | (s.unique_values == 2)].sum()['counts']
+        df_summary.at[i,'N'] = s[(s.unique_values == 3) | (s.unique_values == 4)].sum()['counts']
+        df_summary.at[i,'SA+A'] = s[(s.unique_values == 5) | (s.unique_values == 6)].sum()['counts']
+
+    df_summary.to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
+
     # INVERT NEGATIVELY WORDED QUESTIONS, THEN COMBINE COLUMNS WITH POSITIVELY WORDED QUESTIONS
     Neg_List = [
     'The work takes less time to complete when I work with other students.',
@@ -99,15 +128,25 @@ def main():
     df[Take_on_tasks_cols[0]] = df[Take_on_tasks_cols].sum(axis=1)
     df.drop(['I prefer to take on tasks that will help me better learn the material.'], axis=1, inplace = True)
 
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    df.drop(columns=df.columns[-4:], axis=1, inplace = True)
-
     # REMOVE PARTIAL RESPONSES
     df.dropna(axis=0, how='any', inplace = True)
 
     # RENORMALIZE DATA SUCH THAT 5-POINT AND 6-POINT ARE EQUAL
     df_norm = ((df - df.mean())/df.std()).astype(float)
 
+    # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
+    df.to_csv('ExportedFiles/SAGE_anony.csv', encoding = "utf-8", index=False)
+
+    # CORRELATION MATRIX
+    corrM = df_norm.corr()
+    fig, ax = plt.subplots()
+    plt.matshow(corrM)
+    cb = plt.colorbar()
+    cb.ax.tick_params(labelsize=14)
+    plt.title('Correlation Matrix')
+    save_fig(fig,'CorrM')
+
+    ## FIRST ATTEMPT AT PCA
     # BARTLETT'S TEST
     chi_square_value, p_value = fa.calculate_bartlett_sphericity(df_norm)
     print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
@@ -116,10 +155,11 @@ def main():
     kmo_all, kmo_model = fa.calculate_kmo(df_norm)
     print('KMO Measure of Sampling Adequacy: ', kmo_model)
 
-    # CRONBACH'S ALPHA TEST OF CONSITENCY
+    # CRONBACH'S ALPHA TEST OF CONSISTENCY
     print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_norm))
 
     # PRINCIPLE COMPONENT ANALYSIS, N=4 AS PER KOUROS, ABRAMI
+    # NEEDS TO CHANGE SINCE WE'VE ADDED QUESTIONS
     pca = PCA(n_components=4)
     pca.fit(df_norm)
     print('Number of components: 4', 'Explained Variance Ratio: ', pca.explained_variance_ratio_)
@@ -132,16 +172,7 @@ def main():
     plt.title('Scree Plot')
     plt.xlabel('Principal Component')
     plt.ylabel('Variance Explained')
-    save_fig(fig, 'Scree')
-
-### WORKING UP TO HERE ###
-
-    # # REFORMAT AND VIEW RESULTS
-    # loadings = pd.DataFrame(pca.components_.T, columns=['PC%s' % _ for _ in range(len(df_norm.columns))],index=df_norm.columns)
-    # print(loadings)
-    
-    # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
-    df.to_csv('ExportedFiles/SAGE_anony.csv', encoding = "utf-8", index=False)
+    save_fig(fig, 'Scree')    
 
 # WHERE THE CODE IS ACTUALLY RUN
 try:
