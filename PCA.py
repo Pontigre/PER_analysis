@@ -102,7 +102,7 @@ def main():
         df_summary.at[i,'N'] = s[(s.unique_values == 3) | (s.unique_values == 4)].sum()['counts']
         df_summary.at[i,'SA+A'] = s[(s.unique_values == 5) | (s.unique_values == 6)].sum()['counts']
 
-    df_summary.to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
+    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
 
     # INVERT NEGATIVELY WORDED QUESTIONS, THEN COMBINE COLUMNS WITH POSITIVELY WORDED QUESTIONS
     Neg_List = [
@@ -135,7 +135,7 @@ def main():
     df_norm = ((df - df.mean())/df.std()).astype(float)
 
     # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
-    df.to_csv('ExportedFiles/SAGE_anony.csv', encoding = "utf-8", index=False)
+    df.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
 
     # CORRELATION MATRIX
     corrM = df_norm.corr()
@@ -144,7 +144,7 @@ def main():
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=14)
     plt.title('Correlation Matrix')
-    save_fig(fig,'CorrM')
+    save_fig(fig,'SAGE_CorrM')
 
     ## FIRST ATTEMPT AT PCA
     # BARTLETT'S TEST
