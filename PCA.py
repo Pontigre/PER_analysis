@@ -11,8 +11,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 # FOR PRINCIPLE COMPONENT ANALYSIS
-import factor_analyzer.factor_analyzer as fa
-from sklearn.decomposition import PCA
+from factor_analyzer import FactorAnalyzer
+from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
+from sklearn.decomposition import FactorAnalysis, PCA
 import pingouin as pg
 
 # WHEN I RUN THIS I HAVE A FOLDER WHERE ALL THE CREATED FILES GO CALLED 'ExportedFiles'
@@ -22,23 +23,6 @@ image_dir = 'ExportedFiles'
 def complete(text, state):
     return (glob.glob(text+'*')+[None])[state]
 
-# STORAGE OF USEFUL FUNCTIONS
-def RepositoryofFunctions():
-    # GIVE ALL ROWS WITH NO STUDENT (DOUBLE MAJOR)
-    print(df.loc[df['Student'].isnull()])
-
-    # PRINT ROW OF A GIVEN STUDENT
-    print(df.loc[df['Student'] == 'TEST']) 
-
-    # PRINT ALL ROWS IN A DATAFRAME
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-        print()
-
-    # CAN SEPARATE DATA BY SPECIFIC CONDITIONS
-    data_NSc = data.loc[data['Sch'].str.contains('E')]
-
-# CREATE A FUNCCTION TO SAVE ANY FIGURE IN THE DESIRED DIRECTORY
-# CAN ALSO CREATE AN SVG FOR FIGURE TWEAKING LATER
 def save_fig(fig, figure_name):
     fname = os.path.expanduser(f'{image_dir}/{figure_name}')
     plt.savefig(fname + '.png')
@@ -134,35 +118,60 @@ def main():
     # RENORMALIZE DATA SUCH THAT 5-POINT AND 6-POINT ARE EQUAL
     df_norm = ((df - df.mean())/df.std()).astype(float)
 
-    # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
-    df.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
+    # # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
+    # df.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
 
-    # CORRELATION MATRIX
-    corrM = df_norm.corr()
-    fig, ax = plt.subplots()
-    plt.matshow(corrM)
-    cb = plt.colorbar()
-    cb.ax.tick_params(labelsize=14)
-    plt.title('Correlation Matrix')
-    save_fig(fig,'SAGE_CorrM')
+    # # CORRELATION MATRIX
+    # corrM = df_norm.corr()
+    # fig, ax = plt.subplots()
+    # plt.matshow(corrM)
+    # cb = plt.colorbar()
+    # cb.ax.tick_params(labelsize=14)
+    # plt.title('Correlation Matrix')
+    # save_fig(fig,'SAGE_CorrM')
 
-    ## FIRST ATTEMPT AT PCA
+    ## FIRST VALIDATE THE SAGE QUESTIONS
+    not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
+    'My group did higher quality work when group members worked on different tasks at the same time.', 
+    'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 
+    'Your physics intelligence is something about you that you can’t change very much.',
+    'You can learn new things, but you can’t really change your basic physics intelligence.',
+    'I prefer to take on tasks that I’m already good at.',
+    'I prefer when one student regularly takes on a leadership role.',
+    'I prefer when the leadership role rotates between students.']
+    df_SAGE = df_norm.drop(not_SAGE, axis=1)
+
     # BARTLETT'S TEST
-    chi_square_value, p_value = fa.calculate_bartlett_sphericity(df_norm)
+    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
     print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
 
     # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
-    kmo_all, kmo_model = fa.calculate_kmo(df_norm)
+    kmo_all, kmo_model = calculate_kmo(df_SAGE)
     print('KMO Measure of Sampling Adequacy: ', kmo_model)
 
-    # CRONBACH'S ALPHA TEST OF CONSISTENCY
-    print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_norm))
+    # # CRONBACH'S ALPHA TEST OF CONSISTENCY
+    # print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_SAGE))
 
-    # PRINCIPLE COMPONENT ANALYSIS, N=4 AS PER KOUROS, ABRAMI
-    # NEEDS TO CHANGE SINCE WE'VE ADDED QUESTIONS
-    pca = PCA(n_components=4)
-    pca.fit(df_norm)
-    print('Number of components: 4', 'Explained Variance Ratio: ', pca.explained_variance_ratio_)
+    # FACTOR ANALYSIS, N=4 AS PER KOUROS, ABRAMI
+    fa = FactorAnalyzer(4, rotation='varimax', method='minres', use_smc=True)
+    fa.fit(df_SAGE)
+    FactorAnalyzer(bounds=(0.005, 1), impute='median', is_corr_matrix=False,
+               method='minres', n_factors=4, rotation='varimax',
+               rotation_kwargs={}, use_smc=True)
+    m = pd.DataFrame(fa.loadings_)
+    m.to_csv('ExportedFiles/SAGE_Comps.csv', encoding = "utf-8", index=True)
+
+    fig, ax = plt.subplots()
+    plt.imshow(fa.loadings_, cmap="viridis")
+    plt.colorbar()
+    plt.tight_layout()
+    save_fig(fig, 'SAGE_FA')
+
+    # PCA ANALYSIS FOR ALL QUESTIONS
+    pca = PCA(n_components = 10)
+    principalComponents = pca.fit_transform(df_norm)
+    principalDf = pd.DataFrame(data = principalComponents)
+    print('Number of components: 10,', 'Explained Variance Ratio:', pca.explained_variance_ratio_)
     print('PCA Singular Values: ', pca.singular_values_)
 
     # SCREE PLOT
@@ -173,6 +182,21 @@ def main():
     plt.xlabel('Principal Component')
     plt.ylabel('Variance Explained')
     save_fig(fig, 'Scree')    
+
+    # FACTOR ANALYSIS, N=6
+    fa = FactorAnalyzer(6, rotation='varimax', method='minres', use_smc=True)
+    fa.fit(df_norm)
+    FactorAnalyzer(bounds=(0.005, 1), impute='median', is_corr_matrix=False,
+               method='minres', n_factors=6, rotation='varimax',
+               rotation_kwargs={}, use_smc=True)
+    m = pd.DataFrame(fa.loadings_)
+    m.to_csv('ExportedFiles/SAGE_Comps.csv', encoding = "utf-8", index=True)
+
+    fig, ax = plt.subplots()
+    plt.imshow(fa.loadings_, cmap="viridis")
+    plt.colorbar()
+    plt.tight_layout()
+    save_fig(fig, 'SAGE_PCA')
 
 # WHERE THE CODE IS ACTUALLY RUN
 try:
