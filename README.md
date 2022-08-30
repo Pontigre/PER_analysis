@@ -17,6 +17,7 @@ To run SAGE analyis:
 5.	Run the desired .py file.
 
 # Produced images
+![Correlation Matrix](SAGE_CorrM.png)
 ![SAGE Factor Analysis-for confirmation](SAGE_FA.png)
 ![Survey PCA](SAGE_PCA.png)
 ![Scree Plot](Scree.png)
