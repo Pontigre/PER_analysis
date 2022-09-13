@@ -10,6 +10,7 @@ import numpy as np
 import scipy
 import matplotlib
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # FOR PRINCIPLE COMPONENT ANALYSIS
 from factor_analyzer import FactorAnalyzer
@@ -31,15 +32,17 @@ def save_fig(fig, figure_name):
 
 def Analysis(df_norm):
     # CORRELATION MATRIX
-    corrM = df_norm.corr()
+    corrM = df_norm.corr(method='spearman')
+    truncM = corrM[abs(corrM)>=0.4]
+    labels = list(df_norm)
     fig, ax = plt.subplots()
-    plt.matshow(corrM)
-    cb = plt.colorbar()
-    cb.ax.tick_params(labelsize=14)
-    plt.title('Correlation Matrix')
-    save_fig(fig,'SAGE_CorrM')
+    heatmap = sns.heatmap(ax=ax, data=truncM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
 
-    ## FIRST VALIDATE THE SAGE QUESTIONS
+    plt.title('Correlation Matrix')
+    save_fig(fig,'SAGE_CorrM (>0.4)')
+    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
+
+    # FIRST VALIDATE THE SAGE QUESTIONS
     not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
     'My group did higher quality work when group members worked on different tasks at the same time.', 
     'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 
@@ -80,7 +83,7 @@ def Analysis(df_norm):
     pca = PCA(n_components = 10)
     principalComponents = pca.fit_transform(df_norm)
     principalDf = pd.DataFrame(data = principalComponents)
-    print('Number of components: 10,', 'Explained Variance Ratio:', pca.explained_variance_ratio_)
+    print('Number of components: 6,', 'Explained Variance Ratio:', pca.explained_variance_ratio_)
     print('PCA Singular Values: ', pca.singular_values_)
 
     # SCREE PLOT
@@ -108,6 +111,8 @@ def Analysis(df_norm):
     save_fig(fig, 'SAGE_PCA')
 
 def Prepare_data(df):
+    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
+
     # REMOVE THE DEMOGRAPHICS QUESTIONS
     df.drop(columns=df.columns[-4:], axis=1, inplace = True)
 
@@ -180,17 +185,29 @@ def Gender_differences(df):
 
     # CALCULATE MEAN, STD DEV OF EACH COLUMN
     dfM_mean = dfM.mean()
+    dfM_med = dfM.median()
     dfM_stderr = dfM.std()/np.sqrt(dfM.count())
     dfF_mean = dfF.mean()
+    dfF_med = dfF.median()
     dfF_stderr = dfF.std()/np.sqrt(dfF.count())
     dfM_summary = pd.merge(dfM_mean.to_frame(), dfM_stderr.to_frame(), left_index = True, right_index=True)
     dfF_summary = pd.merge(dfF_mean.to_frame(), dfF_stderr.to_frame(), left_index = True, right_index=True)
     dfM_summary.rename(columns={'0_x': 'Mean (male)', '0_y': 'Std.Err. (male)',}, inplace = True)
     dfF_summary.rename(columns={'0_x': 'Mean (female)', '0_y': 'Std.Err. (female)'}, inplace = True)
+    dfM_summary['Median (male)'] = dfM_med
+    dfF_summary['Median (female)'] = dfF_med
     df_summary = pd.merge(dfM_summary, dfF_summary, left_index = True, right_index=True)
-    significant = np.where( scipy.stats.t.sf( abs((df_summary['Mean (male)']-df_summary['Mean (female)'])/(np.sqrt(df_summary['Std.Err. (male)']**2 + df_summary['Std.Err. (female)']**2) )),df=8) <=0.1)
-    print(df_summary.iloc[significant[0]])
+    # significant = np.where( scipy.stats.t.sf( abs((df_summary['Mean (male)']-df_summary['Mean (female)'])/(np.sqrt(df_summary['Std.Err. (male)']**2 + df_summary['Std.Err. (female)']**2) )),df=8) <=0.1)
+    # print(df_summary.iloc[significant[0]])
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
+    dfM.to_csv('ExportedFiles/SAGE_M.csv')
+    dfF.to_csv('ExportedFiles/SAGE_F.csv')
+
+    # stat, p = scipy.stats.ranksums(df_summary['Median (male)'],df_summary['Median (female)'], nan_policy='omit')
+    # print(stat, p)
+    # for i in df_summary.index:
+    #     stat, p = scipy.stats.ranksums(dfM[i],dfF[i])
+    #     print(i, p)
 
 def main():
     readline.set_completer_delims(' \t\n;')
@@ -223,9 +240,10 @@ def main():
     df.mask(df == 'Somewhat agree', 4, inplace = True)
     df.mask(df == 'Strongly agree', 5, inplace = True)
 
-    # df_norm = Prepare_data(df)
-    # Analysis(df_norm)
-    Gender_differences(df)
+    Gender_differences(df) # This needs to go before Prepare_data() because that changes df
+    df_norm = Prepare_data(df)
+    Analysis(df_norm)
+    
 
 
 
