@@ -24,11 +24,14 @@ To run SAGE analyis:
 
 ## Produced images
 Correlation Matrix
+
 ![Correlation Matrix](SAGE_CorrM.png)
 
 Four-component factor analysis of SAGE questions corresponding to Kouros, Abrami
+
 ![SAGE Factor Analysis-for confirmation](SAGE_FA.png)
 
 Six-factor Principle Component Analysis and associated Scree plot
+
 ![Survey PCA](SAGE_PCA.png)
 ![Scree Plot](Scree.png)
