@@ -18,6 +18,7 @@ To run SAGE analyis:
 ## Produced files
 - Sage_Raw.csv: Raw data from all submissions, changed from qualtrics to include only relevant responses and converted Likert response to integer
 - SAGE_Stats.csv: Calculated values of mean, std.dev., and percentages of responses for SD+D, N, SA+A
+- SAGE_Comps.csv: Factor (n=4) analysis values of only the SAGE questions 
 - Sage_CorrM.csv: Values for the correlation matrix of all questions
 - SAGE_GenSig.csv: Statistical values for comparison between male and female students
 
