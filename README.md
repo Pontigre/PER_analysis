@@ -27,6 +27,10 @@ Correlation Matrix
 
 ![Correlation Matrix](SAGE_CorrM.png)
 
+Correlation Matrix (showing all correlations >0.4)
+
+![Correlation Matrix](SAGE_CorrM(0.4).png)
+
 Four-component factor analysis of SAGE questions corresponding to Kouros, Abrami
 
 ![SAGE Factor Analysis-for confirmation](SAGE_FA.png)
