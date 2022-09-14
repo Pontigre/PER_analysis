@@ -30,17 +30,9 @@ def save_fig(fig, figure_name):
     plt.savefig(fname + '.png')
     # plt.savefig(fname + '.svg')
 
-def Analysis(df_norm):
+def SAGE_validation(df_norm):
     # CORRELATION MATRIX
     corrM = df_norm.corr(method='spearman')
-    truncM = corrM[abs(corrM)>=0.4]
-    labels = list(df_norm)
-    fig, ax = plt.subplots()
-    heatmap = sns.heatmap(ax=ax, data=truncM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
-
-    plt.title('Correlation Matrix')
-    save_fig(fig,'SAGE_CorrM (>0.4)')
-    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
 
     # FIRST VALIDATE THE SAGE QUESTIONS
     not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
@@ -61,23 +53,62 @@ def Analysis(df_norm):
     kmo_all, kmo_model = calculate_kmo(df_SAGE)
     print('KMO Measure of Sampling Adequacy: ', kmo_model)
 
-    # # CRONBACH'S ALPHA TEST OF CONSISTENCY
-    # print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_SAGE))
+    # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
+    print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_SAGE))
 
-    # FACTOR ANALYSIS, N=4 AS PER KOUROS, ABRAMI
-    fa = FactorAnalyzer(4, rotation='varimax', method='minres', use_smc=True)
+    # EFA
+    efa = FactorAnalyzer(rotation=None)
+    efa.fit(df_SAGE)
+    ev, v = efa.get_eigenvalues()
+    print('FA EIgenvalues:', ev)
+
+    fig, ax = plt.subplots()
+    plt.plot(ev, '.-', linewidth=2, color='blue')
+    plt.hlines(1, 0, 22, linestyle='dashed')
+    plt.title('Factor Analysis Scree Plot')
+    plt.xlabel('Factor')
+    plt.ylabel('Eigenvalue')
+    save_fig(fig, 'SAGE_Scree')
+
+    fa = FactorAnalyzer(n_factors=8, rotation='varimax')
     fa.fit(df_SAGE)
-    FactorAnalyzer(bounds=(0.005, 1), impute='median', is_corr_matrix=False,
-               method='minres', n_factors=4, rotation='varimax',
-               rotation_kwargs={}, use_smc=True)
     m = pd.DataFrame(fa.loadings_)
     m.to_csv('ExportedFiles/SAGE_Comps.csv', encoding = "utf-8", index=True)
 
+    truncm = m[abs(m)>=0.5]
     fig, ax = plt.subplots()
-    plt.imshow(fa.loadings_, cmap="viridis")
+    plt.imshow(truncm, cmap="viridis")
     plt.colorbar()
     plt.tight_layout()
     save_fig(fig, 'SAGE_FA')
+
+    # PCA ANALYSIS FOR ALL QUESTIONS
+    pca = PCA()
+    pca.fit(df_SAGE)
+    print('Explained Variance:', pca.explained_variance_)
+    print('Explained Variance Ration:', pca.explained_variance_ratio_)
+    print('PCA Singular Values: ', pca.singular_values_)
+
+    # SCREE PLOT
+    PC_values = np.arange(pca.n_components_) + 1
+    fig, ax = plt.subplots()
+    plt.plot(pca.explained_variance_, '.-', linewidth=2, color='blue')
+    plt.title('PCA Scree Plot')
+    plt.xlabel('Principal Component')
+    plt.ylabel(' ')
+    save_fig(fig, 'PCA_Scree')
+
+def FullAnalysis(df_norm):
+    # CORRELATION MATRIX
+    corrM = df_norm.corr(method='spearman')
+    truncM = corrM[abs(corrM)>=0.4]
+    labels = list(df_norm)
+    fig, ax = plt.subplots()
+    heatmap = sns.heatmap(ax=ax, data=corrM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
+
+    plt.title('Correlation Matrix')
+    save_fig(fig,'SAGE_CorrM')
+    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
 
     # PCA ANALYSIS FOR ALL QUESTIONS
     pca = PCA(n_components = 10)
@@ -89,7 +120,7 @@ def Analysis(df_norm):
     # SCREE PLOT
     PC_values = np.arange(pca.n_components_) + 1
     fig, ax = plt.subplots()
-    plt.plot(PC_values, pca.explained_variance_ratio_, 'o-', linewidth=2, color='blue')
+    plt.plot(PC_values, pca.explained_variance_ratio_, '.-', linewidth=2, color='blue')
     plt.title('Scree Plot')
     plt.xlabel('Principal Component')
     plt.ylabel('Variance Explained')
@@ -215,7 +246,7 @@ def main():
     readline.set_completer(complete)
     my_file = input('SAGE Filename: ')
 
-    # READ IN DATA FROM SAGE QULATRICS SURVEY BASED ON THE CSV COLUMN NAMES
+    # READ IN DATA FROM SAGE QUALTRICS SURVEY BASED ON THE CSV COLUMN NAMES
     headers = [*pd.read_csv(my_file, nrows=1)]
     ExcludedHeaders = ['Start Date', 'End Date', 'Response Type', 'IP Address', 'Progress', 'Duration (in seconds)',
     'Finished', 'Recorded Date', 'Response ID', 'Recipient Last Name', 'Recipient First Name',
@@ -240,12 +271,10 @@ def main():
     df.mask(df == 'Somewhat agree', 4, inplace = True)
     df.mask(df == 'Strongly agree', 5, inplace = True)
 
-    Gender_differences(df) # This needs to go before Prepare_data() because that changes df
-    df_norm = Prepare_data(df)
-    Analysis(df_norm)
-    
-
-
+    # Gender_differences(df) # This needs to go before Prepare_data() because that changes df
+    df_norm = Prepare_data(df) # This removes demographic questions, calculates averages and statistics, and combines inversely worded questions into one
+    SAGE_validation(df_norm) # Validation factor analysis, exploratory factor analysis, and principal component analysis on only the questions taken from SAGE
+    # FullAnalysis(df_norm)
 
 # WHERE THE CODE IS ACTUALLY RUN
 try:
