@@ -22,6 +22,10 @@ To run SAGE analyis:
 - Sage_CorrM.csv: Values for the correlation matrix of all questions
 - SAGE_GenSig.csv: Statistical values for comparison between male and female students
 
+## Statistical tests
+- Bartlett's test of sphericity: $\chi^2 = 734$, $p = 1.7\times 10^{-48}$
+- Kaiser-Meyer-Olkin (KMO) measurure of sampling adequacy: 0.749
+
 ## Produced images
 Correlation Matrix
 
