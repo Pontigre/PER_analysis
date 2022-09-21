@@ -46,3 +46,4 @@ Principle Component Analysis and associated Scree plot
 ![Survey PCA](SAGE_PCA.png)
 ![Survey PCA (only significant correlations)](SAGE_PCA_0.5.png)
 ![Scree Plot](PCA_Scree.png)
+![Explained Variance Ratio](PCA_var.png)
