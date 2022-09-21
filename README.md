@@ -18,8 +18,8 @@ To run SAGE analyis:
 ## Produced files
 - Sage_Raw.csv: Raw data from all submissions, changed from qualtrics to include only relevant responses and converted Likert response to integer
 - SAGE_Stats.csv: Calculated values of mean, std.dev., and percentages of responses for SD+D, N, SA+A
-- SAGE_Comps.csv: Factor (n=4) analysis values of only the SAGE questions 
-- Sage_CorrM.csv: Values for the correlation matrix of all questions
+- SAGE_Comps.csv: Factor analysis values of only the SAGE questions 
+- Sage_CorrM.csv: Values for the correlation matrix of SAGE questions
 - SAGE_GenSig.csv: Statistical values for comparison between male and female students
 
 ## Statistical tests
@@ -33,13 +33,16 @@ Correlation Matrix
 
 Correlation Matrix (showing all correlations >0.4)
 
-![Correlation Matrix](SAGE_CorrM_0.4.png)
+![Correlation Matrix](SAGE_CorrM_sig.png)
 
-Four-component factor analysis of SAGE questions corresponding to Kouros, Abrami
+Exploratory Factor Analysis and associated Scree Plot of SAGE questions
 
-![SAGE Factor Analysis-for confirmation](SAGE_FA.png)
+![SAGE Factor Analysis](SAGE_FA.png)
+![SAGE Factor Analysis (only significant correlations)](SAGE_FA_0.5.png)
+![SAGE Factor Analysis Scree Plot](SAGE_Scree.png)
 
-Six-factor Principle Component Analysis and associated Scree plot
+Principle Component Analysis and associated Scree plot
 
 ![Survey PCA](SAGE_PCA.png)
-![Scree Plot](Scree.png)
+![Survey PCA (only significant correlations)](SAGE_PCA_0.5.png)
+![Scree Plot](PCA_Scree.png)
