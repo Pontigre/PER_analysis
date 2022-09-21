@@ -31,9 +31,6 @@ def save_fig(fig, figure_name):
     # plt.savefig(fname + '.svg')
 
 def SAGE_validation(df_norm):
-    # CORRELATION MATRIX
-    corrM = df_norm.corr(method='spearman')
-
     # FIRST VALIDATE THE SAGE QUESTIONS
     not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
     'My group did higher quality work when group members worked on different tasks at the same time.', 
@@ -42,8 +39,32 @@ def SAGE_validation(df_norm):
     'You can learn new things, but you can’t really change your basic physics intelligence.',
     'I prefer to take on tasks that I’m already good at.',
     'I prefer when one student regularly takes on a leadership role.',
-    'I prefer when the leadership role rotates between students.']
+    'I prefer when the leadership role rotates between students.',
+
+    #ADDED BECAUE REVERSE CODING IS QUESTIONABLE
+    'The work takes more time to complete when I work with other students.',
+    'My group members respect my opinions.',
+    'I let the other students do most of the work.'
+    ]
     df_SAGE = df_norm.drop(not_SAGE, axis=1)
+
+    # CORRELATION MATRIX
+    corrM = df_SAGE.corr(method='spearman')
+    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
+
+    truncM = corrM[abs(corrM)>=0.4]
+    labels = list(df_SAGE)
+    fig, ax = plt.subplots()
+    heatmap = sns.heatmap(ax=ax, data=corrM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
+    plt.title('Correlation Matrix')
+    save_fig(fig,'SAGE_CorrM')
+    plt.clf()
+
+    fig, ax = plt.subplots()
+    plt.title('Correlation Matrix')
+    heatmap = sns.heatmap(ax=ax, data=truncM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
+    save_fig(fig,'SAGE_CorrM_sig')
+    plt.clf()
 
     # BARTLETT'S TEST
     chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
@@ -53,14 +74,14 @@ def SAGE_validation(df_norm):
     kmo_all, kmo_model = calculate_kmo(df_SAGE)
     print('KMO Measure of Sampling Adequacy: ', kmo_model)
 
-    # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
-    print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_SAGE))
+    # # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
+    # print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_SAGE))
 
     # EFA
     efa = FactorAnalyzer(rotation=None)
     efa.fit(df_SAGE)
     ev, v = efa.get_eigenvalues()
-    print('FA EIgenvalues:', ev)
+    print('FA Eigenvalues:', ev)
 
     fig, ax = plt.subplots()
     plt.plot(ev, '.-', linewidth=2, color='blue')
@@ -68,26 +89,61 @@ def SAGE_validation(df_norm):
     plt.title('Factor Analysis Scree Plot')
     plt.xlabel('Factor')
     plt.ylabel('Eigenvalue')
+    plt.xlim(-0.5,22)
+    plt.ylim(0,5.5)
     save_fig(fig, 'SAGE_Scree')
+    plt.clf()
 
-    fa = FactorAnalyzer(n_factors=8, rotation='varimax')
+    # Based on the scree plot and on the decision to extract eigenvalues that are 2.0 or greater (from Kouros)
+    fa = FactorAnalyzer(n_factors=6, rotation='varimax')
     fa.fit(df_SAGE)
     m = pd.DataFrame(fa.loadings_)
     m.to_csv('ExportedFiles/SAGE_Comps.csv', encoding = "utf-8", index=True)
 
-    truncm = m[abs(m)>=0.5]
     fig, ax = plt.subplots()
-    plt.imshow(truncm, cmap="viridis")
+    plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
     plt.tight_layout()
     save_fig(fig, 'SAGE_FA')
+    plt.clf()
 
-    # PCA ANALYSIS FOR ALL QUESTIONS
-    pca = PCA()
+    truncm = m[abs(m)>=0.5]
+    fig, ax = plt.subplots()
+    plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    plt.tight_layout()
+    save_fig(fig, 'SAGE_FA_0.5')
+    plt.clf()
+
+    # PCA ANALYSIS
+    pca1 = PCA(n_components=len(df_SAGE.columns)-1)
+    pca1.fit(df_SAGE)
+    fig, ax = plt.subplots()
+    fig_x = np.arange(pca1.n_components) + 1
+    fig_y = 100*pca1.explained_variance_ratio_
+    plt.bar(fig_x, fig_y, label='Individual explained variance')
+    plt.step(fig_x, fig_y.cumsum(), where = 'post', c='red', label='Cumulative explained variance')
+    plt.title('PCA Explained Variance')
+    plt.xlabel('Principal Component')
+    plt.ylabel('Eplained variance percentage')
+    save_fig(fig, 'PCA_full_var')
+    plt.clf()
+
+    # Specifying the variance to be >=0.75
+    pca = PCA(n_components=0.75)
     pca.fit(df_SAGE)
-    print('Explained Variance:', pca.explained_variance_)
-    print('Explained Variance Ration:', pca.explained_variance_ratio_)
-    print('PCA Singular Values: ', pca.singular_values_)
+    print('Number of components for variance >= 0.75:', pca.n_components_)
+
+    fig, ax = plt.subplots()
+    fig_x = np.arange(pca.n_components_) + 1
+    fig_y = 100*pca.explained_variance_ratio_
+    plt.bar(fig_x, fig_y, label='Individual explained variance')
+    plt.step(fig_x, fig_y.cumsum(), where = 'post', c='red', label='Cumulative explained variance')
+    plt.title('PCA Explained Variance')
+    plt.xlabel('Principal Component')
+    plt.ylabel('Eplained variance percentage')
+    save_fig(fig, 'PCA_var')
+    plt.clf()
 
     # SCREE PLOT
     PC_values = np.arange(pca.n_components_) + 1
@@ -95,21 +151,29 @@ def SAGE_validation(df_norm):
     plt.plot(pca.explained_variance_, '.-', linewidth=2, color='blue')
     plt.title('PCA Scree Plot')
     plt.xlabel('Principal Component')
-    plt.ylabel(' ')
+    plt.hlines(1, 0, 22, linestyle='dashed')
+    plt.xlim(-0.5,22)
+    plt.ylim(0,5.5)
+    plt.ylabel('Eigenvalue')
     save_fig(fig, 'PCA_Scree')
+    plt.clf()
+
+    mm = pca.components_.T
+    fig, ax = plt.subplots()
+    plt.imshow(mm, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    plt.tight_layout()
+    save_fig(fig,'SAGE_PCA')
+
+    trunc = np.ma.masked_where(abs(mm) < 0.5, mm)
+    fig, ax = plt.subplots()
+    plt.imshow(trunc, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    plt.tight_layout()
+    save_fig(fig, 'SAGE_PCA_0.5')
+    plt.clf()
 
 def FullAnalysis(df_norm):
-    # CORRELATION MATRIX
-    corrM = df_norm.corr(method='spearman')
-    truncM = corrM[abs(corrM)>=0.4]
-    labels = list(df_norm)
-    fig, ax = plt.subplots()
-    heatmap = sns.heatmap(ax=ax, data=corrM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
-
-    plt.title('Correlation Matrix')
-    save_fig(fig,'SAGE_CorrM')
-    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
-
     # PCA ANALYSIS FOR ALL QUESTIONS
     pca = PCA(n_components = 10)
     principalComponents = pca.fit_transform(df_norm)
@@ -147,6 +211,9 @@ def Prepare_data(df):
     # REMOVE THE DEMOGRAPHICS QUESTIONS
     df.drop(columns=df.columns[-4:], axis=1, inplace = True)
 
+    # SAVE RAW DATA
+    df.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
+
     # CALCULATE MEAN, STD DEV OF EACH COLUMN
     df_mean = df.mean()
     df_stddev = df.std()
@@ -178,24 +245,64 @@ def Prepare_data(df):
     'The work takes less time to complete when I work with other students.',
     'My group members do not respect my opinions.',
     'I prefer when no one takes on a leadership role.',
-    'I do not let the other students do most of the work.',
-    'I prefer to take on tasks that will help me better learn the material.']
+    'I do not let the other students do most of the work.']#,
+    #'I prefer to take on tasks that will help me better learn the material.']
     for i in Neg_List:
         df[i].replace([1,2,4,5],[5,4,2,1],inplace=True)
+
+    # CHECK IF CONSITENCY BETWEEN INVERSELY WORDED QUESTIONS
+    x = np.array(df['The work takes more time to complete when I work with other students.'].dropna(), dtype=np.uint8)
+    y = np.array(df['The work takes less time to complete when I work with other students.'].dropna(), dtype=np.uint8)
+    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
+    # print('The work takes more time to complete when I work with other students.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('The work takes less time to complete when I work with other students.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+    # print(res) #Distinguishable
+
     df['The work takes more time to complete when I work with other students.'] = df[['The work takes more time to complete when I work with other students.', ###
     'The work takes less time to complete when I work with other students.']].sum(axis=1)
     df.drop(['The work takes less time to complete when I work with other students.'], axis=1, inplace=True)
+
+    x = np.array(df['My group members respect my opinions.'].dropna(), dtype=np.uint8)
+    y = np.array(df['My group members do not respect my opinions.'].dropna(), dtype=np.uint8)
+    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
+    # print('My group members respect my opinions.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('My group members do not respect my opinions.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+    # print(res) # p=0.225
+
     df['My group members respect my opinions.'] = df[['My group members respect my opinions.','My group members do not respect my opinions.']].sum(axis=1)
     df.drop(['My group members do not respect my opinions.'], axis=1, inplace=True)
+
+    x = np.array(df['I prefer when one student regularly takes on a leadership role.'].dropna(), dtype=np.uint8)
+    y = np.array(df['I prefer when no one takes on a leadership role.'].dropna(), dtype=np.uint8)
+    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
+    # print('I prefer when one student regularly takes on a leadership role.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('I prefer when no one takes on a leadership role.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+    # print(res) # p=0.523
+
     df['I prefer when one student regularly takes on a leadership role.'] = df[['I prefer when one student regularly takes on a leadership role.',
     'I prefer when no one takes on a leadership role.']].sum(axis=1)
     df.drop(['I prefer when no one takes on a leadership role.'], axis=1, inplace=True)
+
+    x = np.array(df['I let the other students do most of the work.'].dropna(), dtype=np.uint8)
+    y = np.array(df['I do not let the other students do most of the work.'].dropna(), dtype=np.uint8)
+    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
+    # print('I let the other students do most of the work.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('I do not let the other students do most of the work.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+    # print(res) # p = 0.135
     df['I let the other students do most of the work.'] = df[['I let the other students do most of the work.',
     'I do not let the other students do most of the work.']].sum(axis=1)
     df.drop(['I do not let the other students do most of the work.'], axis=1, inplace=True)
+
     Take_on_tasks_cols = [col for col in df.columns if 'take on tasks' in col]
+    x = np.array(df[Take_on_tasks_cols[0]].dropna(), dtype=np.uint8)
+    y = np.array(df[Take_on_tasks_cols[1]].dropna(), dtype=np.uint8)
+    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
+    # print(Take_on_tasks_cols[0], x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print(Take_on_tasks_cols[1], y.mean().round(decimals = 2), y.std().round(decimals = 2))
+    # print(res) # Same if not reverse-coded
+
     df[Take_on_tasks_cols[0]] = df[Take_on_tasks_cols].sum(axis=1)
-    df.drop(['I prefer to take on tasks that will help me better learn the material.'], axis=1, inplace = True)
+    df.drop(Take_on_tasks_cols[1], axis=1, inplace = True)
 
     # REMOVE PARTIAL RESPONSES
     df.dropna(axis=0, how='any', inplace = True)
@@ -283,36 +390,3 @@ try:
 except Exception as err:
     traceback.print_exc(file=sys.stdout)
     input("Press Enter to exit...")
-
-
-def repository():
-    # PRINT ALL ROWS IN A DATAFRAME
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-        print()
-
-    methods = [
-        ('PCA', PCA()),
-        ('Unrotated FA', FactorAnalysis()),
-        ('Varimax FA', FactorAnalysis(rotation='varimax')),
-    ]
-    fig, axes = plt.subplots(ncols=len(methods))
-    for ax, (method, f) in zip(axes, methods):
-        f.set_params(n_components=n_comps)
-        f.fit(df_SAGE)
-
-        components = f.components_.T
-        print('\n\n %s :\n' % method)
-        print(components)
-
-        ax.imshow(components, cmap="viridis", vmax=1.0, vmin=-1.0)
-        ax.set_title(str(method))
-    fig.suptitle('Factors')
-    ax1=plt.gca() #get the current axes
-    for PCM in ax1.get_children():
-        if type(PCM) == matplotlib.image.AxesImage:
-            break  
-    plt.colorbar(PCM, ax=ax1)
-    save_fig(fig, 'SAGE_PCA')
-
-    # EXPORTS THE DATAFRAME TO AN ANONYMIZED VERSION AS A CSV
-    df.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
