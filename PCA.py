@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # FOR PRINCIPLE COMPONENT ANALYSIS
+import factor_analyzer
+from factor_analyzer import (ConfirmatoryFactorAnalyzer,ModelSpecificationParser)
 from factor_analyzer import FactorAnalyzer
 from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
 from sklearn.decomposition import FactorAnalysis, PCA
@@ -41,12 +43,43 @@ def SAGE_validation(df_norm):
     'I prefer when one student regularly takes on a leadership role.',
     'I prefer when the leadership role rotates between students.',
 
-    #ADDED BECAUE REVERSE CODING IS QUESTIONABLE
-    'The work takes more time to complete when I work with other students.',
-    'My group members respect my opinions.',
-    'I let the other students do most of the work.'
+    # ADDED BECAUSE REVERSE CODING IS QUESTIONABLE
+    # 'The work takes more time to complete when I work with other students.',
+    # 'My group members respect my opinions.',
+    # 'I let the other students do most of the work.'
     ]
     df_SAGE = df_norm.drop(not_SAGE, axis=1)
+
+    not_cfa = ['When I work in a group, I end up doing most of the work.', 'I do not think a group grade is fair.', 'I try to make sure my group members learn the material.', 
+    'When I work with other students the work is divided equally.', 'When I work with other students, we spend too much time talking about other things.']
+    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1)
+
+    # CONFIRMATORY FACTOR ANALYSIS
+
+    # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
+    model_dict = {'F1': ['When I work in a group I do higher quality work.', 'The material is easier to understand when I work with other students.', 'My group members help explain things that I do not understand.', 
+                        'I feel working in groups is a waste of time.', 'The work takes more time to complete when I work with other students.', 'The workload is usually less when I work with other students.'], 
+    'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
+            'I feel I am part of what is going on in the group.', 'When I work in a group, I am able to share my ideas.'], 
+    'F3': ['Everyone’s ideas are needed if we are going to be successful.', 'We cannot complete the assignment unless everyone contributes.', 'I let the other students do most of the work.',
+            'I also learn when I teach the material to my group members.', 'I learn to work with students who are different from me.'], 
+    'F4': ['I become frustrated when my group members do not understand the material.', 'I have to work with students who are not as smart as I am.']
+    }
+
+    model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa,model_dict)
+
+    cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
+    cfa.fit(df_SAGE_cfa)
+
+    df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
+    df_cfa.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA.csv', encoding = "utf-8", index=True)
+    trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.01, df_cfa)
+    fig, ax = plt.subplots()
+    plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    plt.tight_layout()
+    save_fig(fig, 'SAGE_CFA')
+    plt.clf()
 
     # CORRELATION MATRIX
     corrM = df_SAGE.corr(method='spearman')
@@ -94,17 +127,17 @@ def SAGE_validation(df_norm):
     save_fig(fig, 'SAGE_Scree')
     plt.clf()
 
-    # Based on the scree plot and on the decision to extract eigenvalues that are 2.0 or greater (from Kouros)
+    # Based on the scree plot and Kaiser criterion, n=6 (or 7)
     fa = FactorAnalyzer(n_factors=6, rotation='varimax')
     fa.fit(df_SAGE)
     m = pd.DataFrame(fa.loadings_)
-    m.to_csv('ExportedFiles/SAGE_Comps.csv', encoding = "utf-8", index=True)
+    m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
 
     fig, ax = plt.subplots()
     plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
     plt.tight_layout()
-    save_fig(fig, 'SAGE_FA')
+    save_fig(fig, 'SAGE_EFA')
     plt.clf()
 
     truncm = m[abs(m)>=0.5]
@@ -112,7 +145,7 @@ def SAGE_validation(df_norm):
     plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
     plt.tight_layout()
-    save_fig(fig, 'SAGE_FA_0.5')
+    save_fig(fig, 'SAGE_EFA_0.5')
     plt.clf()
 
     # PCA ANALYSIS
@@ -126,6 +159,7 @@ def SAGE_validation(df_norm):
     plt.title('PCA Explained Variance')
     plt.xlabel('Principal Component')
     plt.ylabel('Eplained variance percentage')
+    plt.legend()
     save_fig(fig, 'PCA_full_var')
     plt.clf()
 
@@ -206,8 +240,6 @@ def FullAnalysis(df_norm):
     save_fig(fig, 'SAGE_PCA')
 
 def Prepare_data(df):
-    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
-
     # REMOVE THE DEMOGRAPHICS QUESTIONS
     df.drop(columns=df.columns[-4:], axis=1, inplace = True)
 
@@ -221,6 +253,7 @@ def Prepare_data(df):
     df_summary.rename(columns={'0_x': 'Mean', '0_y': 'Std.Dev.'}, inplace = True)
 
     # COUNT THE AMOUNT OF SD+D (1,2), N (3), AND SA+A (4,5) IN EACH COLUMN
+    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
     my_list = list(df)
     col_list = [x for x in my_list if x not in Phys_Int_Cols]
     df_summary['SD+D'] = np.nan
@@ -297,9 +330,9 @@ def Prepare_data(df):
     x = np.array(df[Take_on_tasks_cols[0]].dropna(), dtype=np.uint8)
     y = np.array(df[Take_on_tasks_cols[1]].dropna(), dtype=np.uint8)
     res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
-    # print(Take_on_tasks_cols[0], x.mean().round(decimals = 2), x.std().round(decimals = 2))
-    # print(Take_on_tasks_cols[1], y.mean().round(decimals = 2), y.std().round(decimals = 2))
-    # print(res) # Same if not reverse-coded
+    print(Take_on_tasks_cols[0], x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    print(Take_on_tasks_cols[1], y.mean().round(decimals = 2), y.std().round(decimals = 2))
+    print(res) # Same if not reverse-coded
 
     df[Take_on_tasks_cols[0]] = df[Take_on_tasks_cols].sum(axis=1)
     df.drop(Take_on_tasks_cols[1], axis=1, inplace = True)
