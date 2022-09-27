@@ -33,7 +33,7 @@ Correlation Matrix
 
 Correlation Matrix (showing all correlations >0.4)
 
-![Correlation Matrix](SAGE_CorrM_sig.png)
+![Correlation Matrix](SAGE_CorrM_0.4.png)
 
 Exploratory Factor Analysis and associated Scree Plot of SAGE questions
 
