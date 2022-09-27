@@ -36,6 +36,7 @@ Correlation Matrix (showing all correlations >0.4)
 ![Correlation Matrix](SAGE_CorrM_0.4.png)
 
 Confirmatory Factor Analysis
+
 ![SAGE CFA Loadings](SAGE_CFA.png)
 
 Exploratory Factor Analysis and associated Scree Plot of SAGE questions
