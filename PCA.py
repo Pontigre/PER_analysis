@@ -44,7 +44,7 @@ def SAGE_validation(df_norm):
     'I prefer when the leadership role rotates between students.',
 
     # ADDED BECAUSE REVERSE CODING IS QUESTIONABLE
-    # 'The work takes more time to complete when I work with other students.',
+    'The work takes more time to complete when I work with other students.',
     # 'My group members respect my opinions.',
     # 'I let the other students do most of the work.'
     ]
@@ -55,10 +55,11 @@ def SAGE_validation(df_norm):
     df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1)
 
     # CONFIRMATORY FACTOR ANALYSIS
-
+    print('CFA')
     # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
     model_dict = {'F1': ['When I work in a group I do higher quality work.', 'The material is easier to understand when I work with other students.', 'My group members help explain things that I do not understand.', 
-                        'I feel working in groups is a waste of time.', 'The work takes more time to complete when I work with other students.', 'The workload is usually less when I work with other students.'], 
+                        'I feel working in groups is a waste of time.', #'The work takes more time to complete when I work with other students.', 
+                        'The workload is usually less when I work with other students.'], 
     'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
             'I feel I am part of what is going on in the group.', 'When I work in a group, I am able to share my ideas.'], 
     'F3': ['Everyone’s ideas are needed if we are going to be successful.', 'We cannot complete the assignment unless everyone contributes.', 'I let the other students do most of the work.',
@@ -82,23 +83,33 @@ def SAGE_validation(df_norm):
     plt.clf()
 
     # CORRELATION MATRIX
+    print('Correlation Matrix')
     corrM = df_SAGE.corr(method='spearman')
     corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
 
-    truncM = corrM[abs(corrM)>=0.4]
+    truncM = corrM[abs(corrM)>=0.5]
     labels = list(df_SAGE)
     fig, ax = plt.subplots()
-    heatmap = sns.heatmap(ax=ax, data=corrM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
+    plt.imshow(corrM, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.title('Correlation Matrix')
+    plt.tight_layout()
     save_fig(fig,'SAGE_CorrM')
     plt.clf()
 
     fig, ax = plt.subplots()
     plt.title('Correlation Matrix')
-    heatmap = sns.heatmap(ax=ax, data=truncM,  vmin=-1, vmax=1, annot=False, cmap='viridis', xticklabels=labels, yticklabels=labels)
-    save_fig(fig,'SAGE_CorrM_sig')
+    plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    plt.tight_layout()
+    save_fig(fig,'SAGE_CorrM_0.5')
     plt.clf()
 
+    print('Statistical Tests')
     # BARTLETT'S TEST
     chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
     print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
@@ -111,10 +122,10 @@ def SAGE_validation(df_norm):
     # print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_SAGE))
 
     # EFA
+    print('EFA')
     efa = FactorAnalyzer(rotation=None)
     efa.fit(df_SAGE)
     ev, v = efa.get_eigenvalues()
-    print('FA Eigenvalues:', ev)
 
     fig, ax = plt.subplots()
     plt.plot(ev, '.-', linewidth=2, color='blue')
@@ -149,6 +160,7 @@ def SAGE_validation(df_norm):
     plt.clf()
 
     # PCA ANALYSIS
+    print('PCA')
     pca1 = PCA(n_components=len(df_SAGE.columns)-1)
     pca1.fit(df_SAGE)
     fig, ax = plt.subplots()
@@ -185,7 +197,6 @@ def SAGE_validation(df_norm):
     plt.plot(pca.explained_variance_, '.-', linewidth=2, color='blue')
     plt.title('PCA Scree Plot')
     plt.xlabel('Principal Component')
-    plt.hlines(1, 0, 22, linestyle='dashed')
     plt.xlim(-0.5,22)
     plt.ylim(0,5.5)
     plt.ylabel('Eigenvalue')
@@ -206,38 +217,6 @@ def SAGE_validation(df_norm):
     plt.tight_layout()
     save_fig(fig, 'SAGE_PCA_0.5')
     plt.clf()
-
-def FullAnalysis(df_norm):
-    # PCA ANALYSIS FOR ALL QUESTIONS
-    pca = PCA(n_components = 10)
-    principalComponents = pca.fit_transform(df_norm)
-    principalDf = pd.DataFrame(data = principalComponents)
-    print('Number of components: 6,', 'Explained Variance Ratio:', pca.explained_variance_ratio_)
-    print('PCA Singular Values: ', pca.singular_values_)
-
-    # SCREE PLOT
-    PC_values = np.arange(pca.n_components_) + 1
-    fig, ax = plt.subplots()
-    plt.plot(PC_values, pca.explained_variance_ratio_, '.-', linewidth=2, color='blue')
-    plt.title('Scree Plot')
-    plt.xlabel('Principal Component')
-    plt.ylabel('Variance Explained')
-    save_fig(fig, 'Scree')    
-
-    # FACTOR ANALYSIS, N=6
-    fa = FactorAnalyzer(6, rotation='varimax', method='minres', use_smc=True)
-    fa.fit(df_norm)
-    FactorAnalyzer(bounds=(0.005, 1), impute='median', is_corr_matrix=False,
-               method='minres', n_factors=6, rotation='varimax',
-               rotation_kwargs={}, use_smc=True)
-    m = pd.DataFrame(fa.loadings_)
-    m.to_csv('ExportedFiles/SAGE_Comps.csv', encoding = "utf-8", index=True)
-
-    fig, ax = plt.subplots()
-    plt.imshow(fa.loadings_, cmap="viridis")
-    plt.colorbar()
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_PCA')
 
 def Prepare_data(df):
     # REMOVE THE DEMOGRAPHICS QUESTIONS
@@ -330,9 +309,9 @@ def Prepare_data(df):
     x = np.array(df[Take_on_tasks_cols[0]].dropna(), dtype=np.uint8)
     y = np.array(df[Take_on_tasks_cols[1]].dropna(), dtype=np.uint8)
     res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
-    print(Take_on_tasks_cols[0], x.mean().round(decimals = 2), x.std().round(decimals = 2))
-    print(Take_on_tasks_cols[1], y.mean().round(decimals = 2), y.std().round(decimals = 2))
-    print(res) # Same if not reverse-coded
+    # print(Take_on_tasks_cols[0], x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print(Take_on_tasks_cols[1], y.mean().round(decimals = 2), y.std().round(decimals = 2))
+    # print(res) # Same if not reverse-coded
 
     df[Take_on_tasks_cols[0]] = df[Take_on_tasks_cols].sum(axis=1)
     df.drop(Take_on_tasks_cols[1], axis=1, inplace = True)
