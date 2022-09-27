@@ -37,8 +37,8 @@ Correlation Matrix (showing all correlations >0.4)
 
 Exploratory Factor Analysis and associated Scree Plot of SAGE questions
 
-![SAGE Factor Analysis](SAGE_FA.png)
-![SAGE Factor Analysis (only significant correlations)](SAGE_FA_0.5.png)
+![SAGE Factor Analysis](SAGE_EFA.png)
+![SAGE Factor Analysis (only significant correlations)](SAGE_EFA_0.5.png)
 ![SAGE Factor Analysis Scree Plot](SAGE_Scree.png)
 
 Principle Component Analysis and associated Scree plot
