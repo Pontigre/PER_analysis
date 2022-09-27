@@ -28,6 +28,8 @@ To run SAGE analyis:
 
 ## Produced images
 Correlation Matrix
+Labels = ![labels](CorrM_labels.txt)
+          
 
 ![Correlation Matrix](SAGE_CorrM.png)
 
