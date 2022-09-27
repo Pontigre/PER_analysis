@@ -1,4 +1,4 @@
-# Group Dynamics project Code
+# Group Dynamics Project Code
 
 Repository of files used for analysis of data in the Group Dynamics project at UT Austin.
 All files written using Python 3.8.10
