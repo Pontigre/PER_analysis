@@ -12,16 +12,51 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# FOR PRINCIPLE COMPONENT ANALYSIS
+# FOR ANALYSIS
 import factor_analyzer
 from factor_analyzer import (ConfirmatoryFactorAnalyzer,ModelSpecificationParser)
 from factor_analyzer import FactorAnalyzer
-from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
 from sklearn.decomposition import FactorAnalysis, PCA
-import pingouin as pg
+from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
+from pingouin import cronbach_alpha as al
 
 # WHEN I RUN THIS I HAVE A FOLDER WHERE ALL THE CREATED FILES GO CALLED 'ExportedFiles'
 image_dir = 'ExportedFiles'
+
+def main():
+    readline.set_completer_delims(' \t\n;')
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(complete)
+    my_file = input('SAGE Filename: ')
+
+    # READ IN DATA FROM SAGE QUALTRICS SURVEY BASED ON THE CSV COLUMN NAMES
+    headers = [*pd.read_csv(my_file, nrows=1)]
+    ExcludedHeaders = ['Start Date', 'End Date', 'Response Type', 'IP Address', 'Progress', 'Duration (in seconds)',
+    'Finished', 'Recorded Date', 'Response ID', 'Recipient Last Name', 'Recipient First Name',
+    'Recipient Email', 'External Data Reference', 'Location Latitude', 'Location Longitude', 'Distribution Channel', 'User Language']
+    df = pd.read_csv(my_file, encoding = "utf-8", usecols=lambda x: x not in ExcludedHeaders, skiprows=1)
+    df = df.drop([0])
+
+    # CONVERT RESPONSES TO NUMERICAL VALUE (I DON'T TRUST QUALTRICS TO DO THIS WELL)
+    # 6-point Likert first, then the rest
+    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
+    for i in Phys_Int_Cols:
+        df.loc[df[i] == 'Strongly disagree', i] = 1
+        df.loc[df[i] == 'Disagree', i] = 2
+        df.loc[df[i] == 'Somewhat disagree', i] = 3
+        df.loc[df[i] == 'Somewhat agree', i] = 4
+        df.loc[df[i] == 'Agree', i] = 5
+        df.loc[df[i] == 'Strongly agree', i] = 6
+
+    df.mask(df == 'Strongly disagree', 1, inplace = True)
+    df.mask(df == 'Somewhat disagree', 2, inplace = True)
+    df.mask(df == 'Neither agree nor disagree', 3, inplace = True)
+    df.mask(df == 'Somewhat agree', 4, inplace = True)
+    df.mask(df == 'Strongly agree', 5, inplace = True)
+
+    # Gender_differences(df) # This needs to go before Prepare_data() because that changes df
+    df_norm = Prepare_data(df) # This removes demographic questions, calculates averages and statistics, and combines inversely worded questions into one
+    SAGE_validation(df_norm) # Validation factor analysis, exploratory factor analysis, and principal component analysis on only the questions taken from SAGE
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -31,6 +66,140 @@ def save_fig(fig, figure_name):
     fname = os.path.expanduser(f'{image_dir}/{figure_name}')
     plt.savefig(fname + '.png')
     # plt.savefig(fname + '.svg')
+
+def Prepare_data(df):
+    # REMOVE THE DEMOGRAPHICS QUESTIONS
+    df.drop(columns=df.columns[-4:], axis=1, inplace = True)
+
+    # SAVE RAW DATA
+    df.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
+
+    # CALCULATE MEAN, STD DEV OF EACH COLUMN
+    df_mean = df.mean()
+    df_stddev = df.std()
+    df_summary = pd.merge(df_mean.to_frame(), df_stddev.to_frame(), left_index = True , right_index =True)
+    df_summary.rename(columns={'0_x': 'Mean', '0_y': 'Std.Dev.'}, inplace = True)
+
+    # COUNT THE AMOUNT OF SD+D (1,2), N (3), AND SA+A (4,5) IN EACH COLUMN
+    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
+    my_list = list(df)
+    col_list = [x for x in my_list if x not in Phys_Int_Cols]
+    df_summary['SD+D'] = np.nan
+    df_summary['N'] = np.nan
+    df_summary['SA+A'] = np.nan
+    for i in col_list:
+        s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
+        df_summary.at[i,'SD+D'] = s[(s.unique_values == 1) | (s.unique_values == 2)].sum()['counts']
+        df_summary.at[i,'N'] = s[s.unique_values == 3].sum()['counts']
+        df_summary.at[i,'SA+A'] = s[(s.unique_values == 4) | (s.unique_values == 5)].sum()['counts']
+
+    for i in Phys_Int_Cols:
+        s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
+        df_summary.at[i,'SD+D'] = s[(s.unique_values == 1) | (s.unique_values == 2)].sum()['counts']
+        df_summary.at[i,'N'] = s[(s.unique_values == 3) | (s.unique_values == 4)].sum()['counts']
+        df_summary.at[i,'SA+A'] = s[(s.unique_values == 5) | (s.unique_values == 6)].sum()['counts']
+
+    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
+
+    # INVERT NEGATIVELY WORDED QUESTIONS, THEN COMBINE COLUMNS WITH POSITIVELY WORDED QUESTIONS
+    Neg_List = [
+    'The work takes less time to complete when I work with other students.',
+    'My group members do not respect my opinions.',
+    'I prefer when no one takes on a leadership role.',
+    'I do not let the other students do most of the work.',
+    'I prefer to take on tasks that will help me better learn the material.']
+    for i in Neg_List:
+        df[i].replace([1,2,4,5],[5,4,2,1],inplace=True)
+
+    # CHECK IF CONSITENCY BETWEEN INVERSELY WORDED QUESTIONS
+    x = np.array(df['The work takes more time to complete when I work with other students.'].dropna(), dtype=np.uint8)
+    y = np.array(df['The work takes less time to complete when I work with other students.'].dropna(), dtype=np.uint8)
+    # print('The work takes more time to complete when I work with other students.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('The work takes less time to complete when I work with other students.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+
+    # res = scipy.stats.mannwhitneyu(x,y) #,nan_policy='omit'
+    # sign = scipy.stats.mood(x,y)
+    # med_test = scipy.stats.median_test(x,y)
+    # tukey = scipy.stats.tukey_hsd(x,y)
+    # rank_sum = scipy.stats.ranksums(x,y)
+    # kruskal = scipy.stats.kruskal(x,y)
+    # y_short = y[0:len(x)]
+    # obs = np.array([x,y_short])
+    # chi2, p, dof, expected = scipy.stats.chi2_contingency(obs)
+    # c_alpha,_ = al(pd.DataFrame(obs))
+    # print('Mann-Whitney U:', res)
+    # print('Pearsons Chi-square:', chi2.round(decimals = 2), p.round(decimals = 2))
+    # print('Moods sign test (z-score, p-score):', sign)
+    # print('Median test (stat, p-score):', med_test[0].round(decimals = 2), med_test[1].round(decimals = 4))
+    # print('Tukey hsd test:', tukey)
+    # print('Wilcoxon rank-sum:', rank_sum)
+    # print('Kruskal-Wallis h test:', kruskal)
+    # print('Cronbachs alpha:', c_alpha.round(decimals = 2))
+
+    df['The work takes more time to complete when I work with other students.'] = df[['The work takes more time to complete when I work with other students.', ###
+    'The work takes less time to complete when I work with other students.']].sum(axis=1)
+    df.drop(['The work takes less time to complete when I work with other students.'], axis=1, inplace=True)
+
+    x = np.array(df['My group members respect my opinions.'].dropna(), dtype=np.uint8)
+    y = np.array(df['My group members do not respect my opinions.'].dropna(), dtype=np.uint8)
+    # print('My group members respect my opinions.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('My group members do not respect my opinions.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+
+    df['My group members respect my opinions.'] = df[['My group members respect my opinions.','My group members do not respect my opinions.']].sum(axis=1)
+    df.drop(['My group members do not respect my opinions.'], axis=1, inplace=True)
+
+    x = np.array(df['I prefer when one student regularly takes on a leadership role.'].dropna(), dtype=np.uint8)
+    y = np.array(df['I prefer when no one takes on a leadership role.'].dropna(), dtype=np.uint8)
+    # print('I prefer when one student regularly takes on a leadership role.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('I prefer when no one takes on a leadership role.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+
+    df['I prefer when one student regularly takes on a leadership role.'] = df[['I prefer when one student regularly takes on a leadership role.',
+    'I prefer when no one takes on a leadership role.']].sum(axis=1)
+    df.drop(['I prefer when no one takes on a leadership role.'], axis=1, inplace=True)
+
+    x = np.array(df['I let the other students do most of the work.'].dropna(), dtype=np.uint8)
+    y = np.array(df['I do not let the other students do most of the work.'].dropna(), dtype=np.uint8)
+    # print('I let the other students do most of the work.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print('I do not let the other students do most of the work.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
+
+    df['I let the other students do most of the work.'] = df[['I let the other students do most of the work.',
+    'I do not let the other students do most of the work.']].sum(axis=1)
+    df.drop(['I do not let the other students do most of the work.'], axis=1, inplace=True)
+
+    Take_on_tasks_cols = [col for col in df.columns if 'take on tasks' in col]
+    x = np.array(df[Take_on_tasks_cols[0]].dropna(), dtype=np.uint8)
+    y = np.array(df[Take_on_tasks_cols[1]].dropna(), dtype=np.uint8)    
+    # print(Take_on_tasks_cols[0], x.mean().round(decimals = 2), x.std().round(decimals = 2))
+    # print(Take_on_tasks_cols[1], y.mean().round(decimals = 2), y.std().round(decimals = 2))
+
+    df[Take_on_tasks_cols[0]] = df[Take_on_tasks_cols].sum(axis=1)
+    df.drop(Take_on_tasks_cols[1], axis=1, inplace = True)
+
+    # REMOVE PARTIAL RESPONSES
+    df.dropna(axis=0, how='any', inplace = True)
+
+    # RENORMALIZE DATA SUCH THAT 5-POINT AND 6-POINT ARE EQUAL
+    # Z SCORE
+    # df_norm = ((df - df.mean())/df.std()).astype(float)
+
+    # CONVERT 6-POINT TO 5-POINT SCALE
+    df_norm = df.copy()
+    for i in Phys_Int_Cols:
+        df_norm[i] = df_norm[i]*5/6
+    df_norm = df_norm.astype(float)
+
+    # MAKE ALL SD+D = -1, N = 0, AND SA+A = 1
+    # df_norm = df.copy()
+    # my_ist = list(df_norm)
+    # col_ist = [x for x in my_ist if x not in Phys_Int_Cols]
+    # for i in col_ist:
+    #     df_norm[i] = np.select([(df_norm[i] == 1) | (df_norm[i] == 2), (df_norm[i] == 3), (df_norm[i] == 4) | (df_norm[i] == 5)], [-1,0,1])
+
+    # for i in Phys_Int_Cols:
+    #     df_norm[i] = np.select([(df_norm[i] == 1) | (df_norm[i] == 2), (df_norm[i] == 3) | (df_norm[i] == 4), (df_norm[i] == 5) | (df_norm[i] == 6)], [-1,0,1])
+
+    # df_norm = df_norm.astype(float)
+    # return df_norm
 
 def SAGE_validation(df_norm):
     # FIRST VALIDATE THE SAGE QUESTIONS
@@ -82,13 +251,21 @@ def SAGE_validation(df_norm):
     save_fig(fig, 'SAGE_CFA')
     plt.clf()
 
+    df_SAGE.to_csv('ExportedFiles/SAGE_test.csv', encoding = "utf-8", index=True)
+
     # CORRELATION MATRIX
     print('Correlation Matrix')
     corrM = df_SAGE.corr(method='spearman')
     corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
 
-    truncM = corrM[abs(corrM)>=0.5]
     labels = list(df_SAGE)
+    with open('CorrM_labels.txt', 'w') as f:
+        original_stdout = sys.stdout # Save a reference to the original standard output
+        sys.stdout = f # Change the standard output to the file we created.
+        for number, label in enumerate(labels):
+            print(number, label)
+        sys.stdout = original_stdout # Reset the standard output to its original value
+
     fig, ax = plt.subplots()
     plt.imshow(corrM, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
@@ -99,6 +276,7 @@ def SAGE_validation(df_norm):
     save_fig(fig,'SAGE_CorrM')
     plt.clf()
 
+    truncM = corrM[abs(corrM)>=0.5]
     fig, ax = plt.subplots()
     plt.title('Correlation Matrix')
     plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
@@ -119,7 +297,7 @@ def SAGE_validation(df_norm):
     print('KMO Measure of Sampling Adequacy: ', kmo_model)
 
     # # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
-    # print('Cronbachs alpha test of consistency: ', pg.cronbach_alpha(data=df_SAGE))
+    # print('Cronbachs alpha test of consistency: ', al(data=df_SAGE))
 
     # EFA
     print('EFA')
@@ -146,7 +324,9 @@ def SAGE_validation(df_norm):
 
     fig, ax = plt.subplots()
     plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
+    plt.colorbar() 
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
     save_fig(fig, 'SAGE_EFA')
     plt.clf()
@@ -155,6 +335,8 @@ def SAGE_validation(df_norm):
     fig, ax = plt.subplots()
     plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
     save_fig(fig, 'SAGE_EFA_0.5')
     plt.clf()
@@ -207,6 +389,8 @@ def SAGE_validation(df_norm):
     fig, ax = plt.subplots()
     plt.imshow(mm, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
     save_fig(fig,'SAGE_PCA')
 
@@ -214,115 +398,11 @@ def SAGE_validation(df_norm):
     fig, ax = plt.subplots()
     plt.imshow(trunc, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
     save_fig(fig, 'SAGE_PCA_0.5')
     plt.clf()
-
-def Prepare_data(df):
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    df.drop(columns=df.columns[-4:], axis=1, inplace = True)
-
-    # SAVE RAW DATA
-    df.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
-
-    # CALCULATE MEAN, STD DEV OF EACH COLUMN
-    df_mean = df.mean()
-    df_stddev = df.std()
-    df_summary = pd.merge(df_mean.to_frame(), df_stddev.to_frame(), left_index = True , right_index =True)
-    df_summary.rename(columns={'0_x': 'Mean', '0_y': 'Std.Dev.'}, inplace = True)
-
-    # COUNT THE AMOUNT OF SD+D (1,2), N (3), AND SA+A (4,5) IN EACH COLUMN
-    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
-    my_list = list(df)
-    col_list = [x for x in my_list if x not in Phys_Int_Cols]
-    df_summary['SD+D'] = np.nan
-    df_summary['N'] = np.nan
-    df_summary['SA+A'] = np.nan
-    for i in col_list:
-        s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
-        df_summary.at[i,'SD+D'] = s[(s.unique_values == 1) | (s.unique_values == 2)].sum()['counts']
-        df_summary.at[i,'N'] = s[s.unique_values == 3].sum()['counts']
-        df_summary.at[i,'SA+A'] = s[(s.unique_values == 4) | (s.unique_values == 5)].sum()['counts']
-
-    for i in Phys_Int_Cols:
-        s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
-        df_summary.at[i,'SD+D'] = s[(s.unique_values == 1) | (s.unique_values == 2)].sum()['counts']
-        df_summary.at[i,'N'] = s[(s.unique_values == 3) | (s.unique_values == 4)].sum()['counts']
-        df_summary.at[i,'SA+A'] = s[(s.unique_values == 5) | (s.unique_values == 6)].sum()['counts']
-
-    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
-
-    # INVERT NEGATIVELY WORDED QUESTIONS, THEN COMBINE COLUMNS WITH POSITIVELY WORDED QUESTIONS
-    Neg_List = [
-    'The work takes less time to complete when I work with other students.',
-    'My group members do not respect my opinions.',
-    'I prefer when no one takes on a leadership role.',
-    'I do not let the other students do most of the work.']#,
-    #'I prefer to take on tasks that will help me better learn the material.']
-    for i in Neg_List:
-        df[i].replace([1,2,4,5],[5,4,2,1],inplace=True)
-
-    # CHECK IF CONSITENCY BETWEEN INVERSELY WORDED QUESTIONS
-    x = np.array(df['The work takes more time to complete when I work with other students.'].dropna(), dtype=np.uint8)
-    y = np.array(df['The work takes less time to complete when I work with other students.'].dropna(), dtype=np.uint8)
-    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
-    # print('The work takes more time to complete when I work with other students.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
-    # print('The work takes less time to complete when I work with other students.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
-    # print(res) #Distinguishable
-
-    df['The work takes more time to complete when I work with other students.'] = df[['The work takes more time to complete when I work with other students.', ###
-    'The work takes less time to complete when I work with other students.']].sum(axis=1)
-    df.drop(['The work takes less time to complete when I work with other students.'], axis=1, inplace=True)
-
-    x = np.array(df['My group members respect my opinions.'].dropna(), dtype=np.uint8)
-    y = np.array(df['My group members do not respect my opinions.'].dropna(), dtype=np.uint8)
-    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
-    # print('My group members respect my opinions.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
-    # print('My group members do not respect my opinions.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
-    # print(res) # p=0.225
-
-    df['My group members respect my opinions.'] = df[['My group members respect my opinions.','My group members do not respect my opinions.']].sum(axis=1)
-    df.drop(['My group members do not respect my opinions.'], axis=1, inplace=True)
-
-    x = np.array(df['I prefer when one student regularly takes on a leadership role.'].dropna(), dtype=np.uint8)
-    y = np.array(df['I prefer when no one takes on a leadership role.'].dropna(), dtype=np.uint8)
-    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
-    # print('I prefer when one student regularly takes on a leadership role.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
-    # print('I prefer when no one takes on a leadership role.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
-    # print(res) # p=0.523
-
-    df['I prefer when one student regularly takes on a leadership role.'] = df[['I prefer when one student regularly takes on a leadership role.',
-    'I prefer when no one takes on a leadership role.']].sum(axis=1)
-    df.drop(['I prefer when no one takes on a leadership role.'], axis=1, inplace=True)
-
-    x = np.array(df['I let the other students do most of the work.'].dropna(), dtype=np.uint8)
-    y = np.array(df['I do not let the other students do most of the work.'].dropna(), dtype=np.uint8)
-    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
-    # print('I let the other students do most of the work.:', x.mean().round(decimals = 2), x.std().round(decimals = 2))
-    # print('I do not let the other students do most of the work.:', y.mean().round(decimals = 2), y.std().round(decimals = 2))
-    # print(res) # p = 0.135
-    df['I let the other students do most of the work.'] = df[['I let the other students do most of the work.',
-    'I do not let the other students do most of the work.']].sum(axis=1)
-    df.drop(['I do not let the other students do most of the work.'], axis=1, inplace=True)
-
-    Take_on_tasks_cols = [col for col in df.columns if 'take on tasks' in col]
-    x = np.array(df[Take_on_tasks_cols[0]].dropna(), dtype=np.uint8)
-    y = np.array(df[Take_on_tasks_cols[1]].dropna(), dtype=np.uint8)
-    res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
-    # print(Take_on_tasks_cols[0], x.mean().round(decimals = 2), x.std().round(decimals = 2))
-    # print(Take_on_tasks_cols[1], y.mean().round(decimals = 2), y.std().round(decimals = 2))
-    # print(res) # Same if not reverse-coded
-
-    df[Take_on_tasks_cols[0]] = df[Take_on_tasks_cols].sum(axis=1)
-    df.drop(Take_on_tasks_cols[1], axis=1, inplace = True)
-
-    # REMOVE PARTIAL RESPONSES
-    df.dropna(axis=0, how='any', inplace = True)
-
-    # RENORMALIZE DATA SUCH THAT 5-POINT AND 6-POINT ARE EQUAL
-    df_norm = ((df - df.mean())/df.std()).astype(float)
-
-    return df_norm
 
 def Gender_differences(df):
     # Split based on gender
@@ -358,42 +438,6 @@ def Gender_differences(df):
     # for i in df_summary.index:
     #     stat, p = scipy.stats.ranksums(dfM[i],dfF[i])
     #     print(i, p)
-
-def main():
-    readline.set_completer_delims(' \t\n;')
-    readline.parse_and_bind("tab: complete")
-    readline.set_completer(complete)
-    my_file = input('SAGE Filename: ')
-
-    # READ IN DATA FROM SAGE QUALTRICS SURVEY BASED ON THE CSV COLUMN NAMES
-    headers = [*pd.read_csv(my_file, nrows=1)]
-    ExcludedHeaders = ['Start Date', 'End Date', 'Response Type', 'IP Address', 'Progress', 'Duration (in seconds)',
-    'Finished', 'Recorded Date', 'Response ID', 'Recipient Last Name', 'Recipient First Name',
-    'Recipient Email', 'External Data Reference', 'Location Latitude', 'Location Longitude', 'Distribution Channel', 'User Language']
-    df = pd.read_csv(my_file, encoding = "utf-8", usecols=lambda x: x not in ExcludedHeaders, skiprows=1)
-    df = df.drop([0])
-
-    # CONVERT RESPONSES TO NUMERICAL VALUE (I DON'T TRUST QUALTRICS TO DO THIS WELL)
-    # 6-point Likert first, then the rest
-    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
-    for i in Phys_Int_Cols:
-        df.loc[df[i] == 'Strongly disagree', i] = 1
-        df.loc[df[i] == 'Disagree', i] = 2
-        df.loc[df[i] == 'Somewhat disagree', i] = 3
-        df.loc[df[i] == 'Somewhat agree', i] = 4
-        df.loc[df[i] == 'Agree', i] = 5
-        df.loc[df[i] == 'Strongly agree', i] = 6
-
-    df.mask(df == 'Strongly disagree', 1, inplace = True)
-    df.mask(df == 'Somewhat disagree', 2, inplace = True)
-    df.mask(df == 'Neither agree nor disagree', 3, inplace = True)
-    df.mask(df == 'Somewhat agree', 4, inplace = True)
-    df.mask(df == 'Strongly agree', 5, inplace = True)
-
-    # Gender_differences(df) # This needs to go before Prepare_data() because that changes df
-    df_norm = Prepare_data(df) # This removes demographic questions, calculates averages and statistics, and combines inversely worded questions into one
-    SAGE_validation(df_norm) # Validation factor analysis, exploratory factor analysis, and principal component analysis on only the questions taken from SAGE
-    # FullAnalysis(df_norm)
 
 # WHERE THE CODE IS ACTUALLY RUN
 try:
