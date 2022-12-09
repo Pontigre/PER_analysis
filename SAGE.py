@@ -47,10 +47,10 @@ def main():
     df = df.merge(df_inter, how='inner', on = 'Unique')
 
     # dfW = df[df['Please select the population group(s) that you most closely identify with (select all that apply).'].str.contains('White', na=False)].copy()
-    df_norm = Prepare_data(df) # This removes demographic questions, calculates averages and statistics, and combines inversely worded questions into one
+    df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # Gender_differences(df_norm)
-    # Intervention_differences(df_norm)
+    # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
+    # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # principal component analysis on questions taken from SAGE
