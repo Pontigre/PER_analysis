@@ -1,0 +1,189 @@
+,Course,Intervention,count
+0,PHY105M,Collaborative Comparison,161
+1,PHY105M,Control,259
+2,PHY105M,Partner Agreements,187
+3,PHY105N,Collaborative Comparison,114
+4,PHY105N,Control,125
+5,PHY105N,Partner Agreements,113
+6,PHY105M,Female,389
+7,PHY105M,"Female,Non-binary",2
+8,PHY105M,"Female,Other (please specify):",1
+9,PHY105M,Male,195
+10,PHY105M,"Male,Female",2
+11,PHY105M,"Male,Prefer not to disclose",1
+12,PHY105M,Non-binary,9
+13,PHY105M,"Non-binary,Other (please specify):",1
+14,PHY105M,Other (please specify):,2
+15,PHY105M,Prefer not to disclose,5
+16,PHY105N,Female,188
+17,PHY105N,"Female,Non-binary",2
+18,PHY105N,Male,145
+19,PHY105N,"Male,Female",2
+20,PHY105N,"Male,Non-binary",1
+21,PHY105N,Non-binary,5
+22,PHY105N,Other (please specify):,1
+23,PHY105N,Prefer not to disclose,7
+24,PHY105M,American Indian or Alaska Native,1
+25,PHY105M,"American Indian or Alaska Native,Asian",1
+26,PHY105M,"American Indian or Alaska Native,Asian,White",1
+27,PHY105M,"American Indian or Alaska Native,White",5
+28,PHY105M,Asian,191
+29,PHY105M,"Asian,Black or African American",1
+30,PHY105M,"Asian,Hispanic, Latino, or Spanish",2
+31,PHY105M,"Asian,Hispanic, Latino, or Spanish,White",1
+32,PHY105M,"Asian,White",14
+33,PHY105M,Black or African American,35
+34,PHY105M,"Black or African American,Hispanic, Latino, or Spanish",1
+35,PHY105M,"Black or African American,Hispanic, Latino, or Spanish,White",1
+36,PHY105M,"Black or African American,White",2
+37,PHY105M,"Hispanic, Latino, or Spanish",114
+38,PHY105M,"Hispanic, Latino, or Spanish,White",29
+39,PHY105M,"Hispanic, Latino, or Spanish,White,Some other race or ethnicity",1
+40,PHY105M,Middle Eastern or North African,14
+41,PHY105M,"Middle Eastern or North African,White",6
+42,PHY105M,Prefer not to disclose,14
+43,PHY105M,Some other race or ethnicity,3
+44,PHY105M,White,169
+45,PHY105M,"White,Some other race or ethnicity",1
+46,PHY105N,"American Indian or Alaska Native,Hispanic, Latino, or Spanish",2
+47,PHY105N,Asian,128
+48,PHY105N,"Asian,Black or African American",2
+49,PHY105N,"Asian,Hispanic, Latino, or Spanish",1
+50,PHY105N,"Asian,Hispanic, Latino, or Spanish,White",1
+51,PHY105N,"Asian,Native Hawaiian or Other Pacific Islander,White",1
+52,PHY105N,"Asian,White",8
+53,PHY105N,Black or African American,17
+54,PHY105N,"Black or African American,White",1
+55,PHY105N,"Hispanic, Latino, or Spanish",64
+56,PHY105N,"Hispanic, Latino, or Spanish,Middle Eastern or North African",1
+57,PHY105N,"Hispanic, Latino, or Spanish,White",15
+58,PHY105N,Middle Eastern or North African,2
+59,PHY105N,"Middle Eastern or North African,White",3
+60,PHY105N,"Native Hawaiian or Other Pacific Islander,White",1
+61,PHY105N,Prefer not to disclose,10
+62,PHY105N,White,93
+63,PHY105N,"White,Prefer not to disclose",1
+64,PHY105N,"White,Some other race or ethnicity",1
+65,PHY105M,Associate's or technical degree,27
+66,PHY105M,Bachelor’s degree,159
+67,PHY105M,High school,53
+68,PHY105M,I'm not sure,8
+69,PHY105M,Master’s degree or above,293
+70,PHY105M,Other,13
+71,PHY105M,Prefer not to answer,9
+72,PHY105M,Some college but no degree,45
+73,PHY105N,Associate's or technical degree,11
+74,PHY105N,Bachelor’s degree,110
+75,PHY105N,High school,34
+76,PHY105N,Master’s degree or above,167
+77,PHY105N,Other,9
+78,PHY105N,Prefer not to answer,5
+79,PHY105N,Some college but no degree,16
+80,Collaborative Comparison,PHY105M,161
+81,Collaborative Comparison,PHY105N,114
+82,Control,PHY105M,259
+83,Control,PHY105N,125
+84,Partner Agreements,PHY105M,187
+85,Partner Agreements,PHY105N,113
+86,Collaborative Comparison,Female,169
+87,Collaborative Comparison,"Female,Non-binary",2
+88,Collaborative Comparison,Male,95
+89,Collaborative Comparison,"Male,Female",1
+90,Collaborative Comparison,"Male,Prefer not to disclose",1
+91,Collaborative Comparison,Non-binary,2
+92,Collaborative Comparison,Prefer not to disclose,5
+93,Control,Female,218
+94,Control,"Female,Non-binary",1
+95,Control,Male,147
+96,Control,"Male,Female",2
+97,Control,"Male,Non-binary",1
+98,Control,Non-binary,7
+99,Control,"Non-binary,Other (please specify):",1
+100,Control,Other (please specify):,2
+101,Control,Prefer not to disclose,5
+102,Partner Agreements,Female,190
+103,Partner Agreements,"Female,Non-binary",1
+104,Partner Agreements,"Female,Other (please specify):",1
+105,Partner Agreements,Male,98
+106,Partner Agreements,"Male,Female",1
+107,Partner Agreements,Non-binary,5
+108,Partner Agreements,Other (please specify):,1
+109,Partner Agreements,Prefer not to disclose,2
+110,Collaborative Comparison,American Indian or Alaska Native,1
+111,Collaborative Comparison,"American Indian or Alaska Native,White",2
+112,Collaborative Comparison,Asian,90
+113,Collaborative Comparison,"Asian,Black or African American",1
+114,Collaborative Comparison,"Asian,Hispanic, Latino, or Spanish",1
+115,Collaborative Comparison,"Asian,Hispanic, Latino, or Spanish,White",1
+116,Collaborative Comparison,"Asian,White",5
+117,Collaborative Comparison,Black or African American,17
+118,Collaborative Comparison,"Black or African American,Hispanic, Latino, or Spanish,White",1
+119,Collaborative Comparison,"Hispanic, Latino, or Spanish",53
+120,Collaborative Comparison,"Hispanic, Latino, or Spanish,Middle Eastern or North African",1
+121,Collaborative Comparison,"Hispanic, Latino, or Spanish,White",13
+122,Collaborative Comparison,Middle Eastern or North African,3
+123,Collaborative Comparison,"Middle Eastern or North African,White",1
+124,Collaborative Comparison,Prefer not to disclose,7
+125,Collaborative Comparison,Some other race or ethnicity,2
+126,Collaborative Comparison,White,76
+127,Control,"American Indian or Alaska Native,Asian",1
+128,Control,"American Indian or Alaska Native,Asian,White",1
+129,Control,"American Indian or Alaska Native,Hispanic, Latino, or Spanish",2
+130,Control,"American Indian or Alaska Native,White",2
+131,Control,Asian,122
+132,Control,"Asian,Black or African American",1
+133,Control,"Asian,Hispanic, Latino, or Spanish",1
+134,Control,"Asian,White",8
+135,Control,Black or African American,16
+136,Control,"Black or African American,Hispanic, Latino, or Spanish",1
+137,Control,"Black or African American,White",2
+138,Control,"Hispanic, Latino, or Spanish",72
+139,Control,"Hispanic, Latino, or Spanish,White",14
+140,Control,Middle Eastern or North African,8
+141,Control,"Middle Eastern or North African,White",5
+142,Control,"Native Hawaiian or Other Pacific Islander,White",1
+143,Control,Prefer not to disclose,12
+144,Control,Some other race or ethnicity,1
+145,Control,White,113
+146,Control,"White,Prefer not to disclose",1
+147,Partner Agreements,"American Indian or Alaska Native,White",1
+148,Partner Agreements,Asian,107
+149,Partner Agreements,"Asian,Black or African American",1
+150,Partner Agreements,"Asian,Hispanic, Latino, or Spanish",1
+151,Partner Agreements,"Asian,Hispanic, Latino, or Spanish,White",1
+152,Partner Agreements,"Asian,Native Hawaiian or Other Pacific Islander,White",1
+153,Partner Agreements,"Asian,White",9
+154,Partner Agreements,Black or African American,19
+155,Partner Agreements,"Black or African American,White",1
+156,Partner Agreements,"Hispanic, Latino, or Spanish",53
+157,Partner Agreements,"Hispanic, Latino, or Spanish,White",17
+158,Partner Agreements,"Hispanic, Latino, or Spanish,White,Some other race or ethnicity",1
+159,Partner Agreements,Middle Eastern or North African,5
+160,Partner Agreements,"Middle Eastern or North African,White",3
+161,Partner Agreements,Prefer not to disclose,5
+162,Partner Agreements,White,73
+163,Partner Agreements,"White,Some other race or ethnicity",2
+164,Collaborative Comparison,Associate's or technical degree,14
+165,Collaborative Comparison,Bachelor’s degree,80
+166,Collaborative Comparison,High school,26
+167,Collaborative Comparison,I'm not sure,3
+168,Collaborative Comparison,Master’s degree or above,120
+169,Collaborative Comparison,Other,6
+170,Collaborative Comparison,Prefer not to answer,6
+171,Collaborative Comparison,Some college but no degree,20
+172,Control,Associate's or technical degree,12
+173,Control,Bachelor’s degree,105
+174,Control,High school,36
+175,Control,I'm not sure,3
+176,Control,Master’s degree or above,185
+177,Control,Other,10
+178,Control,Prefer not to answer,7
+179,Control,Some college but no degree,26
+180,Partner Agreements,Associate's or technical degree,12
+181,Partner Agreements,Bachelor’s degree,84
+182,Partner Agreements,High school,25
+183,Partner Agreements,I'm not sure,2
+184,Partner Agreements,Master’s degree or above,155
+185,Partner Agreements,Other,6
+186,Partner Agreements,Prefer not to answer,1
+187,Partner Agreements,Some college but no degree,15

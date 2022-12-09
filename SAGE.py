@@ -48,14 +48,14 @@ def main():
 
     # dfW = df[df['Please select the population group(s) that you most closely identify with (select all that apply).'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # This removes demographic questions, calculates averages and statistics, and combines inversely worded questions into one
-    # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # Gender_differences(df_norm)
     # Intervention_differences(df_norm)
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # principal component analysis on questions taken from SAGE
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
-    Mindset(df_norm) 
+    # Mindset(df_norm) 
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -91,12 +91,12 @@ def Prepare_data(df):
         df.loc[df[i] == 'Agree', i] = 2
         df.loc[df[i] == 'Strongly agree', i] = 1
 
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly disagree', i] = 1
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Disagree', i] = 2
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat disagree', i] = 3
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat agree', i] = 4
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Agree', i] = 5
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly agree', i] = 6
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly disagree', 'Your physics intelligence is something about you that you can change.'] = 1
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Disagree', 'Your physics intelligence is something about you that you can change.'] = 2
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat disagree', 'Your physics intelligence is something about you that you can change.'] = 3
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat agree', 'Your physics intelligence is something about you that you can change.'] = 4
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Agree', 'Your physics intelligence is something about you that you can change.'] = 5
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly agree', 'Your physics intelligence is something about you that you can change.'] = 6
 
     for i in Qs:
         df.loc[df[i].astype(str).str.contains('Strongly disagree') == True, i] = 1
@@ -233,6 +233,7 @@ def Data_statistics(df_norm):
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
 
     total_count = len(df_norm.index)
+    print('Total N:', total_count)
     intervention_count = df_norm.groupby(['Intervention'])['Intervention'].describe()['count']
     course_count = df_norm.groupby(['Course'])['Course'].describe()['count']
     gender_count = df_norm.groupby(['Gender'])['Gender'].describe()['count']
@@ -248,10 +249,12 @@ def Data_statistics(df_norm):
     ig_count = df_norm.groupby(['Intervention','Gender'])['Intervention'].describe()['count']
     ire_count = df_norm.groupby(['Intervention','Race or ethnicity'])['Intervention'].describe()['count']
     ie_count = df_norm.groupby(['Intervention','Education'])['Intervention'].describe()['count']
-    # intervention_count, course_count, gender_count, raceethnicity_count, education_count,
+    simple_counts = [intervention_count, course_count, gender_count, raceethnicity_count, education_count]
     lists = [ci_count, cg_count, cre_count, ce_count, ic_count, ig_count, ire_count, ie_count]
+    top_level_counts = pd.concat([pd.Series(x) for x in simple_counts])
     full_counts = pd.concat([pd.Series(x) for x in lists])
-    full_counts.reset_index().to_csv('ExportedFiles/Sage_Counts.csv', encoding = "utf-8", index=True)
+    top_level_counts.reset_index().to_csv('ExportedFiles/Sage_Counts1.csv', encoding = "utf-8", index=True)
+    full_counts.reset_index().to_csv('ExportedFiles/Sage_Counts2.csv', encoding = "utf-8", index=True)
 
 def Gender_differences(df_norm):
     Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
