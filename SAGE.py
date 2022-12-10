@@ -48,10 +48,10 @@ def main():
 
     # dfW = df[df['Please select the population group(s) that you most closely identify with (select all that apply).'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
-    Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
+    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # principal component analysis on questions taken from SAGE
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
@@ -368,22 +368,26 @@ def SAGE_validation(df_norm):
     not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
     'My group did higher quality work when group members worked on different tasks at the same time.', 
     'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 
-    'Your physics intelligence is something about you that you can’t change very much.',
+    'Your physics intelligence is something about you that you can change.',
     'You can learn new things, but you can’t really change your basic physics intelligence.',
     'I prefer to take on tasks that I’m already good at.',
+    'I prefer to take on tasks that will help me better learn the material.',
     'I prefer when one student regularly takes on a leadership role.',
     'I prefer when the leadership role rotates between students.']
     df_SAGE = df.drop(not_SAGE, axis=1)
 
     not_cfa = ['When I work in a group, I end up doing most of the work.', 'I do not think a group grade is fair.',
     'I try to make sure my group members learn the material.',  'When I work with other students the work is divided equally.']
-    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1)
+    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1).astype(float)
+    df_SAGE_cfa.apply(pd.to_numeric)
 
+    print(list(df_SAGE_cfa))
     # CONFIRMATORY FACTOR ANALYSIS
     # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
+
     model_dict = {
     'F1': ['When I work in a group I do higher quality work.', 'The material is easier to understand when I work with other students.',
-            'My group members help explain things that I do not understand.', 'I feel working in groups is a waste of time.', #'The work takes more time to complete when I work with other students.',
+            'My group members help explain things that I do not understand.', 'I feel working in groups is a waste of time.', 'The work takes more time to complete when I work with other students.',
             'The workload is usually less when I work with other students.'], 
             # [1, 12, 8, 30, 5, 16]
     'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
@@ -422,25 +426,15 @@ def SAGE_validation(df_norm):
     ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
-    save_fig(fig, 'SAGE_CFA_0.5')
+    save_fig(fig, 'SAGE_CFA_0.4')
     plt.clf()
 
 def EFA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
     Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
-    # 'My group did higher quality work when group members worked on different tasks at the same time.', 
-    # 'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 
-    # 'Your physics intelligence is something about you that you can change.',
-    # 'You can learn new things, but you can’t really change your basic physics intelligence.',
-    # 'I prefer to take on tasks that I’m already good at.',
-    # 'I prefer when one student regularly takes on a leadership role.',
-    # 'I prefer when the leadership role rotates between students.']
-    # df_SAGE = df.drop(not_SAGE, axis=1)
-    df_SAGE = df.copy()
+    df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
+    df_SAGE.apply(pd.to_numeric)
 
     # CORRELATION MATRIX
     print('Correlation Matrix')
@@ -465,7 +459,7 @@ def EFA(df_norm):
     save_fig(fig,'SAGE_CorrM')
     plt.clf()
 
-    truncM = corrM[abs(corrM)>=0.5]
+    truncM = corrM[abs(corrM)>=0.4]
     fig, ax = plt.subplots()
     plt.title('Correlation Matrix')
     plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
@@ -473,7 +467,7 @@ def EFA(df_norm):
     ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
-    save_fig(fig,'SAGE_CorrM_0.5')
+    save_fig(fig,'SAGE_CorrM_0.4')
     plt.clf()
     
     print('Statistical Tests')
@@ -506,7 +500,7 @@ def EFA(df_norm):
     plt.clf()
 
     # Based on the scree plot and Kaiser criterion, n=6 (or 7)
-    fa = FactorAnalyzer(n_factors=4, rotation='varimax')
+    fa = FactorAnalyzer(n_factors=6, rotation='varimax')
     fa.fit(df_SAGE)
     m = pd.DataFrame(fa.loadings_)
     # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
@@ -520,14 +514,14 @@ def EFA(df_norm):
     save_fig(fig, 'SAGE_EFA')
     plt.clf()
 
-    truncm = m[abs(m)>=0.5]
+    truncm = m[abs(m)>=0.4]
     fig, ax = plt.subplots()
     plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
     plt.colorbar()
     ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
-    save_fig(fig, 'SAGE_EFA_0.5')
+    save_fig(fig, 'SAGE_EFA_0.4')
     plt.clf()
 
 def PCA(df_norm):
