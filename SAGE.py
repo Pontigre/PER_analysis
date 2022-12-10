@@ -51,11 +51,11 @@ def main():
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
-    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
+    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # principal component analysis on questions taken from SAGE
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
-    # Mindset(df_norm) 
+    # Mindset(df_norm) # Checks mindset of student responses WIP
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -381,7 +381,6 @@ def SAGE_validation(df_norm):
     df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1).astype(float)
     df_SAGE_cfa.apply(pd.to_numeric)
 
-    print(list(df_SAGE_cfa))
     # CONFIRMATORY FACTOR ANALYSIS
     # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
 
@@ -499,30 +498,33 @@ def EFA(df_norm):
     save_fig(fig, 'SAGE_Scree')
     plt.clf()
 
-    # Based on the scree plot and Kaiser criterion, n=6 (or 7)
-    fa = FactorAnalyzer(n_factors=6, rotation='varimax')
-    fa.fit(df_SAGE)
-    m = pd.DataFrame(fa.loadings_)
-    # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
+    for i in range(2,8):
+        # Based on the scree plot and Kaiser criterion, n=6 (or 7)
+        fa = FactorAnalyzer(n_factors=i, rotation='varimax')
+        fa.fit(df_SAGE)
+        m = pd.DataFrame(fa.loadings_)
+        # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
 
-    fig, ax = plt.subplots()
-    plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar() 
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_EFA')
-    plt.clf()
+        fig, ax = plt.subplots()
+        plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar() 
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        file_string = 'SAGE_EFA_n=' + str(i)
+        save_fig(fig, file_string)
+        plt.clf()
 
-    truncm = m[abs(m)>=0.4]
-    fig, ax = plt.subplots()
-    plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_EFA_0.4')
-    plt.clf()
+        truncm = m[abs(m)>=0.4]
+        fig, ax = plt.subplots()
+        plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        file_string2 = 'SAGE_EFA_0.4_n=' + str(i)
+        save_fig(fig, file_string2)
+        plt.clf()
 
 def PCA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS

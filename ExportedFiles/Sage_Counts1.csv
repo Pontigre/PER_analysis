@@ -1,52 +1,55 @@
 ,index,count
-0,Collaborative Comparison,275
-1,Control,384
-2,Partner Agreements,300
-3,PHY105M,607
-4,PHY105N,352
-5,Female,577
-6,"Female,Non-binary",4
+0,Collaborative Comparison,355
+1,Control,481
+2,Partner Agreements,393
+3,PHY105M,737
+4,PHY105N,492
+5,Female,722
+6,"Female,Non-binary",5
 7,"Female,Other (please specify):",1
-8,Male,340
-9,"Male,Female",4
-10,"Male,Non-binary",1
+8,Male,454
+9,"Male,Female",6
+10,"Male,Non-binary",2
 11,"Male,Prefer not to disclose",1
-12,Non-binary,14
+12,Non-binary,15
 13,"Non-binary,Other (please specify):",1
 14,Other (please specify):,3
-15,Prefer not to disclose,12
-16,American Indian or Alaska Native,1
+15,Prefer not to disclose,18
+16,American Indian or Alaska Native,2
 17,"American Indian or Alaska Native,Asian",1
 18,"American Indian or Alaska Native,Asian,White",1
 19,"American Indian or Alaska Native,Hispanic, Latino, or Spanish",2
 20,"American Indian or Alaska Native,White",5
-21,Asian,319
-22,"Asian,Black or African American",3
-23,"Asian,Hispanic, Latino, or Spanish",3
-24,"Asian,Hispanic, Latino, or Spanish,White",2
-25,"Asian,Native Hawaiian or Other Pacific Islander,White",1
-26,"Asian,White",22
-27,Black or African American,52
-28,"Black or African American,Hispanic, Latino, or Spanish",1
-29,"Black or African American,Hispanic, Latino, or Spanish,White",1
-30,"Black or African American,White",3
-31,"Hispanic, Latino, or Spanish",178
-32,"Hispanic, Latino, or Spanish,Middle Eastern or North African",1
-33,"Hispanic, Latino, or Spanish,White",44
-34,"Hispanic, Latino, or Spanish,White,Some other race or ethnicity",1
-35,Middle Eastern or North African,16
-36,"Middle Eastern or North African,White",9
-37,"Native Hawaiian or Other Pacific Islander,White",1
-38,Prefer not to disclose,24
-39,Some other race or ethnicity,3
-40,White,262
-41,"White,Prefer not to disclose",1
-42,"White,Some other race or ethnicity",2
-43,Associate's or technical degree,38
-44,Bachelor’s degree,269
-45,High school,87
-46,I'm not sure,8
-47,Master’s degree or above,460
-48,Other,22
-49,Prefer not to answer,14
-50,Some college but no degree,61
+21,Asian,398
+22,"Asian,Black or African American",4
+23,"Asian,Hispanic, Latino, or Spanish",5
+24,"Asian,Hispanic, Latino, or Spanish,White",3
+25,"Asian,Native Hawaiian or Other Pacific Islander",1
+26,"Asian,Native Hawaiian or Other Pacific Islander,White",1
+27,"Asian,Some other race or ethnicity",1
+28,"Asian,White",31
+29,Black or African American,66
+30,"Black or African American,Hispanic, Latino, or Spanish",3
+31,"Black or African American,Hispanic, Latino, or Spanish,White",2
+32,"Black or African American,White",3
+33,"Black or African American,White,Some other race or ethnicity",1
+34,"Hispanic, Latino, or Spanish",243
+35,"Hispanic, Latino, or Spanish,Middle Eastern or North African",2
+36,"Hispanic, Latino, or Spanish,White",51
+37,"Hispanic, Latino, or Spanish,White,Some other race or ethnicity",1
+38,Middle Eastern or North African,25
+39,"Middle Eastern or North African,White",11
+40,"Native Hawaiian or Other Pacific Islander,White",1
+41,Prefer not to disclose,38
+42,Some other race or ethnicity,4
+43,White,320
+44,"White,Prefer not to disclose",1
+45,"White,Some other race or ethnicity",2
+46,Associate's or technical degree,47
+47,Bachelor’s degree,343
+48,High school,126
+49,I'm not sure,11
+50,Master’s degree or above,577
+51,Other,30
+52,Prefer not to answer,19
+53,Some college but no degree,76

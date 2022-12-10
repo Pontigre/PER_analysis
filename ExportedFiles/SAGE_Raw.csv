@@ -10,6 +10,10 @@ PHY105N,57135,2,4,2,4,5,1,2,5,5.0,5,4.0,4,2,2,4,3,1.0,2,4,4,4,4,3,5,4,5,1,3,3,5.
 PHY105N,57135,5,3,3,5,5,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,White,,,,,,,,,,,,,"German,English,French",,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57135,5,3,3,3,5,3,5,5,3.0,3,1.0,3,4,3,5,1,4.0,3,3,4,4,5,4,3,3,5,3,5,5,3.3333333333333335,5.0,4.166666666666667,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57135,4,2,2,5,5,1,5,4,4.0,5,3.0,3,2,3,4,1,2.0,1,1,4,4,4,2,4,2,5,2,4,3,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
+PHY105N,57135,4,4,1,5,5,2,5,4,5.0,5,2.0,2,2,5,5,2,1.0,1,1,4,4,4,5,5,2,4,2,5,2,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57135,4,3,5,4,4,4,4,4,4.0,3,4.0,2,2,4,4,2,2.0,2,3,3,4,4,3,4,2,4,3,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Middle Eastern or North African,,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
+Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Iraqi,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57135,3,3,3,5,5,1,4,5,5.0,5,3.0,5,3,5,5,1,1.0,1,3,5,4,4,5,4,1,5,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Mexican or Mexican American,Salvadoran",,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,57019,5,1,4,5,5,1,5,5,5.0,5,2.0,5,2,5,5,1,2.0,1,3,5,4,4,5,5,1,5,1,5,5,5.0,0.8333333333333334,5.0,Male,,Black or African American,,,,,"Some other Black or African American race or ethnicity
 Print, for example, Ghanaian, South African, Barbadian, etc.",Dominican,,,,,,,,,I'm not sure,,0.0,Control
 PHY105M,57019,3,3,1,5,5,1,5,5,5.0,5,3.0,3,3,3,4,1,1.0,1,3,3,5,3,4,2,1,3,1,5,2,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
@@ -24,6 +28,11 @@ PHY105M,57019,3,2,2,5,5,3,5,4,5.0,5,3.0,3,2,3,5,1,3.0,1,1,4,4,5,4,4,2,4,1,4,3,3.
 PHY105M,57019,4,2,3,4,4,3,4,4,4.0,4,2.0,4,3,4,4,2,2.0,1,3,5,4,4,4,4,1,4,2,3,3,3.3333333333333335,3.3333333333333335,2.5,Male,,White,,,,,,,,,,,,,"German,English",,Bachelor’s degree,,0.0,Control
 PHY105M,57019,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Master’s degree or above,,0.0,Control
+PHY105M,57019,3,3,3,4,4,3,4,4,4.0,4,3.0,3,2,3,4,2,3.0,2,3,3,3,4,4,3,2,4,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Peruvian ,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,57019,5,2,2,5,5,2,5,5,5.0,2,3.0,4,4,5,4,2,3.0,1,2,2,3,4,4,5,1,4,2,5,5,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Puerto Rican,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,57019,4,4,2,4,5,1,5,5,5.0,4,3.0,4,2,4,4,2,1.0,2,3,3,2,4,5,4,3,4,2,4,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Female,,White,,,,,,,,,,,,,Italian,,Bachelor’s degree,,0.0,Control
+PHY105M,57019,5,2,2,5,5,2,5,5,5.0,5,3.0,3,2,5,5,1,1.0,1,1,5,3,4,5,5,1,5,1,4,2,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Puerto Rican,,,,,,German,,Bachelor’s degree,,0.0,Control
 PHY105M,56900,5,3,3,4,5,3,4,5,4.0,4,5.0,4,3,4,4,1,3.0,3,3,4,5,5,4,4,1,4,3,5,5,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56900,2,4,2,3,5,1,4,1,5.0,4,5.0,2,3,4,4,1,1.0,4,1,2,1,4,5,5,1,3,1,4,4,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,"German,Irish,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Dutch,Bachelor’s degree,,2.0,Collaborative Comparison
@@ -36,6 +45,9 @@ PHY105M,56900,4,5,4,4,4,1,3,4,5.0,4,2.0,3,5,3,3,2,1.0,3,1,1,3,4,3,4,4,5,4,4,3,4.
 PHY105M,56900,4,2,1,5,5,3,5,5,5.0,5,1.0,5,2,4,5,2,2.0,1,1,4,3,4,4,3,2,5,2,5,2,5.0,5.0,5.0,Female,,Black or African American,,,,,African American,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56900,3,2,1,4,5,3,4,5,4.0,5,5.0,4,1,3,3,1,3.0,1,3,3,3,4,4,4,2,5,2,5,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Prefer not to answer,,2.0,Collaborative Comparison
 PHY105M,56900,3,3,3,3,3,3,3,3,3.0,4,2.0,4,3,4,3,3,3.0,3,3,3,3,5,4,4,5,4,2,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Black or African American,,,,,Nigerian,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56900,5,4,3,4,4,2,4,3,4.0,5,3.0,3,5,3,3,1,2.0,3,3,3,4,3,3,3,2,4,2,3,4,3.3333333333333335,2.5,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56900,4,2,2,4,4,3,4,4,4.0,4,3.0,4,2,3,3,2,2.0,2,3,4,4,4,4,3,3,4,2,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105M,56900,4,3,1,5,5,4,5,4,5.0,5,4.0,3,2,4,5,1,1.0,1,4,5,4,4,5,5,4,4,1,3,5,5.0,5.0,5.0,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57155,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,0.0,Control
 PHY105N,57155,3,3,2,5,4,3,4,4,4.0,4,4.0,2,3,3,4,2,2.0,2,4,3,3,4,3,4,2,4,1,4,4,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57155,3,2,3,3,4,2,4,4,3.0,5,2.0,1,2,3,2,2,1.0,1,3,4,4,5,2,3,1,4,1,4,5,5.0,0.8333333333333334,5.0,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,0.0,Control
@@ -51,6 +63,9 @@ Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Peruvian,,,,,,,Maste
 PHY105N,57155,3,4,2,4,4,2,3,3,4.0,4,5.0,3,4,4,4,2,1.0,2,1,4,2,4,4,4,4,4,2,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,English",,Bachelor’s degree,,0.0,Control
 PHY105N,57155,5,2,4,5,5,1,5,5,5.0,5,1.0,5,1,5,5,1,1.0,1,1,5,4,4,5,5,2,5,3,5,5,5.0,5.0,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57155,4,5,2,4,4,1,4,4,4.0,4,2.0,2,4,2,4,2,1.0,2,2,1,4,4,2,4,2,4,2,2,4,5.0,4.166666666666667,5.0,Female,,Asian,,,Korean,,,,,,,,,,,,High school,,0.0,Control
+PHY105N,57155,4,2,2,4,4,2,4,4,5.0,5,4.0,3,3,2,4,2,1.0,1,3,2,1,4,4,5,3,5,1,3,4,4.166666666666667,4.166666666666667,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57155,2,3,2,5,5,2,4,4,5.0,5,3.0,2,2,4,5,1,1.0,2,2,3,4,5,4,5,2,5,1,3,3,5.0,5.0,5.0,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57027,3,4,3,4,5,1,3,2,5.0,5,4.0,2,4,4,5,1,1.0,3,1,2,1,5,4,5,1,5,1,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Panamanian,,,,,English,,Bachelor’s degree,,0.0,Control
 PHY105M,57027,2,2,5,1,1,5,1,3,2.0,1,2.0,2,3,3,4,4,2.0,5,2,1,4,2,4,4,2,5,2,5,3,5.0,0.8333333333333334,5.0,Female,,Some other race or ethnicity,nigerian,,,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
@@ -65,6 +80,8 @@ PHY105M,57027,1,4,1,5,5,1,5,1,5.0,5,3.0,3,1,5,1,1,1.0,1,5,1,1,5,5,5,2,5,4,5,5,5.
 PHY105M,57027,4,2,2,5,4,3,5,4,4.0,4,2.0,4,3,3,4,2,2.0,2,2,4,4,4,4,4,3,4,2,4,2,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,0.0,Control
 PHY105M,57027,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57027,4,3,3,4,4,3,4,4,3.0,5,4.0,4,3,5,4,3,3.0,2,3,3,3,4,4,4,4,4,3,4,3,4.166666666666667,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,High school,,0.0,Control
+PHY105M,57027,4,3,2,5,4,1,4,4,4.0,4,3.0,4,3,4,4,2,2.0,2,3,4,4,4,4,4,2,4,3,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,57027,5,1,4,5,5,1,5,4,5.0,5,3.0,5,4,3,5,2,1.0,1,2,3,2,5,3,4,3,1,1,4,3,2.5,5.0,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
 PHY105M,56810,4,3,2,4,4,1,5,5,4.0,5,4.0,4,4,4,4,1,5.0,2,1,5,5,5,4,5,2,4,2,4,4,2.5,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,German,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56810,5,4,5,3,4,2,3,2,4.0,2,1.0,1,4,1,3,2,2.0,4,4,2,2,2,3,3,4,4,2,3,3,5.0,5.0,5.0,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56810,3,2,2,4,4,1,4,5,4.0,4,2.0,2,2,4,4,1,1.0,2,2,4,4,4,4,4,1,4,2,4,4,4.166666666666667,5.0,4.166666666666667,Male,,Asian,,,Chinese,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
@@ -86,6 +103,12 @@ PHY105M,56810,4,4,2,5,4,3,5,4,5.0,4,3.0,5,4,3,5,1,1.0,1,4,4,5,5,4,5,4,5,3,5,5,4.
 PHY105M,56810,3,4,4,2,4,3,4,4,4.0,4,4.0,3,3,2,4,3,3.0,3,3,3,4,4,4,4,2,3,2,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Korean,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56810,5,1,2,3,3,5,3,3,2.0,3,3.0,4,4,1,1,5,5.0,3,1,3,4,5,4,4,5,1,2,4,2,4.166666666666667,2.5,4.166666666666667,Male,,Black or African American,,,,,African American,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56810,3,3,2,4,4,1,3,4,4.0,5,2.0,5,3,4,5,2,1.0,2,3,5,4,4,4,5,4,5,1,5,2,3.3333333333333335,5.0,3.3333333333333335,Female,,Middle Eastern or North African,,,,,,,,,Lebanese,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56810,3,3,3,3,3,3,3,3,3.0,4,3.0,3,2,3,3,3,3.0,3,1,4,4,4,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Female,,Black or African American,,,,,African American,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56810,2,4,3,2,4,2,2,4,5.0,4,3.0,4,2,3,4,1,2.0,2,3,3,2,3,3,3,4,5,2,4,3,4.166666666666667,5.0,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,56810,3,4,4,2,4,3,4,3,4.0,3,3.0,5,2,4,5,3,4.0,3,3,3,3,4,3,5,4,1,3,3,2,2.5,3.3333333333333335,3.3333333333333335,Female,,Black or African American,,,,,African American,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56810,5,3,2,4,5,1,5,5,5.0,4,2.0,5,2,4,5,2,3.0,1,1,4,4,5,4,5,1,5,2,4,4,4.166666666666667,0.8333333333333334,4.166666666666667,Female,,Black or African American,,,,,African American,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,56810,3,2,2,4,4,2,3,4,4.0,4,2.0,2,2,4,4,2,2.0,2,2,4,5,4,4,4,2,4,2,2,4,5.0,4.166666666666667,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,56810,3,3,2,3,2,4,2,2,2.0,3,3.0,3,3,2,3,3,3.0,3,1,3,4,4,3,3,2,4,3,3,2,3.3333333333333335,1.6666666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57175,2,3,1,2,5,1,3,5,5.0,5,4.0,4,4,3,4,3,2.0,2,2,5,5,5,2,5,4,2,2,3,3,4.166666666666667,4.166666666666667,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57175,3,4,4,4,5,1,4,2,5.0,5,3.0,2,2,4,4,1,1.0,2,3,1,2,4,4,4,2,4,2,4,4,5.0,5.0,5.0,Female,,"Asian,Hispanic, Latino, or Spanish,White",,,Vietnamese,,,,Mexican or Mexican American,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57175,1,2,5,4,4,1,3,1,5.0,5,4.0,3,2,5,2,1,2.0,4,3,4,2,3,5,3,3,2,1,1,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,2.0,Collaborative Comparison
@@ -97,6 +120,10 @@ Print, for example, Scottish, Norwegian, Dutch, etc.</spa",welsh,Master’s degr
 PHY105N,57175,4,2,1,5,5,1,4,4,5.0,3,3.0,3,3,3,3,3,2.0,1,3,4,5,5,4,3,1,5,2,4,2,5.0,5.0,5.0,Female,,Black or African American,,,,,African American,,,,,,,,,,Some college but no degree,,2.0,Collaborative Comparison
 PHY105N,57175,5,5,1,5,5,1,5,5,5.0,5,5.0,5,5,5,5,3,3.0,1,3,2,2,4,2,5,5,5,1,5,5,5.0,5.0,0.8333333333333334,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57175,3,3,2,4,4,4,5,5,4.0,4,4.0,4,4,3,5,2,3.0,2,3,4,4,4,2,4,4,4,3,4,3,4.166666666666667,3.3333333333333335,1.6666666666666667,Female,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57175,4,2,3,5,4,3,5,5,5.0,5,3.0,3,2,4,4,1,1.0,1,3,4,5,4,4,4,1,4,3,5,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,White,,,,,,,,,,,,,Italian,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57175,3,1,2,4,5,1,4,5,5.0,4,2.0,3,1,4,5,1,5.0,1,3,5,3,3,4,4,1,5,3,3,4,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,"German,Irish",,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57175,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,0.8333333333333334,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105N,57175,4,2,2,5,5,2,4,5,5.0,5,3.0,3,2,4,5,1,2.0,1,2,3,5,4,3,5,3,4,1,4,4,4.166666666666667,4.166666666666667,1.6666666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57105,3,3,3,3,3,3,5,4,4.0,3,3.0,3,3,3,3,3,3.0,3,3,5,3,3,3,3,3,3,1,3,3,1.6666666666666667,3.3333333333333335,2.5,Female,,Asian,,,Korean,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57105,5,1,1,5,5,1,5,5,5.0,5,1.0,1,1,5,5,1,5.0,1,3,5,5,5,5,5,1,5,1,5,5,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Greek,Master’s degree or above,,0.0,Control
@@ -117,6 +144,9 @@ PHY105N,57105,5,1,1,4,5,1,5,5,5.0,5,3.0,4,4,3,5,2,1.0,1,1,5,5,5,3,4,1,5,2,4,4,5.
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,High school,,0.0,Control
 PHY105N,57105,4,2,2,4,4,1,4,5,5.0,4,3.0,3,2,3,3,1,2.0,2,1,5,3,5,3,4,3,4,2,4,4,2.5,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Chinese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57105,4,3,2,4,4,2,4,4,4.0,4,3.0,3,3,4,3,2,1.0,1,2,4,3,4,3,4,3,4,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105N,57105,3,3,3,4,4,2,4,4,5.0,5,3.0,3,4,3,4,1,1.0,3,3,4,3,4,4,4,4,3,2,3,3,3.3333333333333335,3.3333333333333335,4.166666666666667,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57105,1,1,1,1,1,1,5,5,5.0,1,3.0,3,1,3,3,2,1.0,1,3,5,3,5,3,4,2,2,2,5,5,5.0,5.0,5.0,Male,,"Asian,White",,,"Chinese,Vietnamese",,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Not sure of the exact details,Bachelor’s degree,,0.0,Control
 PHY105M,57021,5,5,5,1,2,4,2,2,3.0,5,5.0,5,5,5,5,5,4.0,4,3,1,1,4,5,5,3,5,1,2,2,2.5,5.0,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57021,4,3,2,4,4,3,4,4,4.0,4,3.0,3,3,4,4,3,2.0,2,3,4,4,4,3,4,3,4,2,3,4,3.3333333333333335,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"German,Irish",,Master’s degree or above,,0.0,Control
 PHY105M,57021,5,3,1,5,5,1,5,3,5.0,5,4.0,5,1,5,5,1,1.0,1,3,3,5,5,5,4,4,5,1,4,5,2.5,3.3333333333333335,1.6666666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
@@ -130,6 +160,7 @@ PHY105M,57021,4,2,4,4,4,2,2,2,5.0,5,2.0,2,4,2,4,1,4.0,2,1,4,4,4,5,5,4,4,2,2,5,5.
 PHY105M,57021,4,4,2,4,4,3,4,4,4.0,4,5.0,4,2,4,4,3,2.0,2,3,2,3,4,4,4,4,4,2,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,Irish",,Some college but no degree,,0.0,Control
 PHY105M,57021,4,3,1,5,5,1,5,4,5.0,5,4.0,3,2,5,5,1,1.0,1,2,5,4,4,4,5,1,5,2,4,2,3.3333333333333335,1.6666666666666667,4.166666666666667,Female,,"Black or African American,White",,,,,African American,,,,,,,,Polish,,Bachelor’s degree,,0.0,Control
 PHY105M,57021,3,4,2,4,4,3,2,1,5.0,4,3.0,3,2,3,3,3,2.0,2,3,1,1,5,3,4,5,2,1,3,4,5.0,5.0,5.0,Male,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,0.0,Control
+PHY105M,57021,3,3,4,2,4,4,4,4,4.0,3,5.0,2,4,2,4,2,2.0,2,3,2,5,5,4,5,4,3,1,3,4,4.166666666666667,3.3333333333333335,4.166666666666667,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57025,4,4,5,5,4,2,4,5,5.0,4,2.0,3,5,2,3,2,1.0,4,3,5,3,5,5,4,2,2,1,4,4,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,57025,4,3,2,4,4,2,4,4,4.0,4,2.0,4,3,4,4,2,2.0,2,3,3,3,4,4,4,2,4,2,3,4,4.166666666666667,3.3333333333333335,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,57025,4,3,2,5,5,1,4,4,5.0,5,4.0,3,3,3,4,1,3.0,2,1,3,4,4,4,4,4,4,4,4,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,Irish,,Master’s degree or above,,1.0,Partner Agreements
@@ -141,6 +172,11 @@ PHY105M,57025,4,3,2,4,4,4,3,4,4.0,5,3.0,3,2,3,4,3,1.0,2,5,4,5,5,1,4,4,2,1,3,4,5.
 PHY105M,57025,2,5,4,4,4,2,4,2,4.0,4,3.0,3,4,4,3,2,1.0,2,2,2,2,4,4,4,2,4,2,2,4,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,57025,4,4,2,4,4,3,4,4,3.0,3,3.0,3,3,3,4,3,3.0,2,3,4,3,4,4,4,4,4,4,3,4,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Salvadoran,,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,57025,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,2.5,Non-binary,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,57025,5,2,2,5,5,3,4,4,4.0,5,5.0,4,2,3,4,1,2.0,3,1,5,4,5,5,4,3,5,2,2,5,4.166666666666667,5.0,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,57025,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,5,2,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,English,,Some college but no degree,,1.0,Partner Agreements
+PHY105N,57025,3,5,3,3,5,2,3,4,4.0,5,5.0,2,4,4,4,3,1.0,4,3,1,3,4,4,4,3,4,3,2,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Peruvian,,,,,,,Other,both have MD,1.0,Partner Agreements
+PHY105M,57025,4,3,3,4,4,2,4,3,4.0,4,4.0,2,3,3,4,2,2.0,2,2,3,5,4,4,5,4,4,4,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57195,3,1,1,5,5,1,5,5,5.0,3,3.0,3,3,3,4,1,2.0,1,1,5,2,4,3,5,1,3,1,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
 PHY105N,57195,5,4,1,5,5,1,5,5,5.0,5,1.0,3,1,5,5,1,1.0,1,1,5,5,5,5,5,1,5,1,5,3,5.0,5.0,5.0,Female,,"Asian,White",,,"Chinese,Vietnamese",,,,,,,,,,"Italian,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Czech,Master’s degree or above,,0.0,Control
@@ -151,6 +187,8 @@ PHY105N,57195,4,3,4,4,4,2,5,4,5.0,4,3.0,3,1,3,5,2,1.0,1,5,3,5,5,4,5,4,4,3,5,4,3.
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Dutch,Master’s degree or above,,0.0,Control
 PHY105N,57195,4,3,2,4,5,3,5,5,5.0,5,4.0,4,3,3,4,3,2.0,1,2,4,4,4,5,5,3,5,1,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Master’s degree or above,,0.0,Control
+PHY105N,57195,5,2,1,5,4,1,5,4,5.0,5,4.0,3,1,4,5,2,2.0,1,3,4,4,4,4,4,2,4,2,5,4,4.166666666666667,3.3333333333333335,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57195,2,3,3,3,2,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,1,1,2,1,4,3,3,4,1,2,3,3.3333333333333335,2.5,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,56940,4,3,3,4,4,3,4,4,5.0,4,3.0,3,3,4,4,3,2.0,2,3,4,4,4,4,4,3,5,3,5,3,3.3333333333333335,2.5,2.5,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56940,2,4,2,4,4,2,4,4,4.0,4,4.0,4,3,3,3,1,1.0,2,3,4,4,4,4,4,2,4,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa","Scottish, Finnish",Master’s degree or above,,1.0,Partner Agreements
@@ -171,6 +209,8 @@ PHY105M,56940,4,4,2,4,4,2,5,4,4.0,4,3.0,4,3,4,4,2,4.0,2,3,2,4,4,3,4,2,4,1,5,3,4.
 PHY105M,56940,4,4,2,2,4,2,2,2,4.0,4,1.0,4,5,2,3,2,1.0,3,2,3,2,4,4,4,4,4,2,4,3,5.0,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56940,4,2,2,5,5,1,5,1,5.0,5,4.0,4,2,4,5,1,2.0,3,2,4,4,4,3,5,1,5,4,2,5,5.0,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,German,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56940,5,2,4,5,5,2,5,5,4.0,5,2.0,3,1,3,4,3,1.0,1,1,4,2,3,3,5,1,4,1,4,2,4.166666666666667,2.5,2.5,Female,,"Hispanic, Latino, or Spanish",,,,,,,Salvadoran,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56940,2,2,1,4,1,4,4,5,2.0,5,3.0,5,4,2,4,2,1.0,2,4,4,5,5,5,4,4,4,1,5,4,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Cuban,Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",peruvian,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56960,4,3,3,4,4,3,4,4,3.0,4,3.0,3,4,3,4,3,2.0,3,3,4,4,3,3,4,3,4,2,4,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56960,2,2,2,4,4,4,2,4,3.0,3,4.0,3,2,1,3,2,2.0,2,2,4,4,5,2,3,1,3,1,4,3,5.0,0.8333333333333334,4.166666666666667,Female,,Black or African American,,,,,Nigerian,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -185,6 +225,10 @@ PHY105M,56960,4,1,2,5,4,1,4,5,5.0,5,3.0,3,1,3,5,1,1.0,1,1,5,2,4,3,5,1,5,2,3,4,4.
 PHY105M,56960,3,5,2,5,5,1,5,5,5.0,5,3.0,5,3,2,5,1,1.0,3,1,4,2,5,5,5,3,5,2,5,4,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Venezuelan,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56960,5,1,1,5,5,1,5,4,5.0,5,4.0,3,1,5,5,1,1.0,1,1,5,5,3,5,5,1,5,1,4,5,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
+PHY105M,56960,2,2,2,5,4,2,5,5,4.0,4,2.0,2,4,2,5,2,2.0,2,3,4,2,5,4,5,4,4,2,4,2,5.0,3.3333333333333335,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56960,5,4,4,4,5,2,4,4,5.0,5,1.0,4,4,5,4,1,1.0,2,5,2,2,4,4,5,4,4,1,5,2,4.166666666666667,4.166666666666667,1.6666666666666667,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Norwegian,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56960,3,3,2,4,4,2,4,4,4.0,5,3.0,4,3,3,4,2,2.0,1,2,3,3,3,3,4,3,4,2,3,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57095,3,5,4,4,2,2,2,2,3.0,4,2.0,3,4,4,3,3,4.0,3,3,3,3,3,3,4,2,4,3,3,3,2.5,2.5,3.3333333333333335,Female,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,0.0,Control
 PHY105N,57095,3,3,3,4,4,2,4,4,4.0,4,4.0,4,2,4,4,1,1.0,3,2,4,4,4,3,3,3,5,2,4,4,3.3333333333333335,4.166666666666667,3.3333333333333335,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57095,2,4,2,4,4,3,3,4,4.0,4,4.0,3,3,3,5,3,3.0,4,3,3,3,5,2,2,4,4,2,3,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
@@ -197,6 +241,9 @@ PHY105N,57095,4,4,3,4,4,1,2,2,3.0,4,2.0,5,4,2,4,2,2.0,1,4,4,5,4,4,4,2,2,2,4,4,3.
 PHY105N,57095,4,4,1,5,5,1,5,5,5.0,5,3.0,4,3,5,5,1,1.0,1,1,5,5,2,5,5,1,5,1,4,5,5.0,0.8333333333333334,5.0,Female,,"American Indian or Alaska Native,Hispanic, Latino, or Spanish",,Aztec,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
 PHY105N,57095,4,3,4,4,5,1,3,2,5.0,5,2.0,4,3,5,4,1,1.0,1,2,2,4,4,4,5,2,5,2,3,3,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57095,3,2,2,5,5,1,5,5,5.0,5,2.0,4,2,4,5,1,5.0,1,3,4,2,4,4,5,2,5,3,5,4,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57095,4,3,2,4,4,2,4,4,4.0,4,3.0,4,4,4,4,2,2.0,2,4,2,2,5,5,5,2,4,2,2,4,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
+PHY105N,57095,2,5,5,5,5,2,4,1,5.0,5,3.0,3,5,5,5,1,1.0,2,4,1,2,5,4,5,4,5,1,4,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Venezuelan,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,57024,4,2,1,5,5,1,5,5,5.0,5,5.0,5,1,5,5,1,5.0,1,4,5,4,5,5,5,1,5,1,5,5,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57024,3,3,4,3,3,3,3,3,3.0,4,3.0,3,3,4,3,3,4.0,3,2,2,4,4,4,4,4,4,3,3,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Male,,Asian,,,Korean,,,,,,,,,,,,Some college but no degree,,0.0,Control
 PHY105M,57024,4,4,2,4,4,2,4,4,4.0,4,3.0,4,3,4,4,2,3.0,2,3,2,4,4,4,5,2,4,4,4,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,0.0,Control
@@ -211,6 +258,8 @@ Print, for example, Pakistani, Cambodian, Hmong, etc.",Bengali,,,,,,,,,,,Master�
 PHY105M,57024,3,3,3,4,3,2,3,4,5.0,5,4.0,4,3,3,3,2,2.0,2,3,3,2,3,3,4,2,3,3,3,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,57024,3,4,5,2,3,5,2,2,2.0,3,4.0,4,5,4,4,4,2.0,4,2,2,4,4,4,2,2,5,2,2,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
 PHY105M,57024,3,5,5,3,5,1,1,1,5.0,5,5.0,1,5,4,2,3,2.0,5,3,1,1,1,5,3,2,2,1,1,1,4.166666666666667,5.0,4.166666666666667,Male,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,57024,4,3,3,4,4,3,4,5,5.0,4,4.0,3,3,4,5,2,1.0,1,2,4,3,4,4,5,2,4,3,4,3,3.3333333333333335,3.3333333333333335,2.5,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,57024,4,3,2,4,3,1,5,5,5.0,4,5.0,4,2,4,4,3,2.0,3,3,4,5,4,4,4,5,2,4,1,5,5.0,5.0,5.0,Female,,Black or African American,,,,,African American,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,56865,5,5,5,2,4,2,4,3,3.0,3,2.0,3,4,4,3,4,2.0,4,3,2,3,4,3,4,3,4,3,3,3,4.166666666666667,4.166666666666667,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,High school,,0.0,Control
 PHY105M,56865,4,3,3,5,5,1,4,4,5.0,5,2.0,4,2,5,5,1,1.0,1,2,4,4,4,5,5,1,5,3,5,4,5.0,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56865,5,3,1,5,5,1,5,5,5.0,5,1.0,5,1,4,5,3,2.0,1,1,5,5,5,4,4,1,5,1,2,5,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
@@ -225,6 +274,8 @@ PHY105M,56865,3,3,2,4,3,2,5,4,4.0,5,2.0,2,2,3,5,2,2.0,1,4,4,2,5,2,4,2,5,3,4,4,3.
 PHY105M,56865,5,1,2,5,4,4,4,5,5.0,4,3.0,4,3,4,4,1,1.0,1,1,5,4,4,4,5,3,5,2,4,4,3.3333333333333335,3.3333333333333335,4.166666666666667,Female,,Asian,,,"Chinese,Filipino",,,,,,,,,,,,Some college but no degree,,0.0,Control
 PHY105M,56865,2,3,2,5,5,1,5,4,5.0,5,2.0,4,4,5,5,1,1.0,1,3,4,4,4,5,5,1,5,1,4,4,5.0,5.0,5.0,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56865,1,1,1,1,5,1,5,5,5.0,1,3.0,5,1,5,5,1,1.0,1,1,5,2,4,5,5,1,5,1,5,5,5.0,5.0,5.0,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,56865,3,3,2,3,4,2,4,4,4.0,4,3.0,4,2,4,4,3,2.0,2,3,2,3,4,4,2,2,3,2,2,4,3.3333333333333335,3.3333333333333335,4.166666666666667,Male,,Prefer not to disclose,,,,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,56865,3,3,3,3,5,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,"Male,Non-binary",,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56895,4,4,2,4,4,2,4,4,4.0,4,3.0,2,2,2,2,3,1.0,2,2,2,3,4,3,2,4,4,1,4,2,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56895,3,3,3,3,3,3,3,3,3.0,2,3.0,4,4,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Female,,Black or African American,,,,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56895,4,4,3,4,4,1,3,4,5.0,5,2.0,4,3,4,4,2,2.0,2,3,4,3,4,3,4,2,3,1,3,5,5.0,4.166666666666667,3.3333333333333335,Male,,Middle Eastern or North African,,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
@@ -238,6 +289,11 @@ PHY105M,56895,3,3,4,5,5,2,3,3,5.0,5,5.0,2,4,3,5,1,1.0,2,2,4,4,4,4,4,2,5,3,4,3,5.
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",,,,,,"Irish,English",,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56895,5,2,1,5,5,1,5,4,4.0,4,4.0,4,2,5,5,1,1.0,1,1,5,2,4,5,5,1,5,1,5,2,4.166666666666667,4.166666666666667,5.0,Male,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56895,5,3,2,5,5,2,5,2,4.0,5,3.0,4,2,4,5,2,1.0,1,2,4,3,4,4,5,4,5,2,4,5,5.0,0.8333333333333334,5.0,Female,,White,,,,,,,,,,,,,"German,French",,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56895,3,1,1,5,5,1,4,4,5.0,5,3.0,3,3,4,4,1,1.0,1,1,5,4,3,5,5,1,5,1,3,3,5.0,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56895,2,2,3,2,4,4,4,4,3.0,4,2.0,3,3,3,1,3,2.0,1,3,2,4,5,4,4,3,4,1,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56895,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56895,4,3,4,3,3,3,3,3,3.0,4,2.0,4,5,3,3,4,3.0,3,4,3,4,4,2,4,4,4,3,4,3,2.5,3.3333333333333335,2.5,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,1.0,Partner Agreements
+PHY105M,56895,4,2,2,4,5,3,5,4,4.0,4,3.0,3,2,3,4,3,1.0,1,1,4,4,4,4,4,3,5,1,4,5,5.0,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Salvadoran,,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,56975,4,4,4,4,4,2,4,3,5.0,4,4.0,4,2,5,4,1,2.0,2,2,4,4,2,4,4,2,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Middle Eastern or North African,,,,,,,,,Iranian,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,56975,4,4,2,1,4,3,4,4,4.0,4,3.0,4,3,2,4,2,2.0,2,3,2,2,4,4,4,4,4,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,0.0,Control
 PHY105M,56975,3,3,3,4,4,4,4,4,4.0,4,1.0,4,3,3,3,1,1.0,2,3,4,3,4,4,4,2,4,1,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
@@ -253,6 +309,8 @@ PHY105M,56975,4,3,3,4,4,2,4,2,4.0,4,2.0,4,4,4,4,2,1.0,2,3,4,4,4,4,4,1,5,1,3,4,4.
 PHY105M,56975,3,4,2,4,4,2,4,4,4.0,4,4.0,2,2,2,4,2,1.0,2,2,2,1,2,4,4,4,2,2,2,4,5.0,1.6666666666666667,2.5,Male,,Asian,,,Filipino,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56975,3,2,3,4,4,2,4,4,4.0,4,3.0,3,1,4,4,2,2.0,2,2,4,2,4,4,4,2,4,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56975,3,2,2,4,2,2,5,4,5.0,2,5.0,2,2,3,5,2,2.0,1,2,3,4,4,2,5,4,5,1,4,2,5.0,5.0,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56975,5,2,1,5,5,1,5,4,5.0,5,2.0,2,1,5,4,1,1.0,1,1,4,5,4,5,5,1,5,1,3,5,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56975,5,5,4,5,5,1,4,2,5.0,4,2.0,5,2,5,5,1,1.0,3,4,2,3,4,4,5,3,4,1,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56835,5,3,2,4,5,4,4,5,4.0,4,3.0,4,2,4,4,2,2.0,1,3,4,4,4,4,4,2,4,3,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Hispanic,,,,,,,Associate's or technical degree,,0.0,Control
 PHY105M,56835,4,5,5,2,5,1,2,1,4.0,5,5.0,2,5,4,5,1,1.0,4,2,1,4,5,4,4,2,4,1,2,5,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,0.0,Control
@@ -269,6 +327,11 @@ Print, for example, Pakistani, Cambodian, Hmong, etc.",Taiwanese,,,,,,,,,,,High 
 PHY105M,56835,2,5,3,2,4,3,4,2,5.0,5,4.0,2,2,3,3,1,1.0,3,3,2,2,3,3,5,2,4,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56835,4,2,2,5,5,3,5,3,5.0,3,3.0,4,1,4,4,1,3.0,2,2,5,5,4,4,4,3,5,1,4,5,3.3333333333333335,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
 PHY105M,56835,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,2,3,3,2.5,3.3333333333333335,2.5,Female,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,0.0,Control
+PHY105M,56835,3,4,3,4,4,2,4,3,4.0,4,3.0,2,3,4,3,1,2.0,2,3,2,2,4,3,5,2,4,2,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Paraguayan,,,,,"German,English",,Bachelor’s degree,,0.0,Control
+PHY105M,56835,3,5,4,3,5,2,4,1,5.0,5,2.0,5,5,4,5,2,1.0,2,1,1,1,4,4,5,1,5,1,4,4,2.5,2.5,1.6666666666666667,Female,,White,,,,,,,,,,,,,Irish,,Bachelor’s degree,,0.0,Control
+PHY105M,56835,4,2,2,5,5,4,4,4,4.0,4,4.0,2,3,4,4,2,1.0,2,2,4,3,5,4,5,1,5,1,4,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"Irish,English",,Bachelor’s degree,,0.0,Control
+PHY105M,56835,4,4,1,4,5,2,5,5,5.0,5,3.0,5,4,5,5,2,1.0,1,3,4,3,3,4,4,1,5,2,5,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56825,3,3,3,3,3,1,4,5,5.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,2,5,4,3.3333333333333335,3.3333333333333335,2.5,Female,,"Hispanic, Latino, or Spanish",,,,,,,Cuban,,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,56825,2,3,5,5,3,1,4,4,5.0,4,5.0,2,2,4,4,2,1.0,3,1,4,4,5,3,5,2,5,2,3,4,2.5,3.3333333333333335,2.5,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Some college but no degree,,1.0,Partner Agreements
 PHY105M,56825,2,5,5,4,4,1,2,2,5.0,5,4.0,5,5,4,5,4,1.0,3,2,2,1,3,4,4,1,4,1,4,2,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
@@ -280,6 +343,7 @@ PHY105M,56825,5,1,2,5,5,1,5,5,5.0,5,5.0,5,2,4,5,1,2.0,2,2,5,5,4,5,5,2,5,1,5,2,4.
 PHY105M,56825,4,4,5,1,5,1,1,1,5.0,5,2.0,5,5,4,4,2,1.0,4,1,3,1,2,3,5,2,4,1,4,3,5.0,4.166666666666667,5.0,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56825,5,3,2,5,5,1,5,5,5.0,4,2.0,3,1,3,4,1,1.0,1,2,4,4,4,4,4,1,4,1,4,4,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,English,,Associate's or technical degree,,1.0,Partner Agreements
 PHY105M,56825,2,3,2,5,5,1,4,4,5.0,5,1.0,3,3,4,4,1,2.0,2,2,4,5,4,3,4,1,4,1,3,4,2.5,1.6666666666666667,1.6666666666666667,Female,,"Asian,White",,,Korean,,,,,,,,,,"German,Polish",,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56825,5,2,2,4,5,4,5,5,4.0,5,3.0,4,4,3,4,2,3.0,2,2,5,5,5,5,5,1,5,3,4,3,2.5,3.3333333333333335,2.5,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
 PHY105N,57160,3,3,2,4,4,2,4,5,5.0,5,4.0,1,4,4,2,2,1.0,2,2,4,4,4,5,4,2,2,2,2,4,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Asian,White",,,Asian Indian,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Jewish,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57160,5,2,1,4,4,1,4,5,5.0,5,4.0,1,1,3,5,2,2.0,1,2,4,2,5,3,4,1,2,1,3,4,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -291,6 +355,11 @@ PHY105N,57160,3,1,1,4,5,1,4,4,5.0,5,4.0,3,3,4,3,1,2.0,2,1,4,4,4,4,4,1,4,1,3,3,4.
 PHY105N,57160,4,2,1,4,4,1,3,3,4.0,5,2.0,5,3,4,5,1,1.0,2,2,3,4,4,4,4,2,4,3,5,2,4.166666666666667,1.6666666666666667,3.3333333333333335,Female,,White,,,,,,,,,,,,,"German,Irish",,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57160,2,2,1,5,4,2,4,5,5.0,5,3.0,4,1,4,5,2,1.0,1,2,5,2,3,4,5,2,5,1,4,4,5.0,5.0,5.0,Female,,Black or African American,,,,,African American,,,,,,,,,,Some college but no degree,,2.0,Collaborative Comparison
 PHY105N,57160,5,1,1,5,5,2,5,4,5.0,5,3.0,3,2,4,3,1,2.0,1,2,5,3,3,4,5,2,5,1,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57160,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Belgian,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57160,2,5,4,2,4,1,4,1,3.0,5,2.0,4,4,4,4,3,1.0,2,4,1,3,4,4,5,3,5,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,Irish,,High school,,2.0,Collaborative Comparison
+PHY105N,57160,3,3,4,3,3,3,4,4,5.0,3,3.0,3,3,3,4,2,4.0,2,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Male,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57160,2,4,4,2,3,2,4,3,4.0,2,2.0,4,5,4,4,3,2.0,4,2,4,2,3,3,4,2,3,2,4,4,3.3333333333333335,0.8333333333333334,2.5,Male,,"Asian,White",,,Korean,,,,,,,,,,English,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56965,4,5,2,3,5,1,4,3,5.0,4,5.0,2,4,4,4,3,1.0,3,5,1,2,5,3,5,4,2,2,2,1,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56965,2,4,5,4,4,1,4,2,5.0,4,5.0,4,2,4,4,2,4.0,2,1,2,4,2,4,5,2,4,2,4,4,5.0,4.166666666666667,5.0,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,56965,4,3,3,5,5,1,4,4,5.0,5,5.0,3,3,4,5,1,5.0,2,1,4,4,5,3,5,1,4,3,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Some college but no degree,,0.0,Control
@@ -303,6 +372,9 @@ PHY105M,56965,4,5,3,3,4,3,4,4,4.0,4,3.0,3,3,3,3,3,2.0,3,3,2,3,4,4,3,3,3,3,3,3,3.
 PHY105M,56965,4,3,1,5,5,1,5,4,5.0,5,2.0,5,2,4,4,1,1.0,1,1,4,4,5,4,5,2,4,3,3,4,5.0,4.166666666666667,4.166666666666667,Non-binary,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",,,,,,,,Some college but no degree,,0.0,Control
 PHY105M,56965,5,3,2,5,5,2,5,4,5.0,5,3.0,4,2,5,4,1,1.0,2,5,4,5,5,5,4,4,4,1,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56965,2,3,3,4,4,1,4,5,4.0,4,4.0,3,3,5,4,2,2.0,3,3,4,4,4,4,4,2,3,2,4,4,5.0,5.0,4.166666666666667,Male,,"Black or African American,Hispanic, Latino, or Spanish",,,,,African American,,Puerto Rican,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,56965,5,5,5,5,5,3,3,3,3.0,4,2.0,4,4,4,4,4,2.0,4,4,5,2,5,3,4,4,4,4,4,4,5.0,1.6666666666666667,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,56965,1,5,5,1,1,2,2,1,2.0,5,1.0,3,5,1,1,4,1.0,5,3,1,1,5,3,4,4,1,1,5,1,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,0.0,Control
 PHY105M,57000,3,4,2,4,4,1,4,4,4.0,5,4.0,4,4,4,4,2,2.0,2,4,4,4,4,4,4,4,5,2,5,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,57000,3,3,3,3,3,2,4,3,3.0,4,4.0,4,3,4,3,3,2.0,2,3,3,5,3,3,4,2,4,2,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
 PHY105M,57000,3,3,3,4,4,2,3,4,5.0,5,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,1,3,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -316,6 +388,9 @@ PHY105M,57000,3,5,4,1,5,2,2,4,4.0,4,4.0,2,4,4,4,1,2.0,4,4,4,1,4,3,4,3,2,2,2,4,4.
 PHY105M,57000,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Prefer not to disclose,,White,,,,,,,,,,,,,,,Prefer not to answer,,2.0,Collaborative Comparison
 PHY105M,57000,2,1,3,4,3,5,3,5,3.0,3,4.0,2,3,3,3,3,4.0,2,3,2,3,4,3,4,3,3,3,3,3,1.6666666666666667,3.3333333333333335,2.5,Male,,Asian,,,Chinese,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,57000,3,3,2,4,4,3,3,4,4.0,4,4.0,3,2,4,4,2,2.0,3,2,4,4,4,3,4,3,4,3,4,4,3.3333333333333335,2.5,3.3333333333333335,Female,,White,,,,,,,,,,,,,"German,English",,Some college but no degree,,2.0,Collaborative Comparison
+PHY105M,57000,5,1,1,5,5,1,5,5,5.0,5,1.0,5,4,5,5,1,1.0,1,1,5,4,4,4,5,1,5,1,5,1,5.0,5.0,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,57000,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,2,1,3,3,4,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105M,57000,5,2,1,5,5,1,5,4,5.0,5,4.0,4,2,4,1,1,1.0,5,1,4,3,4,4,5,1,5,1,2,4,5.0,4.166666666666667,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57165,4,3,2,4,4,3,4,4,4.0,4,3.0,3,1,4,5,3,2.0,1,4,4,4,4,4,5,3,5,2,5,5,5.0,5.0,2.5,Male,,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,1.0,Partner Agreements
 PHY105N,57165,3,3,2,4,3,1,4,3,5.0,4,4.0,4,4,3,4,1,1.0,2,4,5,2,5,2,2,1,2,4,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Taiwanese,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
@@ -327,6 +402,11 @@ PHY105N,57165,4,4,2,4,4,1,3,2,5.0,4,4.0,4,3,4,5,1,1.0,2,2,2,2,3,4,5,1,4,2,4,4,4.
 PHY105N,57165,2,5,4,4,3,4,2,2,3.0,3,3.0,3,3,3,3,3,1.0,4,2,3,2,5,3,3,4,3,3,3,3,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57165,4,3,2,4,4,1,4,4,5.0,5,4.0,2,2,4,5,1,1.0,2,2,4,4,4,3,5,2,4,2,4,2,3.3333333333333335,3.3333333333333335,4.166666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57165,4,3,2,4,5,1,5,4,5.0,5,2.0,4,3,5,4,1,1.0,1,3,4,3,4,4,5,3,5,2,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57165,3,3,3,4,3,3,3,3,3.0,3,3.0,3,3,3,2,2,4.0,2,2,4,3,4,4,3,3,3,3,3,3,2.5,2.5,2.5,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57165,4,4,3,3,5,2,3,4,4.0,4,5.0,3,2,3,4,2,2.0,2,3,3,1,4,4,5,2,4,2,2,4,5.0,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57165,3,3,2,5,4,1,5,5,5.0,5,4.0,2,1,4,4,2,1.0,3,1,4,5,5,5,4,2,2,2,4,5,2.5,3.3333333333333335,1.6666666666666667,Male,,White,,,,,,,,,,,,,German,,Some college but no degree,,1.0,Partner Agreements
+PHY105N,57165,3,3,3,3,3,3,4,5,3.0,3,3.0,3,3,3,3,3,3.0,1,3,4,4,4,3,3,5,3,3,3,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57165,4,2,1,4,5,1,4,4,5.0,4,2.0,1,4,1,3,1,1.0,4,1,4,4,4,2,2,3,4,2,4,5,5.0,3.3333333333333335,4.166666666666667,Female,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56890,4,2,1,5,4,1,5,5,4.0,4,3.0,4,2,4,4,1,5.0,2,2,4,3,4,4,4,2,5,2,4,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Bangladeshi,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56890,4,3,2,4,4,2,4,4,5.0,5,2.0,3,2,3,5,2,1.0,2,3,4,3,4,3,4,2,4,1,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,Irish,,Bachelor’s degree,,0.0,Control
@@ -344,6 +424,8 @@ PHY105M,56890,5,1,1,5,5,1,5,5,5.0,4,2.0,4,3,4,5,1,1.0,1,1,4,5,4,4,4,2,4,1,5,2,5.
 PHY105M,56890,4,3,2,5,5,1,4,3,5.0,5,5.0,4,3,5,4,1,2.0,1,3,4,1,5,5,5,1,4,1,4,5,5.0,4.166666666666667,3.3333333333333335,Female,,White,,,,,,,,,,,,,Italian,,Master’s degree or above,,0.0,Control
 PHY105M,56890,4,4,1,3,4,1,4,4,5.0,5,5.0,2,3,5,4,3,2.0,2,5,2,2,2,4,5,2,4,1,4,4,5.0,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56890,5,3,1,5,4,1,5,5,4.0,5,3.0,3,3,3,5,2,1.0,1,3,2,5,5,5,4,4,5,1,2,5,4.166666666666667,5.0,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
+PHY105M,56890,3,3,3,5,4,2,4,4,5.0,5,5.0,3,2,4,4,1,1.0,2,1,4,4,4,3,4,1,5,2,4,2,4.166666666666667,4.166666666666667,2.5,Female,,White,,,,,,,,,,,,,English,,Master’s degree or above,,0.0,Control
+PHY105M,56890,5,4,2,5,4,2,5,4,4.0,5,4.0,5,3,4,5,2,1.0,2,1,4,3,5,5,5,1,5,2,5,3,5.0,1.6666666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,57015,3,3,3,4,5,2,4,4,5.0,5,4.0,3,3,3,3,1,2.0,2,3,4,2,4,4,4,3,3,3,4,2,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,57015,4,2,3,4,4,3,4,2,3.0,4,3.0,3,1,4,4,2,1.0,2,2,5,5,2,4,4,2,5,2,4,2,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,Middle Eastern or North African,,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
 Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Turkish,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -356,6 +438,7 @@ Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Russian,Master’s de
 PHY105M,57015,2,2,2,4,4,2,3,4,3.0,4,3.0,3,2,3,4,2,2.0,2,2,3,2,4,3,4,4,4,2,2,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,57015,4,2,1,5,5,1,5,4,5.0,5,2.0,4,2,3,5,1,1.0,1,1,5,5,5,5,3,2,5,1,3,5,5.0,4.166666666666667,5.0,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,57015,4,4,3,5,5,3,4,3,5.0,5,2.0,4,1,5,5,1,1.0,2,3,5,5,4,4,4,3,5,1,5,4,3.3333333333333335,4.166666666666667,4.166666666666667,Prefer not to disclose,,American Indian or Alaska Native,,alabama coushatta,,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,57015,4,2,2,4,5,1,5,5,5.0,5,3.0,4,2,4,5,1,1.0,2,2,4,3,4,4,5,2,5,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56945,4,3,1,4,4,3,5,4,4.0,3,4.0,3,3,3,4,2,3.0,1,2,3,1,4,4,4,2,4,1,3,4,5.0,4.166666666666667,5.0,Non-binary,,Asian,,,Chinese,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56945,3,4,4,4,4,4,4,4,2.0,5,1.0,5,1,4,4,4,1.0,3,4,5,3,4,5,4,3,4,4,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,2.0,Collaborative Comparison
 PHY105M,56945,2,3,3,3,3,3,3,4,2.0,3,3.0,3,3,2,3,3,3.0,3,3,4,3,4,3,3,3,3,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,"Male,Female",,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -371,6 +454,7 @@ PHY105M,56945,3,1,1,4,4,3,4,4,5.0,5,2.0,4,2,3,5,1,3.0,2,1,2,2,4,4,4,3,5,1,4,2,5.
 PHY105M,56945,4,2,2,4,5,2,4,4,5.0,5,3.0,3,3,5,5,2,1.0,3,2,3,3,4,4,4,1,3,2,4,4,5.0,5.0,5.0,Male,,"Asian,White",,,Vietnamese,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56945,4,3,3,4,4,4,4,5,5.0,4,5.0,2,2,4,5,1,2.0,3,2,4,5,5,5,4,3,4,2,4,5,2.5,4.166666666666667,3.3333333333333335,Female,,Black or African American,,,,,Jamaican,,,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105M,56945,3,3,3,4,5,2,4,4,5.0,4,4.0,2,3,4,4,2,1.0,1,2,4,5,4,4,5,3,4,4,5,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57055,3,3,2,5,4,1,4,4,4.0,5,4.0,2,3,4,5,1,3.0,1,1,2,2,3,5,3,3,5,2,4,4,4.166666666666667,5.0,5.0,Male,,Black or African American,,,,,Nigerian,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57055,3,3,2,4,4,5,4,4,3.0,2,4.0,2,2,2,4,5,4.0,3,1,2,5,4,1,4,2,4,2,2,5,5.0,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57055,4,1,4,4,5,1,4,4,5.0,5,3.0,5,4,5,5,1,1.0,2,2,5,5,4,5,5,1,5,1,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"German,Irish,English,French",,Bachelor’s degree,,2.0,Collaborative Comparison
@@ -401,6 +485,11 @@ PHY105N,57150,3,3,2,5,5,1,3,4,5.0,5,2.0,3,4,3,5,1,3.0,1,1,4,1,5,3,5,1,4,1,3,4,4.
 PHY105N,57150,4,2,4,4,4,2,4,5,5.0,4,4.0,3,1,2,4,2,5.0,1,2,4,4,4,4,4,4,5,4,4,4,5.0,4.166666666666667,5.0,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Taiwanese,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57150,2,3,5,4,4,1,3,3,5.0,5,4.0,3,4,4,4,2,2.0,4,3,3,4,5,3,5,3,4,3,5,3,4.166666666666667,3.3333333333333335,2.5,,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,Polish,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57150,4,3,1,5,4,2,5,5,4.0,5,4.0,3,2,2,4,4,1.0,2,3,4,4,5,3,4,2,2,2,2,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57150,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,3.3333333333333335,2.5,Male,,Asian,,,Chinese,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57150,3,4,3,3,4,1,4,5,5.0,4,4.0,4,2,4,5,2,1.0,2,3,4,2,4,4,4,4,4,3,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,Irish,English,French",,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57150,3,4,2,3,4,2,4,3,5.0,4,4.0,2,3,5,5,2,3.0,3,2,5,3,5,3,4,3,4,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,White,,,,,,,,,,,,,"German,Italian,French",,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,57020,3,4,4,2,4,1,3,4,4.0,4,3.0,1,3,3,2,1,1.0,2,3,4,1,5,3,5,4,3,1,5,3,4.166666666666667,4.166666666666667,5.0,Female,,White,,,,,,,,,,,,,Italian,,Master’s degree or above,,0.0,Control
 PHY105M,57020,3,3,4,4,4,3,4,3,4.0,2,5.0,4,2,3,2,4,4.0,2,2,5,4,4,3,4,4,3,3,5,4,1.6666666666666667,4.166666666666667,2.5,Non-binary,,White,,,,,,,,,,,,,English,,Master’s degree or above,,0.0,Control
 PHY105M,57020,3,1,2,5,5,1,5,4,5.0,5,4.0,5,1,4,5,1,1.0,1,4,4,4,4,3,3,1,5,1,2,4,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,0.0,Control
@@ -418,6 +507,7 @@ PHY105M,57020,4,4,2,5,5,1,5,5,5.0,5,5.0,4,1,5,4,1,1.0,2,2,4,2,4,4,5,1,4,4,5,5,5.
 PHY105M,57020,4,2,2,5,4,2,4,4,4.0,4,2.0,5,4,4,4,1,2.0,1,2,4,4,3,4,4,1,5,2,2,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,Polish,,Master’s degree or above,,0.0,Control
 PHY105M,57020,4,4,4,4,4,4,4,4,4.0,4,4.0,4,4,4,4,1,1.0,1,4,4,4,4,4,4,2,4,2,3,4,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57020,4,3,2,4,4,3,4,4,4.0,4,3.0,4,2,4,3,2,3.0,2,4,3,2,4,4,4,3,3,3,4,2,5.0,4.166666666666667,3.3333333333333335,"Male,Female",,White,,,,,,,,,,,,,German,,Master’s degree or above,,0.0,Control
+PHY105M,57020,5,3,1,5,5,2,5,5,4.0,3,1.0,4,2,4,4,1,1.0,1,3,5,5,4,4,4,1,4,2,3,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,0.0,Control
 PHY105M,57230,2,4,2,4,4,1,5,5,4.0,4,4.0,4,4,4,5,1,1.0,2,3,2,2,5,4,4,2,4,2,5,2,5.0,0.8333333333333334,5.0,Female,,White,,,,,,,,,,,,,Italian,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57230,4,4,2,5,5,1,5,5,5.0,4,1.0,3,4,5,5,2,2.0,1,2,4,4,2,4,4,1,5,3,4,5,5.0,0.8333333333333334,5.0,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Greek,Bachelor’s degree,,1.0,Partner Agreements
@@ -431,6 +521,9 @@ PHY105N,57230,3,3,1,5,5,1,3,5,5.0,5,3.0,3,2,5,4,1,2.0,2,3,5,5,5,5,5,3,5,1,5,5,5.
 PHY105N,57230,4,3,1,5,5,2,5,5,5.0,5,3.0,3,1,5,4,2,1.0,1,3,5,5,5,4,5,1,5,1,3,3,3.3333333333333335,3.3333333333333335,2.5,Male,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57230,4,4,4,4,5,2,2,4,5.0,5,1.0,2,2,1,5,2,1.0,3,4,1,1,5,5,5,1,2,5,4,4,4.166666666666667,5.0,3.3333333333333335,"Female,Non-binary",,White,,,,,,,,,,,,,"German,Irish,Italian,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Dutch,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57230,3,2,2,5,3,1,4,4,5.0,5,4.0,3,2,5,4,1,1.0,1,3,5,3,2,3,5,1,3,1,3,4,1.6666666666666667,4.166666666666667,1.6666666666666667,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57230,2,3,3,3,4,1,3,4,5.0,4,3.0,3,2,1,4,4,1.0,1,3,4,1,5,5,1,3,2,1,2,3,0.8333333333333334,5.0,1.6666666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Other,middle school,1.0,Partner Agreements
+PHY105N,57230,4,2,3,3,2,2,3,3,4.0,4,2.0,4,3,4,2,3,3.0,2,3,3,2,2,2,2,3,3,3,4,2,3.3333333333333335,3.3333333333333335,3.3333333333333335,Male,,Asian,,,Chinese,,,,,,,,,,,,I'm not sure,,1.0,Partner Agreements
 PHY105M,56955,4,5,1,4,5,1,5,4,5.0,5,3.0,3,4,4,4,2,1.0,1,1,1,4,4,5,5,1,4,1,4,3,5.0,5.0,5.0,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56955,4,4,1,4,5,1,4,5,3.0,5,3.0,3,1,5,5,4,1.0,1,1,5,5,3,5,5,4,5,1,2,5,5.0,5.0,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Some college but no degree,,1.0,Partner Agreements
@@ -444,6 +537,7 @@ Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Jewish,Master’s deg
 PHY105M,56955,5,5,5,5,5,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56955,5,3,2,4,5,3,5,5,5.0,5,5.0,2,1,4,5,1,1.0,1,3,5,5,5,5,5,1,5,3,5,5,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Colombian,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56955,2,2,1,4,5,1,3,4,5.0,5,4.0,4,2,3,5,2,3.0,1,3,4,4,2,5,5,2,4,1,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56830,2,4,5,2,5,2,1,4,5.0,5,2.0,3,5,2,4,2,2.0,2,4,4,2,5,2,5,5,4,2,2,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Russian,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56830,2,3,4,5,5,2,4,4,5.0,5,2.0,4,4,5,5,1,1.0,2,3,4,2,4,4,5,2,4,3,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,2.0,Collaborative Comparison
@@ -456,6 +550,8 @@ PHY105M,56830,4,4,4,5,5,1,1,3,3.0,5,4.0,5,1,3,5,3,1.0,2,4,2,5,2,4,5,4,5,2,5,5,5.
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Norwegian,Some college but no degree,,2.0,Collaborative Comparison
 PHY105M,56830,5,2,1,5,5,2,5,5,5.0,5,3.0,4,1,4,4,1,2.0,1,1,4,4,2,4,4,1,4,2,5,4,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,56830,2,3,4,5,4,4,5,4,5.0,5,4.0,2,2,5,4,1,1.0,1,2,5,2,4,4,4,2,5,1,4,2,4.166666666666667,0.8333333333333334,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,Italian",,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56830,4,4,2,3,2,4,4,4,3.0,3,3.0,1,4,2,3,4,2.0,3,3,4,1,4,5,4,4,3,1,4,4,3.3333333333333335,3.3333333333333335,1.6666666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Other,Middle School,2.0,Collaborative Comparison
+PHY105M,56830,4,1,1,5,5,1,5,5,5.0,5,2.0,4,3,4,5,1,1.0,1,4,5,4,3,4,5,1,5,2,4,4,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56935,4,3,4,4,4,2,3,5,5.0,4,4.0,3,2,4,3,1,2.0,2,1,5,4,4,3,4,2,5,2,3,4,5.0,5.0,5.0,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Some college but no degree,,0.0,Control
 PHY105M,56935,3,3,4,4,4,2,4,4,5.0,4,4.0,3,4,3,4,2,3.0,2,3,4,4,4,4,4,3,2,1,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56935,3,3,4,4,4,1,4,5,5.0,4,3.0,3,2,4,5,1,1.0,1,1,4,3,2,3,3,1,4,3,4,3,5.0,5.0,5.0,Male,,"Asian,White",,,Korean,,,,,,,,,,French,,Master’s degree or above,,0.0,Control
@@ -466,6 +562,11 @@ Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Jewish,Master’s deg
 PHY105M,56935,2,5,2,3,4,1,3,3,4.0,4,1.0,2,4,3,4,1,1.0,2,3,2,2,4,4,4,3,3,3,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,Irish,,Master’s degree or above,,0.0,Control
 PHY105M,56935,4,2,4,5,4,4,5,5,5.0,4,4.0,3,2,2,4,2,2.0,1,1,4,4,5,3,4,2,5,2,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"American Indian or Alaska Native,White",,Chickasaw,,,,,,,,,,,Irish,,Master’s degree or above,,0.0,Control
 PHY105M,56935,3,3,3,3,3,3,3,1,3.0,3,3.0,3,4,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Other,none,0.0,Control
+PHY105M,56935,4,5,3,4,4,2,3,1,3.0,5,2.0,4,4,4,4,2,1.0,4,4,1,2,4,4,4,4,4,3,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,0.0,Control
+PHY105M,56935,3,4,3,5,5,1,4,4,5.0,5,2.0,4,4,4,4,1,1.0,1,3,4,5,3,4,4,4,5,2,4,4,3.3333333333333335,4.166666666666667,3.3333333333333335,Female,,White,,,,,,,,,,,,,Italian,,Bachelor’s degree,,0.0,Control
+PHY105M,56935,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
+PHY105M,56935,3,3,4,4,4,3,4,4,3.0,4,3.0,3,3,4,3,3,3.0,3,3,3,4,4,3,3,3,3,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Some college but no degree,,0.0,Control
+PHY105M,56935,5,4,2,2,3,3,3,2,3.0,3,5.0,5,3,3,3,3,3.0,3,3,4,3,2,3,3,2,3,3,3,3,5.0,2.5,4.166666666666667,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,Some college but no degree,,0.0,Control
 PHY105M,56885,4,3,2,4,4,3,3,3,4.0,4,3.0,2,2,3,5,1,1.0,2,4,4,4,3,4,4,4,4,1,3,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,56885,4,5,2,3,5,1,4,3,5.0,4,5.0,5,3,4,3,1,1.0,1,2,2,4,5,4,4,1,5,2,4,3,5.0,0.8333333333333334,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56885,5,4,2,3,5,2,5,4,4.0,5,3.0,3,3,4,4,2,2.0,2,2,4,4,4,4,4,3,3,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,Polish",,Master’s degree or above,,1.0,Partner Agreements
@@ -484,6 +585,7 @@ PHY105M,56885,3,4,4,3,4,1,4,2,5.0,5,3.0,5,3,4,4,3,1.0,3,4,2,4,4,3,5,4,4,1,5,4,4.
 PHY105M,56885,4,3,3,4,5,2,5,5,5.0,5,4.0,4,2,5,5,2,2.0,1,3,4,4,4,5,5,2,4,1,5,4,5.0,5.0,5.0,Non-binary,,"Asian,White",,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Burmese,,,,,,,,,"German,English,French",,Some college but no degree,,1.0,Partner Agreements
 PHY105M,56885,4,2,4,1,5,4,4,4,5.0,4,1.0,2,3,4,5,2,2.0,2,1,5,5,4,4,4,2,4,3,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,1.0,Partner Agreements
+PHY105M,56885,2,3,2,4,3,3,2,4,4.0,4,4.0,2,2,2,4,3,3.0,2,1,4,4,5,4,4,4,4,3,2,4,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Cuban,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,57022,2,4,4,3,5,1,3,3,5.0,5,4.0,2,5,4,4,1,1.0,3,3,3,2,4,3,3,3,2,1,4,4,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"American Indian or Alaska Native,White",,Lena Lenape ,,,,,,,,,,,Irish,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,57022,3,4,2,5,5,1,2,4,5.0,5,3.0,4,2,5,5,1,1.0,1,1,4,5,5,4,4,2,4,1,3,4,5.0,5.0,5.0,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,57022,3,4,3,4,4,2,3,3,4.0,4,3.0,3,3,4,5,2,1.0,1,1,3,4,4,3,4,3,4,2,3,4,5.0,4.166666666666667,5.0,Female,,Black or African American,,,,,Nigerian,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -497,6 +599,8 @@ PHY105M,57022,5,3,2,5,4,3,4,5,5.0,5,4.0,3,4,3,3,2,2.0,3,3,2,5,4,4,5,4,4,1,3,4,3.
 PHY105M,57022,3,5,5,5,4,1,5,3,5.0,5,1.0,1,5,5,5,2,1.0,1,3,2,2,4,4,5,5,4,2,4,5,5.0,5.0,5.0,Female,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,57022,5,2,3,5,5,2,5,4,4.0,5,2.0,3,2,5,4,1,1.0,1,2,4,4,4,4,4,2,5,2,5,2,5.0,4.166666666666667,5.0,Female,,White,,,,,,,,,,,,,Irish,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,57022,4,3,3,4,4,2,3,4,3.0,4,4.0,3,4,3,3,2,2.0,3,1,3,2,4,4,4,3,3,2,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,Irish,,Some college but no degree,,2.0,Collaborative Comparison
+PHY105M,57022,4,5,4,4,5,1,4,2,3.0,5,3.0,3,4,3,5,4,1.0,2,3,1,2,5,5,5,3,4,1,5,2,5.0,5.0,5.0,Female,,Asian,,,Filipino,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,57022,3,4,4,3,4,2,3,3,4.0,4,4.0,3,4,3,4,2,1.0,3,3,2,4,3,4,4,3,2,2,2,4,5.0,1.6666666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56875,4,5,2,2,5,2,1,1,4.0,4,2.0,5,5,5,4,3,1.0,2,4,1,3,2,5,2,4,2,2,4,1,5.0,5.0,5.0,"Male,Prefer not to disclose",,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,2.0,Collaborative Comparison
 PHY105M,56875,4,2,1,4,4,2,5,4,5.0,5,2.0,3,2,4,4,1,1.0,2,2,3,1,4,4,4,2,4,2,4,2,1.6666666666666667,1.6666666666666667,4.166666666666667,Male,,Asian,,,Chinese,,,,,,,,,,,,Other,primary school,2.0,Collaborative Comparison
 PHY105M,56875,2,4,3,3,4,3,4,3,4.0,4,4.0,2,3,3,3,3,1.0,3,3,3,3,4,3,4,2,4,2,3,4,3.3333333333333335,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
@@ -507,6 +611,11 @@ Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Turkish,,,,,Master’s 
 PHY105M,56875,3,2,2,4,3,3,5,4,3.0,4,3.0,3,2,3,4,3,1.0,1,3,5,4,4,3,3,3,4,3,3,2,3.3333333333333335,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,56875,3,1,4,4,4,2,4,2,5.0,4,2.0,4,2,2,4,1,2.0,2,1,4,4,4,4,4,1,4,1,3,3,3.3333333333333335,3.3333333333333335,4.166666666666667,Female,,White,,,,,,,,,,,,,Irish,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56875,3,3,2,5,4,4,4,3,5.0,2,2.0,5,2,2,4,3,3.0,1,2,2,4,5,3,4,4,4,1,3,4,3.3333333333333335,5.0,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56875,4,1,2,4,4,2,4,5,5.0,5,5.0,4,2,3,4,2,1.0,1,1,5,4,5,3,4,1,4,2,3,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56875,4,3,2,5,4,3,5,4,4.0,5,3.0,3,2,4,5,1,2.0,2,1,4,3,4,4,4,2,5,1,5,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56875,3,3,3,5,5,1,3,5,5.0,4,4.0,3,3,4,4,2,2.0,3,2,5,4,4,4,5,2,5,3,5,3,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,"Italian,Polish",,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56875,3,3,2,4,4,3,4,4,4.0,4,3.0,3,3,4,4,2,3.0,2,3,3,2,3,4,4,3,4,3,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",romanian ,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56915,4,2,1,5,5,1,5,5,5.0,5,2.0,4,2,4,4,1,2.0,1,1,5,5,5,5,4,2,5,2,5,5,5.0,4.166666666666667,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56915,4,2,4,4,4,1,5,5,5.0,5,2.0,5,1,5,5,1,1.0,1,1,5,5,3,4,5,1,5,1,4,4,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56915,4,2,4,4,5,2,3,4,5.0,4,1.0,4,2,5,4,1,3.0,2,2,3,3,5,4,4,2,4,2,3,3,5.0,4.166666666666667,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
@@ -526,6 +635,9 @@ PHY105M,56915,5,3,2,5,5,1,5,4,5.0,5,3.0,3,1,4,5,1,4.0,1,3,4,4,4,3,4,1,5,1,3,3,3.
 PHY105M,56915,4,2,2,5,4,2,5,5,4.0,5,2.0,5,2,4,4,2,2.0,2,3,4,4,4,4,5,3,5,4,4,4,4.166666666666667,5.0,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56915,3,2,2,4,5,1,4,5,4.0,4,1.0,3,2,3,4,2,1.0,1,2,4,4,4,4,3,1,4,2,3,4,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"Irish,English,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Czech,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56915,5,1,1,5,5,1,5,5,5.0,5,4.0,5,4,3,5,1,1.0,1,1,5,5,3,5,5,1,5,1,3,5,5.0,5.0,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56915,4,3,2,4,4,2,4,5,4.0,5,3.0,2,2,5,5,1,2.0,1,2,5,4,5,5,5,2,5,2,5,5,3.3333333333333335,2.5,3.3333333333333335,Female,,Asian,,,Chinese,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,56930,3,3,3,3,3,4,4,4,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
 PHY105M,56930,3,2,2,5,4,1,4,4,5.0,4,2.0,5,2,4,4,2,2.0,1,2,4,5,4,4,4,2,4,2,4,3,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,"German,English",,Associate's or technical degree,,2.0,Collaborative Comparison
 PHY105M,56930,3,4,2,3,3,3,3,3,3.0,3,3.0,3,3,3,5,3,4.0,3,3,2,1,3,4,3,3,3,2,2,3,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
@@ -538,6 +650,7 @@ Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Turkish,,,"Some other W
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Bulgaria,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56930,3,3,3,4,4,1,4,4,5.0,5,3.0,3,3,4,3,2,3.0,2,3,2,3,4,4,4,2,3,3,3,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Asian,White",,,Filipino,,,,,,,,,,Polish,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56930,4,1,1,4,4,3,4,4,4.0,5,3.0,4,3,3,4,3,2.0,1,1,5,5,4,3,5,1,5,1,3,4,5.0,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56930,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,4,3,3.0,2,3,3,3,3,3,4,3,4,3,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Black or African American,,,,,African American,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57180,4,2,2,4,4,2,5,5,4.0,4,4.0,4,2,2,4,2,2.0,2,2,4,4,4,4,4,2,4,1,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57180,4,3,3,5,5,1,5,4,5.0,4,5.0,2,2,4,4,1,3.0,1,2,4,4,4,4,4,2,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57180,3,5,4,2,4,2,2,2,4.0,5,4.0,2,4,4,4,3,2.0,3,3,2,2,4,3,4,4,5,4,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Non-binary,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,0.0,Control
@@ -550,6 +663,11 @@ PHY105N,57180,4,5,3,2,4,1,3,4,4.0,4,4.0,1,2,3,4,1,1.0,1,5,2,3,4,3,2,3,3,2,4,4,2.
 PHY105N,57180,3,2,2,4,4,1,4,4,4.0,4,3.0,3,1,3,4,1,1.0,2,1,4,3,4,3,4,3,5,1,4,3,5.0,1.6666666666666667,4.166666666666667,Female,,"Native Hawaiian or Other Pacific Islander,White",,,,,,,,,,,"Some other Native Hawaiian or Other Pacific Islander race or ethnicity
 Print, for example, Palauan, Tahitian, Chuukese, etc.</spa",NZ,"English,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",AUS,Bachelor’s degree,,0.0,Control
+PHY105N,57180,4,3,1,5,5,1,4,4,5.0,5,3.0,4,1,5,4,1,3.0,1,3,4,2,4,3,3,2,4,1,5,3,5.0,5.0,5.0,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57180,5,3,3,4,3,1,4,3,5.0,4,3.0,4,3,4,3,1,3.0,2,3,5,3,3,3,3,3,3,3,3,3,2.5,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
+PHY105N,57180,3,1,1,5,5,3,4,4,5.0,3,4.0,5,3,4,5,1,1.0,2,2,5,5,3,5,5,1,5,1,4,4,3.3333333333333335,5.0,0.8333333333333334,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Guatemalan ,,,,,,,High school,,0.0,Control
+PHY105N,57180,1,5,5,1,3,1,1,1,5.0,3,5.0,3,3,3,3,4,3.0,5,4,3,1,5,5,3,5,2,1,5,1,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Puerto Rican,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56860,5,3,2,4,5,1,5,5,5.0,5,5.0,5,1,5,5,1,3.0,1,1,5,5,4,4,5,2,5,3,5,5,2.5,3.3333333333333335,2.5,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,Irish,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56860,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56860,3,3,4,2,4,3,3,4,3.0,5,5.0,4,4,3,4,2,2.0,3,1,4,4,4,4,5,2,5,1,4,3,4.166666666666667,3.3333333333333335,4.166666666666667,Female,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -563,6 +681,12 @@ PHY105M,56860,4,3,2,5,4,1,5,5,5.0,5,4.0,4,2,3,3,1,2.0,2,1,4,5,4,3,4,1,5,2,4,4,4.
 PHY105M,56860,4,3,4,4,4,3,5,4,4.0,4,4.0,4,3,4,5,2,2.0,1,3,3,4,4,4,4,4,4,2,4,3,4.166666666666667,4.166666666666667,5.0,Female,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56860,3,3,3,3,3,3,4,3,3.0,4,3.0,3,3,3,3,3,3.0,3,3,4,3,3,3,4,3,4,3,3,3,2.5,3.3333333333333335,3.3333333333333335,Male,,Asian,,,Vietnamese,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,56860,4,4,4,2,4,1,3,2,5.0,5,4.0,4,5,2,5,1,1.0,2,1,2,5,5,5,4,4,5,1,3,3,5.0,5.0,5.0,Female,,Black or African American,,,,,African American,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56860,4,3,3,3,3,3,5,3,3.0,3,4.0,3,3,4,3,3,3.0,3,4,3,5,4,4,3,3,3,3,3,3,3.3333333333333335,3.3333333333333335,2.5,Female,,"Asian,Hispanic, Latino, or Spanish",,,Japanese,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56860,3,2,1,5,5,1,5,4,5.0,5,4.0,4,4,4,5,1,4.0,2,1,5,2,5,5,5,2,5,5,5,2,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105M,56860,4,4,4,4,4,2,3,3,3.0,4,2.0,4,4,4,3,3,3.0,3,3,3,3,3,3,4,2,4,4,3,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56860,3,3,3,5,5,2,4,3,5.0,5,2.0,3,3,4,5,1,2.0,1,1,4,4,4,3,4,1,4,4,4,4,2.5,2.5,2.5,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Kazakhstani,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56910,5,3,1,5,5,1,5,5,5.0,5,3.0,4,1,3,5,1,1.0,1,3,3,5,4,5,5,1,5,1,5,3,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56910,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,2.5,3.3333333333333335,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56910,2,2,2,4,4,2,4,4,5.0,5,3.0,4,2,5,4,1,2.0,1,2,4,4,4,4,5,2,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
@@ -582,6 +706,8 @@ PHY105M,56910,2,4,4,5,5,1,4,2,5.0,5,3.0,4,2,3,5,2,3.0,2,2,4,5,5,2,4,2,5,2,2,4,5.
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Laos,,,,,,,,,,,Associate's or technical degree,,1.0,Partner Agreements
 PHY105M,56910,4,3,2,4,4,1,4,4,5.0,5,4.0,1,5,4,4,2,2.0,3,2,2,1,4,4,4,4,3,4,2,4,2.5,3.3333333333333335,2.5,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa","Norwegian, Russian",Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56910,4,3,2,4,4,2,4,5,4.0,5,3.0,4,2,4,3,2,2.0,1,1,4,4,4,4,5,2,5,2,4,3,5.0,3.3333333333333335,5.0,Male,,Middle Eastern or North African,,,,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56910,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,56845,5,4,1,5,4,1,5,4,5.0,4,4.0,2,1,3,3,1,1.0,1,4,4,3,4,3,4,4,4,2,4,4,4.166666666666667,4.166666666666667,2.5,Female,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56845,2,4,4,4,5,2,3,4,4.0,4,2.0,2,4,2,3,2,1.0,2,1,2,4,4,4,4,2,4,2,2,5,4.166666666666667,5.0,4.166666666666667,Female,,White,,,,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56845,4,5,4,2,4,1,3,4,3.0,4,4.0,2,4,3,4,2,3.0,4,2,1,2,5,4,4,2,4,2,2,4,2.5,1.6666666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,"Irish,Polish",,Master’s degree or above,,2.0,Collaborative Comparison
@@ -594,6 +720,11 @@ PHY105M,56845,3,5,5,3,4,1,3,2,4.0,4,4.0,3,4,4,4,1,1.0,4,3,2,2,3,4,5,4,3,2,2,4,4.
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Dutch,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56845,5,2,1,5,5,2,5,5,4.0,5,4.0,4,2,5,5,2,1.0,1,1,4,4,5,5,5,1,5,1,4,5,1.6666666666666667,3.3333333333333335,1.6666666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Cuban,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56845,5,2,1,5,5,1,5,5,5.0,5,3.0,3,1,3,5,1,1.0,1,3,4,4,4,4,4,1,5,1,5,5,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,English,,Some college but no degree,,2.0,Collaborative Comparison
+PHY105M,56845,3,2,3,4,4,3,4,4,4.0,4,3.0,4,3,3,3,3,3.0,2,3,3,3,4,5,4,4,3,4,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,German,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56845,3,2,3,5,3,4,4,5,4.0,3,3.0,3,3,2,4,2,2.0,2,3,5,3,4,3,4,4,4,3,4,4,0.8333333333333334,3.3333333333333335,0.8333333333333334,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
+PHY105M,56845,4,3,3,4,4,2,4,3,5.0,5,3.0,4,3,4,5,2,1.0,2,2,4,5,4,3,4,4,4,2,4,4,4.166666666666667,5.0,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56845,3,3,3,2,2,2,2,3,4.0,2,2.0,2,1,4,2,2,3.0,2,2,3,4,4,4,4,1,2,3,2,3,3.3333333333333335,1.6666666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
+PHY105M,56845,4,4,3,2,4,2,2,3,5.0,4,3.0,3,3,2,4,3,1.0,1,3,3,4,4,4,2,2,4,2,2,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56970,4,4,4,4,4,3,4,4,4.0,4,4.0,3,3,4,4,3,3.0,2,2,4,4,4,4,4,4,4,4,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56970,4,2,2,5,4,1,4,4,5.0,5,4.0,3,2,4,4,1,2.0,1,2,4,3,4,4,4,1,5,2,4,3,4.166666666666667,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
 PHY105M,56970,1,4,5,4,5,1,1,1,4.0,5,4.0,1,5,1,1,1,2.0,4,5,1,1,4,5,5,5,1,1,1,2,5.0,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -606,6 +737,12 @@ PHY105M,56970,4,2,3,5,4,1,5,4,5.0,5,3.0,4,2,4,4,2,1.0,1,3,5,2,5,2,3,3,3,2,3,3,5.
 PHY105M,56970,3,1,1,4,5,1,4,5,4.0,4,3.0,3,4,4,4,2,1.0,1,2,4,2,5,2,5,2,4,1,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,German,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56970,3,5,2,4,4,1,4,1,5.0,5,2.0,5,4,5,2,4,2.0,3,1,1,1,4,5,5,2,5,4,3,3,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56970,3,5,5,3,4,4,1,1,3.0,5,1.0,3,5,3,5,4,1.0,4,3,1,3,3,3,4,2,4,5,1,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105M,56970,2,3,3,5,5,2,5,4,4.0,5,2.0,3,2,4,5,1,1.0,1,3,3,2,2,5,5,2,5,3,2,5,2.5,3.3333333333333335,2.5,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Norwegian,Some college but no degree,,2.0,Collaborative Comparison
+PHY105M,56970,4,4,2,3,4,1,4,4,4.0,4,4.0,3,3,4,4,1,1.0,2,1,4,3,4,3,3,1,5,3,4,4,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105N,56970,3,3,4,4,4,2,3,4,4.0,4,3.0,4,3,4,4,2,2.0,2,4,3,3,4,3,4,4,3,2,4,4,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56970,4,3,2,4,4,4,5,5,3.0,4,4.0,4,4,3,4,3,3.0,2,3,4,5,4,4,4,3,5,3,3,4,2.5,3.3333333333333335,2.5,Female,,Black or African American,,,,,"Some other Black or African American race or ethnicity
+Print, for example, Ghanaian, South African, Barbadian, etc.",Kenyan,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,56950,3,5,4,5,5,1,4,1,5.0,5,5.0,4,4,5,4,4,1.0,2,2,1,2,4,5,5,3,3,1,3,5,5.0,4.166666666666667,5.0,Male,,White,,,,,,,,,,,,,Italian,,Master’s degree or above,,0.0,Control
 PHY105M,56950,5,3,5,5,5,5,5,5,5.0,5,5.0,5,2,4,5,1,2.0,1,5,5,5,5,5,5,3,5,1,3,5,0.8333333333333334,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,56950,3,5,3,4,4,2,4,3,4.0,4,3.0,3,4,4,5,1,4.0,2,3,2,3,5,4,5,4,4,3,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"American Indian or Alaska Native,Asian,White",,Cherokee,Japanese,,,,,,,,,,"Irish,English",,Master’s degree or above,,0.0,Control
@@ -633,6 +770,8 @@ PHY105N,57215,2,5,3,4,5,1,2,1,4.0,5,4.0,2,4,1,4,4,1.0,5,5,1,4,4,5,4,5,2,1,2,2,4.
 PHY105N,57215,2,3,4,4,3,1,3,3,5.0,4,4.0,4,2,3,5,2,4.0,3,3,4,1,4,5,5,2,4,1,4,3,5.0,5.0,4.166666666666667,Male,,"Asian,Hispanic, Latino, or Spanish",,,Asian Indian,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
 PHY105N,57215,4,3,2,4,5,1,5,4,5.0,5,5.0,2,2,5,5,1,3.0,2,3,4,1,4,4,5,1,5,2,5,2,5.0,4.166666666666667,5.0,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Russian,Master’s degree or above,,0.0,Control
+PHY105N,57215,2,4,4,4,5,1,4,4,5.0,5,2.0,4,4,5,4,2,1.0,3,3,2,2,4,4,4,3,2,2,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"Irish,English,Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Swedish,Master’s degree or above,,0.0,Control
 PHY105M,56815,5,5,2,5,5,1,5,5,5.0,5,2.0,5,2,5,5,1,1.0,1,1,5,5,5,5,5,1,5,1,5,2,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,"German,English",,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56815,3,3,2,3,5,2,4,3,4.0,4,2.0,4,3,3,3,1,1.0,3,1,4,5,4,4,3,3,5,2,5,5,5.0,3.3333333333333335,4.166666666666667,Female,,White,,,,,,,,,,,,,English,,Associate's or technical degree,,2.0,Collaborative Comparison
 PHY105M,56815,5,4,3,4,5,1,5,5,5.0,5,4.0,3,2,3,5,2,1.0,1,3,4,2,5,5,5,3,5,3,5,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -644,6 +783,11 @@ PHY105M,56815,3,1,2,5,5,1,4,2,5.0,5,3.0,4,4,4,4,1,1.0,2,1,5,4,5,4,4,2,4,1,4,2,5.
 PHY105M,56815,3,2,2,5,5,1,5,5,5.0,5,2.0,3,3,5,5,1,1.0,1,1,4,4,4,4,5,1,5,2,5,5,4.166666666666667,5.0,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,Irish,English,Italian,Polish",,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56815,3,3,4,4,4,2,3,2,3.0,3,2.0,4,3,3,4,3,2.0,3,3,2,4,5,3,3,4,3,1,4,3,4.166666666666667,3.3333333333333335,3.3333333333333335,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Nepali,,,,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105M,56815,4,4,2,5,5,5,5,5,5.0,5,3.0,5,4,4,4,3,4.0,2,3,4,4,5,5,5,3,4,1,4,4,5.0,5.0,4.166666666666667,Female,,Black or African American,,,,,African American,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56815,4,3,3,5,4,1,4,5,5.0,5,2.0,3,2,3,4,1,1.0,2,1,4,4,4,5,4,1,5,1,4,4,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,"German,Polish",,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56815,5,3,2,5,5,1,5,5,1.0,5,3.0,3,3,5,5,5,1.0,1,3,5,3,3,5,5,3,5,3,5,5,5.0,0.8333333333333334,5.0,Male,,White,,,,,,,,,,,,,German,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56815,4,2,1,3,4,1,2,4,4.0,3,5.0,3,2,3,4,2,3.0,1,3,2,4,5,5,5,2,5,1,4,4,1.6666666666666667,4.166666666666667,1.6666666666666667,Male,,White,,,,,,,,,,,,,Irish,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105M,56815,5,4,3,5,5,1,5,5,5.0,5,4.0,5,1,5,5,1,1.0,1,1,2,5,5,5,5,1,5,5,5,5,4.166666666666667,5.0,5.0,Female,,"Asian,White",,,Filipino,,,,,,,,,,"German,Irish",,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56850,4,2,4,5,5,1,5,4,5.0,5,3.0,4,1,3,5,1,3.0,2,3,5,5,5,5,5,3,4,1,1,5,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,German,,Master’s degree or above,,0.0,Control
 PHY105M,56850,4,3,3,4,5,5,5,5,5.0,5,3.0,4,4,4,5,1,1.0,1,3,4,4,4,4,5,1,5,4,2,5,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,"Mexican or Mexican American,Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",,,,,,"German,Irish,English,French",,Bachelor’s degree,,0.0,Control
@@ -652,6 +796,7 @@ PHY105M,56850,4,2,2,4,4,2,4,2,4.0,4,5.0,4,3,4,4,3,4.0,2,3,4,1,4,3,4,2,2,2,3,4,4.
 PHY105M,56850,3,2,2,4,5,2,5,5,4.0,5,4.0,4,1,4,4,2,2.0,4,1,5,2,5,4,5,4,2,1,4,4,2.5,4.166666666666667,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Taiwanese,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56850,3,3,3,3,4,2,4,4,4.0,4,3.0,3,5,3,4,3,1.0,2,3,2,3,4,3,3,2,4,2,4,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,56850,4,2,4,4,4,3,3,3,3.0,3,3.0,3,3,3,4,3,2.0,2,1,4,4,4,5,4,1,5,1,3,4,4.166666666666667,2.5,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,0.0,Control
 PHY105M,56855,4,4,5,4,3,1,5,5,4.0,4,2.0,3,2,3,5,3,1.0,1,1,4,4,5,4,3,1,5,3,3,4,4.166666666666667,4.166666666666667,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56855,2,4,1,2,5,1,4,4,5.0,5,4.0,2,1,1,4,2,1.0,1,3,2,2,4,4,4,2,2,1,3,3,5.0,5.0,2.5,Male,,White,,,,,,,,,,,,,German,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56855,2,2,3,4,4,3,2,2,4.0,5,4.0,3,2,3,2,2,2.0,3,3,2,2,5,3,4,3,4,2,3,4,3.3333333333333335,3.3333333333333335,2.5,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,1.0,Partner Agreements
@@ -667,6 +812,11 @@ PHY105M,56855,5,1,1,5,5,1,5,5,5.0,5,5.0,5,1,5,5,1,2.0,1,2,5,4,5,5,5,1,5,3,5,5,5.
 PHY105M,56855,2,3,4,1,2,3,1,3,4.0,4,5.0,3,5,5,4,1,1.0,1,3,4,4,4,4,5,1,5,1,3,3,1.6666666666666667,0.8333333333333334,1.6666666666666667,Female,,Black or African American,,,,,African American,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56855,5,4,1,5,5,5,4,3,5.0,5,4.0,3,1,3,5,1,1.0,1,3,2,4,3,2,4,1,4,2,5,3,5.0,5.0,5.0,Female,,"Asian,Hispanic, Latino, or Spanish",,,Filipino,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56855,3,5,5,4,4,3,2,1,4.0,5,4.0,3,4,4,5,3,1.0,3,2,2,2,4,4,4,2,4,4,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56855,3,4,5,5,4,1,4,4,5.0,5,2.0,5,3,5,5,2,1.0,2,3,5,5,5,4,5,3,5,4,3,5,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Ecuadorian,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56855,3,3,2,4,4,3,5,5,5.0,5,3.0,5,3,5,5,2,2.0,2,2,4,5,5,4,4,2,5,1,4,4,3.3333333333333335,3.3333333333333335,2.5,Female,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Sri Lankan,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56855,2,4,4,3,5,1,3,4,5.0,4,2.0,4,3,4,4,1,2.0,3,3,4,2,5,4,5,2,4,2,4,2,5.0,4.166666666666667,4.166666666666667,Male,,Black or African American,,,,,"African American,Nigerian",,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56925,4,3,3,5,4,2,4,5,5.0,4,3.0,4,3,4,3,2,3.0,2,2,4,4,4,4,5,2,4,2,4,4,2.5,4.166666666666667,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56925,4,3,1,5,5,1,5,5,5.0,5,5.0,2,2,3,5,1,1.0,4,5,5,1,5,2,5,4,4,1,2,5,5.0,0.8333333333333334,5.0,Female,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56925,2,3,5,4,5,4,2,2,3.0,4,2.0,2,4,5,5,3,2.0,4,3,4,4,5,4,4,3,4,4,2,5,2.5,3.3333333333333335,1.6666666666666667,Female,,Black or African American,,,,,,,,,,,,,,,High school,,1.0,Partner Agreements
@@ -681,6 +831,7 @@ PHY105M,56925,3,2,4,5,5,2,4,4,5.0,5,4.0,3,2,4,4,1,2.0,1,3,4,3,5,4,5,3,5,3,2,5,5.
 PHY105M,56925,4,3,2,5,4,2,4,5,4.0,4,4.0,4,3,4,5,2,2.0,2,3,2,4,4,4,4,3,4,2,2,4,2.5,3.3333333333333335,2.5,Female,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56925,3,2,1,5,4,4,5,5,4.0,4,4.0,3,2,5,5,1,1.0,1,1,5,5,4,4,5,1,4,1,3,3,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,1.0,Partner Agreements
 PHY105M,56925,4,4,5,5,5,4,4,4,5.0,5,5.0,4,5,4,5,1,1.0,2,4,2,5,5,4,4,4,5,4,2,5,3.3333333333333335,4.166666666666667,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56925,4,2,2,4,5,1,4,4,5.0,5,5.0,4,2,5,5,1,1.0,2,2,4,5,4,5,5,1,5,2,2,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57190,4,4,3,4,5,2,4,4,4.0,5,3.0,3,3,3,4,3,3.0,2,4,4,3,4,3,4,4,4,1,5,2,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Spaniard,,,,,"Irish,English,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Scottish,Associate's or technical degree,,1.0,Partner Agreements
@@ -690,6 +841,11 @@ Print, for example, Pakistani, Cambodian, Hmong, etc.",Indian,,,,,,,,,,,Master�
 PHY105N,57190,4,2,1,5,5,4,5,5,5.0,5,2.0,3,2,4,4,1,1.0,1,1,5,5,5,3,5,1,5,1,3,5,5.0,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,"Mexican or Mexican American,Puerto Rican,Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Spanish,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57190,3,2,2,4,4,3,4,4,4.0,4,3.0,3,2,4,4,2,2.0,2,3,4,4,4,3,4,2,4,2,4,3,4.166666666666667,1.6666666666666667,4.166666666666667,Male,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57190,2,2,4,2,2,3,4,5,3.0,5,1.0,3,4,2,5,3,1.0,2,3,2,1,4,4,4,1,5,1,2,4,5.0,4.166666666666667,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,1.0,Partner Agreements
+PHY105N,57190,5,5,3,4,5,1,5,1,5.0,5,3.0,3,5,5,5,1,1.0,1,3,1,1,5,5,5,4,1,1,3,5,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Colombian,,,,,,,,High school,,1.0,Partner Agreements
+PHY105N,57190,3,5,4,4,4,1,3,2,4.0,4,3.0,3,4,3,4,3,1.0,3,3,2,4,5,4,4,4,4,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,English,Polish",,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57190,4,4,2,4,4,2,4,4,4.0,4,4.0,4,2,3,4,2,2.0,2,1,4,5,4,4,2,1,5,2,5,4,3.3333333333333335,4.166666666666667,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,I'm not sure,,1.0,Partner Agreements
+PHY105N,57190,4,3,1,5,4,3,5,5,4.0,4,3.0,3,2,3,5,2,2.0,2,1,5,5,5,1,5,1,3,1,5,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,56985,4,4,3,4,4,3,4,5,4.0,4,3.0,3,4,3,4,3,2.0,2,3,4,5,4,4,5,1,4,1,4,3,5.0,5.0,5.0,Female,,Some other race or ethnicity,,,,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56985,2,4,2,3,4,4,4,5,3.0,4,4.0,2,5,3,4,3,1.0,4,4,4,5,5,5,2,5,5,1,2,1,3.3333333333333335,4.166666666666667,3.3333333333333335,"Female,Non-binary",,"Asian,Hispanic, Latino, or Spanish",,,Korean,,,,"Colombian,Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Ecuadorian,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
@@ -698,6 +854,7 @@ PHY105M,56985,2,3,2,4,5,1,3,3,4.0,5,2.0,2,4,4,5,1,2.0,1,2,2,2,4,5,5,2,3,4,2,5,5.
 PHY105M,56985,2,2,3,4,4,3,4,4,4.0,4,3.0,3,2,2,4,3,4.0,2,4,4,4,4,4,4,3,4,2,4,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
 PHY105M,56985,5,2,1,5,5,1,5,5,5.0,5,2.0,3,3,4,5,1,1.0,2,1,5,3,4,4,4,2,5,1,5,4,3.3333333333333335,4.166666666666667,5.0,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105M,56985,3,3,2,4,4,2,4,4,4.0,4,2.0,2,2,3,4,1,3.0,1,2,4,4,4,4,4,2,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,"Irish,English",,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105M,56985,3,3,3,3,3,3,5,4,5.0,3,2.0,4,2,4,5,1,1.0,3,1,4,4,5,4,3,3,3,3,4,3,3.3333333333333335,3.3333333333333335,2.5,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105M,57028,4,4,4,4,4,2,4,4,4.0,4,4.0,3,4,5,4,2,2.0,3,4,4,5,4,4,4,4,5,2,4,4,3.3333333333333335,4.166666666666667,1.6666666666666667,Male,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57028,3,4,2,4,4,3,4,4,4.0,4,4.0,3,2,3,4,2,1.0,2,2,3,4,3,4,4,2,5,1,4,3,3.3333333333333335,3.3333333333333335,1.6666666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Mexican or Mexican American,Puerto Rican",,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,57028,4,2,1,4,4,5,5,5,4.0,2,3.0,1,4,5,4,2,2.0,2,1,2,4,5,4,5,4,4,1,1,5,5.0,4.166666666666667,3.3333333333333335,Female,,Asian,,,"Some other Asian race or ethnicity
@@ -711,6 +868,9 @@ PHY105M,57028,2,3,2,4,4,1,4,5,4.0,4,4.0,3,2,2,4,3,3.0,1,3,4,2,4,4,4,4,2,2,3,4,3.
 PHY105M,57028,4,4,4,4,4,4,3,4,3.0,3,4.0,4,5,3,3,3,3.0,4,1,2,4,4,3,2,4,4,1,5,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,57028,3,5,5,3,4,1,1,1,5.0,5,2.0,3,4,4,3,1,1.0,4,2,4,1,5,4,3,4,3,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Chinese,,,,,,,,,,,,Prefer not to answer,,0.0,Control
 PHY105M,57028,5,5,5,5,5,3,5,3,5.0,4,4.0,4,5,4,4,1,1.0,4,3,3,3,3,3,3,3,3,2,3,4,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,57028,4,2,2,4,4,2,4,4,4.0,5,4.0,4,2,4,4,2,1.0,2,2,4,2,5,4,4,1,2,2,4,2,2.5,3.3333333333333335,2.5,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,0.0,Control
+PHY105M,57028,2,2,5,5,1,3,3,2,4.0,5,1.0,3,4,3,1,3,1.0,4,4,2,2,4,5,2,3,1,2,2,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Black or African American,,,,,African American,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,57028,4,2,2,4,4,3,4,5,3.0,4,4.0,3,4,3,5,1,2.0,1,2,2,4,2,5,4,4,5,1,2,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57205,4,2,1,4,4,5,5,5,3.0,4,2.0,4,3,4,4,3,2.0,1,1,4,4,5,5,3,3,4,3,4,4,4.166666666666667,3.3333333333333335,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57205,1,3,3,3,4,1,4,3,5.0,5,3.0,3,3,3,3,3,1.0,4,4,2,1,3,3,1,4,2,1,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57205,4,2,1,5,5,3,4,5,5.0,5,3.0,4,2,4,5,1,1.0,2,1,4,5,5,4,5,2,5,2,3,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
@@ -719,11 +879,20 @@ PHY105N,57205,4,4,2,1,4,2,4,4,4.0,5,5.0,4,5,1,4,1,2.0,2,2,2,5,4,1,4,5,4,1,4,3,2.
 PHY105N,57205,4,3,2,4,4,3,5,4,5.0,4,5.0,4,2,3,3,3,2.0,1,3,3,5,4,4,5,4,5,2,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57205,4,2,1,4,4,2,5,4,5.0,5,2.0,5,3,4,5,2,1.0,1,2,5,4,5,4,5,3,5,2,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Non-binary,,White,,,,,,,,,,,,,"German,French,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Russian,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57205,3,3,3,3,3,4,4,4,4.0,4,4.0,3,2,4,4,4,2.0,4,4,4,4,4,4,4,4,4,4,4,4,1.6666666666666667,3.3333333333333335,1.6666666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57205,3,4,2,4,5,1,4,3,5.0,5,3.0,3,3,4,3,2,1.0,2,3,4,4,5,4,4,1,5,1,5,5,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57205,3,2,3,4,4,1,5,4,4.0,4,3.0,4,2,4,5,1,2.0,2,1,4,3,5,4,5,2,5,2,4,3,4.166666666666667,5.0,5.0,Female,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Taiwanese,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57205,2,3,3,4,4,3,4,4,4.0,4,2.0,4,3,3,4,2,3.0,2,3,3,4,4,3,4,4,4,1,3,4,2.5,2.5,2.5,Female,,Middle Eastern or North African,,,,,,,,,Lebanese,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57205,5,4,1,2,5,4,5,5,2.0,5,1.0,5,4,5,5,1,2.0,2,3,2,1,4,5,5,1,2,1,3,5,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Hungarian,Associate's or technical degree,,2.0,Collaborative Comparison
+PHY105N,57205,1,5,3,3,3,1,2,1,3.0,3,3.0,2,1,2,3,4,1.0,5,5,1,1,3,3,2,4,2,3,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Korean,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57030,4,2,2,4,5,1,4,4,5.0,5,3.0,4,1,4,4,1,2.0,2,3,3,4,4,4,5,2,4,1,5,3,5.0,4.166666666666667,4.166666666666667,Female,,Asian,,,Filipino,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57030,4,3,2,4,4,3,4,5,4.0,4,4.0,3,3,3,4,1,3.0,2,2,5,3,4,4,4,2,5,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Salvadoran,,,,,,,,Other,,1.0,Partner Agreements
 PHY105N,57030,4,5,3,4,4,3,1,4,5.0,5,3.0,5,5,1,4,2,1.0,5,2,5,2,4,5,1,4,1,1,1,4,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,"German,Irish,English,Italian,French",,Some college but no degree,,1.0,Partner Agreements
 PHY105N,57030,4,4,2,4,4,2,4,4,5.0,5,4.0,4,3,4,5,2,3.0,2,2,4,3,4,4,4,2,5,2,3,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,"Irish,Italian",,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57030,5,5,4,3,3,4,4,4,4.0,4,4.0,3,5,3,3,3,1.0,3,3,4,5,4,4,4,2,4,2,2,4,3.3333333333333335,3.3333333333333335,2.5,Male,,Black or African American,,,,,Ethiopian,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57030,4,4,5,2,5,1,5,5,5.0,5,5.0,1,4,4,4,1,3.0,3,3,2,5,5,5,4,1,5,1,5,3,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,57005,3,2,3,5,5,1,5,5,5.0,5,1.0,5,4,5,5,1,1.0,1,3,5,3,5,5,5,1,5,1,5,3,4.166666666666667,5.0,5.0,Female,,White,,,,,,,,,,,,,"German,Irish",,Some college but no degree,,0.0,Control
 PHY105M,57005,3,4,3,5,4,1,4,4,4.0,5,5.0,3,3,4,5,2,1.0,1,2,2,5,3,5,5,2,4,2,2,3,4.166666666666667,3.3333333333333335,4.166666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57005,3,2,2,5,5,1,4,4,5.0,5,4.0,3,2,3,3,1,2.0,2,2,5,5,5,4,5,2,5,3,5,2,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Middle Eastern or North African,,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
@@ -734,6 +903,12 @@ PHY105M,57005,4,1,4,5,4,4,5,5,5.0,2,2.0,4,4,4,4,1,4.0,1,3,2,2,4,4,4,2,2,1,5,2,5.
 PHY105M,57005,4,2,3,5,5,2,5,5,5.0,5,4.0,3,2,4,5,1,2.0,2,1,3,5,5,4,5,2,5,1,3,5,5.0,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Other,Middle School,0.0,Control
 PHY105M,57005,2,3,2,5,5,2,4,5,5.0,5,4.0,4,2,4,5,1,1.0,1,4,4,3,4,2,4,4,2,2,4,3,5.0,5.0,5.0,Male,,Asian,,,"Filipino,Vietnamese",,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,57005,4,3,2,4,5,3,4,4,5.0,5,5.0,4,2,3,4,2,3.0,2,3,3,2,4,4,5,1,3,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,German,,Master’s degree or above,,0.0,Control
+PHY105M,57005,5,2,2,5,4,2,5,4,1.0,5,3.0,5,2,3,5,2,2.0,2,2,4,4,4,3,4,1,5,1,5,5,4.166666666666667,5.0,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
+PHY105M,57005,4,3,3,2,4,2,4,3,4.0,4,1.0,4,4,4,5,4,3.0,5,3,4,2,4,4,4,3,4,4,3,2,3.3333333333333335,1.6666666666666667,2.5,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,57005,3,3,3,4,4,3,4,4,4.0,3,3.0,4,3,4,4,2,2.0,3,3,3,4,4,4,4,3,4,3,4,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Argentinian and Chilean,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,57005,3,3,3,3,3,3,3,3,4.0,4,3.0,4,4,3,4,3,2.0,4,2,2,2,3,4,4,4,3,1,2,5,5.0,5.0,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,57010,2,4,4,2,2,4,2,3,2.0,4,4.0,2,3,3,3,2,1.0,3,3,2,2,5,3,4,2,4,1,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,French,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,57010,3,3,4,4,4,2,4,4,4.0,4,3.0,2,4,2,4,1,2.0,2,4,4,4,4,4,4,2,4,2,4,3,4.166666666666667,3.3333333333333335,3.3333333333333335,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,57010,4,2,1,5,4,3,5,5,5.0,5,4.0,3,2,2,4,1,2.0,2,2,4,2,5,1,5,4,5,2,5,2,4.166666666666667,1.6666666666666667,4.166666666666667,Female,,Black or African American,,,,,Nigerian,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
@@ -747,6 +922,9 @@ PHY105M,57010,4,5,5,4,4,1,4,4,5.0,5,5.0,4,2,4,4,1,1.0,2,1,4,5,4,4,5,4,4,2,3,4,4.
 PHY105M,57010,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,1,1,1,1,5,2.5,3.3333333333333335,2.5,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,57010,4,2,2,5,5,2,5,5,5.0,5,4.0,4,2,3,4,3,5.0,2,1,4,5,4,3,4,4,5,1,5,2,4.166666666666667,5.0,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Taiwanese,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,57010,3,4,2,5,4,2,4,3,4.0,4,4.0,3,2,3,3,3,2.0,1,3,4,5,5,3,4,3,4,3,4,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Middle Eastern or North African,,,,,,,,,Iranian,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,57010,3,4,2,4,4,1,4,4,4.0,4,2.0,3,4,2,2,4,2.0,3,3,4,3,5,3,3,4,4,3,2,4,2.5,3.3333333333333335,2.5,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,1.0,Partner Agreements
+PHY105M,57010,4,3,1,5,5,2,5,5,5.0,5,3.0,4,3,4,5,2,2.0,2,4,2,5,5,2,4,2,5,2,4,5,5.0,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,57026,4,4,4,5,4,2,4,4,5.0,5,5.0,2,4,5,5,2,1.0,2,2,1,5,3,4,5,4,4,2,4,5,5.0,1.6666666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"German,English,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",northern not sure what,Master’s degree or above,,0.0,Control
 PHY105M,57026,4,2,3,5,5,1,4,4,5.0,4,3.0,3,2,4,5,1,1.0,2,1,3,2,4,5,4,1,4,2,5,2,4.166666666666667,3.3333333333333335,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
@@ -779,6 +957,8 @@ PHY105N,57130,5,3,3,4,5,3,5,5,4.0,5,2.0,2,3,4,4,2,3.0,1,2,3,5,4,4,5,3,5,1,2,4,3.
 PHY105N,57130,2,5,2,4,4,1,4,4,5.0,5,5.0,4,4,1,4,1,1.0,2,1,2,4,5,4,4,1,3,2,4,5,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57130,2,4,3,3,5,2,4,3,4.0,5,4.0,3,2,4,4,3,1.0,2,4,2,4,4,3,2,3,3,2,3,3,2.5,4.166666666666667,3.3333333333333335,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57130,3,3,3,5,5,2,5,3,5.0,4,4.0,3,2,4,5,2,2.0,2,3,5,4,5,5,5,3,5,3,4,5,3.3333333333333335,5.0,2.5,Female,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57130,4,2,2,4,4,2,4,5,4.0,5,4.0,4,4,4,4,2,1.0,2,4,5,4,5,3,4,2,4,2,4,4,3.3333333333333335,3.3333333333333335,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57130,2,3,2,4,4,4,1,5,5.0,5,3.0,3,2,3,5,4,1.0,2,2,4,3,4,4,5,1,4,3,3,3,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105M,56995,4,2,4,4,5,2,3,4,5.0,4,2.0,5,2,4,4,1,3.0,2,2,5,5,4,4,4,2,4,2,4,2,5.0,5.0,5.0,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56995,5,1,1,5,5,1,5,5,5.0,5,5.0,4,2,5,4,1,1.0,1,1,5,2,5,4,5,1,4,1,5,1,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56995,3,2,4,3,5,1,2,2,5.0,5,4.0,2,5,5,5,1,1.0,4,3,5,2,5,2,4,2,4,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
@@ -787,6 +967,11 @@ PHY105M,56995,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,5.
 PHY105M,56995,3,1,2,4,5,1,5,2,5.0,4,4.0,5,3,4,5,1,1.0,1,1,4,5,4,4,4,1,5,1,3,5,4.166666666666667,5.0,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,High school,,1.0,Partner Agreements
 PHY105M,56995,4,3,2,5,4,2,5,2,5.0,4,3.0,3,2,4,4,1,1.0,1,1,4,3,5,3,4,1,5,1,4,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,"Irish,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Scottish,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56995,4,2,1,5,5,1,5,5,5.0,5,2.0,5,2,5,5,1,1.0,1,1,5,5,4,4,4,1,5,3,5,2,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56995,5,2,2,5,5,1,4,4,5.0,5,3.0,4,2,5,5,1,1.0,1,2,4,3,4,4,5,1,5,2,4,4,5.0,5.0,5.0,Female,,Black or African American,,,,,"African American,Nigerian",,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56995,4,2,2,4,5,1,4,4,5.0,4,4.0,4,2,4,4,1,2.0,2,3,4,2,4,4,4,2,3,2,4,2,2.5,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,English",,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56995,4,2,2,4,4,4,4,4,4.0,4,4.0,2,4,4,4,1,3.0,2,2,4,4,4,3,4,3,5,2,4,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57185,3,3,3,4,4,3,3,4,4.0,4,3.0,4,4,4,4,2,2.0,2,3,4,2,2,4,4,3,3,3,4,3,5.0,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57185,3,2,2,3,4,1,4,4,5.0,4,3.0,3,4,4,3,1,2.0,2,4,2,4,4,4,4,4,4,4,4,4,1.6666666666666667,1.6666666666666667,1.6666666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57185,3,4,3,3,4,2,4,2,5.0,4,4.0,4,2,4,2,1,4.0,3,4,3,3,4,3,4,3,3,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -796,6 +981,9 @@ PHY105N,57185,3,5,5,4,4,2,4,3,4.0,4,4.0,4,4,2,2,4,3.0,4,4,4,4,4,2,4,3,4,5,4,2,4.
 PHY105N,57185,5,2,1,5,5,1,5,5,5.0,5,2.0,5,1,3,5,1,3.0,1,1,4,4,5,4,4,4,2,1,4,5,5.0,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Jewish,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57185,3,1,1,4,4,1,5,5,4.0,3,3.0,4,2,3,2,2,3.0,3,2,2,3,4,2,3,2,4,3,4,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57185,3,3,2,4,4,3,4,4,4.0,4,3.0,4,3,4,4,2,3.0,2,3,3,3,4,3,4,3,5,3,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,American Indian or Alaska Native,,Navajo Nation and the Coushatta Tribe of Louisiana ,,,,,,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
+PHY105N,57185,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,2,3,3,4,3,3,3,3,3,3,3.3333333333333335,3.3333333333333335,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57185,4,4,5,4,5,1,4,2,5.0,5,1.0,4,2,5,5,2,1.0,1,1,4,5,5,4,5,2,5,4,4,4,4.166666666666667,5.0,5.0,Male,,White,,,,,,,,,,,,,"Irish,English",,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57170,3,4,4,4,4,2,4,4,5.0,5,4.0,3,1,5,3,2,2.0,2,5,2,3,4,4,4,5,4,3,5,2,5.0,5.0,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",nepali,,,,,,,,,,,High school,,0.0,Control
 PHY105N,57170,3,2,1,5,4,2,4,5,4.0,4,4.0,4,3,3,5,2,2.0,2,2,4,4,4,3,5,2,4,2,4,4,5.0,5.0,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
@@ -809,6 +997,12 @@ PHY105N,57170,5,1,1,5,5,1,5,5,5.0,5,1.0,5,1,5,5,1,1.0,1,3,5,5,4,4,5,2,5,1,5,3,5.
 PHY105N,57170,4,5,1,4,5,1,4,5,5.0,5,5.0,5,2,4,4,1,1.0,3,1,2,4,5,4,5,2,5,1,2,5,4.166666666666667,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57170,2,5,3,2,2,2,2,3,4.0,4,2.0,3,5,3,3,3,1.0,4,3,2,4,3,4,4,3,4,3,4,4,3.3333333333333335,3.3333333333333335,1.6666666666666667,Male,,Asian,,,Korean,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57170,5,1,2,5,5,1,5,1,5.0,5,1.0,5,1,5,5,1,1.0,1,1,5,5,5,3,5,1,5,1,5,5,5.0,5.0,5.0,Female,,Black or African American,,,,,Jamaican,,,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105N,57170,2,5,4,3,4,2,3,3,4.0,4,4.0,2,4,3,3,2,1.0,4,4,2,2,4,2,4,4,3,3,4,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Bachelor’s degree,,0.0,Control
+PHY105N,57170,3,2,5,5,4,2,4,5,5.0,4,4.0,3,4,4,4,1,1.0,2,3,5,4,2,4,4,2,3,4,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105N,57170,3,3,2,5,5,1,4,3,5.0,1,4.0,4,3,3,3,1,2.0,1,1,3,3,3,3,5,3,4,2,4,5,3.3333333333333335,4.166666666666667,1.6666666666666667,Female,,"Asian,White",,,Filipino,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Other,MD,0.0,Control
+PHY105N,57170,5,2,2,5,5,2,5,4,5.0,5,1.0,3,3,5,5,2,2.0,1,1,4,2,5,3,5,2,5,3,5,4,4.166666666666667,4.166666666666667,2.5,Male,,White,,,,,,,,,,,,,"German,Polish",,Master’s degree or above,,0.0,Control
 PHY105N,57110,3,3,2,3,4,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,5.0,5.0,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Some college but no degree,,1.0,Partner Agreements
 PHY105N,57110,5,3,2,4,5,2,4,4,5.0,4,4.0,2,2,4,5,2,1.0,1,2,5,4,4,3,5,2,4,2,2,4,4.166666666666667,5.0,3.3333333333333335,Female,,White,,,,,,,,,,,,,Italian,,Master’s degree or above,,1.0,Partner Agreements
@@ -827,6 +1021,9 @@ PHY105N,57110,5,4,2,4,5,1,4,4,4.0,4,4.0,4,4,4,4,1,1.0,2,4,4,5,5,4,4,4,5,4,3,2,4.
 PHY105N,57110,2,2,2,5,5,1,4,5,5.0,5,3.0,3,2,3,2,1,3.0,2,2,5,2,5,4,5,2,4,2,3,5,4.166666666666667,5.0,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57110,3,1,1,4,4,1,4,5,5.0,4,3.0,3,1,4,3,1,1.0,1,1,5,5,4,3,4,1,1,1,4,3,3.3333333333333335,2.5,5.0,"Male,Female",,"White,Some other race or ethnicity",middle eastern,,,,,,,,,,,,French,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57110,2,1,2,5,5,1,5,5,5.0,5,3.0,5,2,2,5,1,1.0,1,1,5,5,3,5,5,1,5,2,5,3,4.166666666666667,5.0,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Cuban,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57110,2,3,2,4,5,1,4,4,4.0,5,4.0,2,3,3,5,1,1.0,2,3,4,4,5,4,5,4,3,2,3,4,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,White,,,,,,,,,,,,,"German,English",,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57110,3,2,2,5,5,1,4,4,5.0,5,3.0,4,2,4,5,1,1.0,1,1,4,5,4,5,4,1,5,3,4,4,3.3333333333333335,3.3333333333333335,2.5,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,1.0,Partner Agreements
+PHY105N,57110,4,3,4,4,4,1,5,4,5.0,4,4.0,4,2,4,5,2,2.0,2,1,5,5,4,5,5,2,5,3,4,4,4.166666666666667,5.0,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
 PHY105N,57125,2,5,5,3,4,3,2,2,3.0,2,4.0,3,4,2,4,3,2.0,5,4,1,2,5,4,3,5,1,2,2,4,3.3333333333333335,5.0,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57125,5,3,2,5,5,1,5,5,5.0,5,3.0,5,3,5,5,1,5.0,1,3,5,3,3,3,5,3,5,2,3,5,3.3333333333333335,3.3333333333333335,2.5,Male,,White,,,,,,,,,,,,,German,,Master’s degree or above,,0.0,Control
 PHY105N,57125,2,3,3,3,5,1,5,2,5.0,4,2.0,3,3,3,3,1,5.0,1,1,5,1,4,3,3,4,4,4,4,3,5.0,0.8333333333333334,5.0,Female,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,0.0,Control
@@ -838,6 +1035,14 @@ PHY105N,57125,2,2,2,4,4,2,4,2,5.0,4,3.0,4,3,4,4,1,1.0,1,2,3,4,3,4,5,4,5,2,5,4,5.
 PHY105N,57125,5,2,1,5,5,1,5,4,5.0,5,2.0,4,2,3,5,2,1.0,1,1,4,5,4,5,5,1,5,2,5,2,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57125,4,2,2,4,4,2,4,4,4.0,4,2.0,4,2,4,4,2,2.0,2,3,4,4,4,4,4,2,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Asian,Black or African American",,,Asian Indian,,Ethiopian,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57125,2,5,2,4,4,3,2,2,2.0,3,3.0,4,4,4,4,3,2.0,2,2,5,5,4,4,4,3,5,3,4,5,5.0,4.166666666666667,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57125,4,2,2,5,4,1,4,4,4.0,4,2.0,4,4,4,4,2,2.0,2,4,4,2,5,4,5,2,3,2,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57125,4,2,2,2,4,1,2,5,4.0,4,1.0,5,2,3,4,2,2.0,3,1,5,2,4,3,2,2,2,2,2,5,5.0,5.0,4.166666666666667,Female,,Asian,,,Korean,,,,,,,,,,,,High school,,0.0,Control
+PHY105N,57125,5,3,2,5,5,3,4,4,4.0,5,2.0,5,4,4,4,2,1.0,2,3,5,3,5,5,4,3,4,2,4,4,4.166666666666667,4.166666666666667,5.0,Female,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57125,3,4,2,3,4,2,3,5,4.0,5,2.0,4,4,3,4,2,1.0,3,3,4,1,4,1,4,3,4,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Asian,White",,,Korean,,,,,,,,,,"German,Irish,English",,Master’s degree or above,,0.0,Control
+PHY105N,57125,4,2,2,4,4,2,4,5,5.0,4,2.0,3,3,4,4,1,3.0,2,2,4,5,4,4,4,1,4,3,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,Irish,,Master’s degree or above,,0.0,Control
+PHY105N,57125,3,3,3,2,3,3,4,4,4.0,3,4.0,3,1,1,3,3,3.0,3,4,3,3,3,3,3,3,3,3,3,3,5.0,1.6666666666666667,3.3333333333333335,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Master’s degree or above,,0.0,Control
 PHY105N,57120,2,4,4,3,4,1,4,2,4.0,4,4.0,3,5,2,4,2,1.0,4,2,2,2,4,4,4,2,4,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Black or African American,,,,,"Ethiopian,Some other Black or African American race or ethnicity
 Print, for example, Ghanaian, South African, Barbadian, etc.",Eritrean,,,,,,,,,High school,,1.0,Partner Agreements
 PHY105N,57120,4,1,2,4,4,2,5,4,5.0,4,2.0,5,4,4,3,1,3.0,2,1,4,2,3,4,5,1,5,2,4,4,3.3333333333333335,4.166666666666667,2.5,Female,,Asian,,,"Some other Asian race or ethnicity
@@ -857,6 +1062,11 @@ PHY105N,57200,4,5,2,3,5,1,5,5,5.0,5,5.0,1,5,5,5,1,3.0,3,4,1,1,5,5,5,3,5,4,4,5,5.
 PHY105N,57200,3,3,3,3,3,2,4,3,4.0,4,4.0,2,4,4,3,3,2.0,3,3,4,4,4,4,3,3,3,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57200,4,3,4,4,5,1,4,5,5.0,5,3.0,3,4,2,4,2,1.0,1,4,4,1,4,5,4,4,4,1,3,4,5.0,5.0,5.0,Male,,Asian,,,Korean,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57200,4,4,3,5,4,2,4,4,5.0,4,2.0,4,2,4,4,1,2.0,3,3,3,4,5,4,4,2,4,2,5,4,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,Asian,,,Filipino,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57200,3,2,1,5,5,3,3,5,5.0,5,1.0,3,3,1,5,1,1.0,5,1,5,5,5,5,5,1,5,1,1,5,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105N,57200,2,2,4,4,4,2,4,4,4.0,4,2.0,4,4,4,4,2,2.0,4,4,4,4,4,4,4,4,4,4,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Filipino,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57200,3,2,4,3,3,3,4,3,3.0,3,2.0,3,4,3,3,2,3.0,3,2,2,1,2,1,4,3,3,4,3,3,4.166666666666667,2.5,1.6666666666666667,"Male,Female",,"Asian,Some other race or ethnicity",,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57200,4,2,1,4,5,1,4,4,5.0,5,5.0,5,3,4,5,1,1.0,1,1,5,5,4,4,4,1,5,3,4,4,1.6666666666666667,3.3333333333333335,2.5,Male,,"Hispanic, Latino, or Spanish",,,,,,,"Salvadoran,Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Guatemalan,,,,,,,Other,,2.0,Collaborative Comparison
 PHY105N,57060,3,2,1,5,5,1,5,5,5.0,4,4.0,3,2,4,4,1,4.0,1,1,4,5,5,5,3,3,4,1,3,3,5.0,5.0,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Associate's or technical degree,,1.0,Partner Agreements
 PHY105N,57060,3,4,4,2,4,2,2,4,4.0,4,3.0,3,2,4,4,2,2.0,3,4,4,2,3,4,3,4,3,2,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,German,,Master’s degree or above,,1.0,Partner Agreements
@@ -865,6 +1075,11 @@ PHY105N,57060,4,4,2,4,4,3,4,4,4.0,4,4.0,2,2,4,4,2,2.0,2,1,4,4,4,4,5,4,4,1,4,3,4.
 PHY105N,57060,4,2,2,4,4,1,4,5,4.0,5,4.0,4,4,4,5,1,1.0,1,2,5,4,3,4,5,3,4,1,4,3,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57060,5,3,2,4,5,3,5,5,5.0,5,3.0,3,4,4,5,2,1.0,3,3,5,2,5,4,5,2,5,2,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
 PHY105N,57060,3,1,2,5,4,3,5,4,5.0,5,3.0,3,2,4,5,1,2.0,3,1,5,5,5,4,4,2,5,1,4,5,5.0,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,1.0,Partner Agreements
+PHY105N,57060,4,3,3,4,5,1,4,4,4.0,4,4.0,3,3,4,4,3,4.0,1,1,3,4,4,3,5,3,5,2,5,3,5.0,5.0,5.0,Male,,"Middle Eastern or North African,White",,,,,,,,,Lebanese,,,,German,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57060,3,3,4,4,4,5,3,5,2.0,4,5.0,2,1,4,4,1,1.0,1,3,5,2,4,4,4,4,5,1,4,2,5.0,5.0,5.0,Male,,Some other race or ethnicity,French-Canadian,,,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57060,4,2,2,5,4,4,5,5,4.0,5,1.0,3,2,4,4,2,1.0,1,1,4,4,4,4,5,2,5,2,4,3,3.3333333333333335,2.5,2.5,Female,,Middle Eastern or North African,,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
+Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Palestinian,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57060,4,3,4,5,5,5,5,4,5.0,5,2.0,3,4,4,4,1,1.0,1,3,5,2,5,5,5,2,5,2,3,5,4.166666666666667,5.0,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,1.0,Partner Agreements
 PHY105M,56820,3,2,2,2,4,1,4,4,4.0,4,3.0,3,2,2,4,4,3.0,2,3,4,2,3,3,4,4,3,2,4,3,4.166666666666667,1.6666666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Bachelor’s degree,,0.0,Control
 PHY105M,56820,5,2,2,4,4,2,5,3,5.0,5,4.0,4,2,4,4,1,1.0,2,2,4,2,3,4,5,1,5,2,4,5,5.0,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,French,,Master’s degree or above,,0.0,Control
 PHY105M,56820,4,3,4,5,5,1,5,5,5.0,5,2.0,5,2,4,5,1,1.0,1,1,5,5,4,5,5,2,5,2,4,2,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
@@ -890,6 +1105,14 @@ PHY105N,57225,3,3,2,2,4,1,4,5,5.0,5,4.0,3,4,4,4,1,2.0,2,2,4,2,4,3,5,1,4,1,3,4,4.
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Russian,Bachelor’s degree,,0.0,Control
 PHY105N,57225,3,1,1,4,4,1,5,4,5.0,5,4.0,4,2,4,5,1,1.0,1,1,5,5,5,4,5,1,5,1,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
 PHY105N,57225,2,4,4,4,3,2,5,3,4.0,3,4.0,3,3,4,5,1,2.0,3,2,1,2,5,3,5,2,5,3,2,4,4.166666666666667,1.6666666666666667,5.0,Female,,White,,,,,,,,,,,,,"Irish,English",,Bachelor’s degree,,0.0,Control
+PHY105N,57225,4,4,4,2,4,2,4,4,5.0,4,2.0,4,2,4,4,4,1.0,4,2,4,3,4,3,4,3,5,2,4,5,5.0,0.8333333333333334,1.6666666666666667,"Male,Female",,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Master’s degree or above,,0.0,Control
+PHY105N,57225,5,5,3,5,5,2,4,5,5.0,5,5.0,4,4,5,4,1,1.0,3,2,4,4,5,4,5,4,5,4,5,4,5.0,5.0,5.0,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Other,,0.0,Control
+PHY105N,57225,2,5,3,4,3,2,4,3,4.0,4,4.0,2,3,4,2,1,4.0,5,2,4,4,4,4,4,2,4,1,3,2,2.5,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57225,5,4,2,4,5,1,4,5,5.0,5,1.0,5,5,4,3,1,1.0,2,3,2,5,5,4,5,4,5,5,5,2,5.0,5.0,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57225,3,2,3,4,4,3,4,5,5.0,4,2.0,3,4,4,4,1,5.0,2,3,4,4,5,2,5,4,4,2,2,5,2.5,3.3333333333333335,2.5,Female,,Asian,,,Japanese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57225,3,3,3,5,4,4,4,4,4.0,4,3.0,3,3,3,4,2,2.0,2,3,4,4,5,4,4,4,3,2,4,3,3.3333333333333335,2.5,3.3333333333333335,Female,,"Asian,White",,,Korean,,,,,,,,,,"German,Irish,Polish",,Bachelor’s degree,,0.0,Control
 PHY105M,56980,5,4,3,3,4,2,4,4,4.0,4,3.0,3,4,3,4,3,1.0,2,3,4,4,4,4,4,3,4,2,4,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56980,4,4,2,4,5,2,4,4,5.0,5,3.0,3,2,4,5,1,4.0,1,3,2,5,4,4,5,1,5,1,3,3,5.0,5.0,5.0,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56980,4,3,3,5,5,1,5,5,5.0,5,4.0,3,4,5,4,1,1.0,1,3,4,4,5,5,5,3,5,2,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Asian,White",,,Vietnamese,,,,,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
@@ -903,6 +1126,11 @@ PHY105M,56980,2,4,1,4,5,1,1,5,5.0,5,5.0,3,5,5,4,2,1.0,4,4,4,5,4,5,5,2,2,1,2,4,5.
 Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Turkish,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56980,4,3,2,4,5,3,5,4,5.0,5,3.0,3,2,4,3,2,1.0,1,4,4,4,4,4,4,1,4,2,5,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,Asian,,,Korean,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56980,4,1,2,4,5,1,4,4,5.0,4,2.0,4,3,5,4,1,1.0,1,1,5,5,4,4,5,2,4,1,4,3,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Other,middle school,1.0,Partner Agreements
+PHY105M,56980,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,1,5,3,4,3,3,3,3,3,3,3,2.5,3.3333333333333335,3.3333333333333335,Female,,Black or African American,,,,,"Some other Black or African American race or ethnicity
+Print, for example, Ghanaian, South African, Barbadian, etc.",Burundian ,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56980,3,1,1,3,1,3,4,4,5.0,5,3.0,4,3,5,5,1,1.0,1,3,5,3,4,5,5,1,3,3,3,3,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,1.0,Partner Agreements
+PHY105M,56980,4,2,3,4,3,3,4,1,5.0,4,4.0,4,4,4,3,1,1.0,1,4,4,4,3,3,3,3,4,3,3,4,2.5,4.166666666666667,1.6666666666666667,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Bengali,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57075,3,3,3,5,5,5,5,3,5.0,5,3.0,3,1,5,5,1,1.0,1,1,5,3,1,5,5,1,5,1,5,5,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,Irish,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57075,4,3,1,4,4,1,3,5,5.0,5,3.0,3,2,2,5,1,1.0,1,4,4,1,5,2,4,4,5,1,5,5,0.8333333333333334,0.8333333333333334,0.8333333333333334,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Norwegian,Bachelor’s degree,,1.0,Partner Agreements
@@ -912,6 +1140,12 @@ PHY105M,57075,5,1,1,4,5,1,5,5,5.0,5,2.0,5,1,5,5,1,1.0,1,1,5,4,5,5,5,1,4,1,5,4,5.
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Guatemalan,,,,,,,Associate's or technical degree,,1.0,Partner Agreements
 PHY105N,57075,5,1,1,5,5,3,5,5,5.0,5,4.0,5,1,5,5,1,1.0,1,2,4,5,5,5,4,1,5,1,3,4,4.166666666666667,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57075,1,3,4,2,4,1,3,4,3.0,4,4.0,2,4,2,4,4,2.0,4,1,3,4,4,5,4,2,5,2,4,3,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,English,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57075,3,4,3,4,4,1,2,2,5.0,5,4.0,2,3,4,4,2,3.0,1,4,1,2,4,4,4,3,4,1,2,5,4.166666666666667,4.166666666666667,5.0,Female,,White,,,,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57075,5,1,1,5,5,1,5,5,5.0,5,3.0,4,1,5,5,1,1.0,1,1,5,4,2,5,5,1,5,1,5,3,5.0,5.0,5.0,Male,,Prefer not to disclose,,,,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57075,2,4,2,4,5,1,4,4,5.0,5,4.0,2,5,4,5,1,1.0,3,3,1,3,5,3,5,4,5,1,4,3,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,English,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57075,4,4,2,5,5,1,5,4,5.0,5,3.0,3,3,4,5,1,1.0,1,1,2,4,5,3,5,2,5,1,5,3,5.0,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57075,3,1,3,5,5,2,5,5,5.0,5,3.0,3,3,5,5,2,1.0,2,1,5,5,5,5,4,2,4,2,3,3,4.166666666666667,5.0,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57075,3,4,2,5,4,2,4,5,4.0,5,3.0,3,2,4,3,2,2.0,2,4,4,4,4,4,4,2,4,2,4,2,5.0,4.166666666666667,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56840,3,5,4,4,4,2,2,2,4.0,4,2.0,4,5,3,4,4,1.0,4,3,1,5,4,4,4,4,2,2,5,4,4.166666666666667,3.3333333333333335,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105M,56840,4,2,1,4,4,1,4,5,5.0,5,1.0,4,2,4,4,2,1.0,1,3,4,2,4,4,4,2,5,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Danish,Master’s degree or above,,1.0,Partner Agreements
@@ -923,6 +1157,11 @@ PHY105M,56840,3,3,4,5,5,3,4,2,5.0,5,2.0,4,2,4,5,2,1.0,1,1,5,5,3,5,5,3,5,2,3,3,5.
 PHY105M,56840,4,3,2,4,4,2,4,4,2.0,5,4.0,4,3,4,3,2,1.0,2,3,4,3,4,4,3,2,3,2,4,2,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,Black or African American,,,,,Nigerian,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56840,4,4,3,4,5,1,3,4,4.0,5,2.0,3,3,4,4,2,1.0,4,4,3,4,5,5,5,4,3,2,5,2,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,56840,4,3,1,4,5,4,5,5,4.0,5,5.0,2,2,3,5,4,1.0,1,2,4,5,5,3,5,3,2,1,4,4,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56840,4,4,5,3,5,1,5,5,4.0,4,2.0,5,3,4,4,2,1.0,3,1,2,5,5,3,4,1,5,2,5,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Filipino,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56840,3,1,2,5,5,1,5,4,5.0,3,3.0,4,3,4,5,1,1.0,2,1,5,2,4,4,4,1,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56840,4,3,3,2,4,1,2,4,4.0,4,2.0,3,2,2,4,3,1.0,3,2,3,2,4,4,3,2,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,German,,Other,GED,1.0,Partner Agreements
+PHY105M,56840,4,2,2,4,4,1,4,4,4.0,4,3.0,4,2,4,5,2,1.0,1,1,4,3,4,4,4,1,4,1,4,4,5.0,4.166666666666667,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56920,4,4,4,4,4,2,5,5,3.0,4,3.0,5,2,4,5,3,1.0,3,1,2,3,5,4,4,1,5,1,4,5,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105M,56920,1,4,2,4,5,4,4,4,3.0,5,4.0,1,5,5,3,3,1.0,4,5,2,2,5,4,5,4,2,2,5,1,2.5,0.8333333333333334,1.6666666666666667,Female,,White,,,,,,,,,,,,,Polish,,Master’s degree or above,,0.0,Control
 PHY105M,56920,3,1,1,5,5,1,5,5,5.0,5,5.0,5,2,5,5,2,1.0,1,1,4,5,5,5,5,1,4,1,4,4,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,0.0,Control
@@ -941,6 +1180,10 @@ PHY105M,56920,3,3,4,4,4,2,4,4,4.0,4,4.0,3,4,3,4,3,2.0,2,3,2,3,4,4,4,3,4,2,4,3,4.
 PHY105M,56920,2,4,4,3,4,2,3,4,5.0,5,3.0,4,2,4,5,2,1.0,2,4,2,4,4,4,3,4,5,2,4,4,3.3333333333333335,5.0,3.3333333333333335,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56920,2,1,2,4,5,1,4,2,5.0,5,4.0,4,1,4,5,1,1.0,1,1,5,5,5,4,5,1,5,1,4,2,5.0,4.166666666666667,5.0,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56920,5,2,1,5,5,1,5,5,5.0,5,5.0,3,4,3,4,1,1.0,1,1,4,3,5,5,5,1,5,1,5,3,5.0,4.166666666666667,5.0,Female,,"Black or African American,Hispanic, Latino, or Spanish",,,,,African American,,Colombian,,,,,,,,High school,,0.0,Control
+PHY105M,56920,4,3,2,4,4,2,4,5,4.0,4,3.0,3,1,4,4,2,2.0,2,2,4,2,5,3,4,2,4,1,3,4,5.0,4.166666666666667,4.166666666666667,"Female,Non-binary",,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
+PHY105M,56920,3,3,3,4,5,1,4,4,5.0,5,3.0,3,2,5,5,1,1.0,1,1,4,3,4,4,4,2,5,3,3,3,5.0,5.0,5.0,Female,,Middle Eastern or North African,,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
+Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Palestinian ,,,,,Some college but no degree,,0.0,Control
 PHY105M,56905,3,4,3,3,4,1,4,4,5.0,5,3.0,4,3,3,4,1,1.0,3,3,4,5,5,4,3,2,4,1,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Middle Eastern or North African,,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
 Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Palestinian ,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56905,4,4,3,4,4,1,3,3,5.0,5,3.0,3,3,5,5,1,5.0,3,1,3,2,2,3,4,1,5,2,4,3,5.0,5.0,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,0.0,Control
@@ -956,6 +1199,10 @@ PHY105M,56905,3,5,3,2,4,1,4,2,5.0,5,2.0,2,5,4,4,4,1.0,2,4,2,3,4,4,4,4,4,1,2,4,4.
 PHY105M,56905,2,2,1,5,5,1,5,5,5.0,5,3.0,5,1,5,4,1,3.0,1,3,5,2,4,5,5,1,5,1,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Lebanese ,Master’s degree or above,,0.0,Control
 PHY105M,56905,4,3,2,2,4,1,4,4,4.0,5,3.0,3,3,2,4,3,1.0,3,5,2,3,4,3,3,2,3,2,2,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56905,4,3,2,4,4,4,4,4,5.0,4,4.0,4,2,4,4,1,1.0,1,2,4,3,4,4,5,1,3,1,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56905,2,3,3,5,5,3,3,3,4.0,4,4.0,2,3,3,4,4,3.0,3,3,2,3,5,1,3,3,3,3,3,3,5.0,5.0,4.166666666666667,Male,,Prefer not to disclose,,,,,,,,,,,,,,,Some college but no degree,,0.0,Control
+PHY105M,56905,4,4,3,5,3,2,4,5,5.0,4,2.0,4,3,5,4,1,1.0,2,1,3,4,5,4,5,1,5,4,4,2,4.166666666666667,4.166666666666667,2.5,Female,,"Asian,White",,,Japanese,,,,,,,,,,"Irish,Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Russian,Bachelor’s degree,,0.0,Control
 PHY105N,57065,5,2,2,5,5,1,5,5,5.0,5,4.0,4,2,4,5,1,2.0,1,2,5,5,5,3,5,1,4,3,5,5,3.3333333333333335,3.3333333333333335,2.5,Male,,Asian,,,Japanese,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57065,3,3,4,4,3,2,2,4,4.0,3,3.0,3,5,3,4,3,2.0,4,3,2,3,5,1,3,3,1,2,2,2,1.6666666666666667,1.6666666666666667,1.6666666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Other,Neither completed high school,0.0,Control
 PHY105N,57065,3,3,3,4,4,1,3,4,4.0,4,3.0,2,3,2,4,2,2.0,2,2,4,1,4,3,4,2,4,1,3,3,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,0.0,Control
@@ -967,6 +1214,12 @@ PHY105N,57065,3,4,3,3,3,1,3,4,4.0,3,3.0,3,3,3,4,3,1.0,3,4,2,2,2,5,3,1,4,1,4,3,4.
 PHY105N,57065,5,1,1,4,5,1,5,5,5.0,5,1.0,2,1,4,5,1,1.0,1,1,5,4,5,4,4,1,5,1,2,4,5.0,5.0,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57065,1,5,5,2,5,1,1,1,5.0,5,5.0,2,4,4,4,3,1.0,4,4,1,2,3,5,3,3,2,3,1,3,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,"Salvadoran,Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Peruvian,,,,,,,Some college but no degree,,0.0,Control
+PHY105N,57065,4,3,2,4,5,2,4,3,5.0,5,4.0,4,1,3,5,2,1.0,1,2,3,3,4,4,5,2,2,1,2,4,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,"German,English,Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Cezch,Bachelor’s degree,,0.0,Control
+PHY105N,57065,3,5,2,4,5,1,3,3,5.0,5,3.0,3,4,4,5,1,1.0,3,1,1,2,3,3,5,2,5,1,4,1,4.166666666666667,0.8333333333333334,3.3333333333333335,Female,,Middle Eastern or North African,,,,,,,,,Lebanese,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57065,4,4,3,4,4,2,4,3,4.0,3,4.0,2,3,4,4,1,1.0,2,3,5,3,3,5,3,2,5,4,3,4,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
+PHY105N,57065,3,5,4,3,5,1,2,2,4.0,4,3.0,3,5,2,5,3,2.0,5,3,2,2,4,2,4,2,4,2,2,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57140,5,4,2,5,4,2,5,4,5.0,5,4.0,3,2,4,4,2,2.0,1,4,5,5,5,5,4,1,4,2,5,4,4.166666666666667,3.3333333333333335,1.6666666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57140,4,3,1,4,5,3,4,5,5.0,5,2.0,3,1,3,4,2,1.0,2,3,4,5,3,4,5,2,4,2,3,3,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",No idea,Bachelor’s degree,,0.0,Control
@@ -979,6 +1232,7 @@ PHY105N,57140,4,4,2,4,4,3,4,3,3.0,4,2.0,4,4,5,5,4,1.0,3,5,2,3,4,5,5,4,4,3,3,3,4.
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Scottish,Some college but no degree,,0.0,Control
 PHY105N,57140,1,4,5,2,4,2,2,4,4.0,5,4.0,2,4,4,4,2,2.0,2,2,4,4,5,3,4,4,4,3,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57140,3,4,4,4,4,3,4,3,4.0,5,4.0,3,4,4,4,3,1.0,3,3,4,4,4,4,5,1,4,1,4,4,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
+PHY105N,57140,5,4,2,5,5,2,5,4,5.0,5,2.0,4,4,4,5,3,2.0,2,3,4,5,5,4,4,3,5,2,5,5,5.0,5.0,3.3333333333333335,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105M,56870,4,3,2,4,4,4,5,3,4.0,4,4.0,3,2,3,4,3,3.0,3,2,4,5,5,4,3,2,5,3,5,3,4.166666666666667,5.0,4.166666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56870,3,4,5,4,4,2,4,4,5.0,5,3.0,3,4,4,5,2,1.0,2,4,4,2,4,5,5,3,5,1,4,5,5.0,4.166666666666667,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",spanish,,,,,,,Some college but no degree,,1.0,Partner Agreements
@@ -1000,6 +1254,10 @@ PHY105M,56870,5,2,3,5,4,4,4,4,4.0,5,2.0,3,1,4,1,3,1.0,3,3,4,3,4,4,4,1,4,1,4,3,5.
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Some college but no degree,,1.0,Partner Agreements
 PHY105M,56870,2,4,5,2,3,2,4,1,3.0,4,3.0,3,5,2,3,2,3.0,4,2,2,2,4,5,3,1,4,5,2,4,2.5,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105M,56870,3,3,4,4,5,2,3,3,3.0,2,2.0,2,3,2,4,3,1.0,2,1,2,2,1,4,4,1,3,1,3,2,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105M,56870,3,3,3,3,3,3,3,3,3.0,4,4.0,4,4,4,3,3,3.0,3,3,3,3,3,3,4,4,4,4,4,4,2.5,3.3333333333333335,2.5,Male,,"Asian,Native Hawaiian or Other Pacific Islander",,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56870,5,4,1,4,5,3,4,5,4.0,4,4.0,2,2,4,4,2,2.0,1,3,1,4,4,3,4,4,5,2,2,4,1.6666666666666667,2.5,0.8333333333333334,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105M,56870,4,1,1,5,5,1,5,4,5.0,5,3.0,4,1,5,5,2,2.0,1,2,5,4,4,5,5,1,5,2,4,4,3.3333333333333335,4.166666666666667,5.0,Female,,"Black or African American,White,Some other race or ethnicity",Mixed Race,,,,African American,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Some college but no degree,,1.0,Partner Agreements
 PHY105M,57023,3,4,2,4,4,2,4,3,4.0,4,2.0,2,3,3,4,2,1.0,2,3,2,2,4,3,4,4,4,2,2,4,5.0,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,Irish,,Bachelor’s degree,,0.0,Control
 PHY105M,57023,5,1,2,5,5,1,5,5,5.0,5,2.0,4,1,5,4,1,1.0,1,1,4,2,4,5,5,1,5,2,5,4,4.166666666666667,5.0,4.166666666666667,Male,,"Middle Eastern or North African,White",,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
 Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Palestinian,,,"Some other White race or ethnicity
@@ -1016,6 +1274,10 @@ PHY105M,57023,3,3,3,3,3,3,3,3,3.0,3,3.0,3,4,3,3,3,3.0,3,3,2,3,4,3,3,3,3,3,3,3,3.
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",South African,Master’s degree or above,,0.0,Control
 PHY105M,57023,4,3,2,5,3,1,4,5,5.0,5,3.0,3,2,5,2,1,1.0,1,1,5,4,3,5,5,3,4,2,4,4,4.166666666666667,2.5,2.5,Male,,White,,,,,,,,,,,,,"German,Irish,English,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Scandanavian,Bachelor’s degree,,0.0,Control
+PHY105M,57023,5,2,4,5,5,3,4,5,4.0,4,1.0,5,3,5,5,2,2.0,1,1,3,4,4,5,5,1,5,1,5,5,4.166666666666667,4.166666666666667,5.0,Female,,"Hispanic, Latino, or Spanish,Middle Eastern or North African",,,,,,,Mexican or Mexican American,,"Some other Middle Eastern or North African race or ethnicity
+Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Jordanian,,,,,High school,,0.0,Control
+PHY105M,57023,4,4,3,4,5,3,5,5,5.0,5,3.0,5,5,3,4,3,2.0,1,5,3,3,4,5,5,4,5,1,5,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Female,,White,,,,,,,,,,,,,Polish,,Master’s degree or above,,0.0,Control
+PHY105M,57023,4,4,4,4,4,2,4,4,4.0,4,2.0,4,2,4,4,1,2.0,2,4,2,4,2,4,4,2,4,4,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57090,3,3,2,4,4,2,4,4,5.0,5,3.0,3,3,4,4,2,1.0,3,2,3,3,5,3,4,4,4,2,3,3,4.166666666666667,2.5,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Brazilian,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57090,5,1,3,5,5,1,5,3,5.0,5,1.0,5,1,5,5,1,1.0,1,3,5,5,4,5,5,1,5,1,5,5,5.0,5.0,5.0,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
@@ -1028,6 +1290,17 @@ PHY105N,57090,2,4,4,4,5,1,3,4,4.0,5,2.0,3,4,5,5,1,1.0,1,3,4,4,2,4,5,4,5,2,4,2,5.
 PHY105N,57090,3,2,3,5,5,1,4,4,5.0,4,3.0,4,2,4,4,1,1.0,2,1,4,5,5,3,5,1,4,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Asian,Black or African American",,,Japanese,,African American,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57090,4,1,2,5,5,1,5,4,5.0,5,1.0,4,3,3,5,1,3.0,1,1,5,4,4,4,5,3,4,1,4,5,5.0,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
 PHY105N,57090,4,2,2,4,4,2,5,4,4.0,4,2.0,2,2,2,4,2,2.0,3,1,4,4,5,3,4,1,4,2,2,4,3.3333333333333335,3.3333333333333335,2.5,Female,,Asian,,,Filipino,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57090,4,3,2,4,4,2,4,5,5.0,4,3.0,3,2,3,4,2,3.0,2,3,4,5,4,3,3,3,2,2,4,4,5.0,5.0,5.0,Male,,"Asian,Black or African American",,,Filipino,,"Some other Black or African American race or ethnicity
+Print, for example, Ghanaian, South African, Barbadian, etc.",Liberian,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57090,3,3,3,4,4,2,3,3,4.0,3,2.0,3,3,4,4,3,2.0,3,2,4,4,3,4,4,3,4,3,3,3,5.0,5.0,5.0,Female,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57090,2,4,5,4,3,3,3,2,3.0,5,3.0,3,5,3,3,3,4.0,4,3,4,4,4,3,4,4,2,4,3,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Asian,Hispanic, Latino, or Spanish,White",,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57090,3,2,1,5,5,1,4,4,5.0,5,4.0,3,3,5,5,1,1.0,1,1,5,4,4,3,5,4,5,1,4,3,5.0,5.0,5.0,Female,,Black or African American,,,,,African American,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57090,3,3,3,4,3,3,4,4,4.0,3,3.0,3,2,3,3,2,2.0,3,3,4,3,3,4,4,3,4,4,4,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
+PHY105N,57090,1,4,5,1,3,1,1,1,3.0,4,4.0,5,5,2,2,3,1.0,5,4,3,3,5,4,3,3,1,1,1,4,5.0,5.0,5.0,Non-binary,,White,,,,,,,,,,,,,Irish,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57090,2,2,4,4,5,2,4,4,4.0,5,2.0,4,4,3,4,1,2.0,1,4,4,4,5,3,4,4,4,1,4,4,4.166666666666667,3.3333333333333335,5.0,Male,,White,,,,,,,,,,,,,"Irish,English",,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57045,4,4,3,4,4,2,4,3,5.0,5,2.0,3,3,3,4,1,1.0,2,3,3,2,3,5,5,2,4,4,4,3,5.0,5.0,5.0,Female,,Middle Eastern or North African,,,,,,,,,Iranian,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57045,4,3,2,5,4,3,4,4,4.0,4,3.0,3,4,5,4,3,1.0,3,3,5,3,4,4,4,3,3,2,3,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Female,,White,,,,,,,,,,,,,"Irish,English,French",,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57045,3,4,3,3,4,3,4,4,4.0,3,3.0,3,5,4,4,3,2.0,4,3,4,5,4,4,4,4,4,2,4,4,2.5,3.3333333333333335,1.6666666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
@@ -1039,6 +1312,11 @@ Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Maste
 PHY105N,57045,4,3,4,4,5,1,4,4,5.0,5,2.0,3,2,3,3,1,1.0,2,2,3,3,5,3,3,1,4,2,3,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57045,3,4,2,4,3,3,4,4,5.0,4,3.0,2,4,3,4,3,2.0,3,4,3,5,5,3,4,3,4,3,4,2,5.0,1.6666666666666667,2.5,Female,,White,,,,,,,,,,,,,"English,Polish,Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Dutch and Scottish ,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57045,4,3,4,3,3,1,4,3,5.0,3,5.0,5,2,4,5,2,1.0,1,3,4,1,5,4,3,3,2,4,2,4,4.166666666666667,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,"German,English",,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57045,2,3,2,4,5,1,4,4,5.0,5,3.0,3,1,5,5,1,1.0,1,1,4,5,2,5,5,1,5,1,5,5,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
+PHY105N,57045,3,3,3,4,3,4,4,2,4.0,4,4.0,3,3,3,4,1,5.0,2,4,4,4,4,1,5,1,4,2,4,4,2.5,3.3333333333333335,2.5,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Scottish,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57045,5,3,1,5,5,1,5,5,5.0,5,5.0,2,1,5,5,1,2.0,1,1,5,4,5,3,5,1,5,1,3,5,2.5,4.166666666666667,2.5,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,1.0,Partner Agreements
 PHY105N,57100,2,5,5,4,5,1,2,4,5.0,5,4.0,2,5,4,4,2,1.0,2,5,4,4,4,2,4,4,2,1,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,Polish,French",,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57100,1,5,5,1,1,1,1,1,1.0,3,5.0,1,1,1,1,3,4.0,5,5,1,1,5,3,1,1,1,1,1,1,5.0,4.166666666666667,5.0,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Burmese,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -1052,6 +1330,8 @@ PHY105N,57100,5,1,2,4,5,1,5,5,4.0,5,4.0,4,1,5,5,1,2.0,2,2,4,3,4,2,5,1,5,1,3,5,5.
 PHY105N,57100,3,4,2,4,4,3,4,4,5.0,5,4.0,3,4,4,4,1,1.0,3,3,2,2,4,3,4,3,4,1,3,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57100,4,4,3,4,4,1,4,4,4.0,5,3.0,4,3,3,5,2,2.0,2,1,3,3,3,3,5,4,4,1,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57100,3,3,2,5,5,3,4,4,3.0,5,3.0,5,4,1,5,3,1.0,2,3,4,4,3,4,4,2,5,1,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,Irish,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57100,5,2,1,5,5,1,5,5,5.0,5,5.0,5,1,5,5,1,1.0,1,1,5,3,5,5,5,1,5,1,3,5,5.0,3.3333333333333335,5.0,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57100,3,1,1,3,3,3,5,5,5.0,3,5.0,3,1,3,4,3,3.0,1,1,5,5,4,3,3,3,5,1,4,4,5.0,5.0,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Other,less than middle school,2.0,Collaborative Comparison
 PHY105M,56880,3,4,3,4,4,1,5,5,5.0,4,4.0,2,2,4,4,1,2.0,3,4,4,4,4,3,4,4,4,2,4,4,1.6666666666666667,2.5,1.6666666666666667,Female,,"Asian,White",,,Filipino,,,,,,,,,,"German,Irish,English,French",,Master’s degree or above,,0.0,Control
 PHY105M,56880,4,3,2,4,5,1,4,5,3.0,5,5.0,1,1,4,5,2,1.0,1,3,5,5,5,5,4,2,4,2,4,3,4.166666666666667,3.3333333333333335,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
 PHY105M,56880,4,2,2,4,4,3,4,4,4.0,4,3.0,3,2,4,4,3,2.0,2,3,4,4,4,4,4,3,4,2,4,3,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Hispanic, Latino, or Spanish",,,,,,,Salvadoran,,,,,,,,Other,,0.0,Control
@@ -1069,6 +1349,14 @@ PHY105N,57080,3,4,3,4,4,2,4,4,5.0,4,3.0,3,3,4,4,2,3.0,2,4,3,3,4,4,5,4,2,2,4,4,4.
 PHY105N,57080,4,3,2,4,4,1,4,4,4.0,4,4.0,2,3,3,5,4,2.0,2,3,2,3,4,3,5,4,3,1,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Peruvian,,,,,,,Master’s degree or above,,0.0,Control
 PHY105N,57080,2,5,5,3,3,1,3,3,4.0,4,3.0,3,5,2,2,3,1.0,3,3,2,2,5,1,3,4,3,2,1,5,3.3333333333333335,4.166666666666667,0.8333333333333334,Female,,White,,,,,,,,,,,,,"German,Polish",,Master’s degree or above,,0.0,Control
+PHY105N,57080,4,3,2,4,3,2,3,5,4.0,4,3.0,3,4,3,5,2,2.0,2,1,5,5,5,4,5,2,3,2,2,4,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
+PHY105N,57080,5,5,1,5,5,3,5,5,4.0,3,3.0,3,3,2,4,1,2.0,1,3,4,2,4,5,3,1,3,4,3,4,4.166666666666667,4.166666666666667,2.5,Male,,"Hispanic, Latino, or Spanish,White",,,,,,,Colombian,,,,,,"Irish,English,Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",,Master’s degree or above,,0.0,Control
+PHY105N,57080,4,3,3,4,4,3,4,3,4.0,4,4.0,4,3,4,4,3,1.0,3,4,4,3,4,4,4,4,4,4,4,4,5.0,4.166666666666667,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,"Some other Hispanic, Latino, or Spanish race or ethnicity
+Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",Chilean,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105N,57080,4,4,1,5,4,2,5,5,5.0,4,3.0,4,2,3,4,1,2.0,1,2,5,5,4,4,3,1,5,1,4,2,4.166666666666667,4.166666666666667,5.0,Female,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Indian,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57080,4,4,2,2,4,1,2,4,5.0,5,2.0,2,2,4,4,3,1.0,1,5,4,1,3,4,5,4,3,1,3,4,3.3333333333333335,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,0.0,Control
 PHY105N,57035,4,3,3,4,3,3,5,5,3.0,5,4.0,3,1,5,5,2,2.0,1,4,5,2,4,5,5,3,5,4,5,3,4.166666666666667,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57035,3,3,3,3,3,3,3,3,3.0,4,2.0,4,1,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Male,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Bachelor’s degree,,0.0,Control
@@ -1079,10 +1367,18 @@ PHY105N,57035,1,2,4,4,4,3,1,4,4.0,5,4.0,3,3,4,1,2,2.0,4,2,2,2,5,4,4,2,3,4,4,4,5.
 PHY105N,57035,5,1,1,5,5,1,5,5,5.0,4,3.0,3,1,3,4,1,1.0,2,3,4,3,4,3,4,3,5,3,3,3,2.5,2.5,2.5,Female,,Black or African American,,,,,Nigerian,,,,,,,,,,Bachelor’s degree,,0.0,Control
 PHY105N,57035,5,1,1,5,5,1,5,5,5.0,5,3.0,3,1,3,5,1,1.0,1,1,5,2,4,4,5,1,5,2,5,5,5.0,5.0,5.0,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,0.0,Control
 PHY105N,57035,3,4,2,4,4,2,4,4,4.0,5,4.0,3,2,5,4,2,1.0,2,2,2,2,4,4,4,2,4,2,3,2,5.0,4.166666666666667,5.0,Female,,"Hispanic, Latino, or Spanish,White",,,,,,,Mexican or Mexican American,,,,,,Irish,,Master’s degree or above,,0.0,Control
+PHY105N,57035,4,3,2,4,4,3,5,4,5.0,4,4.0,4,3,3,3,2,2.0,2,2,4,5,3,4,4,3,5,2,3,4,4.166666666666667,3.3333333333333335,3.3333333333333335,Male,,White,,,,,,,,,,,,,"Irish,Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Scottish,Associate's or technical degree,,0.0,Control
 PHY105N,57220,4,3,1,4,5,1,5,5,5.0,5,2.0,3,1,3,3,1,1.0,1,1,5,3,4,5,5,1,4,1,5,3,4.166666666666667,4.166666666666667,3.3333333333333335,Female,,White,,,,,,,,,,,,,German,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57220,4,2,1,4,5,1,5,5,4.0,4,4.0,1,1,4,1,1,2.0,1,4,4,4,4,3,4,4,4,1,2,5,4.166666666666667,1.6666666666666667,4.166666666666667,Male,,Asian,,,"Chinese,Vietnamese",,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57220,3,3,1,4,4,3,5,5,5.0,5,3.0,4,2,4,5,2,2.0,2,3,4,3,4,4,4,2,3,3,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"English,Italian",,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57220,4,3,3,4,4,4,5,4,4.0,4,3.0,4,2,4,5,1,3.0,1,3,4,2,4,3,4,4,3,3,4,4,3.3333333333333335,3.3333333333333335,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57220,4,4,4,4,4,1,4,4,4.0,5,3.0,4,4,5,5,2,1.0,2,4,2,4,4,4,5,2,5,4,5,4,5.0,5.0,5.0,Male,,"Asian,White",,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Taiwanese,,,,,,,,,"Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Greek,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57220,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,3.3333333333333335,2.5,3.3333333333333335,Female,,Middle Eastern or North African,,,,,,,,,Iranian,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57220,5,1,1,5,5,5,5,5,5.0,5,3.0,3,2,5,5,1,1.0,1,3,5,4,4,4,5,1,5,1,3,4,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57220,4,3,2,4,4,2,4,5,5.0,5,3.0,3,3,4,4,2,2.0,2,3,4,4,4,4,4,4,4,2,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Female,,"Asian,White",,,Chinese,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57085,5,3,2,5,5,4,5,2,4.0,5,2.0,5,2,5,4,2,2.0,2,1,4,4,3,4,4,3,4,1,5,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57085,4,3,2,4,4,3,4,4,3.0,4,3.0,3,2,2,3,3,2.0,3,1,4,3,4,4,4,4,3,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57085,3,3,3,3,3,4,4,4,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,4.166666666666667,3.3333333333333335,4.166666666666667,Female,,Asian,,,Vietnamese,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
@@ -1090,6 +1386,9 @@ PHY105N,57085,3,3,3,3,3,3,3,3,3.0,3,3.0,3,3,3,3,3,3.0,3,3,3,3,3,3,3,1,4,1,4,3,2.
 PHY105N,57085,4,3,3,4,5,2,3,4,5.0,5,3.0,3,2,4,4,1,2.0,1,5,4,2,4,4,4,2,2,3,3,4,2.5,4.166666666666667,3.3333333333333335,Male,,Asian,,,Vietnamese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57085,2,5,3,4,4,2,2,1,4.0,5,5.0,1,5,2,5,4,1.0,4,4,1,1,3,5,5,4,2,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,"Female,Non-binary",,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57085,5,1,3,5,5,1,5,5,5.0,5,2.0,4,3,5,4,1,1.0,1,1,5,3,1,5,5,1,5,3,5,5,3.3333333333333335,5.0,3.3333333333333335,Male,,White,,,,,,,,,,,,,Italian,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57085,3,3,4,5,5,1,4,4,5.0,5,5.0,3,4,4,3,1,3.0,1,3,2,1,5,3,5,4,2,4,3,3,4.166666666666667,4.166666666666667,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57085,4,4,1,4,5,2,5,5,5.0,5,3.0,3,2,2,4,2,1.0,1,1,4,2,4,4,4,1,3,2,3,3,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57085,2,4,4,5,5,1,5,4,5.0,5,5.0,3,5,4,5,1,1.0,2,4,5,1,5,5,4,4,5,2,2,4,5.0,5.0,2.5,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57145,4,3,2,3,4,2,4,5,4.0,4,1.0,2,2,2,5,2,2.0,2,2,4,2,5,4,4,3,3,2,2,5,3.3333333333333335,2.5,2.5,Female,,White,,,,,,,,,,,,,"Irish,Polish",,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57145,4,3,2,4,4,2,4,4,4.0,4,3.0,3,2,4,4,2,2.0,2,2,4,4,3,4,4,2,4,2,4,3,3.3333333333333335,3.3333333333333335,2.5,Female,,White,,,,,,,,,,,,,"Some other White race or ethnicity
 Print, for example, Scottish, Norwegian, Dutch, etc.</spa",Turkish,Master’s degree or above,,2.0,Collaborative Comparison
@@ -1100,6 +1399,11 @@ PHY105N,57145,3,3,3,3,3,3,3,3,3.0,3,3.0,3,1,3,3,3,3.0,3,3,3,3,3,3,3,3,3,3,3,3,5.
 PHY105N,57145,5,2,1,4,5,1,5,5,5.0,5,3.0,3,2,5,5,1,1.0,1,2,4,4,4,3,5,1,4,3,5,3,3.3333333333333335,4.166666666666667,4.166666666666667,Female,,White,,,,,,,,,,,,,"German,Irish,Italian",,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57145,3,3,1,5,5,1,4,4,5.0,5,2.0,5,4,5,5,1,1.0,1,1,4,4,3,5,5,1,5,1,4,3,3.3333333333333335,4.166666666666667,3.3333333333333335,Male,,White,,,,,,,,,,,,,"German,English",,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57145,3,3,3,4,5,2,3,4,5.0,5,4.0,3,2,3,4,1,2.0,2,1,5,5,4,3,4,3,3,3,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Filipino,,,,,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57145,4,3,2,5,4,2,4,4,3.0,4,2.0,4,3,5,4,2,1.0,2,2,4,4,5,4,4,2,3,3,4,3,4.166666666666667,3.3333333333333335,2.5,Female,,Middle Eastern or North African,,,,,,,,,Egyptian,,,,,,High school,,2.0,Collaborative Comparison
+PHY105N,57145,5,1,3,5,5,1,5,5,5.0,5,5.0,5,1,5,3,1,1.0,1,1,5,5,5,5,3,1,5,1,5,1,5.0,5.0,5.0,Female,,Black or African American,,,,,African American,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57145,4,2,2,5,5,1,5,5,5.0,4,2.0,3,4,3,5,2,1.0,2,1,5,2,4,3,4,1,4,2,5,5,4.166666666666667,5.0,4.166666666666667,Male,,"Middle Eastern or North African,White",,,,,,,,,"Some other Middle Eastern or North African race or ethnicity
+Print, for example, Algerian, Iraqi, Kurdish, etc.</spa",Palestinian ,,,"English,Some other White race or ethnicity
+Print, for example, Scottish, Norwegian, Dutch, etc.</spa",American ,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57115,1,5,4,3,5,1,3,4,4.0,5,5.0,2,4,4,4,2,2.0,3,3,3,3,4,4,5,3,3,1,4,2,4.166666666666667,5.0,4.166666666666667,Female,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,2.0,Collaborative Comparison
 PHY105N,57115,4,3,2,4,4,2,4,4,5.0,5,3.0,3,2,3,5,1,2.0,1,3,4,3,4,3,4,3,4,2,4,4,3.3333333333333335,3.3333333333333335,3.3333333333333335,Male,,Asian,,,Chinese,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57115,4,3,2,4,4,2,4,4,5.0,4,3.0,4,3,4,5,2,2.0,2,3,5,2,4,4,4,2,4,2,3,4,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Bachelor’s degree,,2.0,Collaborative Comparison
@@ -1110,6 +1414,10 @@ PHY105N,57115,3,2,3,4,4,3,4,4,4.0,4,3.0,4,3,4,4,2,2.0,2,2,4,3,3,4,5,2,4,2,4,4,3.
 PHY105N,57115,4,2,2,4,4,2,4,4,4.0,4,3.0,4,2,4,4,2,1.0,2,2,4,4,5,4,4,3,5,2,5,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57115,4,2,2,4,4,3,5,5,3.0,4,3.0,2,1,3,4,3,2.0,1,2,4,4,3,3,4,1,3,2,4,4,5.0,5.0,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,2.0,Collaborative Comparison
 PHY105N,57115,5,1,2,5,5,1,5,4,5.0,5,2.0,3,1,4,5,1,1.0,1,1,4,4,5,5,4,1,5,1,5,5,4.166666666666667,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,2.0,Collaborative Comparison
+PHY105N,57115,4,2,1,4,5,1,5,5,5.0,5,3.0,3,2,2,5,2,1.0,2,2,5,5,5,3,5,4,4,1,2,5,5.0,5.0,5.0,Female,,White,,,,,,,,,,,,,Irish,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57115,5,2,2,4,4,3,5,4,3.0,4,1.0,5,1,4,5,2,2.0,1,1,4,3,4,3,5,1,5,1,4,4,5.0,5.0,3.3333333333333335,Female,,White,,,,,,,,,,,,,German,,Bachelor’s degree,,2.0,Collaborative Comparison
+PHY105N,57115,3,4,3,5,5,1,2,2,5.0,5,2.0,3,3,5,4,3,2.0,3,4,3,4,4,4,4,3,2,2,3,3,5.0,0.8333333333333334,5.0,Male,,"Asian,Hispanic, Latino, or Spanish",,,Asian Indian,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57115,4,2,2,4,4,3,4,5,4.0,4,3.0,3,2,4,4,2,2.0,1,1,3,2,4,3,4,1,3,2,4,4,2.5,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57070,2,4,5,4,4,1,4,4,5.0,5,4.0,3,2,3,5,1,1.0,4,4,4,1,5,5,5,2,3,1,3,3,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57070,3,3,4,4,2,3,3,3,3.0,4,4.0,3,4,3,4,3,3.0,3,3,4,2,5,2,4,4,3,3,4,3,1.6666666666666667,3.3333333333333335,1.6666666666666667,Female,,Asian,,,Chinese,,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57070,5,3,4,5,5,2,4,3,4.0,4,2.0,2,2,3,5,1,2.0,1,3,5,3,3,4,4,3,5,2,4,4,4.166666666666667,5.0,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
@@ -1119,6 +1427,7 @@ PHY105N,57070,5,2,2,5,4,3,5,5,5.0,4,4.0,3,3,4,4,2,2.0,1,3,4,4,5,3,3,4,4,2,5,3,3.
 PHY105N,57070,4,1,1,5,5,1,1,4,5.0,5,2.0,3,3,5,5,1,1.0,1,1,5,2,4,4,5,2,4,1,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57070,2,5,5,1,5,1,3,1,3.0,2,4.0,4,4,4,4,2,1.0,1,2,1,2,4,5,5,4,4,2,4,2,5.0,0.8333333333333334,5.0,Female,,White,,,,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57070,5,4,4,4,4,3,4,4,3.0,4,3.0,4,2,4,4,3,1.0,3,2,4,4,4,3,4,3,4,2,3,4,2.5,4.166666666666667,1.6666666666666667,Female,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,High school,,2.0,Collaborative Comparison
+PHY105N,57070,4,3,4,3,4,5,3,4,4.0,4,2.0,3,3,5,3,2,2.0,4,3,3,4,4,2,4,4,4,3,4,3,2.5,5.0,1.6666666666666667,Male,,Asian,,,Filipino,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
 PHY105N,57210,4,3,2,4,4,4,4,4,4.0,4,3.0,3,2,4,4,2,2.0,2,2,4,4,4,2,4,2,4,2,2,4,3.3333333333333335,3.3333333333333335,2.5,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57210,4,2,1,4,4,2,5,4,4.0,5,4.0,3,4,4,4,2,2.0,1,3,4,4,5,4,5,2,4,2,4,4,4.166666666666667,3.3333333333333335,2.5,Male,,Asian,,,Korean,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57210,4,4,2,4,4,1,5,5,5.0,4,3.0,4,2,3,5,3,1.0,1,3,2,1,4,3,5,1,3,1,3,3,4.166666666666667,4.166666666666667,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
@@ -1126,7 +1435,13 @@ PHY105N,57210,3,4,1,5,5,3,5,5,3.0,5,1.0,1,4,3,5,3,1.0,1,3,5,1,5,2,5,3,5,2,2,5,5.
 PHY105M,57210,4,3,2,4,5,1,4,3,5.0,5,4.0,3,2,4,5,2,1.0,2,2,3,3,5,4,4,2,5,1,3,4,2.5,4.166666666666667,2.5,Female,,Prefer not to disclose,,,,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57210,5,1,1,5,5,2,5,5,5.0,5,2.0,5,3,5,5,4,1.0,1,1,5,5,4,4,5,3,5,1,5,5,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
 PHY105N,57210,4,4,2,4,4,5,4,4,2.0,5,1.0,4,4,4,4,5,2.0,3,2,2,4,4,4,4,2,4,2,3,3,5.0,5.0,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,1.0,Partner Agreements
+PHY105N,57210,3,4,4,3,4,4,4,4,4.0,4,3.0,4,3,4,3,2,0.0,1,3,4,3,4,4,4,4,4,3,3,4,1.6666666666666667,4.166666666666667,1.6666666666666667,Male,,Asian,,,Filipino,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
+PHY105N,57210,3,2,1,5,5,1,5,5,5.0,5,3.0,4,5,5,5,1,1.0,2,1,4,5,4,5,5,1,5,2,3,1,5.0,5.0,5.0,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,1.0,Partner Agreements
 PHY105N,57040,3,1,5,5,4,2,5,4,4.0,5,5.0,2,4,5,4,1,1.0,2,2,5,5,4,5,4,1,5,2,5,5,4.166666666666667,4.166666666666667,4.166666666666667,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57040,2,4,3,2,5,1,3,1,5.0,4,5.0,3,3,4,4,1,3.0,3,3,4,5,4,4,4,4,4,1,3,3,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,Irish,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57040,4,2,3,3,4,2,4,4,4.0,4,4.0,2,2,3,4,2,2.0,2,3,4,4,4,3,4,3,4,2,4,4,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,English,,Master’s degree or above,,2.0,Collaborative Comparison
+PHY105N,57040,5,4,2,4,5,1,5,4,4.0,4,1.0,4,4,4,2,1,1.0,1,4,5,5,5,4,4,5,4,1,4,4,1.6666666666666667,2.5,1.6666666666666667,Female,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,High school,,2.0,Collaborative Comparison
 PHY105N,57050,2,2,2,4,4,1,4,4,5.0,4,3.0,3,2,4,4,2,2.0,2,1,5,3,3,3,4,1,4,2,4,3,4.166666666666667,4.166666666666667,4.166666666666667,Male,,White,,,,,,,,,,,,,"German,Irish,English",,Master’s degree or above,,0.0,Control
 PHY105N,57050,4,4,3,3,5,1,4,4,5.0,5,4.0,3,2,4,4,2,1.0,1,4,4,4,5,3,5,4,4,1,3,4,4.166666666666667,4.166666666666667,2.5,Male,,"Middle Eastern or North African,White",,,,,,,,,Iranian,,,,German,,Master’s degree or above,,0.0,Control
 PHY105N,57050,3,3,3,3,5,1,3,3,5.0,5,4.0,5,3,4,4,1,1.0,2,3,5,5,4,4,4,2,5,1,2,4,4.166666666666667,5.0,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Puerto Rican,,,,,,,,Master’s degree or above,,0.0,Control
@@ -1135,5 +1450,17 @@ PHY105N,57050,4,1,1,5,5,1,5,5,5.0,5,4.0,3,1,5,5,1,1.0,1,1,5,2,4,5,5,1,3,1,5,4,4.
 PHY105M,57050,2,3,4,5,5,4,5,4,5.0,5,4.0,5,1,5,5,2,2.0,2,3,5,3,5,5,4,3,5,2,4,3,0.8333333333333334,5.0,0.8333333333333334,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
 PHY105N,57050,3,3,3,3,3,3,3,3,3.0,4,1.0,3,5,4,3,5,2.0,3,3,3,3,3,3,2,5,1,1,2,5,3.3333333333333335,2.5,3.3333333333333335,Other (please specify):,beaver,"Hispanic, Latino, or Spanish",,,,,,,"Mexican or Mexican American,Some other Hispanic, Latino, or Spanish race or ethnicity
 Print, for example, Guatemalan, Spaniard, Ecuadorian, etc.",idk what its called but i am hispanic,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105N,57050,4,4,3,4,4,3,4,4,3.0,4,3.0,4,5,4,4,3,1.0,3,3,4,3,3,4,4,3,5,3,4,4,4.166666666666667,4.166666666666667,3.3333333333333335,Prefer not to disclose,,Prefer not to disclose,,,,,,,,,,,,,,,Prefer not to answer,,0.0,Control
+PHY105N,57050,3,4,2,4,5,1,5,1,5.0,5,2.0,3,5,3,5,1,3.0,1,3,5,5,2,5,5,1,5,2,5,5,5.0,5.0,5.0,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105N,57050,2,1,4,5,4,1,5,5,5.0,5,1.0,5,1,4,5,1,1.0,4,1,5,1,5,2,5,1,5,1,5,5,5.0,5.0,5.0,Male,,"Black or African American,Hispanic, Latino, or Spanish,White",,,,,African American,,Mexican or Mexican American,,,,,,,,Associate's or technical degree,,0.0,Control
+PHY105N,57050,5,2,2,5,5,1,5,3,5.0,4,3.0,4,4,4,5,1,1.0,1,2,4,4,4,4,5,1,5,2,3,3,4.166666666666667,4.166666666666667,3.3333333333333335,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,I'm not sure,,0.0,Control
 PHY105M,56990,4,4,1,4,5,1,4,4,5.0,5,4.0,2,2,4,5,1,3.0,1,3,4,3,4,4,3,1,4,1,4,3,5.0,4.166666666666667,5.0,Female,,Asian,,,"Some other Asian race or ethnicity
 Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56990,4,4,4,2,3,2,4,3,3.0,4,2.0,3,3,2,4,3,2.0,2,2,4,4,3,4,4,3,4,2,3,4,5.0,5.0,5.0,Prefer not to disclose,,Black or African American,,,,,African American,,,,,,,,,,Some college but no degree,,0.0,Control
+PHY105M,56990,5,4,2,4,5,2,4,4,5.0,4,5.0,2,2,4,4,4,1.0,2,3,4,2,5,4,5,2,4,3,4,3,4.166666666666667,5.0,4.166666666666667,Female,,Asian,,,Asian Indian,,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56990,3,4,3,2,4,3,4,4,4.0,3,3.0,3,4,3,3,2,3.0,2,2,3,3,4,2,3,4,3,3,4,3,2.5,3.3333333333333335,2.5,Female,,White,,,,,,,,,,,,,"German,Irish,English",,Master’s degree or above,,0.0,Control
+PHY105M,56990,4,4,3,3,2,3,4,4,2.0,4,4.0,4,4,4,4,4,3.0,3,4,4,3,4,3,4,2,4,3,3,3,1.6666666666666667,3.3333333333333335,2.5,Male,,Asian,,,"Some other Asian race or ethnicity
+Print, for example, Pakistani, Cambodian, Hmong, etc.",Pakistani,,,,,,,,,,,Master’s degree or above,,0.0,Control
+PHY105M,56990,3,2,4,4,4,1,3,5,5.0,4,3.0,5,4,4,4,3,1.0,1,3,4,2,4,4,5,2,4,2,4,4,5.0,5.0,5.0,Male,,White,,,,,,,,,,,,,"German,Irish",,High school,,0.0,Control
+PHY105M,56990,2,4,3,2,4,1,4,4,5.0,5,4.0,5,2,4,4,2,2.0,3,4,2,2,5,5,4,3,5,2,4,5,4.166666666666667,5.0,5.0,Male,,Asian,,,Asian Indian,,,,,,,,,,,,Bachelor’s degree,,0.0,Control
+PHY105M,56990,5,1,1,5,5,1,5,5,5.0,5,3.0,3,5,5,5,1,2.0,1,1,5,5,5,5,5,2,5,1,3,3,5.0,3.3333333333333335,4.166666666666667,Male,,"Hispanic, Latino, or Spanish",,,,,,,Mexican or Mexican American,,,,,,,,Some college but no degree,,0.0,Control
