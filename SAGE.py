@@ -52,7 +52,7 @@ def main():
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
-    # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
+    EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # principal component analysis on questions taken from SAGE
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
     # Mindset(df_norm) # Checks mindset of student responses WIP
@@ -472,7 +472,7 @@ def EFA(df_norm):
     print('Statistical Tests')
     # BARTLETT'S TEST
     chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
-    print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
+    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
 
     # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
     kmo_all, kmo_model = calculate_kmo(df_SAGE)
