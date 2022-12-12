@@ -49,13 +49,13 @@ def main():
     # dfW = df[df['Please select the population group(s) that you most closely identify with (select all that apply).'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
+    # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
+    # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
-    EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    # PCA(df_norm) # principal component analysis on questions taken from SAGE
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
-    # Mindset(df_norm) # Checks mindset of student responses WIP
+    # Mindset(df_norm) # Checks mindset of student responses. WIP
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -255,108 +255,6 @@ def Data_statistics(df_norm):
     full_counts = pd.concat([pd.Series(x) for x in lists])
     top_level_counts.reset_index().to_csv('ExportedFiles/Sage_Counts1.csv', encoding = "utf-8", index=True)
     full_counts.reset_index().to_csv('ExportedFiles/Sage_Counts2.csv', encoding = "utf-8", index=True)
-
-def Gender_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # Split based on gender
-    dfM = df[df['Gender'] == 'Male'].copy()
-    dfF = df[df['Gender'] == 'Female'].copy()
-    dfO = df[~df['Gender'].isin(['Male', 'Female'])].copy()
-
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    dfM.drop(columns=['Gender'], axis=1, inplace = True)
-    dfF.drop(columns=['Gender'], axis=1, inplace = True)
-    dfO.drop(columns=['Gender'], axis=1, inplace = True)
-
-    # CALCULATE MEAN, STD DEV OF EACH COLUMN
-    dfM_mean = dfM.mean(numeric_only=False)
-    dfM_med = dfM.median(numeric_only=False)
-    dfM_stderr = dfM.std(numeric_only=False)/np.sqrt(dfM.count())
-    dfF_mean = dfF.mean(numeric_only=False)
-    dfF_med = dfF.median(numeric_only=False)
-    dfF_stderr = dfF.std(numeric_only=False)/np.sqrt(dfF.count())
-    dfO_mean = dfO.mean(numeric_only=False)
-    dfO_med = dfO.median(numeric_only=False)
-    dfO_stderr = dfO.std(numeric_only=False)/np.sqrt(dfO.count())
-    dfM_summary = pd.merge(dfM_mean.to_frame(), dfM_stderr.to_frame(), left_index = True, right_index=True)
-    dfF_summary = pd.merge(dfF_mean.to_frame(), dfF_stderr.to_frame(), left_index = True, right_index=True)
-    dfO_summary = pd.merge(dfO_mean.to_frame(), dfO_stderr.to_frame(), left_index = True, right_index=True)    
-    dfM_summary.rename(columns={'0_x': 'Mean (male)', '0_y': 'Std.Err. (male)',}, inplace = True)
-    dfF_summary.rename(columns={'0_x': 'Mean (female)', '0_y': 'Std.Err. (female)'}, inplace = True)
-    dfO_summary.rename(columns={'0_x': 'Mean (other)', '0_y': 'Std.Err. (other)'}, inplace = True)
-    dfM_summary['Median (male)'] = dfM_med
-    dfF_summary['Median (female)'] = dfF_med
-    dfO_summary['Median (other)'] = dfO_med    
-    df_summary = pd.merge(pd.merge(dfM_summary, dfF_summary, left_index=True, right_index=True), dfO_summary, left_index=True, right_index=True)
-    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
-    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
-    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
-    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
-
-    # cmap = cm.get_cmap('viridis')
-    # colors = cmap(np.linspace(0,1,3))
-    # palette ={'F': colors[0], 'M': colors[1], 'Other':colors[2]}
-    # gen_counts = data.groupby(['Gender']).count()
-    # g = sns.barplot(x='Gender', y='frequency',data=gen_counts,
-    #     palette=palette)
-    # x_coords = [p.get_x() + 0.5*p.get_width() for p in g.patches]
-    # y_coords = [p.get_height() for p in g.patches]
-    # g.set_xticklabels(task_labels)
-    # g.set_xlabel('')
-    # g.set_ylabel('Fraction')
-    # plt.title('Preferred Role')
-    # plt.tight_layout()
-    # save_fig(g,'Preferred_role')
-    # plt.close()
-
-    # stat, p = scipy.stats.ranksums(df_summary['Median (male)'],df_summary['Median (female)'], nan_policy='omit')
-    # print(stat, p)
-    # for i in df_summary.index:
-    #     stat, p = scipy.stats.ranksums(dfM[i],dfF[i])
-    #     print(i, p)
-
-def Intervention_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # Split based on gender
-    dfPA = df[df['Intervention'] == 'Partner Agreements'].copy()
-    dfC = df[df['Intervention'] == 'Control'].copy()
-    dfCC = df[df['Intervention'] == 'Collaborative Comparison'].copy()
-
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    dfPA.drop(columns=['Intervention'], axis=1, inplace = True)
-    dfC.drop(columns=['Intervention'], axis=1, inplace = True)
-    dfCC.drop(columns=['Intervention'], axis=1, inplace = True)
-
-    # CALCULATE MEAN, STD DEV OF EACH COLUMN
-    dfPA_mean = dfPA.mean(numeric_only=False)
-    dfPA_med = dfPA.median(numeric_only=False)
-    dfPA_stderr = dfPA.std(numeric_only=False)/np.sqrt(dfPA.count())
-    dfC_mean = dfC.mean(numeric_only=False)
-    dfC_med = dfC.median(numeric_only=False)
-    dfC_stderr = dfC.std(numeric_only=False)/np.sqrt(dfC.count())
-    dfCC_mean = dfCC.mean(numeric_only=False)
-    dfCC_med = dfCC.median(numeric_only=False)
-    dfCC_stderr = dfCC.std(numeric_only=False)/np.sqrt(dfCC.count())
-    dfPA_summary = pd.merge(dfPA_mean.to_frame(), dfPA_stderr.to_frame(), left_index = True, right_index=True)
-    dfC_summary = pd.merge(dfC_mean.to_frame(), dfC_stderr.to_frame(), left_index = True, right_index=True)
-    dfCC_summary = pd.merge(dfCC_mean.to_frame(), dfCC_stderr.to_frame(), left_index = True, right_index=True)    
-    dfPA_summary.rename(columns={'0_x': 'Mean (Partner Agreements)', '0_y': 'Std.Err. (Partner Agreements)',}, inplace = True)
-    dfC_summary.rename(columns={'0_x': 'Mean (Control)', '0_y': 'Std.Err. (Control)'}, inplace = True)
-    dfCC_summary.rename(columns={'0_x': 'Mean (Collaborative Comparison)', '0_y': 'Std.Err. (Collaborative Comparison)'}, inplace = True)
-    dfPA_summary['Median (Partner Agreements)'] = dfPA_med
-    dfC_summary['Median (Control)'] = dfC_med
-    dfCC_summary['Median (Collaborative Comparison)'] = dfCC_med    
-    df_summary = pd.merge(pd.merge(dfPA_summary, dfC_summary, left_index=True, right_index=True), dfCC_summary, left_index=True, right_index=True)
-    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
-    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
-    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
-    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
 
 def SAGE_validation(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
@@ -651,6 +549,108 @@ def PCA(df_norm):
     # print(' Number of cross-loadings:', standard_pca5.count_cross_loadings())
     # print('\nRotated factor matrix:\n', varimax_pca5.components_.round(1))
     # print(' Number of cross_loadings:', varimax_pca5.count_cross_loadings())
+
+def Gender_differences(df_norm):
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+    df = df_norm.drop(columns=Demo_Qs, axis=1)
+
+    # Split based on gender
+    dfM = df[df['Gender'] == 'Male'].copy()
+    dfF = df[df['Gender'] == 'Female'].copy()
+    dfO = df[~df['Gender'].isin(['Male', 'Female'])].copy()
+
+    # REMOVE THE DEMOGRAPHICS QUESTIONS
+    dfM.drop(columns=['Gender'], axis=1, inplace = True)
+    dfF.drop(columns=['Gender'], axis=1, inplace = True)
+    dfO.drop(columns=['Gender'], axis=1, inplace = True)
+
+    # CALCULATE MEAN, STD DEV OF EACH COLUMN
+    dfM_mean = dfM.mean(numeric_only=False)
+    dfM_med = dfM.median(numeric_only=False)
+    dfM_stderr = dfM.std(numeric_only=False)/np.sqrt(dfM.count())
+    dfF_mean = dfF.mean(numeric_only=False)
+    dfF_med = dfF.median(numeric_only=False)
+    dfF_stderr = dfF.std(numeric_only=False)/np.sqrt(dfF.count())
+    dfO_mean = dfO.mean(numeric_only=False)
+    dfO_med = dfO.median(numeric_only=False)
+    dfO_stderr = dfO.std(numeric_only=False)/np.sqrt(dfO.count())
+    dfM_summary = pd.merge(dfM_mean.to_frame(), dfM_stderr.to_frame(), left_index = True, right_index=True)
+    dfF_summary = pd.merge(dfF_mean.to_frame(), dfF_stderr.to_frame(), left_index = True, right_index=True)
+    dfO_summary = pd.merge(dfO_mean.to_frame(), dfO_stderr.to_frame(), left_index = True, right_index=True)    
+    dfM_summary.rename(columns={'0_x': 'Mean (male)', '0_y': 'Std.Err. (male)',}, inplace = True)
+    dfF_summary.rename(columns={'0_x': 'Mean (female)', '0_y': 'Std.Err. (female)'}, inplace = True)
+    dfO_summary.rename(columns={'0_x': 'Mean (other)', '0_y': 'Std.Err. (other)'}, inplace = True)
+    dfM_summary['Median (male)'] = dfM_med
+    dfF_summary['Median (female)'] = dfF_med
+    dfO_summary['Median (other)'] = dfO_med    
+    df_summary = pd.merge(pd.merge(dfM_summary, dfF_summary, left_index=True, right_index=True), dfO_summary, left_index=True, right_index=True)
+    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
+    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
+    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
+    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
+
+    # cmap = cm.get_cmap('viridis')
+    # colors = cmap(np.linspace(0,1,3))
+    # palette ={'F': colors[0], 'M': colors[1], 'Other':colors[2]}
+    # gen_counts = data.groupby(['Gender']).count()
+    # g = sns.barplot(x='Gender', y='frequency',data=gen_counts,
+    #     palette=palette)
+    # x_coords = [p.get_x() + 0.5*p.get_width() for p in g.patches]
+    # y_coords = [p.get_height() for p in g.patches]
+    # g.set_xticklabels(task_labels)
+    # g.set_xlabel('')
+    # g.set_ylabel('Fraction')
+    # plt.title('Preferred Role')
+    # plt.tight_layout()
+    # save_fig(g,'Preferred_role')
+    # plt.close()
+
+    # stat, p = scipy.stats.ranksums(df_summary['Median (male)'],df_summary['Median (female)'], nan_policy='omit')
+    # print(stat, p)
+    # for i in df_summary.index:
+    #     stat, p = scipy.stats.ranksums(dfM[i],dfF[i])
+    #     print(i, p)
+
+def Intervention_differences(df_norm):
+    Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+    df = df_norm.drop(columns=Demo_Qs, axis=1)
+
+    # Split based on gender
+    dfPA = df[df['Intervention'] == 'Partner Agreements'].copy()
+    dfC = df[df['Intervention'] == 'Control'].copy()
+    dfCC = df[df['Intervention'] == 'Collaborative Comparison'].copy()
+
+    # REMOVE THE DEMOGRAPHICS QUESTIONS
+    dfPA.drop(columns=['Intervention'], axis=1, inplace = True)
+    dfC.drop(columns=['Intervention'], axis=1, inplace = True)
+    dfCC.drop(columns=['Intervention'], axis=1, inplace = True)
+
+    # CALCULATE MEAN, STD DEV OF EACH COLUMN
+    dfPA_mean = dfPA.mean(numeric_only=False)
+    dfPA_med = dfPA.median(numeric_only=False)
+    dfPA_stderr = dfPA.std(numeric_only=False)/np.sqrt(dfPA.count())
+    dfC_mean = dfC.mean(numeric_only=False)
+    dfC_med = dfC.median(numeric_only=False)
+    dfC_stderr = dfC.std(numeric_only=False)/np.sqrt(dfC.count())
+    dfCC_mean = dfCC.mean(numeric_only=False)
+    dfCC_med = dfCC.median(numeric_only=False)
+    dfCC_stderr = dfCC.std(numeric_only=False)/np.sqrt(dfCC.count())
+    dfPA_summary = pd.merge(dfPA_mean.to_frame(), dfPA_stderr.to_frame(), left_index = True, right_index=True)
+    dfC_summary = pd.merge(dfC_mean.to_frame(), dfC_stderr.to_frame(), left_index = True, right_index=True)
+    dfCC_summary = pd.merge(dfCC_mean.to_frame(), dfCC_stderr.to_frame(), left_index = True, right_index=True)    
+    dfPA_summary.rename(columns={'0_x': 'Mean (Partner Agreements)', '0_y': 'Std.Err. (Partner Agreements)',}, inplace = True)
+    dfC_summary.rename(columns={'0_x': 'Mean (Control)', '0_y': 'Std.Err. (Control)'}, inplace = True)
+    dfCC_summary.rename(columns={'0_x': 'Mean (Collaborative Comparison)', '0_y': 'Std.Err. (Collaborative Comparison)'}, inplace = True)
+    dfPA_summary['Median (Partner Agreements)'] = dfPA_med
+    dfC_summary['Median (Control)'] = dfC_med
+    dfCC_summary['Median (Collaborative Comparison)'] = dfCC_med    
+    df_summary = pd.merge(pd.merge(dfPA_summary, dfC_summary, left_index=True, right_index=True), dfCC_summary, left_index=True, right_index=True)
+    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
+    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
+    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
+    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
 
 def Specifics(df_norm,demo,col):
     Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Race or ethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
