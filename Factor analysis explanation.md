@@ -2,7 +2,7 @@
 
 ## Data
 The easiest format to use is the CSV created by Qualtrics.
-- Use the “Export & Import” dropdown menu to Export Data. Make sure that “Use choice text” is selected and export the data as a CSV.
+- Use the “Export & Import” dropdown menu in Data & Analysis to Export Data. Make sure that “Use choice text” is selected and export the data as a CSV.
 This document will give information about the submission (IP address, start/end times, location) and the text responses for each submission of the survey. If there are, say, 60 responses, then the CSV should have 63 rows (60 responses + 3 header rows).
 
 ## Preparing data for analysis
@@ -12,8 +12,7 @@ This document will give information about the submission (IP address, start/end 
 - Strongly disagree = 1, ..., Strongly agree = 5 (5-point questions)
 - Strongly disagree = 1, ..., Neither agree nor disagree = 3, ..., Strongly agree = 6 (6-point questions)
 - Outputs results as SAGE_Raw.csv
-3. For the sake of this initial analysis, we remove the demographic questions. 
-4. Calculate statistics on each questions
+4. Calculate statistics on each question
 - Mean, standard deviation
 - Percentages of SD+D, N, A+SA
 - Outputs results as SAGE_Stats.csv
@@ -26,9 +25,18 @@ This document will give information about the submission (IP address, start/end 
 
 ## Confirmatory Factor Analysis
 Uses only the questions that correspond to factored questions in Kouros and Abrami 2006.
+- Each question is loaded specifically to its corresponding factor based on a dictionary.
+- Outputs the loadings to SAGE_CFA.csv
 
 ## Correlation Matrix
 
-## Exploaratory Factor Analysis
+## Exploratory Factor Analysis
+Follows Section II, A from Eaton et al. 2019
+1. Calculate the Kaiser-Meyer-Olkin (KMO) values for every item. If any items have a KMO below the cutoff value, then the item with the lowest value is removed and the step is repeated. KMO values above 0.6 are kept, though above 0.8 are preferred.
+2. Check whether the items acan be factored using Bartlett's test of sphericity. A low p-score indicates that factor analysis can be performed.
+3. Calculate the EFA model using factoring and a specified number of factors.
+4. Calculate the commonalities, which are the proportion of the item's variance explained by the factors. If any item is below the cutoff (<0.4), then the item with the lowest value is dropped and then restart at Step 1.
+5. Calculate the item loadings
+
 
 ## Principal Component Analysis

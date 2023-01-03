@@ -366,24 +366,24 @@ def EFA(df_norm):
     plt.tight_layout()
     save_fig(fig,'SAGE_CorrM_0.4')
     plt.clf()
-    
+
     print('Statistical Tests')
-    # BARTLETT'S TEST
-    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
-    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
 
     # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
     kmo_all, kmo_model = calculate_kmo(df_SAGE)
     print('KMO Measure of Sampling Adequacy: ', kmo_model)
+    print(kmo_all)
 
-    # # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
-    # print('Cronbachs alpha test of consistency: ', al(data=df_SAGE))
+    # BARTLETT'S TEST
+    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
+    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
 
     # EFA
     print('EFA')
     efa = FactorAnalyzer(rotation=None)
     efa.fit(df_SAGE)
     ev, v = efa.get_eigenvalues()
+    print(pd.DataFrame(efa.get_communalities(),index=df_SAGE.columns,columns=['Communalities']))
 
     fig, ax = plt.subplots()
     plt.plot(ev, '.-', linewidth=2, color='blue')
