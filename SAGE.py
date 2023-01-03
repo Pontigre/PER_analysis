@@ -39,6 +39,7 @@ def main():
     df = pd.read_csv(my_file, encoding = "utf-8", usecols=lambda x: x not in ExcludedHeaders, skiprows=1)
     df = df.drop([0])
     df.rename(columns=Demo_dict, inplace=True)
+    print(list(df))
 
     # ATTRIBUTE UNIQUE NUMBER TO INTERVENTION
     df_inter = pd.read_excel('Section Intervention Assignments.xlsx', header = None, names=['Unique', 'Day', 'Time', 'Room', 'Intervention Number', 'Intervention'])
@@ -48,9 +49,9 @@ def main():
 
     # dfW = df[df['Please select the population group(s) that you most closely identify with (select all that apply).'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
-    # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
-    # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
+    Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
+    EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
@@ -393,6 +394,7 @@ def EFA(df_norm):
     plt.ylabel('Eigenvalue')
     plt.xlim(-0.5,22)
     plt.ylim(0,5.5)
+    plt.xticks(range(0,20))
     save_fig(fig, 'SAGE_Scree')
     plt.clf()
 
