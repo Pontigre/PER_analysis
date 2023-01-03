@@ -39,6 +39,7 @@ def main():
     df = pd.read_csv(my_file, encoding = "utf-8", usecols=lambda x: x not in ExcludedHeaders, skiprows=1)
     df = df.drop([0])
     df.rename(columns=Demo_dict, inplace=True)
+    print(list(df))
 
     # ATTRIBUTE UNIQUE NUMBER TO INTERVENTION
     df_inter = pd.read_excel('Section Intervention Assignments.xlsx', header = None, names=['Unique', 'Day', 'Time', 'Room', 'Intervention Number', 'Intervention'])
@@ -47,15 +48,15 @@ def main():
     df = df.merge(df_inter, how='inner', on = 'Unique')
 
     # dfW = df[df['Please select the population group(s) that you most closely identify with (select all that apply).'].str.contains('White', na=False)].copy()
-    df_norm = Prepare_data(df) # This removes demographic questions, calculates averages and statistics, and combines inversely worded questions into one
-    # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # Gender_differences(df_norm)
-    # Intervention_differences(df_norm)
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
-    # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    # PCA(df_norm) # principal component analysis on questions taken from SAGE
+    df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
+    Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
+    EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
+    # PCA(df_norm) # Principal component analysis on questions taken from SAGE
+    # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
+    # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
-    Mindset(df_norm) 
+    # Mindset(df_norm) # Checks mindset of student responses. WIP
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -91,12 +92,12 @@ def Prepare_data(df):
         df.loc[df[i] == 'Agree', i] = 2
         df.loc[df[i] == 'Strongly agree', i] = 1
 
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly disagree', i] = 1
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Disagree', i] = 2
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat disagree', i] = 3
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat agree', i] = 4
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Agree', i] = 5
-    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly agree', i] = 6
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly disagree', 'Your physics intelligence is something about you that you can change.'] = 1
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Disagree', 'Your physics intelligence is something about you that you can change.'] = 2
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat disagree', 'Your physics intelligence is something about you that you can change.'] = 3
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Somewhat agree', 'Your physics intelligence is something about you that you can change.'] = 4
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Agree', 'Your physics intelligence is something about you that you can change.'] = 5
+    df.loc[df['Your physics intelligence is something about you that you can change.'] == 'Strongly agree', 'Your physics intelligence is something about you that you can change.'] = 6
 
     for i in Qs:
         df.loc[df[i].astype(str).str.contains('Strongly disagree') == True, i] = 1
@@ -233,6 +234,7 @@ def Data_statistics(df_norm):
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
 
     total_count = len(df_norm.index)
+    print('Total N:', total_count)
     intervention_count = df_norm.groupby(['Intervention'])['Intervention'].describe()['count']
     course_count = df_norm.groupby(['Course'])['Course'].describe()['count']
     gender_count = df_norm.groupby(['Gender'])['Gender'].describe()['count']
@@ -248,112 +250,12 @@ def Data_statistics(df_norm):
     ig_count = df_norm.groupby(['Intervention','Gender'])['Intervention'].describe()['count']
     ire_count = df_norm.groupby(['Intervention','Race or ethnicity'])['Intervention'].describe()['count']
     ie_count = df_norm.groupby(['Intervention','Education'])['Intervention'].describe()['count']
-    # intervention_count, course_count, gender_count, raceethnicity_count, education_count,
+    simple_counts = [intervention_count, course_count, gender_count, raceethnicity_count, education_count]
     lists = [ci_count, cg_count, cre_count, ce_count, ic_count, ig_count, ire_count, ie_count]
+    top_level_counts = pd.concat([pd.Series(x) for x in simple_counts])
     full_counts = pd.concat([pd.Series(x) for x in lists])
-    full_counts.reset_index().to_csv('ExportedFiles/Sage_Counts.csv', encoding = "utf-8", index=True)
-
-def Gender_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # Split based on gender
-    dfM = df[df['Gender'] == 'Male'].copy()
-    dfF = df[df['Gender'] == 'Female'].copy()
-    dfO = df[~df['Gender'].isin(['Male', 'Female'])].copy()
-
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    dfM.drop(columns=['Gender'], axis=1, inplace = True)
-    dfF.drop(columns=['Gender'], axis=1, inplace = True)
-    dfO.drop(columns=['Gender'], axis=1, inplace = True)
-
-    # CALCULATE MEAN, STD DEV OF EACH COLUMN
-    dfM_mean = dfM.mean(numeric_only=False)
-    dfM_med = dfM.median(numeric_only=False)
-    dfM_stderr = dfM.std(numeric_only=False)/np.sqrt(dfM.count())
-    dfF_mean = dfF.mean(numeric_only=False)
-    dfF_med = dfF.median(numeric_only=False)
-    dfF_stderr = dfF.std(numeric_only=False)/np.sqrt(dfF.count())
-    dfO_mean = dfO.mean(numeric_only=False)
-    dfO_med = dfO.median(numeric_only=False)
-    dfO_stderr = dfO.std(numeric_only=False)/np.sqrt(dfO.count())
-    dfM_summary = pd.merge(dfM_mean.to_frame(), dfM_stderr.to_frame(), left_index = True, right_index=True)
-    dfF_summary = pd.merge(dfF_mean.to_frame(), dfF_stderr.to_frame(), left_index = True, right_index=True)
-    dfO_summary = pd.merge(dfO_mean.to_frame(), dfO_stderr.to_frame(), left_index = True, right_index=True)    
-    dfM_summary.rename(columns={'0_x': 'Mean (male)', '0_y': 'Std.Err. (male)',}, inplace = True)
-    dfF_summary.rename(columns={'0_x': 'Mean (female)', '0_y': 'Std.Err. (female)'}, inplace = True)
-    dfO_summary.rename(columns={'0_x': 'Mean (other)', '0_y': 'Std.Err. (other)'}, inplace = True)
-    dfM_summary['Median (male)'] = dfM_med
-    dfF_summary['Median (female)'] = dfF_med
-    dfO_summary['Median (other)'] = dfO_med    
-    df_summary = pd.merge(pd.merge(dfM_summary, dfF_summary, left_index=True, right_index=True), dfO_summary, left_index=True, right_index=True)
-    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
-    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
-    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
-    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
-
-    # cmap = cm.get_cmap('viridis')
-    # colors = cmap(np.linspace(0,1,3))
-    # palette ={'F': colors[0], 'M': colors[1], 'Other':colors[2]}
-    # gen_counts = data.groupby(['Gender']).count()
-    # g = sns.barplot(x='Gender', y='frequency',data=gen_counts,
-    #     palette=palette)
-    # x_coords = [p.get_x() + 0.5*p.get_width() for p in g.patches]
-    # y_coords = [p.get_height() for p in g.patches]
-    # g.set_xticklabels(task_labels)
-    # g.set_xlabel('')
-    # g.set_ylabel('Fraction')
-    # plt.title('Preferred Role')
-    # plt.tight_layout()
-    # save_fig(g,'Preferred_role')
-    # plt.close()
-
-    # stat, p = scipy.stats.ranksums(df_summary['Median (male)'],df_summary['Median (female)'], nan_policy='omit')
-    # print(stat, p)
-    # for i in df_summary.index:
-    #     stat, p = scipy.stats.ranksums(dfM[i],dfF[i])
-    #     print(i, p)
-
-def Intervention_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # Split based on gender
-    dfPA = df[df['Intervention'] == 'Partner Agreements'].copy()
-    dfC = df[df['Intervention'] == 'Control'].copy()
-    dfCC = df[df['Intervention'] == 'Collaborative Comparison'].copy()
-
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    dfPA.drop(columns=['Intervention'], axis=1, inplace = True)
-    dfC.drop(columns=['Intervention'], axis=1, inplace = True)
-    dfCC.drop(columns=['Intervention'], axis=1, inplace = True)
-
-    # CALCULATE MEAN, STD DEV OF EACH COLUMN
-    dfPA_mean = dfPA.mean(numeric_only=False)
-    dfPA_med = dfPA.median(numeric_only=False)
-    dfPA_stderr = dfPA.std(numeric_only=False)/np.sqrt(dfPA.count())
-    dfC_mean = dfC.mean(numeric_only=False)
-    dfC_med = dfC.median(numeric_only=False)
-    dfC_stderr = dfC.std(numeric_only=False)/np.sqrt(dfC.count())
-    dfCC_mean = dfCC.mean(numeric_only=False)
-    dfCC_med = dfCC.median(numeric_only=False)
-    dfCC_stderr = dfCC.std(numeric_only=False)/np.sqrt(dfCC.count())
-    dfPA_summary = pd.merge(dfPA_mean.to_frame(), dfPA_stderr.to_frame(), left_index = True, right_index=True)
-    dfC_summary = pd.merge(dfC_mean.to_frame(), dfC_stderr.to_frame(), left_index = True, right_index=True)
-    dfCC_summary = pd.merge(dfCC_mean.to_frame(), dfCC_stderr.to_frame(), left_index = True, right_index=True)    
-    dfPA_summary.rename(columns={'0_x': 'Mean (Partner Agreements)', '0_y': 'Std.Err. (Partner Agreements)',}, inplace = True)
-    dfC_summary.rename(columns={'0_x': 'Mean (Control)', '0_y': 'Std.Err. (Control)'}, inplace = True)
-    dfCC_summary.rename(columns={'0_x': 'Mean (Collaborative Comparison)', '0_y': 'Std.Err. (Collaborative Comparison)'}, inplace = True)
-    dfPA_summary['Median (Partner Agreements)'] = dfPA_med
-    dfC_summary['Median (Control)'] = dfC_med
-    dfCC_summary['Median (Collaborative Comparison)'] = dfCC_med    
-    df_summary = pd.merge(pd.merge(dfPA_summary, dfC_summary, left_index=True, right_index=True), dfCC_summary, left_index=True, right_index=True)
-    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
-    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
-    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
-    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
+    top_level_counts.reset_index().to_csv('ExportedFiles/Sage_Counts1.csv', encoding = "utf-8", index=True)
+    full_counts.reset_index().to_csv('ExportedFiles/Sage_Counts2.csv', encoding = "utf-8", index=True)
 
 def SAGE_validation(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
@@ -365,22 +267,25 @@ def SAGE_validation(df_norm):
     not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
     'My group did higher quality work when group members worked on different tasks at the same time.', 
     'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 
-    'Your physics intelligence is something about you that you can’t change very much.',
+    'Your physics intelligence is something about you that you can change.',
     'You can learn new things, but you can’t really change your basic physics intelligence.',
     'I prefer to take on tasks that I’m already good at.',
+    'I prefer to take on tasks that will help me better learn the material.',
     'I prefer when one student regularly takes on a leadership role.',
     'I prefer when the leadership role rotates between students.']
     df_SAGE = df.drop(not_SAGE, axis=1)
 
     not_cfa = ['When I work in a group, I end up doing most of the work.', 'I do not think a group grade is fair.',
     'I try to make sure my group members learn the material.',  'When I work with other students the work is divided equally.']
-    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1)
+    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1).astype(float)
+    df_SAGE_cfa.apply(pd.to_numeric)
 
     # CONFIRMATORY FACTOR ANALYSIS
     # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
+
     model_dict = {
     'F1': ['When I work in a group I do higher quality work.', 'The material is easier to understand when I work with other students.',
-            'My group members help explain things that I do not understand.', 'I feel working in groups is a waste of time.', #'The work takes more time to complete when I work with other students.',
+            'My group members help explain things that I do not understand.', 'I feel working in groups is a waste of time.', 'The work takes more time to complete when I work with other students.',
             'The workload is usually less when I work with other students.'], 
             # [1, 12, 8, 30, 5, 16]
     'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
@@ -419,25 +324,15 @@ def SAGE_validation(df_norm):
     ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
-    save_fig(fig, 'SAGE_CFA_0.5')
+    save_fig(fig, 'SAGE_CFA_0.4')
     plt.clf()
 
 def EFA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
     Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
-    # 'My group did higher quality work when group members worked on different tasks at the same time.', 
-    # 'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 
-    # 'Your physics intelligence is something about you that you can change.',
-    # 'You can learn new things, but you can’t really change your basic physics intelligence.',
-    # 'I prefer to take on tasks that I’m already good at.',
-    # 'I prefer when one student regularly takes on a leadership role.',
-    # 'I prefer when the leadership role rotates between students.']
-    # df_SAGE = df.drop(not_SAGE, axis=1)
-    df_SAGE = df.copy()
+    df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
+    df_SAGE.apply(pd.to_numeric)
 
     # CORRELATION MATRIX
     print('Correlation Matrix')
@@ -462,7 +357,7 @@ def EFA(df_norm):
     save_fig(fig,'SAGE_CorrM')
     plt.clf()
 
-    truncM = corrM[abs(corrM)>=0.5]
+    truncM = corrM[abs(corrM)>=0.4]
     fig, ax = plt.subplots()
     plt.title('Correlation Matrix')
     plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
@@ -470,26 +365,26 @@ def EFA(df_norm):
     ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     plt.tight_layout()
-    save_fig(fig,'SAGE_CorrM_0.5')
+    save_fig(fig,'SAGE_CorrM_0.4')
     plt.clf()
-    
+
     print('Statistical Tests')
-    # BARTLETT'S TEST
-    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
-    print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
 
     # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
     kmo_all, kmo_model = calculate_kmo(df_SAGE)
     print('KMO Measure of Sampling Adequacy: ', kmo_model)
+    print(kmo_all)
 
-    # # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
-    # print('Cronbachs alpha test of consistency: ', al(data=df_SAGE))
+    # BARTLETT'S TEST
+    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
+    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
 
     # EFA
     print('EFA')
     efa = FactorAnalyzer(rotation=None)
     efa.fit(df_SAGE)
     ev, v = efa.get_eigenvalues()
+    print(pd.DataFrame(efa.get_communalities(),index=df_SAGE.columns,columns=['Communalities']))
 
     fig, ax = plt.subplots()
     plt.plot(ev, '.-', linewidth=2, color='blue')
@@ -499,33 +394,37 @@ def EFA(df_norm):
     plt.ylabel('Eigenvalue')
     plt.xlim(-0.5,22)
     plt.ylim(0,5.5)
+    plt.xticks(range(0,20))
     save_fig(fig, 'SAGE_Scree')
     plt.clf()
 
-    # Based on the scree plot and Kaiser criterion, n=6 (or 7)
-    fa = FactorAnalyzer(n_factors=4, rotation='varimax')
-    fa.fit(df_SAGE)
-    m = pd.DataFrame(fa.loadings_)
-    # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
+    for i in range(2,8):
+        # Based on the scree plot and Kaiser criterion, n=6 (or 7)
+        fa = FactorAnalyzer(n_factors=i, rotation='varimax')
+        fa.fit(df_SAGE)
+        m = pd.DataFrame(fa.loadings_)
+        # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
 
-    fig, ax = plt.subplots()
-    plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar() 
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_EFA')
-    plt.clf()
+        fig, ax = plt.subplots()
+        plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar() 
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        file_string = 'SAGE_EFA_n=' + str(i)
+        save_fig(fig, file_string)
+        plt.clf()
 
-    truncm = m[abs(m)>=0.5]
-    fig, ax = plt.subplots()
-    plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_EFA_0.5')
-    plt.clf()
+        truncm = m[abs(m)>=0.4]
+        fig, ax = plt.subplots()
+        plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        file_string2 = 'SAGE_EFA_0.4_n=' + str(i)
+        save_fig(fig, file_string2)
+        plt.clf()
 
 def PCA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
@@ -652,6 +551,108 @@ def PCA(df_norm):
     # print(' Number of cross-loadings:', standard_pca5.count_cross_loadings())
     # print('\nRotated factor matrix:\n', varimax_pca5.components_.round(1))
     # print(' Number of cross_loadings:', varimax_pca5.count_cross_loadings())
+
+def Gender_differences(df_norm):
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+    df = df_norm.drop(columns=Demo_Qs, axis=1)
+
+    # Split based on gender
+    dfM = df[df['Gender'] == 'Male'].copy()
+    dfF = df[df['Gender'] == 'Female'].copy()
+    dfO = df[~df['Gender'].isin(['Male', 'Female'])].copy()
+
+    # REMOVE THE DEMOGRAPHICS QUESTIONS
+    dfM.drop(columns=['Gender'], axis=1, inplace = True)
+    dfF.drop(columns=['Gender'], axis=1, inplace = True)
+    dfO.drop(columns=['Gender'], axis=1, inplace = True)
+
+    # CALCULATE MEAN, STD DEV OF EACH COLUMN
+    dfM_mean = dfM.mean(numeric_only=False)
+    dfM_med = dfM.median(numeric_only=False)
+    dfM_stderr = dfM.std(numeric_only=False)/np.sqrt(dfM.count())
+    dfF_mean = dfF.mean(numeric_only=False)
+    dfF_med = dfF.median(numeric_only=False)
+    dfF_stderr = dfF.std(numeric_only=False)/np.sqrt(dfF.count())
+    dfO_mean = dfO.mean(numeric_only=False)
+    dfO_med = dfO.median(numeric_only=False)
+    dfO_stderr = dfO.std(numeric_only=False)/np.sqrt(dfO.count())
+    dfM_summary = pd.merge(dfM_mean.to_frame(), dfM_stderr.to_frame(), left_index = True, right_index=True)
+    dfF_summary = pd.merge(dfF_mean.to_frame(), dfF_stderr.to_frame(), left_index = True, right_index=True)
+    dfO_summary = pd.merge(dfO_mean.to_frame(), dfO_stderr.to_frame(), left_index = True, right_index=True)    
+    dfM_summary.rename(columns={'0_x': 'Mean (male)', '0_y': 'Std.Err. (male)',}, inplace = True)
+    dfF_summary.rename(columns={'0_x': 'Mean (female)', '0_y': 'Std.Err. (female)'}, inplace = True)
+    dfO_summary.rename(columns={'0_x': 'Mean (other)', '0_y': 'Std.Err. (other)'}, inplace = True)
+    dfM_summary['Median (male)'] = dfM_med
+    dfF_summary['Median (female)'] = dfF_med
+    dfO_summary['Median (other)'] = dfO_med    
+    df_summary = pd.merge(pd.merge(dfM_summary, dfF_summary, left_index=True, right_index=True), dfO_summary, left_index=True, right_index=True)
+    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
+    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
+    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
+    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
+
+    # cmap = cm.get_cmap('viridis')
+    # colors = cmap(np.linspace(0,1,3))
+    # palette ={'F': colors[0], 'M': colors[1], 'Other':colors[2]}
+    # gen_counts = data.groupby(['Gender']).count()
+    # g = sns.barplot(x='Gender', y='frequency',data=gen_counts,
+    #     palette=palette)
+    # x_coords = [p.get_x() + 0.5*p.get_width() for p in g.patches]
+    # y_coords = [p.get_height() for p in g.patches]
+    # g.set_xticklabels(task_labels)
+    # g.set_xlabel('')
+    # g.set_ylabel('Fraction')
+    # plt.title('Preferred Role')
+    # plt.tight_layout()
+    # save_fig(g,'Preferred_role')
+    # plt.close()
+
+    # stat, p = scipy.stats.ranksums(df_summary['Median (male)'],df_summary['Median (female)'], nan_policy='omit')
+    # print(stat, p)
+    # for i in df_summary.index:
+    #     stat, p = scipy.stats.ranksums(dfM[i],dfF[i])
+    #     print(i, p)
+
+def Intervention_differences(df_norm):
+    Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+    df = df_norm.drop(columns=Demo_Qs, axis=1)
+
+    # Split based on gender
+    dfPA = df[df['Intervention'] == 'Partner Agreements'].copy()
+    dfC = df[df['Intervention'] == 'Control'].copy()
+    dfCC = df[df['Intervention'] == 'Collaborative Comparison'].copy()
+
+    # REMOVE THE DEMOGRAPHICS QUESTIONS
+    dfPA.drop(columns=['Intervention'], axis=1, inplace = True)
+    dfC.drop(columns=['Intervention'], axis=1, inplace = True)
+    dfCC.drop(columns=['Intervention'], axis=1, inplace = True)
+
+    # CALCULATE MEAN, STD DEV OF EACH COLUMN
+    dfPA_mean = dfPA.mean(numeric_only=False)
+    dfPA_med = dfPA.median(numeric_only=False)
+    dfPA_stderr = dfPA.std(numeric_only=False)/np.sqrt(dfPA.count())
+    dfC_mean = dfC.mean(numeric_only=False)
+    dfC_med = dfC.median(numeric_only=False)
+    dfC_stderr = dfC.std(numeric_only=False)/np.sqrt(dfC.count())
+    dfCC_mean = dfCC.mean(numeric_only=False)
+    dfCC_med = dfCC.median(numeric_only=False)
+    dfCC_stderr = dfCC.std(numeric_only=False)/np.sqrt(dfCC.count())
+    dfPA_summary = pd.merge(dfPA_mean.to_frame(), dfPA_stderr.to_frame(), left_index = True, right_index=True)
+    dfC_summary = pd.merge(dfC_mean.to_frame(), dfC_stderr.to_frame(), left_index = True, right_index=True)
+    dfCC_summary = pd.merge(dfCC_mean.to_frame(), dfCC_stderr.to_frame(), left_index = True, right_index=True)    
+    dfPA_summary.rename(columns={'0_x': 'Mean (Partner Agreements)', '0_y': 'Std.Err. (Partner Agreements)',}, inplace = True)
+    dfC_summary.rename(columns={'0_x': 'Mean (Control)', '0_y': 'Std.Err. (Control)'}, inplace = True)
+    dfCC_summary.rename(columns={'0_x': 'Mean (Collaborative Comparison)', '0_y': 'Std.Err. (Collaborative Comparison)'}, inplace = True)
+    dfPA_summary['Median (Partner Agreements)'] = dfPA_med
+    dfC_summary['Median (Control)'] = dfC_med
+    dfCC_summary['Median (Collaborative Comparison)'] = dfCC_med    
+    df_summary = pd.merge(pd.merge(dfPA_summary, dfC_summary, left_index=True, right_index=True), dfCC_summary, left_index=True, right_index=True)
+    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
+    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
+    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
+    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
 
 def Specifics(df_norm,demo,col):
     Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Race or ethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
