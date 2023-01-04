@@ -47,7 +47,8 @@ def main():
     df_inter['Unique']=df_inter['Unique'].astype(str)
     df = df.merge(df_inter, how='inner', on = 'Unique')
 
-    # dfW = df[df['Please select the population group(s) that you most closely identify with (select all that apply).'].str.contains('White', na=False)].copy()
+    # dfG = df[df['Gender'].str.contains('Male', na=False)].copy()
+    # dfR = df[df['Race or ethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
