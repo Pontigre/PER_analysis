@@ -39,7 +39,6 @@ def main():
     df = pd.read_csv(my_file, encoding = "utf-8", usecols=lambda x: x not in ExcludedHeaders, skiprows=1)
     df = df.drop([0])
     df.rename(columns=Demo_dict, inplace=True)
-    print(list(df))
 
     # ATTRIBUTE UNIQUE NUMBER TO INTERVENTION
     df_inter = pd.read_excel('Section Intervention Assignments.xlsx', header = None, names=['Unique', 'Day', 'Time', 'Room', 'Intervention Number', 'Intervention'])
@@ -50,8 +49,8 @@ def main():
     # dfG = df[df['Gender'].str.contains('Male', na=False)].copy()
     # dfR = df[df['Race or ethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
-    Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
+    # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
     EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
@@ -369,23 +368,11 @@ def EFA(df_norm):
     save_fig(fig,'SAGE_CorrM_0.4')
     plt.clf()
 
-    print('Statistical Tests')
-
-    # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
-    kmo_all, kmo_model = calculate_kmo(df_SAGE)
-    print('KMO Measure of Sampling Adequacy: ', kmo_model)
-    print(kmo_all)
-
-    # BARTLETT'S TEST
-    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
-    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
-
-    # EFA
-    print('EFA')
-    efa = FactorAnalyzer(rotation=None)
-    efa.fit(df_SAGE)
-    ev, v = efa.get_eigenvalues()
-    print(pd.DataFrame(efa.get_communalities(),index=df_SAGE.columns,columns=['Communalities']))
+    # Scree Plot
+    print('Scree Plot')
+    fa = FactorAnalyzer(rotation=None)
+    fa.fit(df_SAGE)
+    ev, v = fa.get_eigenvalues()
 
     fig, ax = plt.subplots()
     plt.plot(ev, '.-', linewidth=2, color='blue')
@@ -399,12 +386,89 @@ def EFA(df_norm):
     save_fig(fig, 'SAGE_Scree')
     plt.clf()
 
-    for i in range(2,8):
-        # Based on the scree plot and Kaiser criterion, n=6 (or 7)
-        fa = FactorAnalyzer(n_factors=i, rotation='varimax')
-        fa.fit(df_SAGE)
-        m = pd.DataFrame(fa.loadings_)
-        # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
+    print('EFA')
+    # Follows Section II.A from Eaton et al. 2019
+    # 1. Calculate the Kaiser-Meyer-Olkin (KMO) values for every item. If any items have a KMO below the cutoff value, then the item with the lowest value is removed and the step is repeated. KMO values above 0.6 are kept, though above 0.8 are preferred.
+    # 2. Check whether the items can be factored using Bartlett's test of sphericity. A low p-score indicates that factor analysis can be performed.
+    # 3. Calculate the EFA model using factoring and a specified number of factors.
+    # 4. Calculate the commonalities, which are the proportion of the item's variance explained by the factors. If any item is below the cutoff (<0.4), then the item with the lowest value is dropped and then restart at Step 1.
+    # 5. Calculate the item loadings. If there are items that fail to load to any factor, then remove the item with the smallest max loading and then restart at Step 1.
+    # 6. Create a model by placing each item onto the factor that contains the item's largest loading. If any items load equally onto more than one factor, then add to all factors where this is the case.
+    # 7. Fit this model to the original data using CFA and extract a fit statistic (confirmatory fit index, Akaike information criterion, or similar).
+    # 8. Change the number of factors and repeat the above steps.
+    # 9. Plot the fit statistic vs the number of factors. The model with the local minimum index is the preferred model.
+    min_kmo = 0.6
+    min_communalities = 0.3
+    min_loadings = 0.4
+
+    for n in range(2,10):
+        print('Number of factors:', n)
+        # Create a copy of the data so that we don't remove data when dropping columns
+        dfn = df_SAGE.copy()
+        dropped = []
+
+        # 5. Loadings loop
+        loadings_test = True
+        while loadings_test:
+            # 4. Communalities loop
+            communs_test = True
+            while communs_test:
+                # 1. KMO loop
+                kmo_test = True
+                while kmo_test:
+                    kmo_all, kmo_model = calculate_kmo(dfn)
+
+                    if abs(kmo_all.min()) < min_kmo:
+                        print('Lowest KMO:', kmo_all.min())
+                        dropped.append(dfn.columns[kmo_all.argmin()])
+                        dfn.drop(dfn.columns[kmo_all.argmin()], axis=1, inplace=True)
+                    else:
+                        kmo_test = False
+                # print('KMO Measure of Sampling Adequacy: ', kmo_model)
+                # print(kmo_all)
+
+                # 2. BARTLETT
+                chi_square_value, p_value = calculate_bartlett_sphericity(dfn)
+                if p_value > 0.2:
+                    print("Bartlett's Test of Sphericity failed with p-value", p_value)
+                # else:
+                #     print("Bartlett's Chi Square =", chi_square_value, "; p-value: {0:.3E}".format(p_value))
+
+                # 3. EFA
+                efa = FactorAnalyzer(n_factors=n, rotation='varimax')
+                efa.fit(dfn)
+
+                # 4. Communalities
+                communs = efa.get_communalities()
+
+                if abs(communs.min()) < min_communalities:
+                    print('Lowest communality:', communs.min())
+                    dropped.append(dfn.columns[communs.argmin()])
+                    dfn.drop(dfn.columns[communs.argmin()], axis=1, inplace=True)
+                else:
+                    communs_test = False
+            # print(communs)
+
+            # 5. Item loadings
+            if abs(efa.loadings_.min()) < min_loadings:
+                print('Lowest item loading:', efa.loadings_.min())
+                dropped.append(dfn.columns[efa.loadings_.argmin()])
+                dfn.drop(dfn.columns[efa.loadings_.argmin()], axis=1, inplace=True)
+            else:
+                loadings_test = False
+
+        print('Dropped columns:', dropped)
+        m = pd.DataFrame(efa.loadings_)
+        print(m)
+
+        labels = list(dfn)
+        file_string = image_dir + '/EFA_labels_n=' + str(n) + '.txt'
+        with open(file_string, 'w') as f:
+            original_stdout = sys.stdout # Save a reference to the original standard output
+            sys.stdout = f # Change the standard output to the file we created.
+            for number, label in enumerate(labels):
+                print(number, label)
+            sys.stdout = original_stdout # Reset the standard output to its original value
 
         fig, ax = plt.subplots()
         plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
@@ -412,8 +476,8 @@ def EFA(df_norm):
         ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         plt.tight_layout()
-        file_string = 'SAGE_EFA_n=' + str(i)
-        save_fig(fig, file_string)
+        file_string1 = 'SAGE_EFA_n=' + str(n)
+        save_fig(fig, file_string1)
         plt.clf()
 
         truncm = m[abs(m)>=0.4]
@@ -423,9 +487,53 @@ def EFA(df_norm):
         ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         plt.tight_layout()
-        file_string2 = 'SAGE_EFA_0.4_n=' + str(i)
+        file_string2 = 'SAGE_EFA_0.4_n=' + str(n)
         save_fig(fig, file_string2)
         plt.clf()
+
+        # # 6. Place loadings into model
+        # model_dict = {
+        # 'F1': ['When I work in a group I do higher quality work.', 'The material is easier to understand when I work with other students.',
+        #         'My group members help explain things that I do not understand.', 'I feel working in groups is a waste of time.', 'The work takes more time to complete when I work with other students.',
+        #         'The workload is usually less when I work with other students.'], 
+        # 'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
+        #         'I feel I am part of what is going on in the group.', 'When I work in a group, I am able to share my ideas.'], 
+        # 'F3': ['Everyone’s ideas are needed if we are going to be successful.', 'We cannot complete the assignment unless everyone contributes.', 'I let the other students do most of the work.',
+        #         'I also learn when I teach the material to my group members.', 'I learn to work with students who are different from me.'], 
+        # 'F4': ['I become frustrated when my group members do not understand the material.', 'When I work with other students, we spend too much time talking about other things.',
+        #         'I have to work with students who are not as smart as I am.']
+        # }        
+
+        # # 7. Fit model using CFA and extract fit statistic
+        # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa,model_dict)
+
+        # cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
+        # cfa.fit(df_SAGE_cfa)
+
+        # df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
+        # df_cfa.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA.csv', encoding = "utf-8", index=True)
+        
+        # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.0001, df_cfa)
+        # fig, ax = plt.subplots()
+        # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
+        # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        # plt.colorbar()
+        # plt.tight_layout()
+        # save_fig(fig, 'SAGE_CFA')
+        # plt.clf()
+
+        # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.4, df_cfa)
+        # fig, ax = plt.subplots()
+        # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
+        # plt.colorbar()
+        # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        # plt.tight_layout()
+        # save_fig(fig, 'SAGE_CFA_0.4')
+        # plt.clf()
+
+    # 9. Plot fit statistic vs number of factors        
 
 def PCA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS

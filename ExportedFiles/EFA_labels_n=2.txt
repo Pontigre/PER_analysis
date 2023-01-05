@@ -1,0 +1,14 @@
+0 When I work in a group, I end up doing most of the work.
+1 The work takes more time to complete when I work with other students.
+2 My group members help explain things that I do not understand.
+3 When I work in a group, I am able to share my ideas.
+4 My group members make me feel that I am not as smart as they are.
+5 The material is easier to understand when I work with other students.
+6 The workload is usually less when I work with other students.
+7 My group members respect my opinions.
+8 I feel I am part of what is going on in the group.
+9 My group members do not care about my feelings.
+10 I feel working in groups is a waste of time.
+11 When I work with other students the work is divided equally.
+12 You have a certain amount of physics intelligence, and you can’t really do much to change it.
+13 You can learn new things, but you can’t really change your basic physics intelligence.
