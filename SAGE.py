@@ -51,7 +51,8 @@ def main():
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
-    EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
+    # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
+    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
@@ -368,6 +369,105 @@ def EFA(df_norm):
     save_fig(fig,'SAGE_CorrM_0.4')
     plt.clf()
 
+    print('Statistical Tests')
+
+    # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
+    kmo_all, kmo_model = calculate_kmo(df_SAGE)
+    print('KMO Measure of Sampling Adequacy: ', kmo_model)
+    print(kmo_all)
+
+    # BARTLETT'S TEST
+    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
+    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
+
+    # EFA
+    print('EFA')
+    efa = FactorAnalyzer(rotation=None)
+    efa.fit(df_SAGE)
+    ev, v = efa.get_eigenvalues()
+    print(pd.DataFrame(efa.get_communalities(),index=df_SAGE.columns,columns=['Communalities']))
+
+    fig, ax = plt.subplots()
+    plt.plot(ev, '.-', linewidth=2, color='blue')
+    plt.hlines(1, 0, 22, linestyle='dashed')
+    plt.title('Factor Analysis Scree Plot')
+    plt.xlabel('Factor')
+    plt.ylabel('Eigenvalue')
+    plt.xlim(-0.5,22)
+    plt.ylim(0,5.5)
+    plt.xticks(range(0,20))
+    save_fig(fig, 'SAGE_Scree')
+    plt.clf()
+
+    for i in range(2,8):
+        # Based on the scree plot and Kaiser criterion, n=6 (or 7)
+        fa = FactorAnalyzer(n_factors=i, rotation='varimax')
+        fa.fit(df_SAGE)
+        m = pd.DataFrame(fa.loadings_)
+        # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
+
+        fig, ax = plt.subplots()
+        plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar() 
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        file_string = 'SAGE_EFA_n=' + str(i)
+        save_fig(fig, file_string)
+        plt.clf()
+
+        truncm = m[abs(m)>=0.4]
+        fig, ax = plt.subplots()
+        plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        file_string2 = 'SAGE_EFA_0.4_n=' + str(i)
+        save_fig(fig, file_string2)
+        plt.clf()
+
+def EFA_alternate(df_norm):
+    # REMOVE DEMOGRAPHIC QUESTIONS
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+    df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
+    df_SAGE.apply(pd.to_numeric)
+
+    # CORRELATION MATRIX
+    print('Correlation Matrix')
+    corrM = df_SAGE.corr(method='spearman')
+    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
+
+    labels = list(df_SAGE)
+    with open('CorrM_labels.txt', 'w') as f:
+        original_stdout = sys.stdout # Save a reference to the original standard output
+        sys.stdout = f # Change the standard output to the file we created.
+        for number, label in enumerate(labels):
+            print(number, label)
+        sys.stdout = original_stdout # Reset the standard output to its original value
+
+    fig, ax = plt.subplots()
+    plt.imshow(corrM, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    plt.title('Correlation Matrix')
+    plt.tight_layout()
+    save_fig(fig,'SAGE_CorrM')
+    plt.clf()
+
+    truncM = corrM[abs(corrM)>=0.4]
+    fig, ax = plt.subplots()
+    plt.title('Correlation Matrix')
+    plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    plt.tight_layout()
+    save_fig(fig,'SAGE_CorrM_0.4')
+    plt.clf()
+
     # Scree Plot
     print('Scree Plot')
     fa = FactorAnalyzer(rotation=None)
@@ -503,12 +603,19 @@ def EFA(df_norm):
         # 'F4': ['I become frustrated when my group members do not understand the material.', 'When I work with other students, we spend too much time talking about other things.',
         #         'I have to work with students who are not as smart as I am.']
         # }        
+        for i in range(1,n):
+            # Create list of factors (F1, F2, etc.)
+            # For each factor create an empty list to populate with items
+            # For each item, find the factor that it loaded into (>0.6)
+            # Check if the largest loading is >0.3 than the rest, if not then add multiple
+            # Add that item to the correct factor list
+            # Convert the lists into a dictionary
 
         # # 7. Fit model using CFA and extract fit statistic
-        # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa,model_dict)
+        # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
 
         # cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
-        # cfa.fit(df_SAGE_cfa)
+        # cfa.fit(df_SAGE)
 
         # df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
         # df_cfa.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA.csv', encoding = "utf-8", index=True)
