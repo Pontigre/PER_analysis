@@ -501,8 +501,11 @@ def EFA_alternate(df_norm):
     min_communalities = 0.3
     min_loadings = 0.4
 
-    for n in range(2,10):
+    fit_stats_x = []
+    fit_stats_y = []
+    for n in range(2,3):
         print('Number of factors:', n)
+        fit_stats_x.append(n)
         # Create a copy of the data so that we don't remove data when dropping columns
         dfn = df_SAGE.copy()
         dropped = []
@@ -518,10 +521,10 @@ def EFA_alternate(df_norm):
                 while kmo_test:
                     kmo_all, kmo_model = calculate_kmo(dfn)
 
-                    if abs(kmo_all.min()) < min_kmo:
-                        print('Lowest KMO:', kmo_all.min())
-                        dropped.append(dfn.columns[kmo_all.argmin()])
-                        dfn.drop(dfn.columns[kmo_all.argmin()], axis=1, inplace=True)
+                    if abs(kmo_all).min() < min_kmo:
+                        print('Lowest KMO:', abs(kmo_all).min())
+                        dropped.append(dfn.columns[abs(kmo_all).argmin()])
+                        dfn.drop(dfn.columns[abs(kmo_all).argmin()], axis=1, inplace=True)
                     else:
                         kmo_test = False
                 # print('KMO Measure of Sampling Adequacy: ', kmo_model)
@@ -541,25 +544,27 @@ def EFA_alternate(df_norm):
                 # 4. Communalities
                 communs = efa.get_communalities()
 
-                if abs(communs.min()) < min_communalities:
-                    print('Lowest communality:', communs.min())
-                    dropped.append(dfn.columns[communs.argmin()])
-                    dfn.drop(dfn.columns[communs.argmin()], axis=1, inplace=True)
+                if abs(communs).min() < min_communalities:
+                    print('Lowest communality:', abs(communs).min())
+                    dropped.append(dfn.columns[abs(communs).argmin()])
+                    dfn.drop(dfn.columns[abs(communs).argmin()], axis=1, inplace=True)
                 else:
                     communs_test = False
             # print(communs)
 
-            # 5. Item loadings
-            if abs(efa.loadings_.min()) < min_loadings:
-                print('Lowest item loading:', efa.loadings_.min())
-                dropped.append(dfn.columns[efa.loadings_.argmin()])
-                dfn.drop(dfn.columns[efa.loadings_.argmin()], axis=1, inplace=True)
+            # 5. Item loading
+            drop_list = np.array([abs(i).max() for i in efa.loadings_])
+            if drop_list.min() < min_loadings:
+                print('Lowest item loading:', drop_list.min())
+                dropped.append(dfn.columns[drop_list.argmin()])
+                dfn.drop(dfn.columns[drop_list.argmin()], axis=1, inplace=True)
             else:
                 loadings_test = False
 
         print('Dropped columns:', dropped)
-        m = pd.DataFrame(efa.loadings_)
-        print(m)
+        df_loadings = pd.DataFrame(efa.loadings_)
+        # print(df_loadings)
+        # print(list(dfn))
 
         labels = list(dfn)
         file_string = image_dir + '/EFA_labels_n=' + str(n) + '.txt'
@@ -571,7 +576,7 @@ def EFA_alternate(df_norm):
             sys.stdout = original_stdout # Reset the standard output to its original value
 
         fig, ax = plt.subplots()
-        plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
+        plt.imshow(df_loadings, cmap="viridis", vmin=-1, vmax=1)
         plt.colorbar() 
         ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
@@ -580,7 +585,7 @@ def EFA_alternate(df_norm):
         save_fig(fig, file_string1)
         plt.clf()
 
-        truncm = m[abs(m)>=0.4]
+        truncm = df_loadings[abs(df_loadings)>=0.4]
         fig, ax = plt.subplots()
         plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
         plt.colorbar()
@@ -592,55 +597,46 @@ def EFA_alternate(df_norm):
         plt.clf()
 
         # # 6. Place loadings into model
-        # model_dict = {
-        # 'F1': ['When I work in a group I do higher quality work.', 'The material is easier to understand when I work with other students.',
-        #         'My group members help explain things that I do not understand.', 'I feel working in groups is a waste of time.', 'The work takes more time to complete when I work with other students.',
-        #         'The workload is usually less when I work with other students.'], 
-        # 'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
-        #         'I feel I am part of what is going on in the group.', 'When I work in a group, I am able to share my ideas.'], 
-        # 'F3': ['Everyone’s ideas are needed if we are going to be successful.', 'We cannot complete the assignment unless everyone contributes.', 'I let the other students do most of the work.',
-        #         'I also learn when I teach the material to my group members.', 'I learn to work with students who are different from me.'], 
-        # 'F4': ['I become frustrated when my group members do not understand the material.', 'When I work with other students, we spend too much time talking about other things.',
-        #         'I have to work with students who are not as smart as I am.']
-        # }        
-        for i in range(1,n):
-            # Create list of factors (F1, F2, etc.)
-            # For each factor create an empty list to populate with items
-            # For each item, find the factor that it loaded into (>0.6)
-            # Check if the largest loading is >0.3 than the rest, if not then add multiple
-            # Add that item to the correct factor list
-            # Convert the lists into a dictionary
+        # For each factor create an empty list to populate with items
+        lists = [[] for _ in range(n)]
+        # Add the Factor name to the list of lists
+        numb = 1
+        for i in lists:
+            i.append('F'+str(numb))
+            numb += 1
+        # For each item, find the factor that it loaded into (>0.5)
+        # Check if the largest loading is >0.3 than the rest, if not then add multiple
+        # Add that item to the correct factor list
+        for index, row in df_loadings.iterrows():
+            if abs(row).max() > 0.4:
+                # print(abs(row).max())
+                # print(abs(row).argmax())
+                # print(dfn.columns[index])
+                lists[abs(row).argmax()].append(dfn.columns[index])
+        # Convert the lists into a dictionary
+        model_dict = {i[0]:i[1:] for i in lists}
 
-        # # 7. Fit model using CFA and extract fit statistic
-        # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
+        # 7. Fit model using CFA and extract fit statistic
 
-        # cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
-        # cfa.fit(df_SAGE)
+        ## IS THIS DOING WHAT I THINK IT'S DOING???
+        model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
 
-        # df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
-        # df_cfa.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA.csv', encoding = "utf-8", index=True)
-        
-        # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.0001, df_cfa)
-        # fig, ax = plt.subplots()
-        # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
-        # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        # plt.colorbar()
-        # plt.tight_layout()
-        # save_fig(fig, 'SAGE_CFA')
-        # plt.clf()
+        cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
+        cfa.fit(dfn)
+        print(cfa.aic_)
+        print(cfa.loadings_)
 
-        # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.4, df_cfa)
-        # fig, ax = plt.subplots()
-        # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
-        # plt.colorbar()
-        # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        # plt.tight_layout()
-        # save_fig(fig, 'SAGE_CFA_0.4')
-        # plt.clf()
+        df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
+        fit_stats_y.append(cfa.aic_)
 
-    # 9. Plot fit statistic vs number of factors        
+    # 9. Plot fit statistic vs number of factors
+    print(fit_stats_x, fit_stats_y)
+    fig, ax = plt.subplots()
+    plt.plot(fit_stats_x, fit_stats_y, marker='.', ls='None')
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
+    plt.tight_layout()
+    save_fig(fig, 'fit_stats')
+    plt.clf()
 
 def PCA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
