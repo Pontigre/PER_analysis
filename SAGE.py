@@ -50,9 +50,9 @@ def main():
     # dfR = df[df['Race or ethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE
+    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE
+    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
@@ -302,7 +302,7 @@ def SAGE_validation(df_norm):
 
     model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa,model_dict)
 
-    cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
+    cfa = ConfirmatoryFactorAnalyzer(model_spec)
     cfa.fit(df_SAGE_cfa)
 
     df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
@@ -428,6 +428,10 @@ def EFA(df_norm):
         plt.clf()
 
 def EFA_alternate(df_norm):
+    min_kmo = 0.6
+    min_communalities = 0.2
+    min_loadings = 0.4
+
     # REMOVE DEMOGRAPHIC QUESTIONS
     Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
@@ -497,13 +501,10 @@ def EFA_alternate(df_norm):
     # 7. Fit this model to the original data using CFA and extract a fit statistic (confirmatory fit index, Akaike information criterion, or similar).
     # 8. Change the number of factors and repeat the above steps.
     # 9. Plot the fit statistic vs the number of factors. The model with the local minimum index is the preferred model.
-    min_kmo = 0.6
-    min_communalities = 0.3
-    min_loadings = 0.4
 
     fit_stats_x = []
     fit_stats_y = []
-    for n in range(2,3):
+    for n in range(2,10):
         print('Number of factors:', n)
         fit_stats_x.append(n)
         # Create a copy of the data so that we don't remove data when dropping columns
@@ -561,22 +562,14 @@ def EFA_alternate(df_norm):
             else:
                 loadings_test = False
 
-        print('Dropped columns:', dropped)
+        # print('Dropped columns:', dropped)
         df_loadings = pd.DataFrame(efa.loadings_)
-        # print(df_loadings)
-        # print(list(dfn))
+        df_loadings_1 = pd.DataFrame(efa.loadings_, index=list(dfn))
+        df_loadings1 = df_loadings_1.reindex(index=list(df_SAGE), fill_value=0)
 
-        labels = list(dfn)
-        file_string = image_dir + '/EFA_labels_n=' + str(n) + '.txt'
-        with open(file_string, 'w') as f:
-            original_stdout = sys.stdout # Save a reference to the original standard output
-            sys.stdout = f # Change the standard output to the file we created.
-            for number, label in enumerate(labels):
-                print(number, label)
-            sys.stdout = original_stdout # Reset the standard output to its original value
-
+        truncm = df_loadings1[abs(df_loadings1)>=0.001]
         fig, ax = plt.subplots()
-        plt.imshow(df_loadings, cmap="viridis", vmin=-1, vmax=1)
+        plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
         plt.colorbar() 
         ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
@@ -585,7 +578,7 @@ def EFA_alternate(df_norm):
         save_fig(fig, file_string1)
         plt.clf()
 
-        truncm = df_loadings[abs(df_loadings)>=0.4]
+        truncm = df_loadings1[abs(df_loadings1)>=0.4]
         fig, ax = plt.subplots()
         plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
         plt.colorbar()
@@ -596,7 +589,7 @@ def EFA_alternate(df_norm):
         save_fig(fig, file_string2)
         plt.clf()
 
-        # # 6. Place loadings into model
+        # 6. Place loadings into model
         # For each factor create an empty list to populate with items
         lists = [[] for _ in range(n)]
         # Add the Factor name to the list of lists
@@ -616,15 +609,20 @@ def EFA_alternate(df_norm):
         # Convert the lists into a dictionary
         model_dict = {i[0]:i[1:] for i in lists}
 
-        # 7. Fit model using CFA and extract fit statistic
+        file_string = image_dir + '/EFA_factors_n=' + str(n) + '.txt'
+        with open(file_string, 'w') as f:
+            original_stdout = sys.stdout # Save a reference to the original standard output
+            sys.stdout = f # Change the standard output to the file we created.
+            for keys, values in model_dict.items():
+                print(keys, values)
+            sys.stdout = original_stdout # Reset the standard output to its original value
 
-        ## IS THIS DOING WHAT I THINK IT'S DOING???
+        # 7. Fit model using CFA and extract fit statistic
         model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
 
+        ## THIS STEP DOESN'T WORK. FAILS TO CONVERGE. PROBLEM WITH PACKAGE
         cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
         cfa.fit(dfn)
-        print(cfa.aic_)
-        print(cfa.loadings_)
 
         df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
         fit_stats_y.append(cfa.aic_)
@@ -944,19 +942,19 @@ Demo_dict = {'Which course are you currently enrolled in?':'Course',
         'Which gender(s) do you most identify (select all that apply)? - Other (please specify): - Text':'Gender - Text',
         'What is your race or ethnicity (select all that apply)? - Selected Choice': 'Race or ethnicity',
         'What is your race or ethnicity (select all that apply)? - Some other race or ethnicity - Text':'Race or ethnicity - Text',
-        'American Indian or Alaska Native - Provide details below.\n\nPrint, for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.':'Native',
+        'American Indian or Alaska Native - Provide details below.\r\n\r\nPrint, for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.':'Native',
         'Asian - Provide details below. - Selected Choice':'Asian',
-        'Asian - Provide details below. - Some other Asian race or ethnicity\n\nPrint, for example, Pakistani, Cambodian, Hmong, etc. - Text':'Asian - Text',
+        'Asian - Provide details below. - Some other Asian race or ethnicity\r\n\r\nPrint, for example, Pakistani, Cambodian, Hmong, etc. - Text':'Asian - Text',
         'Black or African American - Provide details below. - Selected Choice': 'Black',
-        'Black or African American - Provide details below. - Some other Black or African American race or ethnicity\n\nPrint, for example, Ghanaian, South African, Barbadian, etc. - Text': 'Black - Text',
+        'Black or African American - Provide details below. - Some other Black or African American race or ethnicity\r\n\r\nPrint, for example, Ghanaian, South African, Barbadian, etc. - Text': 'Black - Text',
         'Hispanic, Latino, or Spanish - Provide details below. - Selected Choice':'Latino',
-        'Hispanic, Latino, or Spanish - Provide details below. - Some other Hispanic, Latino, or Spanish race or ethnicity\n\nPrint, for example, Guatemalan, Spaniard, Ecuadorian, etc. - Text':'Latino - Text',
+        'Hispanic, Latino, or Spanish - Provide details below. - Some other Hispanic, Latino, or Spanish race or ethnicity\r\n\r\nPrint, for example, Guatemalan, Spaniard, Ecuadorian, etc. - Text':'Latino - Text',
         'Middle Eastern or North African - Provide details below. - Selected Choice':'MiddleEast',
-        'Middle Eastern or North African - Provide details below. - Some other Middle Eastern or North African race or ethnicity\n\nPrint, for example, Algerian, Iraqi, Kurdish, etc.</spa - Text':'MiddleEast - Text',
+        'Middle Eastern or North African - Provide details below. - Some other Middle Eastern or North African race or ethnicity\r\n\r\nPrint, for example, Algerian, Iraqi, Kurdish, etc.</spa - Text':'MiddleEast - Text',
         'Native Hawaiian or Other Pacific Islander - Provide details below. - Selected Choice':'Pacific',
-        'Native Hawaiian or Other Pacific Islander - Provide details below. - Some other Native Hawaiian or Other Pacific Islander race or ethnicity\n\nPrint, for example, Palauan, Tahitian, Chuukese, etc.</spa - Text':'Pacific - Text',
+        'Native Hawaiian or Other Pacific Islander - Provide details below. - Some other Native Hawaiian or Other Pacific Islander race or ethnicity\r\n\r\nPrint, for example, Palauan, Tahitian, Chuukese, etc.</spa - Text':'Pacific - Text',
         'White - Provide details below. - Selected Choice':'White',
-        'White - Provide details below. - Some other White race or ethnicity\n\nPrint, for example, Scottish, Norwegian, Dutch, etc.</spa - Text':'White - Text',
+        'White - Provide details below. - Some other White race or ethnicity\r\n\r\nPrint, for example, Scottish, Norwegian, Dutch, etc.</spa - Text':'White - Text',
         'What is the highest level of education either of your parents have achieved? - Selected Choice':'Education',
         'What is the highest level of education either of your parents have achieved? - Other - Text':'Education - Text'
         }
