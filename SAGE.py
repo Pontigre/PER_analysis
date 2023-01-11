@@ -55,7 +55,7 @@ def main():
     # EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
-    Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
+    # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
     # Mindset(df_norm) # Checks mindset of student responses. WIP
 
@@ -823,62 +823,31 @@ def Gender_differences(df_norm):
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df = df_norm.drop(columns=Demo_Qs, axis=1)
 
-    # Split based on gender
-    dfM = df[df['Gender'] == 'Male'].copy()
-    dfF = df[df['Gender'] == 'Female'].copy()
-    dfO = df[~df['Gender'].isin(['Male', 'Female'])].copy()
-
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    dfM.drop(columns=['Gender'], axis=1, inplace = True)
-    dfF.drop(columns=['Gender'], axis=1, inplace = True)
-    dfO.drop(columns=['Gender'], axis=1, inplace = True)
-
-    # CALCULATE MEAN, STD DEV OF EACH COLUMN
-    dfM_mean = dfM.mean(numeric_only=False)
-    dfM_med = dfM.median(numeric_only=False)
-    dfM_stderr = dfM.std(numeric_only=False)/np.sqrt(dfM.count())
-    dfF_mean = dfF.mean(numeric_only=False)
-    dfF_med = dfF.median(numeric_only=False)
-    dfF_stderr = dfF.std(numeric_only=False)/np.sqrt(dfF.count())
-    dfO_mean = dfO.mean(numeric_only=False)
-    dfO_med = dfO.median(numeric_only=False)
-    dfO_stderr = dfO.std(numeric_only=False)/np.sqrt(dfO.count())
-    dfM_summary = pd.merge(dfM_mean.to_frame(), dfM_stderr.to_frame(), left_index = True, right_index=True)
-    dfF_summary = pd.merge(dfF_mean.to_frame(), dfF_stderr.to_frame(), left_index = True, right_index=True)
-    dfO_summary = pd.merge(dfO_mean.to_frame(), dfO_stderr.to_frame(), left_index = True, right_index=True)    
-    dfM_summary.rename(columns={'0_x': 'Mean (male)', '0_y': 'Std.Err. (male)',}, inplace = True)
-    dfF_summary.rename(columns={'0_x': 'Mean (female)', '0_y': 'Std.Err. (female)'}, inplace = True)
-    dfO_summary.rename(columns={'0_x': 'Mean (other)', '0_y': 'Std.Err. (other)'}, inplace = True)
-    dfM_summary['Median (male)'] = dfM_med
-    dfF_summary['Median (female)'] = dfF_med
-    dfO_summary['Median (other)'] = dfO_med    
-    df_summary = pd.merge(pd.merge(dfM_summary, dfF_summary, left_index=True, right_index=True), dfO_summary, left_index=True, right_index=True)
+    # CALCULATE STATISTICS OF EACH
+    df_summary = rp.summary_cont(df.groupby('Intervention'))
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
-    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
-    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
-    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
 
-    # cmap = cm.get_cmap('viridis')
-    # colors = cmap(np.linspace(0,1,3))
-    # palette ={'F': colors[0], 'M': colors[1], 'Other':colors[2]}
-    # gen_counts = data.groupby(['Gender']).count()
-    # g = sns.barplot(x='Gender', y='frequency',data=gen_counts,
-    #     palette=palette)
-    # x_coords = [p.get_x() + 0.5*p.get_width() for p in g.patches]
-    # y_coords = [p.get_height() for p in g.patches]
-    # g.set_xticklabels(task_labels)
-    # g.set_xlabel('')
-    # g.set_ylabel('Fraction')
-    # plt.title('Preferred Role')
-    # plt.tight_layout()
-    # save_fig(g,'Preferred_role')
-    # plt.close()
+    # SEPARATE RESPONSES BASED ON GENDER
+    df_M = df[df['Gender'] == 'Male'].drop(columns=['Gender'], axis=1)
+    df_F = df[df['Gender'] == 'Female'].drop(columns=['Gender'], axis=1)
+    df_O = df[~df['Gender'].isin(['Male', 'Female'])].drop(columns=['Gender'], axis=1)
 
-    # stat, p = scipy.stats.ranksums(df_summary['Median (male)'],df_summary['Median (female)'], nan_policy='omit')
-    # print(stat, p)
-    # for i in df_summary.index:
-    #     stat, p = scipy.stats.ranksums(dfM[i],dfF[i])
-    #     print(i, p)
+    # ANOVA TEST ON THE RESPONSES
+    F, p = scipy.stats.f_oneway(df_M, df_F, df_O)
+    print(F, p)
+
+    # GET FACTOR SCORES FOR EACH RESPONSE 
+    fs, model = factor_scores(df_norm,6)
+
+    # SEPARATE FACTOR SCORES BASED ON GENDER
+    fs['Gender'] = df['Gender']
+    fs_M = fs[fs['Intervention'] == 'Male'].drop(columns=['Gender'], axis=1)
+    fs_F = fs[fs['Intervention'] == 'Female'].drop(columns=['Gender'], axis=1)
+    fs_O = fs[~fs['Gender'].isin(['Male', 'Female'])].drop(columns=['Gender'], axis=1)
+
+    # ANOVA TEST ON THE FACTOR SCORES
+    F, p = scipy.stats.f_oneway(fs_M, fs_F, fs_O)
+    print(F, p)
 
 def Intervention_differences(df_norm):
     Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
@@ -889,16 +858,25 @@ def Intervention_differences(df_norm):
     df_summary = rp.summary_cont(df.groupby('Intervention'))
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
 
+    # SEPARATE RESPONSES BASED ON INTERVENTION
+    df_C = df[df['Intervention'] == 'Control'].drop(columns=['Intervention'], axis=1)
+    df_CC = df[df['Intervention'] == 'Collaborative Comparison'].drop(columns=['Intervention'], axis=1)
+    df_PA = df[df['Intervention'] == 'Partner Agreements'].drop(columns=['Intervention'], axis=1)
+
+    # ANOVA TEST ON THE RESPONSES
+    F, p = scipy.stats.f_oneway(df_C, df_CC, df_PA)
+    print(F, p)
+
     # GET FACTOR SCORES FOR EACH RESPONSE 
     fs, model = factor_scores(df_norm,6)
 
-    # SEPARATE BASED ON INTERVENTION
+    # SEPARATE FACTOR SCORES BASED ON INTERVENTION
     fs['Intervention'] = df['Intervention']
     fs_C = fs[fs['Intervention'] == 'Control'].drop(columns=['Intervention'], axis=1)
     fs_CC = fs[fs['Intervention'] == 'Collaborative Comparison'].drop(columns=['Intervention'], axis=1)
     fs_PA = fs[fs['Intervention'] == 'Partner Agreements'].drop(columns=['Intervention'], axis=1)
-    
-    # ANOVA TEST
+
+    # ANOVA TEST ON THE FACTOR SCORES
     F, p = scipy.stats.f_oneway(fs_C, fs_CC, fs_PA)
     print(F, p)
 
