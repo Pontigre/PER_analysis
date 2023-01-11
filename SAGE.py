@@ -8,6 +8,7 @@ import readline, glob
 import pandas as pd
 import numpy as np
 import scipy
+import researchpy as rp
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -16,8 +17,7 @@ import seaborn as sns
 import factor_analyzer
 from factor_analyzer import (ConfirmatoryFactorAnalyzer,ModelSpecificationParser)
 from factor_analyzer import FactorAnalyzer
-from sklearn.decomposition import FactorAnalysis, PCA
-from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
 from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
 # from pingouin import cronbach_alpha as al ##Do not work with python3.11
 # from advanced_pca import CustomPCA ##Do not work with python3.11
@@ -29,7 +29,7 @@ def main():
     readline.set_completer_delims(' \t\n;')
     readline.parse_and_bind("tab: complete")
     readline.set_completer(complete)
-    my_file = input('SAGE Filename: ')
+    my_file = 'SAGEPHY105F22_January3,2023_07.15.csv' # input('SAGE Filename: ')
 
     # READ IN DATA FROM SAGE QUALTRICS SURVEY BASED ON THE CSV COLUMN NAMES
     headers = [*pd.read_csv(my_file, nrows=1)]
@@ -52,10 +52,10 @@ def main():
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge.
+    # EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
-    # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
+    Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
     # Mindset(df_norm) # Checks mindset of student responses. WIP
 
@@ -598,7 +598,6 @@ def EFA_alternate(df_norm):
             i.append('F'+str(numb))
             numb += 1
         # For each item, find the factor that it loaded into (>0.5)
-        # Check if the largest loading is >0.3 than the rest, if not then add multiple
         # Add that item to the correct factor list
         for index, row in df_loadings.iterrows():
             if abs(row).max() > 0.4:
@@ -635,6 +634,63 @@ def EFA_alternate(df_norm):
     plt.tight_layout()
     save_fig(fig, 'fit_stats')
     plt.clf()
+
+def factor_scores(df_norm,number_of_factors):
+    min_kmo = 0.6
+    min_communalities = 0.2
+    min_loadings = 0.4
+
+    # REMOVE DEMOGRAPHIC QUESTIONS
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+    dfn = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
+    dfn.apply(pd.to_numeric)
+
+    loadings_test = True
+    while loadings_test:
+        communs_test = True
+        while communs_test:
+            kmo_test = True
+            while kmo_test:
+                kmo_all, kmo_model = calculate_kmo(dfn)
+                if abs(kmo_all).min() < min_kmo:
+                    dfn.drop(dfn.columns[abs(kmo_all).argmin()], axis=1, inplace=True)
+                else:
+                    kmo_test = False
+            chi_square_value, p_value = calculate_bartlett_sphericity(dfn)
+            if p_value > 0.2:
+                print("Bartlett's Test of Sphericity failed with p-value", p_value)
+
+            efa = FactorAnalyzer(n_factors=number_of_factors, rotation='varimax')
+            efa.fit(dfn)
+            df_loadings = pd.DataFrame(efa.loadings_)
+
+            communs = efa.get_communalities()
+            if abs(communs).min() < min_communalities:
+                dfn.drop(dfn.columns[abs(communs).argmin()], axis=1, inplace=True)
+            else:
+                communs_test = False
+
+        drop_list = np.array([abs(i).max() for i in efa.loadings_])
+        if drop_list.min() < min_loadings:
+            dfn.drop(dfn.columns[drop_list.argmin()], axis=1, inplace=True)
+        else:
+            loadings_test = False
+
+    lists = [[] for _ in range(number_of_factors)]
+    numb = 1
+    for i in lists:
+        i.append('F'+str(numb))
+        numb += 1
+    for index, row in df_loadings.iterrows():
+        if abs(row).max() > 0.4:
+            lists[abs(row).argmax()].append(dfn.columns[index])
+    model_dict = {i[0]:i[1:] for i in lists}
+
+    # GET FACTOR SCORES
+    scores = pd.DataFrame(efa.transform(dfn))
+
+    return scores, model_dict
 
 def PCA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
@@ -829,40 +885,22 @@ def Intervention_differences(df_norm):
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df = df_norm.drop(columns=Demo_Qs, axis=1)
 
-    # Split based on gender
-    dfPA = df[df['Intervention'] == 'Partner Agreements'].copy()
-    dfC = df[df['Intervention'] == 'Control'].copy()
-    dfCC = df[df['Intervention'] == 'Collaborative Comparison'].copy()
-
-    # REMOVE THE DEMOGRAPHICS QUESTIONS
-    dfPA.drop(columns=['Intervention'], axis=1, inplace = True)
-    dfC.drop(columns=['Intervention'], axis=1, inplace = True)
-    dfCC.drop(columns=['Intervention'], axis=1, inplace = True)
-
-    # CALCULATE MEAN, STD DEV OF EACH COLUMN
-    dfPA_mean = dfPA.mean(numeric_only=False)
-    dfPA_med = dfPA.median(numeric_only=False)
-    dfPA_stderr = dfPA.std(numeric_only=False)/np.sqrt(dfPA.count())
-    dfC_mean = dfC.mean(numeric_only=False)
-    dfC_med = dfC.median(numeric_only=False)
-    dfC_stderr = dfC.std(numeric_only=False)/np.sqrt(dfC.count())
-    dfCC_mean = dfCC.mean(numeric_only=False)
-    dfCC_med = dfCC.median(numeric_only=False)
-    dfCC_stderr = dfCC.std(numeric_only=False)/np.sqrt(dfCC.count())
-    dfPA_summary = pd.merge(dfPA_mean.to_frame(), dfPA_stderr.to_frame(), left_index = True, right_index=True)
-    dfC_summary = pd.merge(dfC_mean.to_frame(), dfC_stderr.to_frame(), left_index = True, right_index=True)
-    dfCC_summary = pd.merge(dfCC_mean.to_frame(), dfCC_stderr.to_frame(), left_index = True, right_index=True)    
-    dfPA_summary.rename(columns={'0_x': 'Mean (Partner Agreements)', '0_y': 'Std.Err. (Partner Agreements)',}, inplace = True)
-    dfC_summary.rename(columns={'0_x': 'Mean (Control)', '0_y': 'Std.Err. (Control)'}, inplace = True)
-    dfCC_summary.rename(columns={'0_x': 'Mean (Collaborative Comparison)', '0_y': 'Std.Err. (Collaborative Comparison)'}, inplace = True)
-    dfPA_summary['Median (Partner Agreements)'] = dfPA_med
-    dfC_summary['Median (Control)'] = dfC_med
-    dfCC_summary['Median (Collaborative Comparison)'] = dfCC_med    
-    df_summary = pd.merge(pd.merge(dfPA_summary, dfC_summary, left_index=True, right_index=True), dfCC_summary, left_index=True, right_index=True)
+    # CALCULATE STATS OF EACH INTERVENTION
+    df_summary = rp.summary_cont(df.groupby('Intervention'))
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
-    # dfM.to_csv('ExportedFiles/SAGE_M.csv')
-    # dfF.to_csv('ExportedFiles/SAGE_F.csv')
-    # dfO.to_csv('ExportedFiles/SAGE_O.csv')
+
+    # GET FACTOR SCORES FOR EACH RESPONSE 
+    fs, model = factor_scores(df_norm,6)
+
+    # SEPARATE BASED ON INTERVENTION
+    fs['Intervention'] = df['Intervention']
+    fs_C = fs[fs['Intervention'] == 'Control'].drop(columns=['Intervention'], axis=1)
+    fs_CC = fs[fs['Intervention'] == 'Collaborative Comparison'].drop(columns=['Intervention'], axis=1)
+    fs_PA = fs[fs['Intervention'] == 'Partner Agreements'].drop(columns=['Intervention'], axis=1)
+    
+    # ANOVA TEST
+    F, p = scipy.stats.f_oneway(fs_C, fs_CC, fs_PA)
+    print(F, p)
 
 def Specifics(df_norm,demo,col):
     Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Race or ethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
