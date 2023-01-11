@@ -24,10 +24,6 @@ Running the code:
 - Sage_Raw.csv: Raw data from all submissions, converted Likert response to integer values instead of strings
 - SAGE_Stats.csv: Calculated values of mean, std.dev., and percentages of responses for SD+D, N, SA+A
 
-## Statistical tests
-- Bartlett's test of sphericity: $\chi^2 = 11000$, $p = 0.00$
-- Kaiser-Meyer-Olkin (KMO) measurure of sampling adequacy: 0.904
-
 ## Produced images
 Correlation Matrix
 Labels = ![labels](CorrM_labels.txt)
@@ -45,5 +41,4 @@ Confirmatory Factor Analysis for questions that correspond to Kouros and Abrami 
 Exploratory Factor Analysis and associated Scree Plot of survey questions
 
 ![SAGE Factor Analysis Scree Plot](ExportedFiles/SAGE_Scree.png)
-![SAGE Factor Analysis](ExportedFiles/SAGE_EFA_n=6.png)
 ![SAGE Factor Analysis (only significant correlations)](ExportedFiles/SAGE_EFA_0.4_n=6.png)
