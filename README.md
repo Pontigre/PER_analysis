@@ -24,10 +24,6 @@ Running the code:
 - Sage_Raw.csv: Raw data from all submissions, converted Likert response to integer values instead of strings
 - SAGE_Stats.csv: Calculated values of mean, std.dev., and percentages of responses for SD+D, N, SA+A
 
-## Statistical tests
-- Bartlett's test of sphericity: $\chi^2 = 11000$, $p = 0.00$
-- Kaiser-Meyer-Olkin (KMO) measurure of sampling adequacy: 0.904
-
 ## Produced images
 Correlation Matrix
 Labels = ![labels](CorrM_labels.txt)
