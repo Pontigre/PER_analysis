@@ -41,5 +41,4 @@ Confirmatory Factor Analysis for questions that correspond to Kouros and Abrami 
 Exploratory Factor Analysis and associated Scree Plot of survey questions
 
 ![SAGE Factor Analysis Scree Plot](ExportedFiles/SAGE_Scree.png)
-![SAGE Factor Analysis](ExportedFiles/SAGE_EFA_n=6.png)
 ![SAGE Factor Analysis (only significant correlations)](ExportedFiles/SAGE_EFA_0.4_n=6.png)
