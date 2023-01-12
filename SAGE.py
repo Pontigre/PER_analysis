@@ -57,7 +57,7 @@ def main():
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
-    # Mindset(df_norm) # Checks mindset of student responses. WIP
+    Mindset(df_norm) # Checks mindset of student responses. WIP
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -912,9 +912,11 @@ def Specifics(df_norm,demo,col):
     save_fig(g,col + 'vs' + demo)
     plt.clf()
 
-def Mindset(df):
+def Mindset(df_norm):
     # This code looks at whethever a student has fixed or growth mindset, then uses linear regression (probit) to see if demos or intervention affect this
-    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
+    Phys_Int_Cols = [col for col in df_norm.columns if 'physics intelligence' in col]
+    df = df_norm.copy()
+    fs, model = factor_scores(df,6)
 
     # Method 1: For each question, determine mindset of response. Then combine the three questions
     df.insert(df.columns.get_loc(Phys_Int_Cols[-1]), 'Mindset1', 0)
@@ -942,16 +944,15 @@ def Mindset(df):
     df['Mindset1'] = df[Phys_Int_Cols].apply(mset, axis=1)
 
     # Method 2: Combine all responses into one metric and then use that to determine mindset
-    df.insert(df.columns.get_loc('Mindset1'), 'Mindset2', 0)
+    df.insert(df.columns.get_loc('Mindset1')+1, 'Mindset2', 0)
+    df['Mindset2'] = df[Phys_Int_Cols].sum(axis=1)
 
-    df['Mindset2'] = df.apply(lambda x: df[Phys_Int_Cols].sum(axis=1))
+    # Method 3: Use Factor Analysis loadings to determine mindset
+    df.insert(df.columns.get_loc('Mindset2')+1, 'Mindset3',0)
+    df['Mindset3'] = fs[3].values
 
-    # Method 3: Use Factor Analysis loadings to determine mindset (assuming all 3 questions load to same factor)
-    df.insert(df.columns.get_loc('Mindset2'), 'Mindset3', 0)
-
-    print(df['Mindset1'])
-    print(df['Mindset2'])
-
+    mindset = [col for col in df.columns if 'Mindset' in col]
+    print(df[mindset])
 Demo_dict = {'Which course are you currently enrolled in?':'Course',
         "What is your section's unique number?":'Unique',
         'Which gender(s) do you most identify (select all that apply)? - Selected Choice':'Gender',
