@@ -918,6 +918,8 @@ def Mindset(df_norm):
     df = df_norm.copy()
     fs, model = factor_scores(df,6)
 
+    # -1 = Fixed Mindset, 1 = Growth Mindset
+
     # Method 1: For each question, determine mindset of response. Then combine the three questions
     df.insert(df.columns.get_loc(Phys_Int_Cols[-1]), 'Mindset1', 0)
     # THIS IS THE WORST CODE I MAY HAVE EVER WRITTEN
@@ -940,19 +942,25 @@ def Mindset(df_norm):
             z = 0
         if row[Phys_Int_Cols[2]].round(2) == 4.17 or row[Phys_Int_Cols[2]].round(2) == 5:
             z = 1
-        return x+y+z
+        return (x+y+z)/3
     df['Mindset1'] = df[Phys_Int_Cols].apply(mset, axis=1)
 
-    # Method 2: Combine all responses into one metric and then use that to determine mindset
+    # Method 2: Combine all responses into one metric and then scale to [-1,1]
     df.insert(df.columns.get_loc('Mindset1')+1, 'Mindset2', 0)
-    df['Mindset2'] = df[Phys_Int_Cols].sum(axis=1)
-
+    x_min = 0.83*3
+    x_max = 15
+    scale_min = -1
+    scale_max = 1
+    df['Mindset2'] = (df[Phys_Int_Cols].sum(axis=1) - x_min)/(x_max - x_min) * (scale_max - scale_min) + scale_min 
+    
     # Method 3: Use Factor Analysis loadings to determine mindset
     df.insert(df.columns.get_loc('Mindset2')+1, 'Mindset3',0)
     df['Mindset3'] = fs[3].values
+    # df['Mindset3'] = (fs[3].values - fs[3].min())/(fs[3].max() - fs[3].min()) * (scale_max - scale_min) + scale_min
 
     mindset = [col for col in df.columns if 'Mindset' in col]
-    print(df[mindset])
+    df[Phys_Int_Cols+mindset].round(decimals = 4).to_csv('ExportedFiles/SAGE_Mindset.csv', encoding = "utf-8", index=True)
+    
 Demo_dict = {'Which course are you currently enrolled in?':'Course',
         "What is your section's unique number?":'Unique',
         'Which gender(s) do you most identify (select all that apply)? - Selected Choice':'Gender',
