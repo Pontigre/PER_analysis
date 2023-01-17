@@ -19,6 +19,8 @@ from factor_analyzer import (ConfirmatoryFactorAnalyzer,ModelSpecificationParser
 from factor_analyzer import FactorAnalyzer
 from sklearn.decomposition import PCA
 from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
+import statsmodels.formula.api as smf
+from statsmodels.miscmodels.ordinal_model import OrderedModel
 # from pingouin import cronbach_alpha as al ##Do not work with python3.11
 # from advanced_pca import CustomPCA ##Do not work with python3.11
 
@@ -47,7 +49,7 @@ def main():
     df = df.merge(df_inter, how='inner', on = 'Unique')
 
     # dfG = df[df['Gender'].str.contains('Male', na=False)].copy()
-    # dfR = df[df['Race or ethnicity'].str.contains('White', na=False)].copy()
+    # dfR = df[df['Raceethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
@@ -203,7 +205,7 @@ def Data_statistics(df_norm):
     # SAVE RAW DATA
     df_norm.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
 
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df = df_norm.drop(columns=Demo_Qs, axis=1)
 
@@ -239,17 +241,17 @@ def Data_statistics(df_norm):
     intervention_count = df_norm.groupby(['Intervention'])['Intervention'].describe()['count']
     course_count = df_norm.groupby(['Course'])['Course'].describe()['count']
     gender_count = df_norm.groupby(['Gender'])['Gender'].describe()['count']
-    raceethnicity_count = df_norm.groupby(['Race or ethnicity'])['Race or ethnicity'].describe()['count']
+    raceethnicity_count = df_norm.groupby(['Raceethnicity'])['Raceethnicity'].describe()['count']
     education_count = df_norm.groupby(['Education'])['Education'].describe()['count']
 
     ci_count = df_norm.groupby(['Course','Intervention'])['Course'].describe()['count']
     cg_count = df_norm.groupby(['Course','Gender'])['Course'].describe()['count']
-    cre_count = df_norm.groupby(['Course','Race or ethnicity'])['Course'].describe()['count']
+    cre_count = df_norm.groupby(['Course','Raceethnicity'])['Course'].describe()['count']
     ce_count = df_norm.groupby(['Course','Education'])['Course'].describe()['count']
 
     ic_count = df_norm.groupby(['Intervention','Course'])['Intervention'].describe()['count']
     ig_count = df_norm.groupby(['Intervention','Gender'])['Intervention'].describe()['count']
-    ire_count = df_norm.groupby(['Intervention','Race or ethnicity'])['Intervention'].describe()['count']
+    ire_count = df_norm.groupby(['Intervention','Raceethnicity'])['Intervention'].describe()['count']
     ie_count = df_norm.groupby(['Intervention','Education'])['Intervention'].describe()['count']
     simple_counts = [intervention_count, course_count, gender_count, raceethnicity_count, education_count]
     lists = [ci_count, cg_count, cre_count, ce_count, ic_count, ig_count, ire_count, ie_count]
@@ -260,7 +262,7 @@ def Data_statistics(df_norm):
 
 def SAGE_validation(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df = df_norm.drop(columns=Demo_Qs, axis=1)
 
@@ -330,7 +332,7 @@ def SAGE_validation(df_norm):
 
 def EFA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
     df_SAGE.apply(pd.to_numeric)
@@ -433,7 +435,7 @@ def EFA_alternate(df_norm):
     min_loadings = 0.4
 
     # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
     df_SAGE.apply(pd.to_numeric)
@@ -641,7 +643,7 @@ def factor_scores(df_norm,number_of_factors):
     min_loadings = 0.4
 
     # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     dfn = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
     dfn.apply(pd.to_numeric)
@@ -694,7 +696,7 @@ def factor_scores(df_norm,number_of_factors):
 
 def PCA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1)
 
@@ -819,7 +821,7 @@ def PCA(df_norm):
     # print(' Number of cross_loadings:', varimax_pca5.count_cross_loadings())
 
 def Gender_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df = df_norm.drop(columns=Demo_Qs, axis=1)
 
@@ -850,7 +852,7 @@ def Gender_differences(df_norm):
     print(F, p)
 
 def Intervention_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Race or ethnicity', 'Race or ethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df = df_norm.drop(columns=Demo_Qs, axis=1)
 
@@ -881,7 +883,7 @@ def Intervention_differences(df_norm):
     print(F, p)
 
 def Specifics(df_norm,demo,col):
-    Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Race or ethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
+    Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Raceethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
         'MiddleEast - Text', 'Pacific - Text', 'White - Text', 'Education - Text']
     df = df_norm.drop(Demo_Qs,axis=1)
 
@@ -961,12 +963,26 @@ def Mindset(df_norm):
     mindset = [col for col in df.columns if 'Mindset' in col]
     df[Phys_Int_Cols+mindset].round(decimals = 4).to_csv('ExportedFiles/SAGE_Mindset.csv', encoding = "utf-8", index=True)
     
+    Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
+    df= df[mindset+Demo_Qs]
+    print(df)
+
+    # Linear regression
+    mod = smf.ols(formula='Mindset1 ~ C(Intervention) + Course + Gender + C(Raceethnicity) + Education', data=df)
+    res = mod.fit()
+    print(res.summary())
+
+    # Ordinal regression
+    # mod_prob = OrderedModel(df_norm['Your physics intelligence is something about you that you can change.'],df_norm[Demo_Qs],distr='probit')
+    # res_prob = mod_prob(method='bfgs')
+    # print(res_prob.summary())
+
 Demo_dict = {'Which course are you currently enrolled in?':'Course',
         "What is your section's unique number?":'Unique',
         'Which gender(s) do you most identify (select all that apply)? - Selected Choice':'Gender',
         'Which gender(s) do you most identify (select all that apply)? - Other (please specify): - Text':'Gender - Text',
-        'What is your race or ethnicity (select all that apply)? - Selected Choice': 'Race or ethnicity',
-        'What is your race or ethnicity (select all that apply)? - Some other race or ethnicity - Text':'Race or ethnicity - Text',
+        'What is your race or ethnicity (select all that apply)? - Selected Choice': 'Raceethnicity',
+        'What is your race or ethnicity (select all that apply)? - Some other race or ethnicity - Text':'Raceethnicity - Text',
         'American Indian or Alaska Native - Provide details below.\r\n\r\nPrint, for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.':'Native',
         'Asian - Provide details below. - Selected Choice':'Asian',
         'Asian - Provide details below. - Some other Asian race or ethnicity\r\n\r\nPrint, for example, Pakistani, Cambodian, Hmong, etc. - Text':'Asian - Text',
