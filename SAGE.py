@@ -54,7 +54,7 @@ def main():
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    # EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge.
+    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
@@ -283,6 +283,8 @@ def SAGE_validation(df_norm):
     df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1).astype(float)
     df_SAGE_cfa.apply(pd.to_numeric)
 
+    # df_SAGE_cfa.to_csv('ExportedFiles/CFA_file.csv', encoding = "utf-8",header=False,index=False)
+
     # CONFIRMATORY FACTOR ANALYSIS
     # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
 
@@ -334,10 +336,8 @@ def SAGE_validation(df_norm):
     test['errs']=cfa.error_vars_
     test.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA.csv', encoding = "utf-8", index=True)
 
-    print(scipy.stats.pearsonr(df_cfa[:6][0],SAGE_factors[:6][0]))
-    print(scipy.stats.pearsonr(df_cfa[6:11][1],SAGE_factors[6:11][1]))
-    print(scipy.stats.pearsonr(df_cfa[11:-3][2],SAGE_factors[11:-3][2]))
-    print(scipy.stats.pearsonr(df_cfa[-3:][3],SAGE_factors[-3:][3]))
+    print(scipy.stats.pearsonr(pd.concat([df_cfa[:6][0], df_cfa[6:11][1], df_cfa[11:-3][2], df_cfa[-3:][3]], ignore_index=True),
+        pd.concat([SAGE_factors[:6][0], SAGE_factors[6:11][1], SAGE_factors[11:-3][2], SAGE_factors[-3:][3]], ignore_index=True)))
 
     trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.0001, df_cfa)
     fig, ax = plt.subplots()
@@ -468,7 +468,7 @@ def EFA_alternate(df_norm):
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
     df_SAGE.apply(pd.to_numeric)
-
+    df_SAGE.to_csv('ExportedFiles/CFA_full.csv', encoding = "utf-8", index=True)
     # CORRELATION MATRIX
     print('Correlation Matrix')
     corrM = df_SAGE.corr(method='spearman')
@@ -644,27 +644,31 @@ def EFA_alternate(df_norm):
             original_stdout = sys.stdout # Save a reference to the original standard output
             sys.stdout = f # Change the standard output to the file we created.
             for keys, values in model_dict.items():
-                print(keys, values)
+                print(values)
             sys.stdout = original_stdout # Reset the standard output to its original value
 
         # 7. Fit model using CFA and extract fit statistic
-        model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
+        # Export to R and just do CFA there instead
+        cfa_file = image_dir + '/EFA_factors_n=' + str(n) + '.csv'
+        dfn.to_csv(cfa_file)
 
-        ## THIS STEP DOESN'T WORK. FAILS TO CONVERGE. PROBLEM WITH PACKAGE
-        cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
-        cfa.fit(dfn)
+        # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
 
-        df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
-        fit_stats_y.append(cfa.aic_)
+        # ## THIS STEP DOESN'T WORK. FAILS TO CONVERGE. PROBLEM WITH PACKAGE
+        # cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
+        # cfa.fit(dfn)
 
-    # 9. Plot fit statistic vs number of factors
-    print(fit_stats_x, fit_stats_y)
-    fig, ax = plt.subplots()
-    plt.plot(fit_stats_x, fit_stats_y, marker='.', ls='None')
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
-    plt.tight_layout()
-    save_fig(fig, 'fit_stats')
-    plt.clf()
+        # df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
+        # fit_stats_y.append(cfa.aic_)
+
+    # # 9. Plot fit statistic vs number of factors
+    # print(fit_stats_x, fit_stats_y)
+    # fig, ax = plt.subplots()
+    # plt.plot(fit_stats_x, fit_stats_y, marker='.', ls='None')
+    # ax.tick_params(axis='both', direction='in', top=True, right=True)
+    # plt.tight_layout()
+    # save_fig(fig, 'fit_stats')
+    # plt.clf()
 
 def factor_scores(df_norm,number_of_factors):
     min_kmo = 0.6
