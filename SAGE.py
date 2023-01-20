@@ -52,9 +52,9 @@ def main():
     # dfR = df[df['Raceethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
+    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
+    # EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
@@ -283,7 +283,7 @@ def SAGE_validation(df_norm):
     df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1).astype(float)
     df_SAGE_cfa.apply(pd.to_numeric)
 
-    # df_SAGE_cfa.to_csv('ExportedFiles/CFA_file.csv', encoding = "utf-8",header=False,index=False)
+    df_SAGE_cfa.to_csv('ExportedFiles/CFA_file.csv', encoding = "utf-8",header=False,index=False)
 
     # CONFIRMATORY FACTOR ANALYSIS
     # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
@@ -302,6 +302,21 @@ def SAGE_validation(df_norm):
     'F4': ['I become frustrated when my group members do not understand the material.', 'When I work with other students, we spend too much time talking about other things.',
             'I have to work with students who are not as smart as I am.']
             # [50, 53, 33]
+    }
+
+    model_dict2 = {
+    'F1': ['When I work in a group I do higher quality work.', 'My group members help explain things that I do not understand.',
+            'I feel working in groups is a waste of time.', 'The workload is usually less when I work with other students.'], 
+            # [1, 8, 30, 16]
+    'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
+            'I feel I am part of what is going on in the group.'], 
+            # [6, 11, 26, 17]
+    'F3': ['Everyone’s ideas are needed if we are going to be successful.', 'We cannot complete the assignment unless everyone contributes.', 'I let the other students do most of the work.',
+            'I also learn when I teach the material to my group members.'], 
+            # [52, 36, 28, 49]
+    'F4': ['I become frustrated when my group members do not understand the material.',
+            'I have to work with students who are not as smart as I am.']
+            # [50, 33]
     }
 
     SAGE_factors = pd.DataFrame(
@@ -325,12 +340,28 @@ def SAGE_validation(df_norm):
                 [0., 0., 0., 0.49], # When I work with other students, we spend too much time talking about other things. (53)
                 [0., 0., 0., 0.43]]) # I have to work with students who are not as smart as I am. (33)
 
+    SAGE_factors2 = pd.DataFrame(
+                [[0.85, 0., 0., 0.], # When I work in a group I do higher quality work. (1)
+                [0.60, 0., 0., 0.], # My group members help explain things that I do not understand. (8)
+                [0.60, 0., 0., 0.], # I feel working in groups is a waste of time. (30)
+                [0.53, 0., 0., 0.], # The workload is usually less when I work with other students. (16)
+                [0., 0.70, 0., 0.], # My group members respect my opinions. (-6)
+                [0., 0.66, 0., 0.], # My group members make me feel that I am not as smart as they are. (11)
+                [0., 0.66, 0., 0.], # My group members do not care about my feelings. (26)
+                [0., 0.62, 0., 0.], # I feel I am part of what is going on in the group. (17)
+                [0., 0., 0.63, 0.], # Everyone's ideas are needed if we are going to be successful. (52)
+                [0., 0., 0.53, 0.], # We cannot complete the assignment unless everyone contributes. (36)
+                [0., 0., 0.50, 0.], # I let the other students do most of the work. (28)
+                [0., 0., 0.49, 0.], # I also learn when I teach the material to my group members. (49)
+                [0., 0., 0., 0.51], # I become frustrated when my group members do not understand the material. (50)
+                [0., 0., 0., 0.43]]) # I have to work with students who are not as smart as I am. (33)
+
     model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa,model_dict)
 
     cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
     cfa.fit(df_SAGE_cfa)
 
-    df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
+    df_cfa = pd.DataFrame(abs(cfa.loadings_),index=model_spec.variable_names)
 
     test = pd.concat([df_cfa, SAGE_factors.set_index(df_cfa.index)], axis=1)
     test['errs']=cfa.error_vars_
@@ -358,6 +389,25 @@ def SAGE_validation(df_norm):
     plt.tight_layout()
     save_fig(fig, 'SAGE_CFA_0.4')
     plt.clf()
+
+    df_SAGE_cfa2 = df_SAGE_cfa.drop(['The material is easier to understand when I work with other students.','The work takes more time to complete when I work with other students.',
+                                'When I work in a group, I am able to share my ideas.', 'I learn to work with students who are different from me.',
+                                'When I work with other students, we spend too much time talking about other things.'], axis=1)
+
+    model_spec2 = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa2,model_dict2)
+
+    cfa2 = ConfirmatoryFactorAnalyzer(model_spec2, disp=False)
+    cfa2.fit(df_SAGE_cfa2)
+
+    df_cfa2 = pd.DataFrame(abs(cfa2.loadings_),index=model_spec2.variable_names)
+
+    test = pd.concat([df_cfa2, SAGE_factors2.set_index(df_cfa2.index)], axis=1)
+    test['errs']=cfa2.error_vars_
+    test.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA2.csv', encoding = "utf-8", index=True)
+
+    print(pd.concat([df_cfa2[:5][0], df_cfa2[5:8][1], df_cfa2[8:-2][2], df_cfa2[-2:][3]], ignore_index=True))
+    print(scipy.stats.pearsonr(pd.concat([df_cfa2[:5][0], df_cfa2[5:8][1], df_cfa2[8:-2][2], df_cfa2[-2:][3]], ignore_index=True),
+        pd.concat([SAGE_factors2[:5][0], SAGE_factors2[5:8][1], SAGE_factors2[8:-2][2], SAGE_factors2[-2:][3]], ignore_index=True)))
 
 def EFA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
@@ -1010,19 +1060,19 @@ Demo_dict = {'Which course are you currently enrolled in?':'Course',
         'Which gender(s) do you most identify (select all that apply)? - Other (please specify): - Text':'Gender - Text',
         'What is your race or ethnicity (select all that apply)? - Selected Choice': 'Raceethnicity',
         'What is your race or ethnicity (select all that apply)? - Some other race or ethnicity - Text':'Raceethnicity - Text',
-        'American Indian or Alaska Native - Provide details below.\r\n\r\nPrint, for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.':'Native',
+        'American Indian or Alaska Native - Provide details below.\n\nPrint, for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.':'Native',
         'Asian - Provide details below. - Selected Choice':'Asian',
-        'Asian - Provide details below. - Some other Asian race or ethnicity\r\n\r\nPrint, for example, Pakistani, Cambodian, Hmong, etc. - Text':'Asian - Text',
+        'Asian - Provide details below. - Some other Asian race or ethnicity\n\nPrint, for example, Pakistani, Cambodian, Hmong, etc. - Text':'Asian - Text',
         'Black or African American - Provide details below. - Selected Choice': 'Black',
-        'Black or African American - Provide details below. - Some other Black or African American race or ethnicity\r\n\r\nPrint, for example, Ghanaian, South African, Barbadian, etc. - Text': 'Black - Text',
+        'Black or African American - Provide details below. - Some other Black or African American race or ethnicity\n\nPrint, for example, Ghanaian, South African, Barbadian, etc. - Text': 'Black - Text',
         'Hispanic, Latino, or Spanish - Provide details below. - Selected Choice':'Latino',
-        'Hispanic, Latino, or Spanish - Provide details below. - Some other Hispanic, Latino, or Spanish race or ethnicity\r\n\r\nPrint, for example, Guatemalan, Spaniard, Ecuadorian, etc. - Text':'Latino - Text',
+        'Hispanic, Latino, or Spanish - Provide details below. - Some other Hispanic, Latino, or Spanish race or ethnicity\n\nPrint, for example, Guatemalan, Spaniard, Ecuadorian, etc. - Text':'Latino - Text',
         'Middle Eastern or North African - Provide details below. - Selected Choice':'MiddleEast',
-        'Middle Eastern or North African - Provide details below. - Some other Middle Eastern or North African race or ethnicity\r\n\r\nPrint, for example, Algerian, Iraqi, Kurdish, etc.</spa - Text':'MiddleEast - Text',
+        'Middle Eastern or North African - Provide details below. - Some other Middle Eastern or North African race or ethnicity\n\nPrint, for example, Algerian, Iraqi, Kurdish, etc.</spa - Text':'MiddleEast - Text',
         'Native Hawaiian or Other Pacific Islander - Provide details below. - Selected Choice':'Pacific',
-        'Native Hawaiian or Other Pacific Islander - Provide details below. - Some other Native Hawaiian or Other Pacific Islander race or ethnicity\r\n\r\nPrint, for example, Palauan, Tahitian, Chuukese, etc.</spa - Text':'Pacific - Text',
+        'Native Hawaiian or Other Pacific Islander - Provide details below. - Some other Native Hawaiian or Other Pacific Islander race or ethnicity\n\nPrint, for example, Palauan, Tahitian, Chuukese, etc.</spa - Text':'Pacific - Text',
         'White - Provide details below. - Selected Choice':'White',
-        'White - Provide details below. - Some other White race or ethnicity\r\n\r\nPrint, for example, Scottish, Norwegian, Dutch, etc.</spa - Text':'White - Text',
+        'White - Provide details below. - Some other White race or ethnicity\n\nPrint, for example, Scottish, Norwegian, Dutch, etc.</spa - Text':'White - Text',
         'What is the highest level of education either of your parents have achieved? - Selected Choice':'Education',
         'What is the highest level of education either of your parents have achieved? - Other - Text':'Education - Text'
         }

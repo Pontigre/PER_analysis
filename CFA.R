@@ -1,7 +1,17 @@
 #load libraries
 library(lavaan)
-library(foreign)
 
+# FOR CFA TO KOUROS AND ABRAMI 2006
+dat <- read.csv(file='ExportedFiles/CFA_file.csv')
+path <-'
+f1 =~
+f2 =~
+f3 =~
+f4 =~
+'
+
+
+# FOR EFA
 #import data
 data <- read.csv(file='ExportedFiles/CFA_full.csv')
 
@@ -10,7 +20,13 @@ f1 =~ When.I.work.in.a.group..I.do.higher.quality.work. + When.I.work.in.a.group
 f2 =~ When.I.work.in.a.group..I.am.able.to.share.my.ideas. +  My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are. +  My.group.members.respect.my.opinions. + I.feel.I.am.part.of.what.is.going.on.in.the.group. + I.learn.to.work.with.students.who.are.different.from.me. + I.also.learn.when.I.teach.the.material.to.my.group.members. + You.have.a.certain.amount.of.physics.intelligence..and.you.can.t.really.do.much.to.change.it. + Your.physics.intelligence.is.something.about.you.that.you.can.change. + You.can.learn.new.things..but.you.can.t.really.change.your.basic.physics.intelligence.
 '
 model2 <-cfa(path2,data=data)
-summary(model2)
+summary(model2, model2.measures=TRUE)
+fitMeasures(model2)
+
+sink("EFA_n2.txt")
+print(summary(model2))
+print(fitMeasures(model2))
+sink()
 
 path3 <-'
 f1 =~ When.I.work.in.a.group..I.end.up.doing.most.of.the.work. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + The.material.is.easier.to.understand.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students. + I.do.not.think.a.group.grade.is.fair. + I.feel.working.in.groups.is.a.waste.of.time. + I.have.to.work.with.students.who.are.not.as.smart.as.I.am. + When.I.work.with.other.students.the.work.is.divided.equally. + I.become.frustrated.when.my.group.members.do.not.understand.the.material.
@@ -19,6 +35,12 @@ f3 =~ You.have.a.certain.amount.of.physics.intelligence..and.you.can.t.really.do
 '
 model3 <-cfa(path3,data=data)
 summary(model3)
+fitMeasures(model3)
+
+sink("EFA_n3.txt")
+print(summary(model3))
+print(fitMeasures(model3))
+sink()
 
 path4 <-'
 f1 =~ When.I.work.in.a.group..I.end.up.doing.most.of.the.work. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + My.group.members.help.explain.things.that.I.do.not.understand. +  The.material.is.easier.to.understand.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students. + I.do.not.think.a.group.grade.is.fair. + I.feel.working.in.groups.is.a.waste.of.time. + I.have.to.work.with.students.who.are.not.as.smart.as.I.am. + When.I.work.with.other.students.the.work.is.divided.equally. + I.become.frustrated.when.my.group.members.do.not.understand.the.material.
@@ -28,6 +50,12 @@ f4 =~ My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are. + My.gro
 '
 model4 <-cfa(path4,data=data)
 summary(model4)
+fitMeasures(model4)
+
+sink("EFA_n4.txt")
+print(summary(model4))
+print(fitMeasures(model4))
+sink()
 
 path5 <-'
 f1 =~ When.I.work.in.a.group..I.do.higher.quality.work. + When.I.work.in.a.group..I.end.up.doing.most.of.the.work. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + My.group.members.help.explain.things.that.I.do.not.understand. +  The.material.is.easier.to.understand.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students. + I.do.not.think.a.group.grade.is.fair. + I.feel.working.in.groups.is.a.waste.of.time. + When.I.work.with.other.students.the.work.is.divided.equally.
@@ -38,6 +66,12 @@ f5 =~ I.have.to.work.with.students.who.are.not.as.smart.as.I.am. +  I.become.fru
 '
 model5 <-cfa(path5,data=data)
 summary(model5)
+fitMeasures(model5)
+
+sink("EFA_n5.txt")
+print(summary(model5))
+print(fitMeasures(model5))
+sink()
 
 path6 <-'
 f1 =~ When.I.work.in.a.group..I.end.up.doing.most.of.the.work. +  The.work.takes.more.time.to.complete.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students. + I.do.not.think.a.group.grade.is.fair. + I.feel.working.in.groups.is.a.waste.of.time. + When.I.work.with.other.students.the.work.is.divided.equally.
@@ -49,6 +83,12 @@ f6 =~ I.have.to.work.with.students.who.are.not.as.smart.as.I.am. +  I.become.fru
 '
 model6 <-cfa(path6,data=data)
 summary(model6)
+fitMeasures(model6)
+
+sink("EFA_n6.txt")
+print(summary(model6))
+print(fitMeasures(model6))
+sink()
 
 path7 <-'
 f1 =~ When.I.work.in.a.group..I.do.higher.quality.work. + When.I.work.in.a.group..I.end.up.doing.most.of.the.work. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + The.material.is.easier.to.understand.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students. + I.do.not.think.a.group.grade.is.fair. + I.feel.working.in.groups.is.a.waste.of.time. + When.I.work.with.other.students.the.work.is.divided.equally.
@@ -60,6 +100,12 @@ f6 =~ I.have.to.work.with.students.who.are.not.as.smart.as.I.am. +  I.become.fru
 '
 model7 <-cfa(path7,data=data)
 summary(model7)
+fitMeasures(model7)
+
+sink("EFA_n7.txt")
+print(summary(model7))
+print(fitMeasures(model7))
+sink()
 
 path8 <-'
 f1 =~ When.I.work.in.a.group..I.end.up.doing.most.of.the.work. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + The.material.is.easier.to.understand.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students. + I.do.not.think.a.group.grade.is.fair. + I.feel.working.in.groups.is.a.waste.of.time. + When.I.work.with.other.students.the.work.is.divided.equally.
@@ -71,6 +117,12 @@ f6 =~ My.group.members.help.explain.things.that.I.do.not.understand.
 '
 model8 <-cfa(path8,data=data)
 summary(model8)
+fitMeasures(model8)
+
+sink("EFA_n8.txt")
+print(summary(model8))
+print(fitMeasures(model8))
+sink()
 
 path9 <-'
 f1 =~ When.I.work.in.a.group..I.end.up.doing.most.of.the.work. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + My.group.members.help.explain.things.that.I.do.not.understand. + The.material.is.easier.to.understand.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students. + I.do.not.think.a.group.grade.is.fair. + I.feel.working.in.groups.is.a.waste.of.time. + When.I.work.with.other.students.the.work.is.divided.equally.
@@ -83,4 +135,10 @@ f7 =~ I.prefer.to.take.on.tasks.that.I.m.already.good.at.
 '
 model9 <-cfa(path9,data=data)
 summary(model9)
+fitMeasures(model9)
+
+sink("EFA_n9.txt")
+print(summary(model9))
+print(fitMeasures(model9))
+sink()
 
