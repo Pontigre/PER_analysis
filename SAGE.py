@@ -52,9 +52,9 @@ def main():
     # dfR = df[df['Raceethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
+    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    # EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
+    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
@@ -587,7 +587,7 @@ def EFA_alternate(df_norm):
     fit_stats_y = []
     for n in range(2,10):
         print('Number of factors:', n)
-        fit_stats_x.append(n)
+        # fit_stats_x.append(n)
         # Create a copy of the data so that we don't remove data when dropping columns
         dfn = df_SAGE.copy()
         dropped = []
@@ -699,8 +699,8 @@ def EFA_alternate(df_norm):
 
         # 7. Fit model using CFA and extract fit statistic
         # Export to R and just do CFA there instead
-        cfa_file = image_dir + '/EFA_factors_n=' + str(n) + '.csv'
-        dfn.to_csv(cfa_file)
+        # cfa_file = image_dir + '/EFA_factors_n=' + str(n) + '.csv'
+        # dfn.to_csv(cfa_file)
 
         # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
 
@@ -712,13 +712,16 @@ def EFA_alternate(df_norm):
         # fit_stats_y.append(cfa.aic_)
 
     # # 9. Plot fit statistic vs number of factors
-    # print(fit_stats_x, fit_stats_y)
-    # fig, ax = plt.subplots()
-    # plt.plot(fit_stats_x, fit_stats_y, marker='.', ls='None')
-    # ax.tick_params(axis='both', direction='in', top=True, right=True)
-    # plt.tight_layout()
-    # save_fig(fig, 'fit_stats')
-    # plt.clf()
+    fit_stats_x = [2,3,4,5,6,7,8,9]
+    fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.918, 0.889]
+    fit_stats_aic = [63970.444, 70128.832, 73038.981, 76160.685, 73112.557, 76842.515, 62545.099, 74463.692]
+
+    fig, ax = plt.subplots()
+    plt.plot(fit_stats_x, fit_stats_aic, marker='.', ls='None')
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
+    plt.tight_layout()
+    save_fig(fig, 'fit_stats')
+    plt.clf()
 
 def factor_scores(df_norm,number_of_factors):
     min_kmo = 0.6
