@@ -31,11 +31,11 @@ Only questions that correspond to Kouros and Abrami 2006.
 The factor_analayzer.cfa package in Python fails to converge on a solution so the data is exported to conduct the CFA in R. This is true for all circumstances of CFA.
 
 By running the model through our complete dataset, we obtain the following fit statistics:
- - CFI = 0.878
- - TLI = 0.850
- - RMSEA = 0.069
+ - CFI = 0.876
+ - TLI = 0.855
+ - RMSEA = 0.066
  
-While not good enough to consider valid on its own, that's close enough that SAGE's original results being valid in another context makes complete sense. We also explored if limiting the population would better the fit, but found that the gains are marginal (RMSEA 0.069 -> 0.066) 
+While not good enough to consider valid on its own, that's close enough that SAGE's original results being valid in another context makes complete sense. We also explored if limiting the population would better the fit, but found that the gains are marginal (RMSEA 0.066 -> 0.062) 
 
 ## Exploratory Factor Analysis 
 Correlation Matrix
