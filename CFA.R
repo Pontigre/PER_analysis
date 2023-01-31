@@ -4,9 +4,9 @@ library(lavaan)
 # FOR CFA TO KOUROS AND ABRAMI 2006
 dat <- read.csv(file='ExportedFiles/CFA_file.csv')
 path <-'
-f1 =~ When.I.work.in.a.group..I.do.higher.quality.work. + The.material.is.easier.to.understand.when.I.work.with.other.students. + My.group.members.help.explain.things.that.I.do.not.understand. + I.feel.working.in.groups.is.a.waste.of.time. + The.workload.is.usually.less.when.I.work.with.other.students.
-f2 =~ My.group.members.respect.my.opinions. + My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are. + My.group.members.do.not.care.about.my.feelings. + I.feel.I.am.part.of.what.is.going.on.in.the.group.
-f3 =~Everyone.s.ideas.are.needed.if.we.are.going.to.be.successful. + We.cannot.complete.the.assignment.unless.everyone.contributes. + I.let.the.other.students.do.most.of.the.work. + I.also.learn.when.I.teach.the.material.to.my.group.members.
+f1 =~ When.I.work.in.a.group..I.do.higher.quality.work. + The.material.is.easier.to.understand.when.I.work.with.other.students. + My.group.members.help.explain.things.that.I.do.not.understand. + I.feel.working.in.groups.is.a.waste.of.time. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students.
+f2 =~ My.group.members.respect.my.opinions. + My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are. + My.group.members.do.not.care.about.my.feelings. + I.feel.I.am.part.of.what.is.going.on.in.the.group. + When.I.work.in.a.group..I.am.able.to.share.my.ideas.
+f3 =~ Everyone.s.ideas.are.needed.if.we.are.going.to.be.successful. + We.cannot.complete.the.assignment.unless.everyone.contributes. + I.let.the.other.students.do.most.of.the.work. + I.also.learn.when.I.teach.the.material.to.my.group.members. + I.learn.to.work.with.students.who.are.different.from.me.
 f4 =~ I.become.frustrated.when.my.group.members.do.not.understand.the.material. + When.I.work.with.other.students..we.spend.too.much.time.talking.about.other.things. + I.have.to.work.with.students.who.are.not.as.smart.as.I.am.
 '
 
