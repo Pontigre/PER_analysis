@@ -52,9 +52,9 @@ def main():
     # dfR = df[df['Raceethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
+    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
+    # EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
@@ -283,7 +283,7 @@ def SAGE_validation(df_norm):
     df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1).astype(float)
     df_SAGE_cfa.apply(pd.to_numeric)
 
-    df_SAGE_cfa.to_csv('ExportedFiles/CFA_file.csv', encoding = "utf-8",header=False,index=False)
+    df_SAGE_cfa.to_csv('ExportedFiles/CFA_file_W.csv', encoding = "utf-8", index=False)
 
     # CONFIRMATORY FACTOR ANALYSIS
     # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
@@ -304,110 +304,58 @@ def SAGE_validation(df_norm):
             # [50, 53, 33]
     }
 
-    model_dict2 = {
-    'F1': ['When I work in a group I do higher quality work.', 'My group members help explain things that I do not understand.',
-            'I feel working in groups is a waste of time.', 'The workload is usually less when I work with other students.'], 
-            # [1, 8, 30, 16]
-    'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
-            'I feel I am part of what is going on in the group.'], 
-            # [6, 11, 26, 17]
-    'F3': ['Everyone’s ideas are needed if we are going to be successful.', 'We cannot complete the assignment unless everyone contributes.', 'I let the other students do most of the work.',
-            'I also learn when I teach the material to my group members.'], 
-            # [52, 36, 28, 49]
-    'F4': ['I become frustrated when my group members do not understand the material.',
-            'I have to work with students who are not as smart as I am.']
-            # [50, 33]
-    }
+    # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa,model_dict)
 
-    SAGE_factors = pd.DataFrame(
-                [[0.85, 0., 0., 0.], # When I work in a group I do higher quality work. (1)
-                [0.81, 0., 0., 0.], # The material is easier to understand when I work with other students. (12)
-                [0.60, 0., 0., 0.], # My group members help explain things that I do not understand. (8)
-                [0.60, 0., 0., 0.], # I feel working in groups is a waste of time. (30)
-                [0.54, 0., 0., 0.], # The work takes more time to complete when I work with other students. (5)
-                [0.53, 0., 0., 0.], # The workload is usually less when I work with other students. (16)
-                [0., 0.70, 0., 0.], # My group members respect my opinions. (-6)
-                [0., 0.66, 0., 0.], # My group members make me feel that I am not as smart as they are. (11)
-                [0., 0.66, 0., 0.], # My group members do not care about my feelings. (26)
-                [0., 0.62, 0., 0.], # I feel I am part of what is going on in the group. (17)
-                [0., 0.60, 0., 0.], # When I work in a group, I am able to share my ideas. (10)
-                [0., 0., 0.63, 0.], # Everyone's ideas are needed if we are going to be successful. (52)
-                [0., 0., 0.53, 0.], # We cannot complete the assignment unless everyone contributes. (36)
-                [0., 0., 0.50, 0.], # I let the other students do most of the work. (28)
-                [0., 0., 0.49, 0.], # I also learn when I teach the material to my group members. (49)
-                [0., 0., 0.41, 0.], # I learn to work with students who are different from me. (25)
-                [0., 0., 0., 0.51], # I become frustrated when my group members do not understand the material. (50)
-                [0., 0., 0., 0.49], # When I work with other students, we spend too much time talking about other things. (53)
-                [0., 0., 0., 0.43]]) # I have to work with students who are not as smart as I am. (33)
+    # cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
+    # cfa.fit(df_SAGE_cfa)
 
-    SAGE_factors2 = pd.DataFrame(
-                [[0.85, 0., 0., 0.], # When I work in a group I do higher quality work. (1)
-                [0.60, 0., 0., 0.], # My group members help explain things that I do not understand. (8)
-                [0.60, 0., 0., 0.], # I feel working in groups is a waste of time. (30)
-                [0.53, 0., 0., 0.], # The workload is usually less when I work with other students. (16)
-                [0., 0.70, 0., 0.], # My group members respect my opinions. (-6)
-                [0., 0.66, 0., 0.], # My group members make me feel that I am not as smart as they are. (11)
-                [0., 0.66, 0., 0.], # My group members do not care about my feelings. (26)
-                [0., 0.62, 0., 0.], # I feel I am part of what is going on in the group. (17)
-                [0., 0., 0.63, 0.], # Everyone's ideas are needed if we are going to be successful. (52)
-                [0., 0., 0.53, 0.], # We cannot complete the assignment unless everyone contributes. (36)
-                [0., 0., 0.50, 0.], # I let the other students do most of the work. (28)
-                [0., 0., 0.49, 0.], # I also learn when I teach the material to my group members. (49)
-                [0., 0., 0., 0.51], # I become frustrated when my group members do not understand the material. (50)
-                [0., 0., 0., 0.43]]) # I have to work with students who are not as smart as I am. (33)
+    # df_cfa = pd.DataFrame(abs(cfa.loadings_),index=model_spec.variable_names)
 
-    model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa,model_dict)
+    # test = pd.concat([df_cfa, SAGE_factors.set_index(df_cfa.index)], axis=1)
+    # test['errs']=cfa.error_vars_
+    # test.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA.csv', encoding = "utf-8", index=True)
 
-    cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
-    cfa.fit(df_SAGE_cfa)
+    # print(scipy.stats.pearsonr(pd.concat([df_cfa[:6][0], df_cfa[6:11][1], df_cfa[11:-3][2], df_cfa[-3:][3]], ignore_index=True),
+    #     pd.concat([SAGE_factors[:6][0], SAGE_factors[6:11][1], SAGE_factors[11:-3][2], SAGE_factors[-3:][3]], ignore_index=True)))
 
-    df_cfa = pd.DataFrame(abs(cfa.loadings_),index=model_spec.variable_names)
+    # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.0001, df_cfa)
+    # fig, ax = plt.subplots()
+    # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
+    # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    # plt.colorbar()
+    # plt.tight_layout()
+    # save_fig(fig, 'SAGE_CFA')
+    # plt.clf()
 
-    test = pd.concat([df_cfa, SAGE_factors.set_index(df_cfa.index)], axis=1)
-    test['errs']=cfa.error_vars_
-    test.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA.csv', encoding = "utf-8", index=True)
+    # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.4, df_cfa)
+    # fig, ax = plt.subplots()
+    # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
+    # plt.colorbar()
+    # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    # plt.tight_layout()
+    # save_fig(fig, 'SAGE_CFA_0.4')
+    # plt.clf()
 
-    print(scipy.stats.pearsonr(pd.concat([df_cfa[:6][0], df_cfa[6:11][1], df_cfa[11:-3][2], df_cfa[-3:][3]], ignore_index=True),
-        pd.concat([SAGE_factors[:6][0], SAGE_factors[6:11][1], SAGE_factors[11:-3][2], SAGE_factors[-3:][3]], ignore_index=True)))
+    # df_SAGE_cfa2 = df_SAGE_cfa.drop(['The material is easier to understand when I work with other students.','The work takes more time to complete when I work with other students.',
+    #                             'When I work in a group, I am able to share my ideas.', 'I learn to work with students who are different from me.',
+    #                             'When I work with other students, we spend too much time talking about other things.'], axis=1)
 
-    trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.0001, df_cfa)
-    fig, ax = plt.subplots()
-    plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.colorbar()
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_CFA')
-    plt.clf()
+    # model_spec2 = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa2,model_dict2)
 
-    trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.4, df_cfa)
-    fig, ax = plt.subplots()
-    plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_CFA_0.4')
-    plt.clf()
+    # cfa2 = ConfirmatoryFactorAnalyzer(model_spec2, disp=False)
+    # cfa2.fit(df_SAGE_cfa2)
 
-    df_SAGE_cfa2 = df_SAGE_cfa.drop(['The material is easier to understand when I work with other students.','The work takes more time to complete when I work with other students.',
-                                'When I work in a group, I am able to share my ideas.', 'I learn to work with students who are different from me.',
-                                'When I work with other students, we spend too much time talking about other things.'], axis=1)
+    # df_cfa2 = pd.DataFrame(abs(cfa2.loadings_),index=model_spec2.variable_names)
 
-    model_spec2 = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE_cfa2,model_dict2)
+    # test = pd.concat([df_cfa2, SAGE_factors2.set_index(df_cfa2.index)], axis=1)
+    # test['errs']=cfa2.error_vars_
+    # test.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA2.csv', encoding = "utf-8", index=True)
 
-    cfa2 = ConfirmatoryFactorAnalyzer(model_spec2, disp=False)
-    cfa2.fit(df_SAGE_cfa2)
-
-    df_cfa2 = pd.DataFrame(abs(cfa2.loadings_),index=model_spec2.variable_names)
-
-    test = pd.concat([df_cfa2, SAGE_factors2.set_index(df_cfa2.index)], axis=1)
-    test['errs']=cfa2.error_vars_
-    test.round(decimals = 4).to_csv('ExportedFiles/SAGE_CFA2.csv', encoding = "utf-8", index=True)
-
-    print(pd.concat([df_cfa2[:5][0], df_cfa2[5:8][1], df_cfa2[8:-2][2], df_cfa2[-2:][3]], ignore_index=True))
-    print(scipy.stats.pearsonr(pd.concat([df_cfa2[:5][0], df_cfa2[5:8][1], df_cfa2[8:-2][2], df_cfa2[-2:][3]], ignore_index=True),
-        pd.concat([SAGE_factors2[:5][0], SAGE_factors2[5:8][1], SAGE_factors2[8:-2][2], SAGE_factors2[-2:][3]], ignore_index=True)))
+    # print(pd.concat([df_cfa2[:5][0], df_cfa2[5:8][1], df_cfa2[8:-2][2], df_cfa2[-2:][3]], ignore_index=True))
+    # print(scipy.stats.pearsonr(pd.concat([df_cfa2[:5][0], df_cfa2[5:8][1], df_cfa2[8:-2][2], df_cfa2[-2:][3]], ignore_index=True),
+    #     pd.concat([SAGE_factors2[:5][0], SAGE_factors2[5:8][1], SAGE_factors2[8:-2][2], SAGE_factors2[-2:][3]], ignore_index=True)))
 
 def EFA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
@@ -552,6 +500,15 @@ def EFA_alternate(df_norm):
     plt.tight_layout()
     save_fig(fig,'SAGE_CorrM_0.4')
     plt.clf()
+
+    # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
+    kmo_all, kmo_model = calculate_kmo(df_SAGE)
+    print('KMO Measure of Sampling Adequacy: ', kmo_model)
+    print(kmo_all)
+
+    # BARTLETT'S TEST
+    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
+    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
 
     # Scree Plot
     print('Scree Plot')

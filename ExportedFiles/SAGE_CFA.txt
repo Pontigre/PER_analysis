@@ -1,0 +1,110 @@
+lavaan 0.6.13 ended normally after 42 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        38
+
+  Number of observations                          1273
+
+Model Test User Model:
+                                                      
+  Test statistic                               698.326
+  Degrees of freedom                                98
+  P-value (Chi-square)                           0.000
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  f1 =~                                               
+    W.I......I....    1.000                           
+    T.......I.....    1.400    0.086   16.367    0.000
+    My.......I....    1.213    0.079   15.308    0.000
+    I.fl.w........   -1.440    0.090  -15.987    0.000
+    Th......I.....    1.227    0.085   14.506    0.000
+  f2 =~                                               
+    My.grp.mmb....    1.000                           
+    M.......I.....   -0.867    0.051  -16.955    0.000
+    My.grp........   -1.073    0.049  -21.877    0.000
+    I..I..........    0.737    0.038   19.253    0.000
+  f3 =~                                               
+    Ev............    1.000                           
+    W.cnnt.c......    0.606    0.064    9.496    0.000
+    I.lt.t........   -0.445    0.052   -8.618    0.000
+    I....I........    0.681    0.046   14.761    0.000
+  f4 =~                                               
+    I.b...........    1.000                           
+    W.I...........    0.370    0.048    7.661    0.000
+    I............I    0.846    0.070   12.116    0.000
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  f1 ~~                                               
+    f2                0.199    0.017   12.023    0.000
+    f3                0.250    0.021   12.131    0.000
+    f4               -0.212    0.021  -10.183    0.000
+  f2 ~~                                               
+    f3                0.286    0.021   13.481    0.000
+    f4               -0.242    0.023  -10.525    0.000
+  f3 ~~                                               
+    f4               -0.303    0.028  -10.784    0.000
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .W.I......I....    0.681    0.029   23.284    0.000
+   .T.......I.....    0.403    0.022   18.667    0.000
+   .My.......I....    0.514    0.024   21.400    0.000
+   .I.fl.w........    0.530    0.027   19.961    0.000
+   .Th......I.....    0.714    0.032   22.423    0.000
+   .My.grp.mmb....    0.257    0.017   15.422    0.000
+   .M.......I.....    0.772    0.034   22.830    0.000
+   .My.grp........    0.478    0.025   19.086    0.000
+   .I..I..........    0.378    0.017   21.646    0.000
+   .Ev............    0.541    0.032   17.001    0.000
+   .W.cnnt.c......    1.343    0.055   24.218    0.000
+   .I.lt.t........    0.912    0.037   24.431    0.000
+   .I....I........    0.481    0.022   21.403    0.000
+   .I.b...........    0.745    0.051   14.558    0.000
+   .W.I...........    0.824    0.034   23.999    0.000
+   .I............I    0.791    0.044   18.068    0.000
+    f1                0.241    0.027    8.901    0.000
+    f2                0.401    0.027   14.640    0.000
+    f3                0.421    0.039   10.699    0.000
+    f4                0.539    0.059    9.154    0.000
+
+                 npar                  fmin                 chisq 
+               38.000                 0.274               698.326 
+                   df                pvalue        baseline.chisq 
+               98.000                 0.000              5024.899 
+          baseline.df       baseline.pvalue                   cfi 
+              120.000                 0.000                 0.878 
+                  tli                  nnfi                   rfi 
+                0.850                 0.850                 0.830 
+                  nfi                  pnfi                   ifi 
+                0.861                 0.703                 0.878 
+                  rni                  logl     unrestricted.logl 
+                0.878            -26162.793            -25813.630 
+                  aic                   bic                ntotal 
+            52401.585             52597.252              1273.000 
+                 bic2                 rmsea        rmsea.ci.lower 
+            52476.546                 0.069                 0.065 
+       rmsea.ci.upper        rmsea.ci.level          rmsea.pvalue 
+                0.074                 0.900                 0.000 
+       rmsea.close.h0 rmsea.notclose.pvalue     rmsea.notclose.h0 
+                0.050                 0.000                 0.080 
+                  rmr            rmr_nomean                  srmr 
+                0.058                 0.058                 0.061 
+         srmr_bentler   srmr_bentler_nomean                  crmr 
+                0.061                 0.061                 0.065 
+          crmr_nomean            srmr_mplus     srmr_mplus_nomean 
+                0.065                 0.061                 0.061 
+                cn_05                 cn_01                   gfi 
+              223.594               244.317                 0.929 
+                 agfi                  pgfi                   mfi 
+                0.901                 0.669                 0.790 
+                 ecvi 
+                0.608 
