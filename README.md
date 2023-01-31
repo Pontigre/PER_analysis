@@ -30,16 +30,12 @@ Only questions that correspond to Kouros and Abrami 2006.
 
 The factor_analayzer.cfa package in Python fails to converge on a solution so the data is exported to conduct the CFA in R. This is true for all circumstances of CFA.
 
-To compare to the original loadings, we can use Pearson's correlation coefficient (r) which is a measure of how linearly correlated (scaled [-1,1]) two sets of data are. For our results to be correlated to the previous work, I would expect r~1. 
-
-With these loadings, we get r = 0.246 (p-score ~ 0.3) which indicates a poor agreement. In particular, we see that while most items agree, there are several that do not agree well:
- - The material is easier to understand when I work with other students (quality of product and process)
- - The work takes more time to complete when I work with other students (quality of product and process)
- - When I work in a group, I am able to share my ideas (peer support)
- - I learn to work with students who are different from me (student interdependence)
- - When I work with other students, we spend too much time talking about other things (frustrations with group members)
+By running the model through our complete dataset, we obtain the following fit statistics:
+ - CFI = 0.876
+ - TLI = 0.855
+ - RMSEA = 0.066
  
-If these 5 items are removed, then we get a moderately good agreement r = 0.636 (p = 0.01).
+While not good enough to consider valid on its own, that's close enough that SAGE's original results being valid in another context makes complete sense. We also explored if limiting the population would better the fit, but found that the gains are marginal (RMSEA 0.066 -> 0.062) 
 
 ## Exploratory Factor Analysis 
 Correlation Matrix
@@ -78,11 +74,23 @@ Here we can see that the optimal number of factors is 8 because it is the local 
 
 The factors are:
 1. 'When I work in a group, I end up doing most of the work.', 'The work takes more time to complete when I work with other students.', 'The material is easier to understand when I work with other students.', 'The workload is usually less when I work with other students.', 'I do not think a group grade is fair.', 'I feel working in groups is a waste of time.', 'When I work with other students the work is divided equally.'
+ - Themes: Division of labor, Group work efficiency/effectiveness, (from SAGE) Quality of process ~~and product~~
+
 2. 'When I work in a group, I am able to share my ideas.', 'My group members make me feel that I am not as smart as they are.', 'My group members respect my opinions.', 'I feel I am part of what is going on in the group.', 'My group members do not care about my feelings.'
+ - Themes: Peer comfort, Confidence, Ease of collaboration
+
 3. 'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 'Your physics intelligence is something about you that you can change.', 'You can learn new things, but you can’t really change your basic physics intelligence.'
+- Themes: Mindset
+
 4. 'I learn to work with students who are different from me.', 'I also learn when I teach the material to my group members.'
+- Themes: (from SAGE) Group interdependence
+
 5. 'I prefer when the leadership role rotates between students.', 'I try to make sure my group members learn the material.', 'Everyone’s ideas are needed if we are going to be successful.', 'My group did higher quality work when my group members worked on tasks together.'
+ - Themes: Collaboration, Division of labor
+
 6. 'I have to work with students who are not as smart as I am.', 'I become frustrated when my group members do not understand the material.'
+ - Themes: (from SAGE) Frustration with group members
+
 7. 'My group members help explain things that I do not understand.'
 
 ![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_n=8.png)
