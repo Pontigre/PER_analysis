@@ -52,12 +52,13 @@ def main():
     # dfR = df[df['Raceethnicity'].str.contains('White', na=False)].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
+    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
+    # Factor_dependences(df_norm)
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
     # Mindset(df_norm) # Checks mindset of student responses. WIP
 
@@ -925,6 +926,24 @@ def Intervention_differences(df_norm):
     F, p = scipy.stats.f_oneway(fs_C, fs_CC, fs_PA)
     print(F, p)
 
+def Factor_dependences(df_norm):
+    # This code looks at the loading of each student onto each factor, then uses linear regression (probit) to see if demos or intervention affect these
+    df = df_norm.copy()
+    fs, model = factor_scores(df,8)
+    fs = fs.iloc[:, :-1]
+    fs.columns =['QualityofProcess','IndividualBelonging','Mindset','InterdependentLearning_g',
+                'CollectiveLearning','Frustrations','InterdependentLearning_r']   
+
+    # Create a dataframe that has the factor scores and the demographics of each student
+    Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
+    df1 = pd.concat([fs,df[Demo_Qs].set_index(fs.index)], axis=1)
+    print(list(df1))
+    
+    # Linear regression (change FACTOR to the factor you want)
+    mod = smf.ols(formula='FACTOR ~ C(Intervention) + Course + C(Gender) + C(Raceethnicity) + C(Education)', data=df1)
+    res = mod.fit()
+    print(res.summary().as_latex())
+
 def Specifics(df_norm,demo,col):
     Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Raceethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
         'MiddleEast - Text', 'Pacific - Text', 'White - Text', 'Education - Text']
@@ -961,7 +980,7 @@ def Mindset(df_norm):
     # This code looks at whethever a student has fixed or growth mindset, then uses linear regression (probit) to see if demos or intervention affect this
     Phys_Int_Cols = [col for col in df_norm.columns if 'physics intelligence' in col]
     df = df_norm.copy()
-    fs, model = factor_scores(df,6)
+    fs, model = factor_scores(df,8)
 
     # -1 = Fixed Mindset, 1 = Growth Mindset
 
