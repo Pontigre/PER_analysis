@@ -11,16 +11,19 @@ import scipy
 import researchpy as rp
 import matplotlib
 import matplotlib.pyplot as plt
+from matplotlib import cm
 import seaborn as sns
 
 # FOR FACTOR ANALYSIS
 import factor_analyzer
 from factor_analyzer import (ConfirmatoryFactorAnalyzer,ModelSpecificationParser)
 from factor_analyzer import FactorAnalyzer
-from sklearn.decomposition import PCA
 from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LogisticRegression
 import statsmodels.formula.api as smf
-from statsmodels.miscmodels.ordinal_model import OrderedModel
+from statsmodels.discrete.discrete_model import MNLogit
+from patsy import dmatrices
 # from pingouin import cronbach_alpha as al ##Do not work with python3.11
 # from advanced_pca import CustomPCA ##Do not work with python3.11
 
@@ -58,7 +61,7 @@ def main():
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
-    # Factor_dependences(df_norm)
+    Factor_dependences(df_norm)
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
     # Mindset(df_norm) # Checks mindset of student responses. WIP
 
@@ -937,12 +940,32 @@ def Factor_dependences(df_norm):
     # Create a dataframe that has the factor scores and the demographics of each student
     Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
     df1 = pd.concat([fs,df[Demo_Qs].set_index(fs.index)], axis=1)
-    print(list(df1))
-    
+
+    # Plot (box and whisker) averages for each factor by course
+    df_bnw = df1.drop(['Intervention','Gender','Raceethnicity','Education'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,3))
+    palette ={'PHY105M': colors[1], 'PHY105N': colors[2]}
+    hue_order = ['PHY105M','PHY105N']
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
+    plt.xticks(ha='right',rotation=45)
+    plt.tight_layout()
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05), ncols =2, fancybox=True, shadow=True)
+    save_fig(g,'factor_ratings')
+
+    # Create dummy demographics
+    ## Gender -> Male, Female, Other
+    ## Raceethnicity -> Wellrepresented (white, asian), underrepresented, both
+
     # Linear regression (change FACTOR to the factor you want)
-    mod = smf.ols(formula='FACTOR ~ C(Intervention) + Course + C(Gender) + C(Raceethnicity) + C(Education)', data=df1)
-    res = mod.fit()
-    print(res.summary().as_latex())
+    # y, X = dmatrices('FACTOR ~ Intervention + Course + Gender + Raceethnicity + Education', data=df1, return_type='dataframe')
+    # print(y, X)
+    # clf = LogisticRegression(multi_class='multinomial').fit(X, y)
+    # print(clf.score(X, y))
+    
+    # res = MNLogit(y, X).fit()
+    # print(res.summary().as_latex())
 
 def Specifics(df_norm,demo,col):
     Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Raceethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
