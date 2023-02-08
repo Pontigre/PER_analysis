@@ -954,9 +954,23 @@ def Factor_dependences(df_norm):
     plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05), ncols =2, fancybox=True, shadow=True)
     save_fig(g,'factor_ratings')
 
-    # Create dummy demographics
+    # Condenses demographics
     ## Gender -> Male, Female, Other
+    df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
+    df1['Gender_C'] = ['Male' if df1['Gender'] == 'Male' else 'Female' if df1['Gender'] == 'Female' else 'Other' for x in df['Gender']]
+    print(df1['Gender','Gender_C'])
+    df1.drop(columns=['Gender'], axis=1, inplace = True)
+    print(list(df1))
+
     ## Raceethnicity -> Wellrepresented (white, asian), underrepresented, both
+    df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
+    conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian, White'),
+                (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White'))]
+    choices = ['Wellrepresented','Underrepresented']
+    df1['Raceethnicity_C'] = np.select(conditions, choices, default='Other')
+    print(df1['Raceethnicity','Raceethnicity_C'])
+    df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
+    print(list(df1))
 
     # Linear regression (change FACTOR to the factor you want)
     # y, X = dmatrices('FACTOR ~ Intervention + Course + Gender + Raceethnicity + Education', data=df1, return_type='dataframe')
