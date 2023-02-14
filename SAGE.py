@@ -957,18 +957,18 @@ def Factor_dependences(df_norm):
     # Condenses demographics
     ## Gender -> Male, Female, Other
     df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
-    df1['Gender_C'] = ['Male' if df1['Gender'] == 'Male' else 'Female' if df1['Gender'] == 'Female' else 'Other' for x in df['Gender']]
-    print(df1['Gender','Gender_C'])
+    df1['Gender_C'] = ['Male' if x == 'Male' else 'Female' if x == 'Female' else 'Other' for x in df['Gender']]
+    print(df1[['Gender','Gender_C']])
     df1.drop(columns=['Gender'], axis=1, inplace = True)
     print(list(df1))
 
     ## Raceethnicity -> Wellrepresented (white, asian), underrepresented, both
     df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
-    conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian, White'),
+    conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian,White'),
                 (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White'))]
     choices = ['Wellrepresented','Underrepresented']
     df1['Raceethnicity_C'] = np.select(conditions, choices, default='Other')
-    print(df1['Raceethnicity','Raceethnicity_C'])
+    print(df1[['Raceethnicity','Raceethnicity_C']])
     df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
     print(list(df1))
 
