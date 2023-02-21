@@ -737,9 +737,12 @@ def factor_scores(df_norm,number_of_factors):
     model_dict = {i[0]:i[1:] for i in lists}
 
     # GET FACTOR SCORES
-    scores = pd.DataFrame(efa.transform(dfn))
+    # scores = pd.DataFrame(efa.transform(dfn))
+    loads = pd.DataFrame(efa.loadings_)
+    scores = pd.DataFrame(np.dot(dfn,efa.loadings_))
+    norm_scores = scores/(loads.abs().sum())
 
-    return scores, model_dict
+    return norm_scores, model_dict
 
 def PCA(df_norm):
     # REMOVE DEMOGRAPHIC QUESTIONS
@@ -941,36 +944,83 @@ def Factor_dependences(df_norm):
     Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
     df1 = pd.concat([fs,df[Demo_Qs].set_index(fs.index)], axis=1)
 
-    # Plot (box and whisker) averages for each factor by course
-    df_bnw = df1.drop(['Intervention','Gender','Raceethnicity','Education'],axis=1)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,3))
-    palette ={'PHY105M': colors[1], 'PHY105N': colors[2]}
-    hue_order = ['PHY105M','PHY105N']
-    g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-                    x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
-    plt.xticks(ha='right',rotation=45)
-    plt.tight_layout()
-    plt.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05), ncols =2, fancybox=True, shadow=True)
-    save_fig(g,'factor_ratings')
-
     # Condenses demographics
     ## Gender -> Male, Female, Other
     df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
     df1['Gender_C'] = ['Male' if x == 'Male' else 'Female' if x == 'Female' else 'Other' for x in df['Gender']]
-    print(df1[['Gender','Gender_C']])
     df1.drop(columns=['Gender'], axis=1, inplace = True)
-    print(list(df1))
 
-    ## Raceethnicity -> Wellrepresented (white, asian), underrepresented, both
+    # Raceethnicity -> Wellrepresented (white, asian), underrepresented, both
     df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
     conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian,White'),
                 (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White'))]
     choices = ['Wellrepresented','Underrepresented']
     df1['Raceethnicity_C'] = np.select(conditions, choices, default='Other')
-    print(df1[['Raceethnicity','Raceethnicity_C']])
     df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
-    print(list(df1))
+
+    # Plot (box and whisker) averages for each factor by course
+    df_bnw = df1.drop(['Intervention','Gender_C','Raceethnicity_C','Education'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={'PHY105M': colors[1], 'PHY105N': colors[2]}
+    hue_order = ['PHY105M','PHY105N']
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    plt.xticks(ha='right',rotation=45)
+    plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols =3, fancybox=True, shadow=False)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_course')
+    plt.clf()
+
+    # Plot (box and whisker) averages for each factor by intervention
+    df_bnw = df1.drop(['Course','Gender_C','Raceethnicity_C','Education'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={'Control': colors[1], 'Collaborative Comparison': colors[2], 'Partner Agreements': colors[3]}
+    hue_order = ['Control','Collaborative Comparison', 'Partner Agreements']
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    plt.xticks(ha='right',rotation=45)
+    plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols =3, fancybox=True, shadow=False)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_intervention')
+    plt.clf()
+
+    # Plot (box and whisker) averages for each factor by gender
+    df_bnw = df1.drop(['Course','Intervention','Raceethnicity_C','Education'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={'Male': colors[1], 'Female': colors[2], 'Other': colors[3]}
+    hue_order = ['Male','Female', 'Other']
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    plt.xticks(ha='right',rotation=45)
+    plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols =3, fancybox=True, shadow=False)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_gender')
+    plt.clf()
+
+    # Plot (box and whisker) averages for each factor by race and ethnicity
+    df_bnw = df1.drop(['Course','Intervention','Gender_C','Education'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={'Wellrepresented': colors[1], 'Underrepresented': colors[2], 'Other': colors[3]}
+    hue_order = ['Wellrepresented','Underrepresented', 'Other']
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    plt.xticks(ha='right',rotation=45)
+    plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols =3, fancybox=True, shadow=False)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_racethnicity')
+    plt.clf()
 
     # Linear regression (change FACTOR to the factor you want)
     # y, X = dmatrices('FACTOR ~ Intervention + Course + Gender + Raceethnicity + Education', data=df1, return_type='dataframe')
