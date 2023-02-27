@@ -95,3 +95,9 @@ The factors are:
 
 ![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_n=8.png)
 ![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_0.4_n=8.png)
+
+![Factor ratings by Course](ExportedFiles/factor_ratings_course.png)
+![Factor ratings by Course](ExportedFiles/factor_ratings_Intervention.png)
+![Factor ratings by Course](ExportedFiles/factor_ratings_gender.png)
+![Factor ratings by Course](ExportedFiles/factor_ratings_racethnicity.png)
+
