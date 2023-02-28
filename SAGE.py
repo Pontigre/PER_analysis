@@ -53,9 +53,8 @@ def main():
     # dfG = df[df['Gender'] == 'Male'].copy()
     # dfR = df[df['Raceethnicity']== 'White'].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
-    print(df_norm['Your physics intelligence is something about you that you can change.'])
-    Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
+    # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # with warnings.catch_warnings():
     #     warnings.simplefilter("ignore")
@@ -63,9 +62,9 @@ def main():
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
-    # with warnings.catch_warnings():
-    #     warnings.simplefilter("ignore")
-    #     Factor_dependences(df_norm)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        Factor_dependences(df_norm)
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
     # Mindset(df_norm) # Checks mindset of student responses. WIP
 
@@ -528,7 +527,7 @@ def EFA_alternate(df_norm):
 
     fit_stats_x = []
     fit_stats_y = []
-    for n in range(2,10):
+    for n in range(2,14):
         print('Number of factors:', n)
         # fit_stats_x.append(n)
         # Create a copy of the data so that we don't remove data when dropping columns
@@ -629,13 +628,13 @@ def EFA_alternate(df_norm):
         # Convert the lists into a dictionary
         model_dict = {i[0]:i[1:] for i in lists}
 
-        # # Uncomment to export Factors to R
-        # for i in lists:
-        #     test_str = '+'.join(i[1:]) 
-        #     test_str1 = test_str.replace(' ','.')
-        #     test_str2 = test_str1.replace(',','.')
-        #     test_str3 = test_str2.replace("'",".")
-        #     print(test_str3)
+        # Uncomment to export Factors to R
+        for i in lists:
+            test_str = '+'.join(i[1:]) 
+            test_str1 = test_str.replace(' ','.')
+            test_str2 = test_str1.replace(',','.')
+            test_str3 = test_str2.replace("'",".")
+            print(test_str3)
 
         file_string = image_dir + '/EFA_factors_n=' + str(n) + '.txt'
         with open(file_string, 'w') as f:
@@ -647,27 +646,18 @@ def EFA_alternate(df_norm):
 
         # 7. Fit model using CFA and extract fit statistic
         # Export to R and just do CFA there instead
-        # cfa_file = image_dir + '/EFA_factors_n=' + str(n) + '.csv'
-        # dfn.to_csv(cfa_file)
 
-        # model_spec = ModelSpecificationParser.parse_model_specification_from_dict(df_SAGE,model_dict)
-
-        # ## THIS STEP DOESN'T WORK. FAILS TO CONVERGE. PROBLEM WITH PACKAGE
-        # cfa = ConfirmatoryFactorAnalyzer(model_spec, disp=False)
-        # cfa.fit(dfn)
-
-        # df_cfa = pd.DataFrame(cfa.loadings_,index=model_spec.variable_names)
-        # fit_stats_y.append(cfa.aic_)
-
-    # # 9. Plot fit statistic vs number of factors
-    fit_stats_x = [2,3,4,5,6,7,8,9]
-    fit_stats_cfi = [0.891, 0.894, 0.869, 0.912, 0.912, 0.919, 0.925, 0.928]
-    fit_stats_aic = [17284.940, 22726.364, 29714.080, 19873.293, 30539.522, 26569.429, 25753.976, 26504.367]
-    fit_stats_rmsea = [0.070, 0.061, 0.060, 0.061, 0.050, 0.052, 0.051, 0.050]
+    # 9. Plot fit statistic vs number of factors
+    fit_stats_x = [2,3,4,5,6,7,8,9,10,11,12,13]
+    fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
+    fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
+    fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
 
     fig, ax = plt.subplots()
     plt.plot(fit_stats_x, fit_stats_aic, marker='.', ls='None')
     ax.tick_params(axis='both', direction='in', top=True, right=True)
+    plt.xlabel('Number of factors')
+    plt.ylabel('Akaike information criterion')
     plt.tight_layout()
     save_fig(fig, 'fit_stats')
     plt.clf()
@@ -925,8 +915,8 @@ def Intervention_differences(df_norm):
 def Factor_dependences(df_norm):
     # This code looks at the loading of each student onto each factor, then uses linear regression (probit) to see if demos or intervention affect these
     df = df_norm.copy()
-    fs, model = factor_scores(df,5)
-    fs.columns =['Factor_1', 'Mindset', 'Frustrations', 'Individual_Belonging', 'Quality_of_process']   
+    fs, model = factor_scores(df,6)
+    fs.columns =['Quality_of_process', 'Collective_Learning', 'Individual_Belonging', 'Mindset', 'Factor_5', 'Frustrations']
 
     # Create a dataframe that has the factor scores and the demographics of each student
     Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
@@ -935,20 +925,20 @@ def Factor_dependences(df_norm):
     # Condenses demographics
     ## Gender -> Male, Female, Other
     df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
-    df1['Gender_C'] = ['Male' if x == 'Male' else 'Female' if x == 'Female' else 'Other' for x in df['Gender']]
+    df1['Gender_C'] = ['Male' if x == 'Male' else 'Female' if x == 'Female' else 'Prefer not to disclose' if x == 'Prefer not to disclose' else 'Other' for x in df['Gender']]
     df1.drop(columns=['Gender'], axis=1, inplace = True)
 
     # Raceethnicity -> Wellrepresented (white, asian), underrepresented, both
     df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
     conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian,White'),
-                (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White'))]
-    choices = ['Wellrepresented','Underrepresented']
+                (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White')) | (~df1['Raceethnicity'].str.contains('Prefer not')), (df1['Raceethnicity'].str.contains('Prefer not'))]
+    choices = ['Wellrepresented','Underrepresented','Prefer not to disclose']
     df1['Raceethnicity_C'] = np.select(conditions, choices, default='Mixed')
     df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
 
     # Edcuation -> 1st gen, not 1st gen
     df1.insert(df1.columns.get_loc('Education'), 'Education_C', 0)
-    df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Not1stGen' for x in df['Education']]
+    df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if x == 'Prefer not to answer' else 'Not1stGen' for x in df['Education']]
     df1.drop(columns=['Education'], axis=1, inplace = True)
 
     # Plot (box and whisker) averages for each factor by course
@@ -1042,8 +1032,9 @@ def Factor_dependences(df_norm):
         raceethnicity_count_list.append(string)
     cmap = cm.get_cmap('viridis')
     colors = cmap(np.linspace(0,1,4))
-    palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2], raceethnicity_list[2]: colors[3]}
-    hue_order = [raceethnicity_list[0],raceethnicity_list[1],raceethnicity_list[2]]
+    print(raceethnicity_list)
+    palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
+    hue_order = [raceethnicity_list[0],raceethnicity_list[1]]
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
     plt.title('Race/ethnicity')
