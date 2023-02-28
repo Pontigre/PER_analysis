@@ -31,9 +31,9 @@ Only questions that correspond to Kouros and Abrami 2006.
 The factor_analayzer.cfa package in Python fails to converge on a solution so the data is exported to conduct the CFA in R. This is true for all circumstances of CFA.
 
 By running the model through our complete dataset, we obtain the following fit statistics:
- - CFI = 0.876
- - TLI = 0.855
- - RMSEA = 0.066
+ - CFI = 0.875
+ - TLI = 0.854
+ - RMSEA = 0.060
  
 While not good enough to consider valid on its own, that's close enough that SAGE's original results being valid in another context makes complete sense. We also explored if limiting the population would better the fit, but found that the gains are marginal (RMSEA 0.066 -> 0.062) 
 
@@ -70,34 +70,29 @@ We can see that there is an ambiguous result as to the number of factors assumin
 
 ![AIC fit statistic vs number of factors](ExportedFiles/fit_stats.png)
 
-Here we can see that the optimal number of factors is 8 because it is the local minimum of the fit statistic (meaning it explains the most amount of variance). Interestingly (maybe a mistake with the code?), one of the factors has no major loadings so the difference between 7 and 8 factors is how the items are distributed in each of the factors.
+Here we can see that the optimal number of factors is 5 because it is the local minimum of the fit statistic (meaning it explains the most amount of variance). Interestingly (maybe a mistake with the code?), one of the factors has no major loadings so the difference between 7 and 8 factors is how the items are distributed in each of the factors.
 
 The factors are:
-1. 'When I work in a group, I end up doing most of the work.', 'The work takes more time to complete when I work with other students.', 'The material is easier to understand when I work with other students.', 'The workload is usually less when I work with other students.', 'I do not think a group grade is fair.', 'I feel working in groups is a waste of time.', 'When I work with other students the work is divided equally.'
- - Themes: Division of labor, Group work efficiency/effectiveness, (from SAGE) Quality of process ~~and product~~
+1. 'When I work in a group, I am able to share my ideas.', 'The material is easier to understand when I work with other students.', 'I feel I am part of what is going on in the group.', 'I try to make sure my group members learn the material.', 'I learn to work with students who are different from me.', 'I prefer to take on tasks that will help me better learn the material.', 'I also learn when I teach the material to my group members.', 'Everyone’s ideas are needed if we are going to be successful.', 'My group did higher quality work when my group members worked on tasks together.'
+ - Themes: 
 
-2. 'When I work in a group, I am able to share my ideas.', 'My group members make me feel that I am not as smart as they are.', 'My group members respect my opinions.', 'I feel I am part of what is going on in the group.', 'My group members do not care about my feelings.'
- - Themes: Peer comfort, Confidence, Ease of collaboration
-
-3. 'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 'Your physics intelligence is something about you that you can change.', 'You can learn new things, but you can’t really change your basic physics intelligence.'
+2. 'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 'Your physics intelligence is something about you that you can change.', 'You can learn new things, but you can’t really change your basic physics intelligence.'
 - Themes: Mindset
 
-4. 'I learn to work with students who are different from me.', 'I also learn when I teach the material to my group members.'
-- Themes: (from SAGE) Group interdependence
+3. 'When I work in a group, I end up doing most of the work.', 'The work takes more time to complete when I work with other students.', 'I do not think a group grade is fair.', 'I feel working in groups is a waste of time.', 'I become frustrated when my group members do not understand the material.’
+- Themes: Frustrations
 
-5. 'I prefer when the leadership role rotates between students.', 'I try to make sure my group members learn the material.', 'Everyone’s ideas are needed if we are going to be successful.', 'My group did higher quality work when my group members worked on tasks together.'
- - Themes: Collaboration, Division of labor
+4. 'My group members make me feel that I am not as smart as they are.', 'My group members respect my opinions.', 'My group members do not care about my feelings.’
+ - Themes: Individual Belonging
 
-6. 'I have to work with students who are not as smart as I am.', 'I become frustrated when my group members do not understand the material.'
- - Themes: (from SAGE) Frustration with group members
+5. 'The workload is usually less when I work with other students.', 'When I work with other students the work is divided equally.'
+ - Themes: Quality of process?
 
-7. 'My group members help explain things that I do not understand.'
-
-![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_n=8.png)
-![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_0.4_n=8.png)
+![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_n=5.png)
+![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_0.4_n=5.png)
 
 ![Factor ratings by Course](ExportedFiles/factor_ratings_course.png)
-![Factor ratings by Course](ExportedFiles/factor_ratings_Intervention.png)
+![Factor ratings by Course](ExportedFiles/factor_ratings_intervention.png)
 ![Factor ratings by Course](ExportedFiles/factor_ratings_gender.png)
 ![Factor ratings by Course](ExportedFiles/factor_ratings_racethnicity.png)
 
