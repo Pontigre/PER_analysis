@@ -92,7 +92,7 @@ The factors are:
 ![n=8 Factor Analysis](ExportedFiles/SAGE_EFA_0.4_n=5.png)
 
 ![Factor ratings by Course](ExportedFiles/factor_ratings_course.png)
-![Factor ratings by Course](ExportedFiles/factor_ratings_intervention.png)
-![Factor ratings by Course](ExportedFiles/factor_ratings_gender.png)
-![Factor ratings by Course](ExportedFiles/factor_ratings_racethnicity.png)
-
+![Factor ratings by Intervention](ExportedFiles/factor_ratings_intervention.png)
+![Factor ratings by Gender](ExportedFiles/factor_ratings_gender.png)
+![Factor ratings by Raceethnicity](ExportedFiles/factor_ratings_racethnicity.png)
+![Factor ratings by Education](ExportedFiles/factor_ratings_education.png)
