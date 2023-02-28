@@ -13,8 +13,8 @@
 11,"Male,Prefer not to disclose",1
 12,Non-binary,15
 13,"Non-binary,Other (please specify):",1
-14,Other (please specify):,3
-15,Prefer not to disclose,19
+14,Other (please specify):,1
+15,Prefer not to disclose,21
 16,American Indian or Alaska Native,2
 17,"American Indian or Alaska Native,Asian",1
 18,"American Indian or Alaska Native,Asian,White",1
@@ -29,7 +29,7 @@
 27,"Asian,Native Hawaiian or Other Pacific Islander,White",1
 28,"Asian,Some other race or ethnicity",1
 29,"Asian,White",31
-30,Black or African American,71
+30,Black or African American,72
 31,"Black or African American,Hispanic, Latino, or Spanish",3
 32,"Black or African American,Hispanic, Latino, or Spanish,White",2
 33,"Black or African American,White",3
@@ -38,12 +38,12 @@
 36,"Hispanic, Latino, or Spanish,Middle Eastern or North African",2
 37,"Hispanic, Latino, or Spanish,White",53
 38,"Hispanic, Latino, or Spanish,White,Some other race or ethnicity",1
-39,Middle Eastern or North African,26
+39,Middle Eastern or North African,27
 40,"Middle Eastern or North African,White",11
 41,"Native Hawaiian or Other Pacific Islander,White",1
 42,Prefer not to disclose,39
-43,Some other race or ethnicity,4
-44,White,334
+43,Some other race or ethnicity,1
+44,White,335
 45,"White,Prefer not to disclose",1
 46,"White,Some other race or ethnicity",2
 47,Associate's or technical degree,50

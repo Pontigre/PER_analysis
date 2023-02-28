@@ -53,7 +53,8 @@ def main():
     # dfG = df[df['Gender'] == 'Male'].copy()
     # dfR = df[df['Raceethnicity']== 'White'].copy()
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
-    # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
+    print(df_norm['Your physics intelligence is something about you that you can change.'])
+    Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
     # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
     # with warnings.catch_warnings():
@@ -62,9 +63,9 @@ def main():
     # PCA(df_norm) # Principal component analysis on questions taken from SAGE
     # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
     # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        Factor_dependences(df_norm)
+    # with warnings.catch_warnings():
+    #     warnings.simplefilter("ignore")
+    #     Factor_dependences(df_norm)
     # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
     # Mindset(df_norm) # Checks mindset of student responses. WIP
 
@@ -188,19 +189,14 @@ def Prepare_data(df):
     # df_norm = ((df - df.mean())/df.std()).astype(float)
 
     # CONVERT 6-POINT TO 5-POINT SCALE
-    # Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
-    # df_norm = df.copy()
-    # for i in Phys_Int_Cols:
-    #     df_norm[i] = df_norm[i]*5/6
+    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
+    df_norm = df.copy()
+    for i in Phys_Int_Cols:
+        df_norm[i] = df_norm[i]*0.8+0.2 
 
     # MAKE SD = -1, N = 0, AND SA = 1 ...
-    df_norm = df.copy()
-    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
-    col_ist = [x for x in Qs if x not in Phys_Int_Cols]
-    for i in col_ist:
-        df_norm[i] = np.select([(df_norm[i] == 1), (df_norm[i] == 2), (df_norm[i] == 3), (df_norm[i] == 4), (df_norm[i] == 5)], [-1,0.5,0,0.5,1])
-    for i in Phys_Int_Cols:
-        df_norm[i] = np.select([(df_norm[i] == 1), (df_norm[i] == 2), (df_norm[i] == 3), (df_norm[i] == 4), (df_norm[i] == 5), (df_norm[i] == 6)], [-1,-0.6,-0.2,0.2,0.6,1])
+    for i in Qs:
+        df_norm[i] = df_norm[i]*0.5-1.5
 
     df_norm = df_norm.astype(float, errors='ignore')
 
@@ -229,17 +225,29 @@ def Data_statistics(df_norm):
     df_summary['SD+D'] = np.nan
     df_summary['N'] = np.nan
     df_summary['SA+A'] = np.nan
+    # for i in col_list:
+    #     s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
+    #     df_summary.at[i,'SD+D'] = s[(s.unique_values.round(1) == 1) | (s.unique_values.round(1) == 2)].sum()['counts']
+    #     df_summary.at[i,'N'] = s[s.unique_values.round(1) == 3].sum()['counts']
+    #     df_summary.at[i,'SA+A'] = s[(s.unique_values.round(1) == 4) | (s.unique_values.round(1) == 5)].sum()['counts']
+
+    # for i in Phys_Int_Cols:
+    #     s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
+    #     df_summary.at[i,'SD+D'] = s[(s.unique_values.round(1) == 1) | (s.unique_values.round(1) == 1.8)].sum()['counts']
+    #     df_summary.at[i,'N'] = s[(s.unique_values.round(1) == 2.6) | (s.unique_values.round(1) == 3.4)].sum()['counts']
+    #     df_summary.at[i,'SA+A'] = s[(s.unique_values.round(1) == 4.2) | (s.unique_values.round(1) == 5)].sum()['counts']
+
     for i in col_list:
         s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
-        df_summary.at[i,'SD+D'] = s[(s.unique_values == 1) | (s.unique_values == 2)].sum()['counts']
-        df_summary.at[i,'N'] = s[s.unique_values == 3].sum()['counts']
-        df_summary.at[i,'SA+A'] = s[(s.unique_values == 4) | (s.unique_values == 5)].sum()['counts']
+        df_summary.at[i,'SD+D'] = s[(s.unique_values.round(1) == -1) | (s.unique_values.round(1) == -0.5)].sum()['counts']
+        df_summary.at[i,'N'] = s[s.unique_values.round(1) == 0].sum()['counts']
+        df_summary.at[i,'SA+A'] = s[(s.unique_values.round(1) == 0.5) | (s.unique_values.round(1) == 1)].sum()['counts']
 
     for i in Phys_Int_Cols:
         s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
-        df_summary.at[i,'SD+D'] = s[(s.unique_values.round(2) == 0.83) | (s.unique_values.round(2) == 1.67)].sum()['counts']
-        df_summary.at[i,'N'] = s[(s.unique_values == 2.5) | (s.unique_values.round(2) == 3.33)].sum()['counts']
-        df_summary.at[i,'SA+A'] = s[(s.unique_values.round(2) == 4.17) | (s.unique_values == 5)].sum()['counts']
+        df_summary.at[i,'SD+D'] = s[(s.unique_values.round(1) == -1) | (s.unique_values.round(1) == -0.6)].sum()['counts']
+        df_summary.at[i,'N'] = s[(s.unique_values.round(1) == -0.2) | (s.unique_values.round(1) == 0.2)].sum()['counts']
+        df_summary.at[i,'SA+A'] = s[(s.unique_values.round(1) == 0.6) | (s.unique_values.round(1) == 1)].sum()['counts']
 
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
 
@@ -1180,19 +1188,19 @@ Demo_dict = {'Which course are you currently enrolled in?':'Course',
         'Which gender(s) do you most identify (select all that apply)? - Other (please specify): - Text':'Gender - Text',
         'What is your race or ethnicity (select all that apply)? - Selected Choice': 'Raceethnicity',
         'What is your race or ethnicity (select all that apply)? - Some other race or ethnicity - Text':'Raceethnicity - Text',
-        'American Indian or Alaska Native - Provide details below.\n\nPrint, for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.':'Native',
+        'American Indian or Alaska Native - Provide details below.\r\n\r\nPrint, for example, Navajo Nation, Blackfeet Tribe, Mayan, Aztec, Native Village of Barrow Inupiat Traditional Government, Tlingit, etc.':'Native',
         'Asian - Provide details below. - Selected Choice':'Asian',
-        'Asian - Provide details below. - Some other Asian race or ethnicity\n\nPrint, for example, Pakistani, Cambodian, Hmong, etc. - Text':'Asian - Text',
+        'Asian - Provide details below. - Some other Asian race or ethnicity\r\n\r\nPrint, for example, Pakistani, Cambodian, Hmong, etc. - Text':'Asian - Text',
         'Black or African American - Provide details below. - Selected Choice': 'Black',
-        'Black or African American - Provide details below. - Some other Black or African American race or ethnicity\n\nPrint, for example, Ghanaian, South African, Barbadian, etc. - Text': 'Black - Text',
+        'Black or African American - Provide details below. - Some other Black or African American race or ethnicity\r\n\r\nPrint, for example, Ghanaian, South African, Barbadian, etc. - Text': 'Black - Text',
         'Hispanic, Latino, or Spanish - Provide details below. - Selected Choice':'Latino',
-        'Hispanic, Latino, or Spanish - Provide details below. - Some other Hispanic, Latino, or Spanish race or ethnicity\n\nPrint, for example, Guatemalan, Spaniard, Ecuadorian, etc. - Text':'Latino - Text',
+        'Hispanic, Latino, or Spanish - Provide details below. - Some other Hispanic, Latino, or Spanish race or ethnicity\r\n\r\nPrint, for example, Guatemalan, Spaniard, Ecuadorian, etc. - Text':'Latino - Text',
         'Middle Eastern or North African - Provide details below. - Selected Choice':'MiddleEast',
-        'Middle Eastern or North African - Provide details below. - Some other Middle Eastern or North African race or ethnicity\n\nPrint, for example, Algerian, Iraqi, Kurdish, etc.</spa - Text':'MiddleEast - Text',
+        'Middle Eastern or North African - Provide details below. - Some other Middle Eastern or North African race or ethnicity\r\n\r\nPrint, for example, Algerian, Iraqi, Kurdish, etc.</spa - Text':'MiddleEast - Text',
         'Native Hawaiian or Other Pacific Islander - Provide details below. - Selected Choice':'Pacific',
-        'Native Hawaiian or Other Pacific Islander - Provide details below. - Some other Native Hawaiian or Other Pacific Islander race or ethnicity\n\nPrint, for example, Palauan, Tahitian, Chuukese, etc.</spa - Text':'Pacific - Text',
+        'Native Hawaiian or Other Pacific Islander - Provide details below. - Some other Native Hawaiian or Other Pacific Islander race or ethnicity\r\n\r\nPrint, for example, Palauan, Tahitian, Chuukese, etc.</spa - Text':'Pacific - Text',
         'White - Provide details below. - Selected Choice':'White',
-        'White - Provide details below. - Some other White race or ethnicity\n\nPrint, for example, Scottish, Norwegian, Dutch, etc.</spa - Text':'White - Text',
+        'White - Provide details below. - Some other White race or ethnicity\r\n\r\nPrint, for example, Scottish, Norwegian, Dutch, etc.</spa - Text':'White - Text',
         'What is the highest level of education either of your parents have achieved? - Selected Choice':'Education',
         'What is the highest level of education either of your parents have achieved? - Other - Text':'Education - Text'
         }
