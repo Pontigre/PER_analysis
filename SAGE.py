@@ -17,7 +17,6 @@ import seaborn as sns
 
 # FOR FACTOR ANALYSIS
 import factor_analyzer
-from factor_analyzer import (ConfirmatoryFactorAnalyzer,ModelSpecificationParser)
 from factor_analyzer import FactorAnalyzer
 from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calculate_kmo
 from sklearn.decomposition import PCA
@@ -30,10 +29,7 @@ from patsy import dmatrices
 image_dir = 'ExportedFiles'
 
 def main():
-    readline.set_completer_delims(' \t\n;')
-    readline.parse_and_bind("tab: complete")
-    readline.set_completer(complete)
-    my_file = 'SAGEPHY105F22_January3,2023_07.15.csv' # input('SAGE Filename: ')
+    my_file = 'SAGEPHY105F22_January3,2023_07.15.csv'
 
     # READ IN DATA FROM SAGE QUALTRICS SURVEY BASED ON THE CSV COLUMN NAMES
     headers = [*pd.read_csv(my_file, nrows=1)]
@@ -50,23 +46,19 @@ def main():
     df_inter['Unique']=df_inter['Unique'].astype(str)
     df = df.merge(df_inter, how='inner', on = 'Unique')
 
+    ## IF WE WANT TO REDUCE THE RESPONSES (MAINLY FOR SAGE_validation)
     # dfG = df[df['Gender'] == 'Male'].copy()
     # dfR = df[df['Raceethnicity']== 'White'].copy()
-    df_norm = Prepare_data(df) # Takes the raw csv file and converts the data to integer results and combines inversely worded questions into one
+
+    df_norm = Prepare_data(df) # Takes the raw csv file and converts the string responses into numbers and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    SAGE_validation(df_norm) # Confirmatory factor analysis on questions taken from SAGE ##CFA package doesn't converge. 
-    # EFA(df_norm) # Exploratory factor analysis on questions taken from SAGE
-    # with warnings.catch_warnings():
+    # SAGE_validation(df_norm) # Prepares files for Confirmatory factor analysis on questions taken from SAGE run in R
+    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
     #     warnings.simplefilter("ignore")
     #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
-    # PCA(df_norm) # Principal component analysis on questions taken from SAGE
-    # Gender_differences(df_norm) # Checks if there are differences in mean of responses due to Gender
-    # Intervention_differences(df_norm) # Checks if there are difference in mean of responses due to Intervention
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        Factor_dependences(df_norm)
-    # Specifics(df_norm,'Demo','Column') # Compares the column responses based on the demographic
-    # Mindset(df_norm) # Checks mindset of student responses. WIP
+    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+    #     warnings.simplefilter("ignore")
+    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -128,26 +120,6 @@ def Prepare_data(df):
         df.loc[df[i].astype(str).str.contains('Strongly agree') == True, i] = 1
 
     # COMBINE NEGATIVELY WORDED QUESTIONS WITH POSITIVELY WORDED QUESTIONS
-    
-    # res = scipy.stats.mannwhitneyu(x,y) #,nan_policy='omit'
-    # sign = scipy.stats.mood(x,y)
-    # med_test = scipy.stats.median_test(x,y)
-    # tukey = scipy.stats.tukey_hsd(x,y)
-    # rank_sum = scipy.stats.ranksums(x,y)
-    # kruskal = scipy.stats.kruskal(x,y)
-    # y_short = y[0:len(x)]
-    # obs = np.array([x,y_short])
-    # chi2, p, dof, expected = scipy.stats.chi2_contingency(obs)
-    # c_alpha,_ = al(pd.DataFrame(obs))
-    # print('Mann-Whitney U:', res)
-    # print('Pearsons Chi-square:', chi2.round(decimals = 2), p.round(decimals = 2))
-    # print('Moods sign test (z-score, p-score):', sign)
-    # print('Median test (stat, p-score):', med_test[0].round(decimals = 2), med_test[1].round(decimals = 4))
-    # print('Tukey hsd test:', tukey)
-    # print('Wilcoxon rank-sum:', rank_sum)
-    # print('Kruskal-Wallis h test:', kruskal)
-    # print('Cronbachs alpha:', c_alpha.round(decimals = 2))
-
     x = np.array(df['My group members respect my opinions.'].dropna(), dtype=np.uint8)
     y = np.array(df['My group members do not respect my opinions.'].dropna(), dtype=np.uint8)
     # res = scipy.stats.mannwhitneyu(x,y,nan_policy='omit')
@@ -183,10 +155,6 @@ def Prepare_data(df):
     # REMOVE PARTIAL RESPONSES
     df.dropna(axis=0, how='any', subset = Qs, inplace = True)
 
-    # RENORMALIZE DATA SUCH THAT 5-POINT AND 6-POINT ARE EQUAL
-    # Z SCORE
-    # df_norm = ((df - df.mean())/df.std()).astype(float)
-
     # CONVERT 6-POINT TO 5-POINT SCALE
     Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
     df_norm = df.copy()
@@ -198,9 +166,6 @@ def Prepare_data(df):
         df_norm[i] = df_norm[i]*0.5-1.5
 
     df_norm = df_norm.astype(float, errors='ignore')
-
-    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-    #     print(df_norm)
     return df_norm
 
 def Data_statistics(df_norm):
@@ -294,9 +259,9 @@ def SAGE_validation(df_norm):
 
     not_cfa = ['When I work in a group, I end up doing most of the work.', 'I do not think a group grade is fair.',
     'I try to make sure my group members learn the material.',  'When I work with other students the work is divided equally.']
-    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1).astype(float)
-    df_SAGE_cfa.apply(pd.to_numeric)
+    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1)
 
+    # EXPORTS FILE FOR R
     df_SAGE_cfa.to_csv('ExportedFiles/CFA_file.csv', encoding = "utf-8", index=False)
 
     # CONFIRMATORY FACTOR ANALYSIS
@@ -317,129 +282,6 @@ def SAGE_validation(df_norm):
             'I have to work with students who are not as smart as I am.']
             # [50, 53, 33]
     }
-
-
-    # print(scipy.stats.pearsonr(pd.concat([df_cfa[:6][0], df_cfa[6:11][1], df_cfa[11:-3][2], df_cfa[-3:][3]], ignore_index=True),
-    #     pd.concat([SAGE_factors[:6][0], SAGE_factors[6:11][1], SAGE_factors[11:-3][2], SAGE_factors[-3:][3]], ignore_index=True)))
-
-    # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.0001, df_cfa)
-    # fig, ax = plt.subplots()
-    # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
-    # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    # plt.colorbar()
-    # plt.tight_layout()
-    # save_fig(fig, 'SAGE_CFA')
-    # plt.clf()
-
-    # trunc_cfa = np.ma.masked_where(abs(df_cfa) < 0.4, df_cfa)
-    # fig, ax = plt.subplots()
-    # plt.imshow(trunc_cfa, cmap="viridis", vmin=-1, vmax=1)
-    # plt.colorbar()
-    # ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    # ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    # plt.tight_layout()
-    # save_fig(fig, 'SAGE_CFA_0.4')
-    # plt.clf()
-
-def EFA(df_norm):
-    # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
-    df_SAGE.apply(pd.to_numeric)
-
-    # CORRELATION MATRIX
-    print('Correlation Matrix')
-    corrM = df_SAGE.corr(method='spearman')
-    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
-
-    labels = list(df_SAGE)
-    with open('CorrM_labels.txt', 'w') as f:
-        original_stdout = sys.stdout # Save a reference to the original standard output
-        sys.stdout = f # Change the standard output to the file we created.
-        for number, label in enumerate(labels):
-            print(number, label)
-        sys.stdout = original_stdout # Reset the standard output to its original value
-
-    fig, ax = plt.subplots()
-    plt.imshow(corrM, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.title('Correlation Matrix')
-    plt.tight_layout()
-    save_fig(fig,'SAGE_CorrM')
-    plt.clf()
-
-    truncM = corrM[abs(corrM)>=0.4]
-    fig, ax = plt.subplots()
-    plt.title('Correlation Matrix')
-    plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig,'SAGE_CorrM_0.4')
-    plt.clf()
-
-    print('Statistical Tests')
-
-    # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
-    kmo_all, kmo_model = calculate_kmo(df_SAGE)
-    print('KMO Measure of Sampling Adequacy: ', kmo_model)
-    print(kmo_all)
-
-    # BARTLETT'S TEST
-    chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
-    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
-
-    # EFA
-    print('EFA')
-    efa = FactorAnalyzer(rotation=None)
-    efa.fit(df_SAGE)
-    ev, v = efa.get_eigenvalues()
-    print(pd.DataFrame(efa.get_communalities(),index=df_SAGE.columns,columns=['Communalities']))
-
-    fig, ax = plt.subplots()
-    plt.plot(ev, '.-', linewidth=2, color='blue')
-    plt.hlines(1, 0, 22, linestyle='dashed')
-    plt.title('Factor Analysis Scree Plot')
-    plt.xlabel('Factor')
-    plt.ylabel('Eigenvalue')
-    plt.xlim(-0.5,22)
-    plt.ylim(0,5.5)
-    plt.xticks(range(0,20))
-    save_fig(fig, 'SAGE_Scree')
-    plt.clf()
-
-    for i in range(2,8):
-        # Based on the scree plot and Kaiser criterion, n=6 (or 7)
-        fa = FactorAnalyzer(n_factors=i, rotation='varimax')
-        fa.fit(df_SAGE)
-        m = pd.DataFrame(fa.loadings_)
-        # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
-
-        fig, ax = plt.subplots()
-        plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
-        plt.colorbar() 
-        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        plt.tight_layout()
-        file_string = 'SAGE_EFA_n=' + str(i)
-        save_fig(fig, file_string)
-        plt.clf()
-
-        truncm = m[abs(m)>=0.4]
-        fig, ax = plt.subplots()
-        plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
-        plt.colorbar()
-        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        plt.tight_layout()
-        file_string2 = 'SAGE_EFA_0.4_n=' + str(i)
-        save_fig(fig, file_string2)
-        plt.clf()
 
 def EFA_alternate(df_norm):
     min_kmo = 0.6
@@ -663,6 +505,7 @@ def EFA_alternate(df_norm):
     plt.clf()
 
 def factor_scores(df_norm,number_of_factors):
+    # Simplified version of EFA_alternate to get factor scores for a single number of factors
     min_kmo = 0.6
     min_communalities = 0.2
     min_loadings = 0.4
@@ -724,194 +567,6 @@ def factor_scores(df_norm,number_of_factors):
 
     return norm_scores, model_dict
 
-def PCA(df_norm):
-    # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # CORRELATION MATRIX
-    print('Correlation Matrix')
-    corrM = df_SAGE.corr(method='spearman')
-    corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
-
-    labels = list(df_SAGE)
-    with open('CorrM_labels.txt', 'w') as f:
-        original_stdout = sys.stdout # Save a reference to the original standard output
-        sys.stdout = f # Change the standard output to the file we created.
-        for number, label in enumerate(labels):
-            print(number, label)
-        sys.stdout = original_stdout # Reset the standard output to its original value
-
-    fig, ax = plt.subplots()
-    plt.imshow(corrM, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.title('Correlation Matrix')
-    plt.tight_layout()
-    save_fig(fig,'SAGE_CorrM')
-    plt.clf()
-
-    truncM = corrM[abs(corrM)>=0.5]
-    fig, ax = plt.subplots()
-    plt.title('Correlation Matrix')
-    plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig,'SAGE_CorrM_0.5')
-    plt.clf()
-    
-    # print('Statistical Tests')
-    # # BARTLETT'S TEST
-    # chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
-    # print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
-
-    # # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
-    # kmo_all, kmo_model = calculate_kmo(df_SAGE)
-    # print('KMO Measure of Sampling Adequacy: ', kmo_model)
-
-    # # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
-    # print('Cronbachs alpha test of consistency: ', al(data=df_SAGE))
-
-    # PCA ANALYSIS
-    print('PCA')
-    pca1 = PCA(n_components=len(df_SAGE.columns)-1)
-    pca1.fit(df_SAGE)
-    fig, ax = plt.subplots()
-    fig_x = np.arange(pca1.n_components) + 1
-    fig_y = 100*pca1.explained_variance_ratio_
-    plt.bar(fig_x, fig_y, label='Individual explained variance')
-    plt.step(fig_x, fig_y.cumsum(), where = 'post', c='red', label='Cumulative explained variance')
-    plt.title('PCA Explained Variance')
-    plt.xlabel('Principal Component')
-    plt.ylabel('Eplained variance percentage')
-    plt.legend()
-    save_fig(fig, 'PCA_full_var')
-    plt.clf()
-
-    # Specifying the variance to be >=0.45
-    pca = PCA(n_components=0.55)
-    pca.fit(df_SAGE)
-    pca.transform(df_SAGE)
-    print('Number of components for variance >= 0.55:', pca.n_components_)
-
-    fig, ax = plt.subplots()
-    fig_x = np.arange(pca.n_components_) + 1
-    fig_y = 100*pca.explained_variance_ratio_
-    plt.bar(fig_x, fig_y, label='Individual explained variance')
-    plt.step(fig_x, fig_y.cumsum(), where = 'post', c='red', label='Cumulative explained variance')
-    plt.title('PCA Explained Variance')
-    plt.xlabel('Principal Component')
-    plt.ylabel('Eplained variance percentage')
-    save_fig(fig, 'PCA_var')
-    plt.clf()
-
-    # SCREE PLOT
-    PC_values = np.arange(pca.n_components_) + 1
-    fig, ax = plt.subplots()
-    plt.plot(pca.explained_variance_, '.-', linewidth=2, color='blue')
-    plt.title('PCA Scree Plot')
-    plt.xlabel('Principal Component')
-    plt.xlim(-0.5,22)
-    plt.ylim(0,5.5)
-    plt.ylabel('Eigenvalue')
-    save_fig(fig, 'PCA_Scree')
-    plt.clf()
-
-    mm = pca.components_.T
-    fig, ax = plt.subplots()
-    plt.imshow(mm, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig,'SAGE_PCA')
-
-    trunc = np.ma.masked_where(abs(mm) < 0.5, mm)
-    fig, ax = plt.subplots()
-    plt.imshow(trunc, cmap="viridis", vmin=-1, vmax=1)
-    plt.colorbar()
-    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-    plt.tight_layout()
-    save_fig(fig, 'SAGE_PCA_0.5')
-    plt.clf()
-
-    # # fit pca objects with and without rotation with 5 principal components
-    # standard_pca5 = CustomPCA(n_components=4).fit(df_SAGE)
-    # varimax_pca5 = CustomPCA(n_components=4, rotation='varimax').fit(df_SAGE)
-
-    # # display factor matrices and number of cross loadings
-    # print('Factor matrix:\n', standard_pca5.components_.round(1))
-    # print(' Number of cross-loadings:', standard_pca5.count_cross_loadings())
-    # print('\nRotated factor matrix:\n', varimax_pca5.components_.round(1))
-    # print(' Number of cross_loadings:', varimax_pca5.count_cross_loadings())
-
-def Gender_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # CALCULATE STATISTICS OF EACH
-    df_summary = rp.summary_cont(df.groupby('Intervention'))
-    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
-
-    # SEPARATE RESPONSES BASED ON GENDER
-    df_M = df[df['Gender'] == 'Male'].drop(columns=['Gender'], axis=1)
-    df_F = df[df['Gender'] == 'Female'].drop(columns=['Gender'], axis=1)
-    df_O = df[~df['Gender'].isin(['Male', 'Female'])].drop(columns=['Gender'], axis=1)
-
-    # ANOVA TEST ON THE RESPONSES
-    F, p = scipy.stats.f_oneway(df_M, df_F, df_O)
-    print(F, p)
-
-    # GET FACTOR SCORES FOR EACH RESPONSE 
-    fs, model = factor_scores(df_norm,6)
-
-    # SEPARATE FACTOR SCORES BASED ON GENDER
-    fs['Gender'] = df['Gender']
-    fs_M = fs[fs['Intervention'] == 'Male'].drop(columns=['Gender'], axis=1)
-    fs_F = fs[fs['Intervention'] == 'Female'].drop(columns=['Gender'], axis=1)
-    fs_O = fs[~fs['Gender'].isin(['Male', 'Female'])].drop(columns=['Gender'], axis=1)
-
-    # ANOVA TEST ON THE FACTOR SCORES
-    F, p = scipy.stats.f_oneway(fs_M, fs_F, fs_O)
-    print(F, p)
-
-def Intervention_differences(df_norm):
-    Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # CALCULATE STATS OF EACH INTERVENTION
-    df_summary = rp.summary_cont(df.groupby('Intervention'))
-    df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
-
-    # SEPARATE RESPONSES BASED ON INTERVENTION
-    df_C = df[df['Intervention'] == 'Control'].drop(columns=['Intervention'], axis=1)
-    df_CC = df[df['Intervention'] == 'Collaborative Comparison'].drop(columns=['Intervention'], axis=1)
-    df_PA = df[df['Intervention'] == 'Partner Agreements'].drop(columns=['Intervention'], axis=1)
-
-    # ANOVA TEST ON THE RESPONSES
-    F, p = scipy.stats.f_oneway(df_C, df_CC, df_PA)
-    print(F, p)
-
-    # GET FACTOR SCORES FOR EACH RESPONSE 
-    fs, model = factor_scores(df_norm,6)
-
-    # SEPARATE FACTOR SCORES BASED ON INTERVENTION
-    fs['Intervention'] = df['Intervention']
-    fs_C = fs[fs['Intervention'] == 'Control'].drop(columns=['Intervention'], axis=1)
-    fs_CC = fs[fs['Intervention'] == 'Collaborative Comparison'].drop(columns=['Intervention'], axis=1)
-    fs_PA = fs[fs['Intervention'] == 'Partner Agreements'].drop(columns=['Intervention'], axis=1)
-
-    # ANOVA TEST ON THE FACTOR SCORES
-    F, p = scipy.stats.f_oneway(fs_C, fs_CC, fs_PA)
-    print(F, p)
-
 def Factor_dependences(df_norm):
     # This code looks at the loading of each student onto each factor, then uses linear regression (probit) to see if demos or intervention affect these
     df = df_norm.copy()
@@ -922,8 +577,8 @@ def Factor_dependences(df_norm):
     Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
     df1 = pd.concat([fs,df[Demo_Qs].set_index(fs.index)], axis=1)
 
-    # Condenses demographics
-    ## Gender -> Male, Female, Other
+    ##Condenses demographics
+    # Gender -> Male, Female, Other
     df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
     df1['Gender_C'] = ['Male' if x == 'Male' else 'Female' if x == 'Female' else 'Prefer not to disclose' if x == 'Prefer not to disclose' else 'Other' for x in df['Gender']]
     df1.drop(columns=['Gender'], axis=1, inplace = True)
@@ -1084,94 +739,393 @@ def Factor_dependences(df_norm):
         res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
         print(res.summary())#.as_latex())
 
-def Specifics(df_norm,demo,col):
-    Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Raceethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
-        'MiddleEast - Text', 'Pacific - Text', 'White - Text', 'Education - Text']
-    df = df_norm.drop(Demo_Qs,axis=1)
+def OldFunctionRepository():
+    # res = scipy.stats.mannwhitneyu(x,y) #,nan_policy='omit'
+    # sign = scipy.stats.mood(x,y)
+    # med_test = scipy.stats.median_test(x,y)
+    # tukey = scipy.stats.tukey_hsd(x,y)
+    # rank_sum = scipy.stats.ranksums(x,y)
+    # kruskal = scipy.stats.kruskal(x,y)
+    # y_short = y[0:len(x)]
+    # obs = np.array([x,y_short])
+    # chi2, p, dof, expected = scipy.stats.chi2_contingency(obs)
+    # c_alpha,_ = al(pd.DataFrame(obs))
+    # print('Mann-Whitney U:', res)
+    # print('Pearsons Chi-square:', chi2.round(decimals = 2), p.round(decimals = 2))
+    # print('Moods sign test (z-score, p-score):', sign)
+    # print('Median test (stat, p-score):', med_test[0].round(decimals = 2), med_test[1].round(decimals = 4))
+    # print('Tukey hsd test:', tukey)
+    # print('Wilcoxon rank-sum:', rank_sum)
+    # print('Kruskal-Wallis h test:', kruskal)
+    # print('Cronbachs alpha:', c_alpha.round(decimals = 2))
 
-    df_norm.groupby(['Course', demo])[col].describe()
+    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+    #     print(df_norm)
+    def EFA(df_norm):
+        # REMOVE DEMOGRAPHIC QUESTIONS
+        Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Race', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+            'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+        df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1).astype(float)
+        df_SAGE.apply(pd.to_numeric)
 
-    values_list = df[col].tolist()
-    N_values = len(value_list)
+        # CORRELATION MATRIX
+        print('Correlation Matrix')
+        corrM = df_SAGE.corr(method='spearman')
+        corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
 
-    demo_list = df[demo].tolist()
-    N_demo = len(demo_list)
+        labels = list(df_SAGE)
+        with open('CorrM_labels.txt', 'w') as f:
+            original_stdout = sys.stdout # Save a reference to the original standard output
+            sys.stdout = f # Change the standard output to the file we created.
+            for number, label in enumerate(labels):
+                print(number, label)
+            sys.stdout = original_stdout # Reset the standard output to its original value
 
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,N_demo))
-    palette = {demo_list[i]: colors[i] for i in range(N_demo)}
+        fig, ax = plt.subplots()
+        plt.imshow(corrM, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.title('Correlation Matrix')
+        plt.tight_layout()
+        save_fig(fig,'SAGE_CorrM')
+        plt.clf()
 
-    counts = df_norm.groupby([demo,col]).count()
-    freq_per_group = counts.div(counts.groupby(demo).transform('sum')).reset_index()
-    g = sns.barplot(x=col, y='frequency', hue=demo,data=freq_per_group, palette=palette)
-    freq_per_group = approach_freq_per_group.assign(err=lambda x: (x['frequency']*(1-x['frequency'])/N_demo)**0.5)
-    x_coords = [p.get_x() + 0.5*p.get_width() for p in g.patches]
-    y_coords = [p.get_height() for p in g.patches]
-    # plt.errorbar(x=x_coords, y=y_coords, yerr=approach_freq_per_group['err'], fmt="none", c= "k", capsize=5)
-    g.set_xticklabels(values_list)
-    g.set_xlabel('')
-    g.set_ylabel('Fraction')
-    plt.title(col + 'vs' + demo)
-    plt.tight_layout()
-    save_fig(g,col + 'vs' + demo)
-    plt.clf()
+        truncM = corrM[abs(corrM)>=0.4]
+        fig, ax = plt.subplots()
+        plt.title('Correlation Matrix')
+        plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        save_fig(fig,'SAGE_CorrM_0.4')
+        plt.clf()
 
-def Mindset(df_norm):
-    # This code looks at whethever a student has fixed or growth mindset, then uses linear regression (probit) to see if demos or intervention affect this
-    Phys_Int_Cols = [col for col in df_norm.columns if 'physics intelligence' in col]
-    df = df_norm.copy()
-    fs, model = factor_scores(df,8)
+        print('Statistical Tests')
 
-    # -1 = Fixed Mindset, 1 = Growth Mindset
+        # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
+        kmo_all, kmo_model = calculate_kmo(df_SAGE)
+        print('KMO Measure of Sampling Adequacy: ', kmo_model)
+        print(kmo_all)
 
-    # Method 1: For each question, determine mindset of response. Then combine the three questions
-    df.insert(df.columns.get_loc(Phys_Int_Cols[-1]), 'Mindset1', 0)
-    # THIS IS THE WORST CODE I MAY HAVE EVER WRITTEN
-    def mset(row):
-        if row[Phys_Int_Cols[0]].round(2) == 0.83 or row[Phys_Int_Cols[0]].round(2) == 1.67:
-            x = -1
-        if row[Phys_Int_Cols[0]].round(2) == 2.5 or row[Phys_Int_Cols[0]].round(2) == 3.33:
-            x = 0
-        if row[Phys_Int_Cols[0]].round(2) == 4.17 or row[Phys_Int_Cols[0]].round(2) == 5:
-            x = 1
-        if row[Phys_Int_Cols[1]].round(2) == 0.83 or row[Phys_Int_Cols[1]].round(2) == 1.67:
-            y = -1
-        if row[Phys_Int_Cols[1]].round(2) == 2.5 or row[Phys_Int_Cols[1]].round(2) == 3.33:
-            y = 0
-        if row[Phys_Int_Cols[1]].round(2) == 4.17 or row[Phys_Int_Cols[1]].round(2) == 5:
-            y = 1
-        if row[Phys_Int_Cols[2]].round(2) == 0.83 or row[Phys_Int_Cols[2]].round(2) == 1.67:
-            z = -1
-        if row[Phys_Int_Cols[2]].round(2) == 2.5 or row[Phys_Int_Cols[2]].round(2) == 3.33:
-            z = 0
-        if row[Phys_Int_Cols[2]].round(2) == 4.17 or row[Phys_Int_Cols[2]].round(2) == 5:
-            z = 1
-        return (x+y+z)/3
-    df['Mindset1'] = df[Phys_Int_Cols].apply(mset, axis=1)
+        # BARTLETT'S TEST
+        chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
+        print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
 
-    # Method 2: Combine all responses into one metric and then scale to [-1,1]
-    df.insert(df.columns.get_loc('Mindset1')+1, 'Mindset2', 0)
-    x_min = 0.83*3
-    x_max = 15
-    scale_min = -1
-    scale_max = 1
-    df['Mindset2'] = (df[Phys_Int_Cols].sum(axis=1) - x_min)/(x_max - x_min) * (scale_max - scale_min) + scale_min 
-    
-    # Method 3: Use Factor Analysis loadings to determine mindset
-    df.insert(df.columns.get_loc('Mindset2')+1, 'Mindset3',0)
-    df['Mindset3'] = fs[3].values
-    # df['Mindset3'] = (fs[3].values - fs[3].min())/(fs[3].max() - fs[3].min()) * (scale_max - scale_min) + scale_min
+        # EFA
+        print('EFA')
+        efa = FactorAnalyzer(rotation=None)
+        efa.fit(df_SAGE)
+        ev, v = efa.get_eigenvalues()
+        print(pd.DataFrame(efa.get_communalities(),index=df_SAGE.columns,columns=['Communalities']))
 
-    mindset = [col for col in df.columns if 'Mindset' in col]
-    df[Phys_Int_Cols+mindset].round(decimals = 4).to_csv('ExportedFiles/SAGE_Mindset.csv', encoding = "utf-8", index=True)
-    
-    Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
-    df = df[mindset+Demo_Qs]
+        fig, ax = plt.subplots()
+        plt.plot(ev, '.-', linewidth=2, color='blue')
+        plt.hlines(1, 0, 22, linestyle='dashed')
+        plt.title('Factor Analysis Scree Plot')
+        plt.xlabel('Factor')
+        plt.ylabel('Eigenvalue')
+        plt.xlim(-0.5,22)
+        plt.ylim(0,5.5)
+        plt.xticks(range(0,20))
+        save_fig(fig, 'SAGE_Scree')
+        plt.clf()
 
-    # Linear regression
-    mod = smf.ols(formula='Mindset1 ~ C(Intervention) + Course + Gender + C(Raceethnicity) + Education', data=df)
-    res = mod.fit()
-    print(res.summary().as_latex())
+        for i in range(2,8):
+            # Based on the scree plot and Kaiser criterion, n=6 (or 7)
+            fa = FactorAnalyzer(n_factors=i, rotation='varimax')
+            fa.fit(df_SAGE)
+            m = pd.DataFrame(fa.loadings_)
+            # m.to_csv('ExportedFiles/SAGE_EFA.csv', encoding = "utf-8", index=True)
+
+            fig, ax = plt.subplots()
+            plt.imshow(m, cmap="viridis", vmin=-1, vmax=1)
+            plt.colorbar() 
+            ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+            ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+            plt.tight_layout()
+            file_string = 'SAGE_EFA_n=' + str(i)
+            save_fig(fig, file_string)
+            plt.clf()
+
+            truncm = m[abs(m)>=0.4]
+            fig, ax = plt.subplots()
+            plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
+            plt.colorbar()
+            ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+            ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+            plt.tight_layout()
+            file_string2 = 'SAGE_EFA_0.4_n=' + str(i)
+            save_fig(fig, file_string2)
+            plt.clf()
+
+    def PCA(df_norm):
+        # REMOVE DEMOGRAPHIC QUESTIONS
+        Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+            'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+        df_SAGE = df_norm.drop(columns=Demo_Qs, axis=1)
+
+        # CORRELATION MATRIX
+        print('Correlation Matrix')
+        corrM = df_SAGE.corr(method='spearman')
+        corrM.round(decimals = 4).to_csv('ExportedFiles/SAGE_CorrM.csv', encoding = "utf-8", index=True)
+
+        labels = list(df_SAGE)
+        with open('CorrM_labels.txt', 'w') as f:
+            original_stdout = sys.stdout # Save a reference to the original standard output
+            sys.stdout = f # Change the standard output to the file we created.
+            for number, label in enumerate(labels):
+                print(number, label)
+            sys.stdout = original_stdout # Reset the standard output to its original value
+
+        fig, ax = plt.subplots()
+        plt.imshow(corrM, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.title('Correlation Matrix')
+        plt.tight_layout()
+        save_fig(fig,'SAGE_CorrM')
+        plt.clf()
+
+        truncM = corrM[abs(corrM)>=0.5]
+        fig, ax = plt.subplots()
+        plt.title('Correlation Matrix')
+        plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        save_fig(fig,'SAGE_CorrM_0.5')
+        plt.clf()
+        
+        # print('Statistical Tests')
+        # # BARTLETT'S TEST
+        # chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
+        # print('Bartletts Chi Square =', chi_square_value, '; p-value: ', p_value)
+
+        # # KAISER-MEYER-OLKIN MEASURE OF SAMPLING ADEQUACY
+        # kmo_all, kmo_model = calculate_kmo(df_SAGE)
+        # print('KMO Measure of Sampling Adequacy: ', kmo_model)
+
+        # # CRONBACH'S ALPHA TEST OF CONSISTENCY (test)
+        # print('Cronbachs alpha test of consistency: ', al(data=df_SAGE))
+
+        # PCA ANALYSIS
+        print('PCA')
+        pca1 = PCA(n_components=len(df_SAGE.columns)-1)
+        pca1.fit(df_SAGE)
+        fig, ax = plt.subplots()
+        fig_x = np.arange(pca1.n_components) + 1
+        fig_y = 100*pca1.explained_variance_ratio_
+        plt.bar(fig_x, fig_y, label='Individual explained variance')
+        plt.step(fig_x, fig_y.cumsum(), where = 'post', c='red', label='Cumulative explained variance')
+        plt.title('PCA Explained Variance')
+        plt.xlabel('Principal Component')
+        plt.ylabel('Eplained variance percentage')
+        plt.legend()
+        save_fig(fig, 'PCA_full_var')
+        plt.clf()
+
+        # Specifying the variance to be >=0.45
+        pca = PCA(n_components=0.55)
+        pca.fit(df_SAGE)
+        pca.transform(df_SAGE)
+        print('Number of components for variance >= 0.55:', pca.n_components_)
+
+        fig, ax = plt.subplots()
+        fig_x = np.arange(pca.n_components_) + 1
+        fig_y = 100*pca.explained_variance_ratio_
+        plt.bar(fig_x, fig_y, label='Individual explained variance')
+        plt.step(fig_x, fig_y.cumsum(), where = 'post', c='red', label='Cumulative explained variance')
+        plt.title('PCA Explained Variance')
+        plt.xlabel('Principal Component')
+        plt.ylabel('Eplained variance percentage')
+        save_fig(fig, 'PCA_var')
+        plt.clf()
+
+        # SCREE PLOT
+        PC_values = np.arange(pca.n_components_) + 1
+        fig, ax = plt.subplots()
+        plt.plot(pca.explained_variance_, '.-', linewidth=2, color='blue')
+        plt.title('PCA Scree Plot')
+        plt.xlabel('Principal Component')
+        plt.xlim(-0.5,22)
+        plt.ylim(0,5.5)
+        plt.ylabel('Eigenvalue')
+        save_fig(fig, 'PCA_Scree')
+        plt.clf()
+
+        mm = pca.components_.T
+        fig, ax = plt.subplots()
+        plt.imshow(mm, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        save_fig(fig,'SAGE_PCA')
+
+        trunc = np.ma.masked_where(abs(mm) < 0.5, mm)
+        fig, ax = plt.subplots()
+        plt.imshow(trunc, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        save_fig(fig, 'SAGE_PCA_0.5')
+        plt.clf()
+
+    def Gender_differences(df_norm):
+        Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+            'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+        df = df_norm.drop(columns=Demo_Qs, axis=1)
+
+        # CALCULATE STATISTICS OF EACH
+        df_summary = rp.summary_cont(df.groupby('Intervention'))
+        df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_GenSig.csv', encoding = "utf-8", index=True)
+
+        # SEPARATE RESPONSES BASED ON GENDER
+        df_M = df[df['Gender'] == 'Male'].drop(columns=['Gender'], axis=1)
+        df_F = df[df['Gender'] == 'Female'].drop(columns=['Gender'], axis=1)
+        df_O = df[~df['Gender'].isin(['Male', 'Female'])].drop(columns=['Gender'], axis=1)
+
+        # ANOVA TEST ON THE RESPONSES
+        F, p = scipy.stats.f_oneway(df_M, df_F, df_O)
+        print(F, p)
+
+        # GET FACTOR SCORES FOR EACH RESPONSE 
+        fs, model = factor_scores(df_norm,6)
+
+        # SEPARATE FACTOR SCORES BASED ON GENDER
+        fs['Gender'] = df['Gender']
+        fs_M = fs[fs['Intervention'] == 'Male'].drop(columns=['Gender'], axis=1)
+        fs_F = fs[fs['Intervention'] == 'Female'].drop(columns=['Gender'], axis=1)
+        fs_O = fs[~fs['Gender'].isin(['Male', 'Female'])].drop(columns=['Gender'], axis=1)
+
+        # ANOVA TEST ON THE FACTOR SCORES
+        F, p = scipy.stats.f_oneway(fs_M, fs_F, fs_O)
+        print(F, p)
+
+    def Intervention_differences(df_norm):
+        Demo_Qs = ['Intervention Number', 'Gender', 'Course', 'Unique', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
+            'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
+        df = df_norm.drop(columns=Demo_Qs, axis=1)
+
+        # CALCULATE STATS OF EACH INTERVENTION
+        df_summary = rp.summary_cont(df.groupby('Intervention'))
+        df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_IntSig.csv', encoding = "utf-8", index=True)
+
+        # SEPARATE RESPONSES BASED ON INTERVENTION
+        df_C = df[df['Intervention'] == 'Control'].drop(columns=['Intervention'], axis=1)
+        df_CC = df[df['Intervention'] == 'Collaborative Comparison'].drop(columns=['Intervention'], axis=1)
+        df_PA = df[df['Intervention'] == 'Partner Agreements'].drop(columns=['Intervention'], axis=1)
+
+        # ANOVA TEST ON THE RESPONSES
+        F, p = scipy.stats.f_oneway(df_C, df_CC, df_PA)
+        print(F, p)
+
+        # GET FACTOR SCORES FOR EACH RESPONSE 
+        fs, model = factor_scores(df_norm,6)
+
+        # SEPARATE FACTOR SCORES BASED ON INTERVENTION
+        fs['Intervention'] = df['Intervention']
+        fs_C = fs[fs['Intervention'] == 'Control'].drop(columns=['Intervention'], axis=1)
+        fs_CC = fs[fs['Intervention'] == 'Collaborative Comparison'].drop(columns=['Intervention'], axis=1)
+        fs_PA = fs[fs['Intervention'] == 'Partner Agreements'].drop(columns=['Intervention'], axis=1)
+
+        # ANOVA TEST ON THE FACTOR SCORES
+        F, p = scipy.stats.f_oneway(fs_C, fs_CC, fs_PA)
+        print(F, p)
+
+    def Specifics(df_norm,demo,col):
+        Demo_Qs = ['Intervention Number', 'Course', 'Gender - Text', 'Raceethnicity - Text', 'Native', 'Asian - Text', 'Black - Text', 'Latino - Text', 
+            'MiddleEast - Text', 'Pacific - Text', 'White - Text', 'Education - Text']
+        df = df_norm.drop(Demo_Qs,axis=1)
+
+        df_norm.groupby(['Course', demo])[col].describe()
+
+        values_list = df[col].tolist()
+        N_values = len(value_list)
+
+        demo_list = df[demo].tolist()
+        N_demo = len(demo_list)
+
+        cmap = cm.get_cmap('viridis')
+        colors = cmap(np.linspace(0,1,N_demo))
+        palette = {demo_list[i]: colors[i] for i in range(N_demo)}
+
+        counts = df_norm.groupby([demo,col]).count()
+        freq_per_group = counts.div(counts.groupby(demo).transform('sum')).reset_index()
+        g = sns.barplot(x=col, y='frequency', hue=demo,data=freq_per_group, palette=palette)
+        freq_per_group = approach_freq_per_group.assign(err=lambda x: (x['frequency']*(1-x['frequency'])/N_demo)**0.5)
+        x_coords = [p.get_x() + 0.5*p.get_width() for p in g.patches]
+        y_coords = [p.get_height() for p in g.patches]
+        # plt.errorbar(x=x_coords, y=y_coords, yerr=approach_freq_per_group['err'], fmt="none", c= "k", capsize=5)
+        g.set_xticklabels(values_list)
+        g.set_xlabel('')
+        g.set_ylabel('Fraction')
+        plt.title(col + 'vs' + demo)
+        plt.tight_layout()
+        save_fig(g,col + 'vs' + demo)
+        plt.clf()
+
+    def Mindset(df_norm):
+        # This code looks at whethever a student has fixed or growth mindset, then uses linear regression (probit) to see if demos or intervention affect this
+        Phys_Int_Cols = [col for col in df_norm.columns if 'physics intelligence' in col]
+        df = df_norm.copy()
+        fs, model = factor_scores(df,8)
+
+        # -1 = Fixed Mindset, 1 = Growth Mindset
+
+        # Method 1: For each question, determine mindset of response. Then combine the three questions
+        df.insert(df.columns.get_loc(Phys_Int_Cols[-1]), 'Mindset1', 0)
+        # THIS IS THE WORST CODE I MAY HAVE EVER WRITTEN
+        def mset(row):
+            if row[Phys_Int_Cols[0]].round(2) == 0.83 or row[Phys_Int_Cols[0]].round(2) == 1.67:
+                x = -1
+            if row[Phys_Int_Cols[0]].round(2) == 2.5 or row[Phys_Int_Cols[0]].round(2) == 3.33:
+                x = 0
+            if row[Phys_Int_Cols[0]].round(2) == 4.17 or row[Phys_Int_Cols[0]].round(2) == 5:
+                x = 1
+            if row[Phys_Int_Cols[1]].round(2) == 0.83 or row[Phys_Int_Cols[1]].round(2) == 1.67:
+                y = -1
+            if row[Phys_Int_Cols[1]].round(2) == 2.5 or row[Phys_Int_Cols[1]].round(2) == 3.33:
+                y = 0
+            if row[Phys_Int_Cols[1]].round(2) == 4.17 or row[Phys_Int_Cols[1]].round(2) == 5:
+                y = 1
+            if row[Phys_Int_Cols[2]].round(2) == 0.83 or row[Phys_Int_Cols[2]].round(2) == 1.67:
+                z = -1
+            if row[Phys_Int_Cols[2]].round(2) == 2.5 or row[Phys_Int_Cols[2]].round(2) == 3.33:
+                z = 0
+            if row[Phys_Int_Cols[2]].round(2) == 4.17 or row[Phys_Int_Cols[2]].round(2) == 5:
+                z = 1
+            return (x+y+z)/3
+        df['Mindset1'] = df[Phys_Int_Cols].apply(mset, axis=1)
+
+        # Method 2: Combine all responses into one metric and then scale to [-1,1]
+        df.insert(df.columns.get_loc('Mindset1')+1, 'Mindset2', 0)
+        x_min = 0.83*3
+        x_max = 15
+        scale_min = -1
+        scale_max = 1
+        df['Mindset2'] = (df[Phys_Int_Cols].sum(axis=1) - x_min)/(x_max - x_min) * (scale_max - scale_min) + scale_min 
+        
+        # Method 3: Use Factor Analysis loadings to determine mindset
+        df.insert(df.columns.get_loc('Mindset2')+1, 'Mindset3',0)
+        df['Mindset3'] = fs[3].values
+        # df['Mindset3'] = (fs[3].values - fs[3].min())/(fs[3].max() - fs[3].min()) * (scale_max - scale_min) + scale_min
+
+        mindset = [col for col in df.columns if 'Mindset' in col]
+        df[Phys_Int_Cols+mindset].round(decimals = 4).to_csv('ExportedFiles/SAGE_Mindset.csv', encoding = "utf-8", index=True)
+        
+        Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
+        df = df[mindset+Demo_Qs]
+
+        # Linear regression
+        mod = smf.ols(formula='Mindset1 ~ C(Intervention) + Course + Gender + C(Raceethnicity) + Education', data=df)
+        res = mod.fit()
+        print(res.summary().as_latex())
 
 Demo_dict = {'Which course are you currently enrolled in?':'Course',
         "What is your section's unique number?":'Unique',
