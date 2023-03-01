@@ -32,7 +32,6 @@ def main():
     my_file = 'SAGEPHY105F22_January3,2023_07.15.csv'
 
     # READ IN DATA FROM SAGE QUALTRICS SURVEY BASED ON THE CSV COLUMN NAMES
-    headers = [*pd.read_csv(my_file, nrows=1)]
     ExcludedHeaders = ['Start Date', 'End Date', 'Response Type', 'IP Address', 'Progress', 'Duration (in seconds)',
     'Finished', 'Recorded Date', 'Response ID', 'Recipient Last Name', 'Recipient First Name',
     'Recipient Email', 'External Data Reference', 'Location Latitude', 'Location Longitude', 'Distribution Channel', 'User Language']
@@ -56,9 +55,9 @@ def main():
     # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
     #     warnings.simplefilter("ignore")
     #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
-    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-    #     warnings.simplefilter("ignore")
-    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
+    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+        warnings.simplefilter("ignore")
+        Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -189,17 +188,6 @@ def Data_statistics(df_norm):
     df_summary['SD+D'] = np.nan
     df_summary['N'] = np.nan
     df_summary['SA+A'] = np.nan
-    # for i in col_list:
-    #     s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
-    #     df_summary.at[i,'SD+D'] = s[(s.unique_values.round(1) == 1) | (s.unique_values.round(1) == 2)].sum()['counts']
-    #     df_summary.at[i,'N'] = s[s.unique_values.round(1) == 3].sum()['counts']
-    #     df_summary.at[i,'SA+A'] = s[(s.unique_values.round(1) == 4) | (s.unique_values.round(1) == 5)].sum()['counts']
-
-    # for i in Phys_Int_Cols:
-    #     s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
-    #     df_summary.at[i,'SD+D'] = s[(s.unique_values.round(1) == 1) | (s.unique_values.round(1) == 1.8)].sum()['counts']
-    #     df_summary.at[i,'N'] = s[(s.unique_values.round(1) == 2.6) | (s.unique_values.round(1) == 3.4)].sum()['counts']
-    #     df_summary.at[i,'SA+A'] = s[(s.unique_values.round(1) == 4.2) | (s.unique_values.round(1) == 5)].sum()['counts']
 
     for i in col_list:
         s = df[i].value_counts(normalize=True).sort_index().rename_axis('unique_values').reset_index(name='counts')
@@ -216,7 +204,6 @@ def Data_statistics(df_norm):
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
 
     total_count = len(df_norm.index)
-    print('Total N:', total_count)
     intervention_count = df_norm.groupby(['Intervention'])['Intervention'].describe()['count']
     course_count = df_norm.groupby(['Course'])['Course'].describe()['count']
     gender_count = df_norm.groupby(['Gender'])['Gender'].describe()['count']
@@ -580,20 +567,21 @@ def Factor_dependences(df_norm):
     ##Condenses demographics
     # Gender -> Male, Female, Other
     df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
-    df1['Gender_C'] = ['Male' if x == 'Male' else 'Female' if x == 'Female' else 'Prefer not to disclose' if x == 'Prefer not to disclose' else 'Other' for x in df['Gender']]
+    df1['Gender_C'] = ['Male' if x == 'Male' else 'Female' if x == 'Female' else 'Prefer not to disclose' if 'Prefer not' in str(x) else 'Other' for x in df['Gender']]
     df1.drop(columns=['Gender'], axis=1, inplace = True)
 
-    # Raceethnicity -> Wellrepresented (white, asian), underrepresented, both
+    # Raceethnicity -> Wellrepresented (white, asian), underrepresented
     df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
     conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian,White'),
-                (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White')) | (~df1['Raceethnicity'].str.contains('Prefer not')), (df1['Raceethnicity'].str.contains('Prefer not'))]
+                (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White')) | (~df1['Raceethnicity'].str.contains('Prefer not')),
+                (df1['Raceethnicity'].str.contains('Prefer not'))]
     choices = ['Wellrepresented','Underrepresented','Prefer not to disclose']
     df1['Raceethnicity_C'] = np.select(conditions, choices, default='Mixed')
     df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
 
     # Edcuation -> 1st gen, not 1st gen
     df1.insert(df1.columns.get_loc('Education'), 'Education_C', 0)
-    df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if x == 'Prefer not to answer' else 'Not1stGen' for x in df['Education']]
+    df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if 'Prefer not' in str(x) else 'Not1stGen' for x in df['Education']]
     df1.drop(columns=['Education'], axis=1, inplace = True)
 
     # Plot (box and whisker) averages for each factor by course
@@ -609,6 +597,7 @@ def Factor_dependences(df_norm):
     colors = cmap(np.linspace(0,1,4))
     palette = {course_list[0]: colors[1], course_list[1]: colors[2]}
     hue_order = [course_list[0],course_list[1]]
+    fig, ax = plt.subplots()
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
     plt.title('Course')
@@ -618,6 +607,7 @@ def Factor_dependences(df_norm):
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
     for t, l in zip(L.get_texts(), course_count_list):
         t.set_text(l)
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
     save_fig(g,'factor_ratings_course')
     plt.clf()
@@ -635,6 +625,7 @@ def Factor_dependences(df_norm):
     colors = cmap(np.linspace(0,1,4))
     palette ={intervention_list[0]: colors[1], intervention_list[1]: colors[2], intervention_list[2]: colors[3]}
     hue_order = [intervention_list[0],intervention_list[1],intervention_list[2]]
+    fig, ax = plt.subplots()
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
     plt.title('Intervention')
@@ -644,6 +635,7 @@ def Factor_dependences(df_norm):
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
     for t, l in zip(L.get_texts(), intervention_count_list):
         t.set_text(l)
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
     save_fig(g,'factor_ratings_intervention')
     plt.clf()
@@ -662,6 +654,7 @@ def Factor_dependences(df_norm):
     colors = cmap(np.linspace(0,1,4))
     palette ={gender_list[0]: colors[1], gender_list[1]: colors[2], gender_list[2]: colors[3]}
     hue_order = [gender_list[0],gender_list[1], gender_list[2]]
+    fig, ax = plt.subplots()
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
     plt.title('Gender')
@@ -671,6 +664,7 @@ def Factor_dependences(df_norm):
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
     for t, l in zip(L.get_texts(), gender_count_list):
         t.set_text(l)
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
     save_fig(g,'factor_ratings_gender')
     plt.clf()
@@ -687,9 +681,9 @@ def Factor_dependences(df_norm):
         raceethnicity_count_list.append(string)
     cmap = cm.get_cmap('viridis')
     colors = cmap(np.linspace(0,1,4))
-    print(raceethnicity_list)
     palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
     hue_order = [raceethnicity_list[0],raceethnicity_list[1]]
+    fig, ax = plt.subplots()
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
     plt.title('Race/ethnicity')
@@ -699,6 +693,7 @@ def Factor_dependences(df_norm):
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
     for t, l in zip(L.get_texts(), raceethnicity_count_list):
         t.set_text(l)
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
     save_fig(g,'factor_ratings_racethnicity')
     plt.clf()
@@ -717,6 +712,7 @@ def Factor_dependences(df_norm):
     colors = cmap(np.linspace(0,1,4))
     palette ={education_list[0]: colors[1], education_list[1]: colors[2]}
     hue_order = [education_list[0],education_list[1]]
+    fig, ax = plt.subplots()
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Education_C', hue_order=hue_order, palette=palette)
     plt.title('Education')
@@ -726,6 +722,7 @@ def Factor_dependences(df_norm):
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
     for t, l in zip(L.get_texts(), education_count_list):
         t.set_text(l)
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
     save_fig(g,'factor_ratings_education')
     plt.clf()
@@ -735,7 +732,7 @@ def Factor_dependences(df_norm):
         # Y = df1[i]
         # X = df1['Intervention', 'Course', 'Gender_C', 'Raceethnicity_C', 'Education_C']
         # y, X = dmatrices((str(i) + '~ Intervention + Course + Gender_C + Raceethnicity_C + Education_C'), data=df1, return_type='dataframe')
-        # print(y, X)    
+        # print(y, X)
         res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
         print(res.summary())#.as_latex())
 
