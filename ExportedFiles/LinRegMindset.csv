@@ -1,0 +1,28 @@
+                      OLS Regression Results                     
+Dep. Variable:   ,Mindset         ,  R-squared:         ,   0.016
+Model:           ,OLS             ,  Adj. R-squared:    ,   0.009
+Method:          ,Least Squares   ,  F-statistic:       ,   2.295
+Date:            ,Mon, 06 Mar 2023,  Prob (F-statistic):,0.0148  
+Time:            ,13:37:28        ,  Log-Likelihood:    , -591.94
+No. Observations:,  1273          ,  AIC:               ,   1204.
+Df Residuals:    ,  1263          ,  BIC:               ,   1255.
+Df Model:        ,     9          ,                     ,        
+Covariance Type: ,nonrobust       ,                     ,        
+                                                                              ,   coef   , std err ,    t    ,P>|t| ,  [0.025 ,  0.975] 
+Intercept                                                                     ,    0.4731,    0.023,   20.336, 0.000,    0.428,    0.519
+C(Intervention, Treatment(reference='Control'))[T.Collaborative Comparison]   ,   -0.0200,    0.027,   -0.751, 0.453,   -0.072,    0.032
+C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]         ,   -0.0112,    0.026,   -0.431, 0.667,   -0.062,    0.040
+C(Course)[T.PHY105N]                                                          ,    0.0231,    0.022,    1.031, 0.303,   -0.021,    0.067
+C(Gender_C, Treatment(reference='Female'))[T.Male]                            ,    0.0693,    0.023,    3.024, 0.003,    0.024,    0.114
+C(Gender_C, Treatment(reference='Female'))[T.Other]                           ,   -0.0146,    0.070,   -0.208, 0.835,   -0.152,    0.123
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]          ,   -0.0597,    0.098,   -0.608, 0.543,   -0.252,    0.133
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented],   -0.0084,    0.024,   -0.357, 0.721,   -0.055,    0.038
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                    ,    0.0491,    0.027,    1.800, 0.072,   -0.004,    0.103
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]      ,   -0.1225,    0.103,   -1.193, 0.233,   -0.324,    0.079
+Omnibus:      ,69.562,  Durbin-Watson:     ,   2.070
+Prob(Omnibus):, 0.000,  Jarque-Bera (JB):  ,  80.084
+Skew:         ,-0.610,  Prob(JB):          ,4.07e-18
+Kurtosis:     , 2.854,  Cond. No.          ,    15.3
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

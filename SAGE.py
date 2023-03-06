@@ -805,7 +805,11 @@ def Factor_dependences(df_norm):
     # Linear regression
     for i in list(fs):
         res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
-        print(res.summary())#.as_latex())
+        with open(('LinReg' + str(i) +'.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+
+        with open(('LinReg' + str(i) +'.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
 
 def OldFunctionRepository():
     # res = scipy.stats.mannwhitneyu(x,y) #,nan_policy='omit'
