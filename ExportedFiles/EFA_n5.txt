@@ -99,23 +99,15 @@ Variances:
     f4                0.078    0.008    9.319    0.000
     f5                0.108    0.012    9.050    0.000
 
-                 npar                  fmin                 chisq                    df                pvalue 
-               58.000                 0.570              1452.064               242.000                 0.000 
-       baseline.chisq           baseline.df       baseline.pvalue                   cfi                   tli 
-            10022.470               276.000                 0.000                 0.876                 0.858 
-                 nnfi                   rfi                   nfi                  pnfi                   ifi 
-                0.858                 0.835                 0.855                 0.750                 0.876 
-                  rni                  logl     unrestricted.logl                   aic                   bic 
-                0.876            -16689.411            -15963.379             33494.822             33793.471 
-               ntotal                  bic2                 rmsea        rmsea.ci.lower        rmsea.ci.upper 
-             1273.000             33609.235                 0.063                 0.060                 0.066 
-       rmsea.ci.level          rmsea.pvalue        rmsea.close.h0 rmsea.notclose.pvalue     rmsea.notclose.h0 
-                0.900                 0.000                 0.050                 0.000                 0.080 
-                  rmr            rmr_nomean                  srmr          srmr_bentler   srmr_bentler_nomean 
-                0.015                 0.015                 0.061                 0.061                 0.061 
-                 crmr           crmr_nomean            srmr_mplus     srmr_mplus_nomean                 cn_05 
-                0.063                 0.063                 0.061                 0.061               245.847 
-                cn_01                   gfi                  agfi                  pgfi                   mfi 
-              260.586                 0.904                 0.881                 0.730                 0.622 
+                 npar                  fmin                 chisq                    df                pvalue        baseline.chisq           baseline.df       baseline.pvalue                   cfi 
+               58.000                 0.570              1452.064               242.000                 0.000             10022.470               276.000                 0.000                 0.876 
+                  tli                  nnfi                   rfi                   nfi                  pnfi                   ifi                   rni                  logl     unrestricted.logl 
+                0.858                 0.858                 0.835                 0.855                 0.750                 0.876                 0.876            -16689.411            -15963.379 
+                  aic                   bic                ntotal                  bic2                 rmsea        rmsea.ci.lower        rmsea.ci.upper        rmsea.ci.level          rmsea.pvalue 
+            33494.822             33793.471              1273.000             33609.235                 0.063                 0.060                 0.066                 0.900                 0.000 
+       rmsea.close.h0 rmsea.notclose.pvalue     rmsea.notclose.h0                   rmr            rmr_nomean                  srmr          srmr_bentler   srmr_bentler_nomean                  crmr 
+                0.050                 0.000                 0.080                 0.015                 0.015                 0.061                 0.061                 0.061                 0.063 
+          crmr_nomean            srmr_mplus     srmr_mplus_nomean                 cn_05                 cn_01                   gfi                  agfi                  pgfi                   mfi 
+                0.063                 0.061                 0.061               245.847               260.586                 0.904                 0.881                 0.730                 0.622 
                  ecvi 
                 1.232 

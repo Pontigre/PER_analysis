@@ -157,6 +157,7 @@ def Prepare_data(df):
     # CONVERT 6-POINT TO 5-POINT SCALE
     Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
     df_norm = df.copy()
+
     for i in Phys_Int_Cols:
         df_norm[i] = df_norm[i]*0.8+0.2 
 
@@ -165,12 +166,12 @@ def Prepare_data(df):
         df_norm[i] = df_norm[i]*0.5-1.5
 
     df_norm = df_norm.astype(float, errors='ignore')
+    df_norm = df_norm.round(3)
+    # SAVE RAW DATA
+    df_norm.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
     return df_norm
 
 def Data_statistics(df_norm):
-    # SAVE RAW DATA
-    df_norm.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
-
     Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
     df = df_norm.drop(columns=Demo_Qs, axis=1)
@@ -555,10 +556,10 @@ def factor_scores(df_norm,number_of_factors):
     return norm_scores, model_dict
 
 def Factor_dependences(df_norm):
-    # This code looks at the loading of each student onto each factor, then uses linear regression (probit) to see if demos or intervention affect these
+    # This code looks at the loading of each student onto each factor, then uses linear regression to see if demos or intervention affect these
     df = df_norm.copy()
     fs, model = factor_scores(df,6)
-    fs.columns =['Quality_of_process', 'Collective_Learning', 'Individual_Belonging', 'Mindset', 'Factor_5', 'Frustrations']
+    fs.columns =['Quality_of_process', 'Collective_Learning', 'Individual_Belonging', 'Mindset', 'Individual_Perceptions', 'Frustrations']
 
     # Create a dataframe that has the factor scores and the demographics of each student
     Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
@@ -583,6 +584,8 @@ def Factor_dependences(df_norm):
     df1.insert(df1.columns.get_loc('Education'), 'Education_C', 0)
     df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if 'Prefer not' in str(x) else 'Not1stGen' for x in df['Education']]
     df1.drop(columns=['Education'], axis=1, inplace = True)
+
+    df1.to_csv('ExportedFiles/StudentRatings.csv', encoding = "utf-8", index=False)
 
     # Plot (box and whisker) averages for each factor by course
     df_bnw = df1.drop(['Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
@@ -732,122 +735,75 @@ def Factor_dependences(df_norm):
 
     # Plot (box and whisker) averages for each factor by course
     df_bnw = df1.drop(['Gender_C','Raceethnicity_C','Education_C'],axis=1)
-    course_count =  df_bnw.groupby(['Course']).count()
-    course_list = []
-    course_count_list = []
-    for i in list(course_count.index):
-        course_list.append(i)
-        string = i + ' (n = ' + str(course_count.loc[i]['Mindset']) + ')'
-        course_count_list.append(string)
     cmap = cm.get_cmap('viridis')
     colors = cmap(np.linspace(0,1,4))
     palette = {course_list[0]: colors[1], course_list[1]: colors[2]}
     hue_order = [course_list[0],course_list[1]]
 
-    melt_df = df_bnw.melt(id_vars=['Course','Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor')
-    g = sns.catplot(data=melt_df, x='Rating', y='Factor', hue='Course', col='Intervention', hue_order=hue_order, palette=palette, kind='box', legend=False)
+    melt_df = df_bnw.melt(id_vars=['Course','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Course', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
     for ax in g.axes.ravel():
-        ax.tick_params(axis='both', direction='in')
+        ax.tick_params(axis='both', direction='in',labelbottom=True)
         ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
-        ax.set_xlabel('Factor')
-        ax.set_ylabel('Rating')
+    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
     g.fig.tight_layout()
     save_fig(g,'factor_ratings_coursebyintervention')
     plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by gender
-    # df_bnw = df1.drop(['Course','Raceethnicity_C','Education_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Gender_C']=='Prefer not to disclose'].index, inplace=True)
-    # gender_count =  df_bnw.groupby(['Gender_C']).count()
-    # gender_list = []
-    # gender_count_list = []
-    # for i in list(gender_count.index):
-    #     gender_list.append(i)
-    #     string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
-    #     gender_count_list.append(string)
-    # cmap = cm.get_cmap('viridis')
-    # colors = cmap(np.linspace(0,1,4))
-    # palette ={gender_list[0]: colors[1], gender_list[1]: colors[2], gender_list[2]: colors[3]}
-    # hue_order = [gender_list[0],gender_list[1], gender_list[2]]
-    # fig, ax = plt.subplots()
-    # g = sns.violinplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
-    # plt.title('Gender')
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # plt.xticks(ha='right',rotation=45)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), gender_count_list):
-    #     t.set_text(l)
-    # ax.tick_params(axis='both', direction='in', top=True, right=True)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_genderbyintervention')
-    # plt.clf()
+    # Plot (box and whisker) averages for each factor by gender
+    df_bnw = df1.drop(['Course','Raceethnicity_C','Education_C'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={gender_list[0]: colors[1], gender_list[1]: colors[2], gender_list[2]: colors[3]}
+    hue_order = [gender_list[0],gender_list[1], gender_list[2]]
+    
+    melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Gender_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
+    for ax in g.axes.ravel():
+        ax.tick_params(axis='both', direction='in',labelbottom=True)
+        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
+    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
+    g.fig.tight_layout()
+    save_fig(g,'factor_ratings_genderbyintervention')
+    plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by race and ethnicity
-    # df_bnw = df1.drop(['Course','Gender_C','Education_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Raceethnicity_C']=='Prefer not to disclose'].index, inplace=True)
-    # raceethnicity_count =  df_bnw.groupby(['Raceethnicity_C']).count()
-    # raceethnicity_list = []
-    # raceethnicity_count_list = []
-    # for i in list(raceethnicity_count.index):
-    #     raceethnicity_list.append(i)
-    #     string = i + ' (n = ' + str(raceethnicity_count.loc[i]['Mindset']) + ')'
-    #     raceethnicity_count_list.append(string)
-    # cmap = cm.get_cmap('viridis')
-    # colors = cmap(np.linspace(0,1,4))
-    # palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
-    # hue_order = [raceethnicity_list[0],raceethnicity_list[1]]
-    # fig, ax = plt.subplots()
-    # g = sns.violinplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
-    # plt.title('Race/ethnicity')
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # plt.xticks(ha='right',rotation=45)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), raceethnicity_count_list):
-    #     t.set_text(l)
-    # ax.tick_params(axis='both', direction='in', top=True, right=True)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_racethnicitybyintervention')
-    # plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by education
-    # df_bnw = df1.drop(['Course','Gender_C','Raceethnicity_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Education_C']=='Prefer not to answer'].index, inplace=True)
-    # education_count =  df_bnw.groupby(['Education_C']).count()
-    # education_list = []
-    # education_count_list = []
-    # for i in list(education_count.index):
-    #     education_list.append(i)
-    #     string = i + ' (n = ' + str(education_count.loc[i]['Mindset']) + ')'
-    #     education_count_list.append(string)
-    # cmap = cm.get_cmap('viridis')
-    # colors = cmap(np.linspace(0,1,4))
-    # palette ={education_list[0]: colors[1], education_list[1]: colors[2]}
-    # hue_order = [education_list[0],education_list[1]]
-    # fig, ax = plt.subplots()
-    # g = sns.violinplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Education_C', hue_order=hue_order, palette=palette)
-    # plt.title('Education')
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # plt.xticks(ha='right',rotation=45)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), education_count_list):
-    #     t.set_text(l)
-    # ax.tick_params(axis='both', direction='in', top=True, right=True)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_educationbyintervention')
-    # plt.clf()
+    # Plot (box and whisker) averages for each factor by race and ethnicity
+    df_bnw = df1.drop(['Course','Gender_C','Education_C'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
+    hue_order = [raceethnicity_list[0],raceethnicity_list[1]]
+    
+    melt_df = df_bnw.melt(id_vars=['Raceethnicity_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Raceethnicity_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
+    for ax in g.axes.ravel():
+        ax.tick_params(axis='both', direction='in',labelbottom=True)
+        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
+    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
+    g.fig.tight_layout()
+    save_fig(g,'factor_ratings_raceethnicitybyintervention')
+    plt.clf()
 
-    # Linear regression (change FACTOR to the factor you want)
+    # Plot (box and whisker) averages for each factor by education
+    df_bnw = df1.drop(['Course','Gender_C','Raceethnicity_C'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={education_list[0]: colors[1], education_list[1]: colors[2]}
+    hue_order = [education_list[0],education_list[1]]
+    
+    melt_df = df_bnw.melt(id_vars=['Education_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Education_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
+    for ax in g.axes.ravel():
+        ax.tick_params(axis='both', direction='in',labelbottom=True)
+        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
+    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
+    g.fig.tight_layout()
+    save_fig(g,'factor_ratings_educationbyintervention')
+    plt.clf()
+
+    # Linear regression
     for i in list(fs):
-        # Y = df1[i]
-        # X = df1['Intervention', 'Course', 'Gender_C', 'Raceethnicity_C', 'Education_C']
-        # y, X = dmatrices((str(i) + '~ Intervention + Course + Gender_C + Raceethnicity_C + Education_C'), data=df1, return_type='dataframe')
-        # print(y, X)
         res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
         print(res.summary())#.as_latex())
 

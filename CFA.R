@@ -38,21 +38,6 @@ print(summary(model))
 print(fitMeasures(model))
 sink()
 
-path_red <-'
-f1 =~ When.I.work.in.a.group..I.do.higher.quality.work. + My.group.members.help.explain.things.that.I.do.not.understand. + I.feel.working.in.groups.is.a.waste.of.time. + The.work.takes.more.time.to.complete.when.I.work.with.other.students. + The.workload.is.usually.less.when.I.work.with.other.students.
-f2 =~ My.group.members.respect.my.opinions. + My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are. + My.group.members.do.not.care.about.my.feelings. + I.feel.I.am.part.of.what.is.going.on.in.the.group. + When.I.work.in.a.group..I.am.able.to.share.my.ideas.
-f3 =~Everyone.s.ideas.are.needed.if.we.are.going.to.be.successful. + We.cannot.complete.the.assignment.unless.everyone.contributes. + I.let.the.other.students.do.most.of.the.work. + I.also.learn.when.I.teach.the.material.to.my.group.members. + I.learn.to.work.with.students.who.are.different.from.me.
-f4 =~ I.become.frustrated.when.my.group.members.do.not.understand.the.material. + I.have.to.work.with.students.who.are.not.as.smart.as.I.am.
-'
-model_red <-cfa(path_red,data=dat)
-summary(model_red)
-fitMeasures(model_red)
-
-sink("SAGE_CFA2.txt")
-print(summary(model_red))
-print(fitMeasures(model_red))
-sink()
-
 # FOR EFA
 #import data
 data <- read.csv(file='ExportedFiles/CFA_full.csv')
@@ -63,7 +48,7 @@ f1 =~ When.I.work.in.a.group..I.do.higher.quality.work.+When.I.work.in.a.group..
 f2 =~ When.I.work.in.a.group..I.am.able.to.share.my.ideas.+My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are.+My.group.members.respect.my.opinions.+I.feel.I.am.part.of.what.is.going.on.in.the.group.+I.learn.to.work.with.students.who.are.different.from.me.+I.also.learn.when.I.teach.the.material.to.my.group.members.+You.have.a.certain.amount.of.physics.intelligence..and.you.can.t.really.do.much.to.change.it.+Your.physics.intelligence.is.something.about.you.that.you.can.change.+You.can.learn.new.things..but.you.can.t.really.change.your.basic.physics.intelligence.
 '
 model2 <-cfa(path2,data=data)
-summary(model2, model2.measures=TRUE)
+summary(model2)
 fitMeasures(model2)
 
 sink("EFA_n2.txt")

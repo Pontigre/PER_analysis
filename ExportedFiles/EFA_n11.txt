@@ -1,4 +1,4 @@
-lavaan 0.6.13 ended normally after 173 iterations
+lavaan 0.6.13 ended normally after 170 iterations
 
   Estimator                                         ML
   Optimization method                           NLMINB
@@ -33,7 +33,7 @@ Latent Variables:
     I.tr..........    0.978    0.063   15.617    0.000
     I.lr..........    1.063    0.059   17.957    0.000
     I.............    0.739    0.057   12.946    0.000
-    I....I........    1.019    0.057   17.901    0.000
+    I....I........    1.019    0.057   17.902    0.000
     Ev............    1.151    0.067   17.156    0.000
   f3 =~                                               
     W.I......I....    1.000                           
@@ -75,7 +75,7 @@ Covariances:
     f8                0.040    0.004    9.129    0.000
     f9               -0.026    0.004   -6.442    0.000
   f3 ~~                                               
-    f4                0.036    0.004    9.513    0.000
+    f4                0.036    0.004    9.514    0.000
     f5               -0.043    0.004   -9.909    0.000
     f6                0.020    0.005    4.039    0.000
     f7                0.022    0.003    6.428    0.000
@@ -139,23 +139,15 @@ Variances:
     f8                0.243    0.010   25.229    0.000
     f9                0.225    0.009   25.229    0.000
 
-                 npar                  fmin                 chisq                    df                pvalue 
-               82.000                 0.545              1387.307               243.000                 0.000 
-       baseline.chisq           baseline.df       baseline.pvalue                   cfi                   tli 
-             9561.055               300.000                 0.000                 0.876                 0.847 
-                 nnfi                   rfi                   nfi                  pnfi                   ifi 
-                0.847                 0.821                 0.855                 0.692                 0.877 
-                  rni                  logl     unrestricted.logl                   aic                   bic 
-                0.876            -17881.078            -17187.424             35926.155             36348.384 
-               ntotal                  bic2                 rmsea        rmsea.ci.lower        rmsea.ci.upper 
-             1273.000             36087.912                 0.061                 0.058                 0.064 
-       rmsea.ci.level          rmsea.pvalue        rmsea.close.h0 rmsea.notclose.pvalue     rmsea.notclose.h0 
-                0.900                 0.000                 0.050                 0.000                 0.080 
-                  rmr            rmr_nomean                  srmr          srmr_bentler   srmr_bentler_nomean 
-                0.013                 0.013                 0.055                 0.055                 0.055 
-                 crmr           crmr_nomean            srmr_mplus     srmr_mplus_nomean                 cn_05 
-                0.057                 0.057                 0.055                 0.055               258.262 
-                cn_01                   gfi                  agfi                  pgfi                   mfi 
-              273.718                 0.913                 0.884                 0.683                 0.638 
+                 npar                  fmin                 chisq                    df                pvalue        baseline.chisq           baseline.df       baseline.pvalue                   cfi 
+               82.000                 0.545              1387.307               243.000                 0.000              9561.055               300.000                 0.000                 0.876 
+                  tli                  nnfi                   rfi                   nfi                  pnfi                   ifi                   rni                  logl     unrestricted.logl 
+                0.847                 0.847                 0.821                 0.855                 0.692                 0.877                 0.876            -17881.078            -17187.424 
+                  aic                   bic                ntotal                  bic2                 rmsea        rmsea.ci.lower        rmsea.ci.upper        rmsea.ci.level          rmsea.pvalue 
+            35926.155             36348.384              1273.000             36087.912                 0.061                 0.058                 0.064                 0.900                 0.000 
+       rmsea.close.h0 rmsea.notclose.pvalue     rmsea.notclose.h0                   rmr            rmr_nomean                  srmr          srmr_bentler   srmr_bentler_nomean                  crmr 
+                0.050                 0.000                 0.080                 0.013                 0.013                 0.055                 0.055                 0.055                 0.057 
+          crmr_nomean            srmr_mplus     srmr_mplus_nomean                 cn_05                 cn_01                   gfi                  agfi                  pgfi                   mfi 
+                0.057                 0.055                 0.055               258.262               273.718                 0.913                 0.884                 0.683                 0.638 
                  ecvi 
                 1.219 
