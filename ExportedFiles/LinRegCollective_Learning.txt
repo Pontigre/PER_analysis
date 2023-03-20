@@ -3,8 +3,8 @@
 Dep. Variable:     Collective_Learning   R-squared:                       0.026
 Model:                             OLS   Adj. R-squared:                  0.019
 Method:                  Least Squares   F-statistic:                     3.682
-Date:                 Mon, 06 Mar 2023   Prob (F-statistic):           0.000145
-Time:                         13:37:27   Log-Likelihood:                -218.52
+Date:                 Mon, 20 Mar 2023   Prob (F-statistic):           0.000145
+Time:                         09:57:34   Log-Likelihood:                -218.52
 No. Observations:                 1273   AIC:                             457.0
 Df Residuals:                     1263   BIC:                             508.5
 Df Model:                            9                                         

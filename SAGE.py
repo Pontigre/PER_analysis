@@ -22,8 +22,6 @@ from factor_analyzer.factor_analyzer import calculate_bartlett_sphericity, calcu
 from sklearn.decomposition import PCA
 import statsmodels.formula.api as smf
 from patsy import dmatrices
-# from pingouin import cronbach_alpha as al ##Do not work with python3.11
-# from advanced_pca import CustomPCA ##Do not work with python3.11
 
 # WHEN I RUN THIS I HAVE A FOLDER WHERE ALL THE CREATED FILES GO CALLED 'ExportedFiles'
 image_dir = 'ExportedFiles'
@@ -52,9 +50,9 @@ def main():
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the string responses into numbers and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Prepares files for Confirmatory factor analysis on questions taken from SAGE run in R
-    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-    #     warnings.simplefilter("ignore")
-    #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
+    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+        warnings.simplefilter("ignore")
+        EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
         warnings.simplefilter("ignore")
         Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
@@ -305,7 +303,7 @@ def EFA_alternate(df_norm):
     save_fig(fig,'SAGE_CorrM')
     plt.clf()
 
-    truncM = corrM[abs(corrM)>=0.4]
+    truncM = corrM[abs(corrM)>=min_loadings]
     fig, ax = plt.subplots()
     plt.title('Correlation Matrix')
     plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
@@ -363,6 +361,7 @@ def EFA_alternate(df_norm):
         # Create a copy of the data so that we don't remove data when dropping columns
         dfn = df_SAGE.copy()
         dropped = []
+        efa=0
 
         # 5. Loadings loop
         loadings_test = True
@@ -415,7 +414,7 @@ def EFA_alternate(df_norm):
             else:
                 loadings_test = False
 
-        # print('Dropped columns:', dropped)
+        # 6. Place loadings into model
         df_loadings = pd.DataFrame(efa.loadings_)
         df_loadings_1 = pd.DataFrame(efa.loadings_, index=list(dfn))
         df_loadings1 = df_loadings_1.reindex(index=list(df_SAGE), fill_value=0)
@@ -431,18 +430,6 @@ def EFA_alternate(df_norm):
         save_fig(fig, file_string1)
         plt.clf()
 
-        truncm = df_loadings1[abs(df_loadings1)>=0.4]
-        fig, ax = plt.subplots()
-        plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
-        plt.colorbar()
-        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
-        plt.tight_layout()
-        file_string2 = 'SAGE_EFA_0.4_n=' + str(n)
-        save_fig(fig, file_string2)
-        plt.clf()
-
-        # 6. Place loadings into model
         # For each factor create an empty list to populate with items
         lists = [[] for _ in range(n)]
         # Add the Factor name to the list of lists
@@ -450,10 +437,15 @@ def EFA_alternate(df_norm):
         for i in lists:
             i.append('F'+str(numb))
             numb += 1
-        # For each item, find the factor that it loaded into (>0.5)
+        # For each item, find the factor that it loaded into (>0.4)
         # Add that item to the correct factor list
-        for index, row in df_loadings.iterrows():
-            if abs(row).max() > 0.4:
+
+        loads = pd.DataFrame(efa.loadings_)
+        loads[abs(loads) < min_loadings] = 0
+        # loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
+
+        for index, row in loads.iterrows():
+            if abs(row).max() > min_loadings:
                 lists[abs(row).argmax()].append(dfn.columns[index])
         # Convert the lists into a dictionary
         model_dict = {i[0]:i[1:] for i in lists}
@@ -474,20 +466,72 @@ def EFA_alternate(df_norm):
                 print(values)
             sys.stdout = original_stdout # Reset the standard output to its original value
 
+        loads_1 = pd.DataFrame(efa.loadings_, index=list(dfn))
+        loads1 = loads_1.reindex(index=list(df_SAGE), fill_value=0)
+        loads1[abs(loads1) < min_loadings] = 0
+        # loads1.iloc[np.where(loads1.ne(0).sum(axis=1) > 1)[0]] = 0
+
+        truncm = loads1[abs(loads1)>=0.001]
+        fig, ax = plt.subplots()
+        plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
+        plt.colorbar()
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+        plt.tight_layout()
+        file_string2 = 'SAGE_EFA_0.4_n=' + str(n)
+        save_fig(fig, file_string2)
+        plt.clf()
+
         # 7. Fit model using CFA and extract fit statistic
         # Export to R and just do CFA there instead
 
     # 9. Plot fit statistic vs number of factors
     fit_stats_x = [2,3,4,5,6,7,8,9,10,11,12,13]
+
+    #>0.4 dropped multi loadings
+    # fit_stats_cfi = [0.749, 0.866, 0.887, 0.915, 0.903, 0.891, 0.900, 0.892, 0.917, 0.886, 0.903, 0.920]
+    # fit_stats_aic = [26984.664, 28609.788, 29635.652, 30486.064, 31500.537, 33498.759, 33146.545, 32774.801, 26922.132, 35217.072, 33630.630, 31440.705]
+    # fit_stats_rmsea = [0.101, 0.070, 0.063, 0.053, 0.058, 0.059, 0.058, 0.059, 0.058, 0.059, 0.055, 0.054]
+
+    # >0.4
     fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
     fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
     fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
 
+    # >0.45
+    # fit_stats_cfi = [0.735, 0.870, 0.902, 0.895, 0.891, 0.893, 0.892, 0.882, 0.909, 0.893, 0.879, 0.929]
+    # fit_stats_aic = [26238.613, 25641.484, 24265.990, 27286.532, 26800.021, 25915.938, 24075.208, 28043.943, 19382.200, 27742.007, 34306.088, 21131.969]
+    # fit_stats_rmsea = [0.108, 0.075, 0.067, 0.067, 0.068, 0.071, 0.075, 0.067, 0.070, 0.066, 0.062, 0.062]
+
+    # >0.5
+    # fit_stats_cfi = [0.744, 0.919, 0.923, 0.912, 0.952, 0, 0.920, 0.926, 0.909, 0.909, 0.926, 0.959]
+    # fit_stats_aic = [18421.318, 19339.369, 20325.490, 22875.203, 21216.331, 0, 22075.066, 21556.533, 19382.200, 25617.265, 19049.394, 9880.362]
+    # fit_stats_rmsea = [0.132, 0.072, 0.068, 0.067, 0.052, 0, 0.070, 0.065, 0.070, 0.063, 0.072, 0.078]
+
     fig, ax = plt.subplots()
-    plt.plot(fit_stats_x, fit_stats_aic, marker='.', ls='None')
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
+    fig.subplots_adjust(right=0.75)
+
+    twin1 = ax.twinx()
+
+    p1, = ax.plot(fit_stats_x, fit_stats_aic, marker='.', ls='None', color = 'black', label='AIC')
+    p2, = twin1.plot(fit_stats_x, fit_stats_cfi, marker='^', ls='None', color = 'r', label='CFI')
+    # ax.set_ylim(10000, 30000)
+    twin1.set_ylim(0.75, 1.25)
+
+    ax.tick_params(axis='both', direction='in', top=True)
+    twin1.tick_params(axis='y', direction='in')
     plt.xlabel('Number of factors')
-    plt.ylabel('Akaike information criterion')
+    ax.set_ylabel('Akaike information criterion')
+    twin1.set_ylabel('Comparative Fit Index')
+
+    ax.yaxis.label.set_color(p1.get_color())
+    twin1.yaxis.label.set_color(p2.get_color())
+
+    ax.tick_params(axis='y', colors=p1.get_color(), direction='in')
+    twin1.tick_params(axis='y', colors=p2.get_color(), direction='in')
+    ax.tick_params(axis='x', direction='in', top=True)
+    ax.legend(handles=[p1,p2])
+
     plt.tight_layout()
     save_fig(fig, 'fit_stats')
     plt.clf()
@@ -541,16 +585,19 @@ def factor_scores(df_norm,number_of_factors):
     for i in lists:
         i.append('F'+str(numb))
         numb += 1
-    for index, row in df_loadings.iterrows():
-        if abs(row).max() > 0.4:
+
+    loads = pd.DataFrame(efa.loadings_)
+    loads[loads < min_loadings] = 0
+    # loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
+
+    for index, row in loads.iterrows():
+        if abs(row).max() > min_loadings:
             lists[abs(row).argmax()].append(dfn.columns[index])
             item_list.append(dfn.columns[index])
     model_dict = {i[0]:i[1:] for i in lists}
 
     # GET FACTOR SCORES
-    loads = pd.DataFrame(efa.loadings_)
-    loads[loads < 0.4] = 0
-    scores = pd.DataFrame(np.dot(dfn,efa.loadings_))
+    scores = pd.DataFrame(np.dot(dfn,loads))
     norm_scores = scores/(loads.abs().sum())
 
     return norm_scores, model_dict
@@ -559,7 +606,7 @@ def Factor_dependences(df_norm):
     # This code looks at the loading of each student onto each factor, then uses linear regression to see if demos or intervention affect these
     df = df_norm.copy()
     fs, model = factor_scores(df,6)
-    fs.columns =['Quality_of_process', 'Collective_Learning', 'Individual_Belonging', 'Mindset', 'Individual_Perceptions', 'Frustrations']
+    fs.columns =['Quality_of_process', 'Collective_Learning', 'Individual_Belonging', 'Mindset', 'Impact_on_Individual', 'Frustrations']
 
     # Create a dataframe that has the factor scores and the demographics of each student
     Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
@@ -581,14 +628,34 @@ def Factor_dependences(df_norm):
     df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
 
     # Edcuation -> 1st gen, not 1st gen
-    df1.insert(df1.columns.get_loc('Education'), 'Education_C', 0)
+    df1.insert(df1.columns.get_loc('Education')+1, 'Education_C', 0)
     df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if 'Prefer not' in str(x) else 'Not1stGen' for x in df['Education']]
     df1.drop(columns=['Education'], axis=1, inplace = True)
 
+    # Determine mindset of each student
+    df1.insert(df1.columns.get_loc('Mindset'), 'Mindset_C', 0)
+    df1['Mindset_C'] = ['Growth' if x > 0.4 else 'Fixed' if x < -0.4 else 'Neutral' for x in df1['Mindset']]
+
+    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
+    df1.insert(df1.columns.get_loc('Mindset'), 'Mindset_C2', 0)
+    conditions = [df[df[Phys_Int_Cols]<-0.5].count(axis=1) > 1,  df[df[Phys_Int_Cols]>0.5].count(axis=1) > 1]
+    choices = ['Fixed','Growth']
+    df1['Mindset_C2'] = np.select(conditions, choices, default='Neutral')
     df1.to_csv('ExportedFiles/StudentRatings.csv', encoding = "utf-8", index=False)
 
+    Make_BoxandWhisker_Plots(df1,fs) # I got tired of scrolling paast it all
+
+    # Linear regression
+    for i in list(fs):
+        res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+
+def Make_BoxandWhisker_Plots(df1,fs):
     # Plot (box and whisker) averages for each factor by course
-    df_bnw = df1.drop(['Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
     course_count =  df_bnw.groupby(['Course']).count()
     course_list = []
     course_count_list = []
@@ -616,7 +683,7 @@ def Factor_dependences(df_norm):
     plt.clf()
 
     # Plot (box and whisker) averages for each factor by intervention
-    df_bnw = df1.drop(['Course','Gender_C','Raceethnicity_C','Education_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Raceethnicity_C','Education_C'],axis=1)
     intervention_count =  df_bnw.groupby(['Intervention']).count()
     intervention_list = []
     intervention_count_list = []
@@ -644,7 +711,7 @@ def Factor_dependences(df_norm):
     plt.clf()
 
     # Plot (box and whisker) averages for each factor by gender
-    df_bnw = df1.drop(['Course','Intervention','Raceethnicity_C','Education_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Raceethnicity_C','Education_C'],axis=1)
     df_bnw.drop(df_bnw.loc[df_bnw['Gender_C']=='Prefer not to disclose'].index, inplace=True)
     gender_count =  df_bnw.groupby(['Gender_C']).count()
     gender_list = []
@@ -673,7 +740,7 @@ def Factor_dependences(df_norm):
     plt.clf()
 
     # Plot (box and whisker) averages for each factor by race and ethnicity
-    df_bnw = df1.drop(['Course','Intervention','Gender_C','Education_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Education_C'],axis=1)
     df_bnw.drop(df_bnw.loc[df_bnw['Raceethnicity_C']=='Prefer not to disclose'].index, inplace=True)
     raceethnicity_count =  df_bnw.groupby(['Raceethnicity_C']).count()
     raceethnicity_list = []
@@ -702,7 +769,7 @@ def Factor_dependences(df_norm):
     plt.clf()
 
     # Plot (box and whisker) averages for each factor by education
-    df_bnw = df1.drop(['Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
     df_bnw.drop(df_bnw.loc[df_bnw['Education_C']=='Prefer not to answer'].index, inplace=True)
     education_count =  df_bnw.groupby(['Education_C']).count()
     education_list = []
@@ -730,11 +797,67 @@ def Factor_dependences(df_norm):
     save_fig(g,'factor_ratings_education')
     plt.clf()
 
+    # Plot (box and whisker) averages for each factor by mindset (method 1)
+    df_bnw = df1.drop(['Mindset_C2','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
+    mindset_count =  df_bnw.groupby(['Mindset_C']).count()
+    mindset_list = []
+    mindset_count_list = []
+    for i in list(mindset_count.index):
+        mindset_list.append(i)
+        string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
+        mindset_count_list.append(string)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={mindset_list[0]: colors[1], mindset_list[1]: colors[2]}
+    hue_order = [mindset_list[0],mindset_list[1]]
+    fig, ax = plt.subplots()
+    g = sns.violinplot(data=df_bnw.melt(id_vars=['Mindset_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Mindset_C', hue_order=hue_order, palette=palette)
+    plt.title('Mindset')
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    plt.xticks(ha='right',rotation=45)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
+    for t, l in zip(L.get_texts(), mindset_count_list):
+        t.set_text(l)
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_mindset')
+    plt.clf()
+
+    # Plot (box and whisker) averages for each factor by mindset (method 2)
+    df_bnw = df1.drop(['Mindset_C','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
+    mindset_count =  df_bnw.groupby(['Mindset_C2']).count()
+    mindset_list = []
+    mindset_count_list = []
+    for i in list(mindset_count.index):
+        mindset_list.append(i)
+        string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
+        mindset_count_list.append(string)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={mindset_list[0]: colors[1], mindset_list[1]: colors[2]}
+    hue_order = [mindset_list[0],mindset_list[1]]
+    fig, ax = plt.subplots()
+    g = sns.violinplot(data=df_bnw.melt(id_vars=['Mindset_C2'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Mindset_C2', hue_order=hue_order, palette=palette)
+    plt.title('Mindset2')
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    plt.xticks(ha='right',rotation=45)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
+    for t, l in zip(L.get_texts(), mindset_count_list):
+        t.set_text(l)
+    ax.tick_params(axis='both', direction='in', top=True, right=True)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_mindset2')
+    plt.clf()
+
 
     # SPLIT THE BOXPLOTS BY INTERVENTION
 
     # Plot (box and whisker) averages for each factor by course
-    df_bnw = df1.drop(['Gender_C','Raceethnicity_C','Education_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Gender_C','Raceethnicity_C','Education_C'],axis=1)
     cmap = cm.get_cmap('viridis')
     colors = cmap(np.linspace(0,1,4))
     palette = {course_list[0]: colors[1], course_list[1]: colors[2]}
@@ -751,7 +874,7 @@ def Factor_dependences(df_norm):
     plt.clf()
 
     # Plot (box and whisker) averages for each factor by gender
-    df_bnw = df1.drop(['Course','Raceethnicity_C','Education_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Raceethnicity_C','Education_C'],axis=1)
     cmap = cm.get_cmap('viridis')
     colors = cmap(np.linspace(0,1,4))
     palette ={gender_list[0]: colors[1], gender_list[1]: colors[2], gender_list[2]: colors[3]}
@@ -767,9 +890,8 @@ def Factor_dependences(df_norm):
     save_fig(g,'factor_ratings_genderbyintervention')
     plt.clf()
 
-
     # Plot (box and whisker) averages for each factor by race and ethnicity
-    df_bnw = df1.drop(['Course','Gender_C','Education_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Education_C'],axis=1)
     cmap = cm.get_cmap('viridis')
     colors = cmap(np.linspace(0,1,4))
     palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
@@ -786,7 +908,7 @@ def Factor_dependences(df_norm):
     plt.clf()
 
     # Plot (box and whisker) averages for each factor by education
-    df_bnw = df1.drop(['Course','Gender_C','Raceethnicity_C'],axis=1)
+    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Raceethnicity_C'],axis=1)
     cmap = cm.get_cmap('viridis')
     colors = cmap(np.linspace(0,1,4))
     palette ={education_list[0]: colors[1], education_list[1]: colors[2]}
@@ -802,14 +924,38 @@ def Factor_dependences(df_norm):
     save_fig(g,'factor_ratings_educationbyintervention')
     plt.clf()
 
-    # Linear regression
-    for i in list(fs):
-        res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
-        with open(('LinReg' + str(i) +'.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
+    # Plot (box and whisker) averages for each factor by mindset (method 1)
+    df_bnw = df1.drop(['Education_C','Mindset_C2','Course','Gender_C','Raceethnicity_C'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={'Fixed': colors[1], 'Growth': colors[2]}
+    hue_order = ['Fixed','Growth']
+    
+    melt_df = df_bnw.melt(id_vars=['Mindset_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Mindset_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
+    for ax in g.axes.ravel():
+        ax.tick_params(axis='both', direction='in',labelbottom=True)
+        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
+    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
+    g.fig.tight_layout()
+    save_fig(g,'factor_ratings_mindsetbyintervention')
+    plt.clf()
 
-        with open(('LinReg' + str(i) +'.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+    df_bnw = df1.drop(['Education_C','Mindset_C','Course','Gender_C','Raceethnicity_C'],axis=1)
+    cmap = cm.get_cmap('viridis')
+    colors = cmap(np.linspace(0,1,4))
+    palette ={'Fixed': colors[1], 'Growth': colors[2]}
+    hue_order = ['Fixed','Growth']
+
+    melt_df = df_bnw.melt(id_vars=['Mindset_C2','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Mindset_C2', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
+    for ax in g.axes.ravel():
+        ax.tick_params(axis='both', direction='in',labelbottom=True)
+        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
+    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
+    g.fig.tight_layout()
+    save_fig(g,'factor_ratings_mindset2byintervention')
+    plt.clf()
 
 def OldFunctionRepository():
     # res = scipy.stats.mannwhitneyu(x,y) #,nan_policy='omit'
@@ -863,7 +1009,7 @@ def OldFunctionRepository():
         save_fig(fig,'SAGE_CorrM')
         plt.clf()
 
-        truncM = corrM[abs(corrM)>=0.4]
+        truncM = corrM[abs(corrM)>=min_loadings]
         fig, ax = plt.subplots()
         plt.title('Correlation Matrix')
         plt.imshow(truncM, cmap="viridis", vmin=-1, vmax=1)
@@ -871,7 +1017,7 @@ def OldFunctionRepository():
         ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
         plt.tight_layout()
-        save_fig(fig,'SAGE_CorrM_0.4')
+        save_fig(fig,'SAGE_CorrM_0.5')
         plt.clf()
 
         print('Statistical Tests')
@@ -921,14 +1067,14 @@ def OldFunctionRepository():
             save_fig(fig, file_string)
             plt.clf()
 
-            truncm = m[abs(m)>=0.4]
+            truncm = m[abs(m)>=min_loadings]
             fig, ax = plt.subplots()
             plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
             plt.colorbar()
             ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
             ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
             plt.tight_layout()
-            file_string2 = 'SAGE_EFA_0.4_n=' + str(i)
+            file_string2 = 'SAGE_EFA_0.5_n=' + str(i)
             save_fig(fig, file_string2)
             plt.clf()
 
@@ -1000,7 +1146,7 @@ def OldFunctionRepository():
         save_fig(fig, 'PCA_full_var')
         plt.clf()
 
-        # Specifying the variance to be >=0.45
+        # Specifying the variance to be >=0.55
         pca = PCA(n_components=0.55)
         pca.fit(df_SAGE)
         pca.transform(df_SAGE)
@@ -1143,7 +1289,6 @@ def OldFunctionRepository():
         plt.clf()
 
     def Mindset(df_norm):
-        # This code looks at whethever a student has fixed or growth mindset, then uses linear regression (probit) to see if demos or intervention affect this
         Phys_Int_Cols = [col for col in df_norm.columns if 'physics intelligence' in col]
         df = df_norm.copy()
         fs, model = factor_scores(df,8)
