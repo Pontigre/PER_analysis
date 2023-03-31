@@ -68,10 +68,13 @@ We can see that there is an ambiguous result as to the number of factors assumin
 8. Change the number of factors and repeat the above steps.
 9. Plot the fit statistic vs the number of factors. The model with the local minimum index is the preferred model.
 
+Here we have two plots: the first has an item loading cutoff of 0.4. The 2nd has the same cutoff but any duuplicate items in the factor are dropped.
+Which do we use? And what numbers of factors do we choose?
+
 ![Fit statistics vs number of factors](ExportedFiles/fit_stats_0.4.png)
 ![Fit statistics vs number of factors, duplicates dropped](ExportedFiles/fit_stats_0.4dropped.png)
 
-Here we can see that the optimal number of factors is 6, 8, or 10 because they are the local minimum of the fit statistic (meaning it explains the most amount of variance). If we compare the three models, only n=10 has a Comparative Fit Index (CFI) over 0.9 but includes several factors with only one (or none) item loading, which doesn't help with the reduction to factors. Therefore, we choose 6 factors.
+For the first plot we can see that the optimal number of factors is 6, 8, or 10 because they are the local minimum of the fit statistic (meaning it explains the most amount of variance). If we compare the three models, only n=10 has a Comparative Fit Index (CFI) over 0.9 but includes several factors with only one (or none) item loading, which doesn't help with the reduction to factors. Therefore, we choose 6 factors.
 
 The factors are:
 1. 'When I work in a group, I end up doing most of the work.', 'The work takes more time to complete when I work with other students.', 'The workload is usually less when I work with other students.', 'I do not think a group grade is fair.', 'I feel working in groups is a waste of time.', 'When I work with other students the work is divided equally.’
