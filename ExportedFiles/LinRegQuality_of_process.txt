@@ -4,7 +4,7 @@ Dep. Variable:     Quality_of_process   R-squared:                       0.027
 Model:                            OLS   Adj. R-squared:                  0.020
 Method:                 Least Squares   F-statistic:                     3.821
 Date:                Fri, 31 Mar 2023   Prob (F-statistic):           8.84e-05
-Time:                        11:46:26   Log-Likelihood:                -658.50
+Time:                        11:52:09   Log-Likelihood:                -658.50
 No. Observations:                1273   AIC:                             1337.
 Df Residuals:                    1263   BIC:                             1388.
 Df Model:                           9                                         

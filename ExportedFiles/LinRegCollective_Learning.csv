@@ -3,7 +3,7 @@ Dep. Variable:   ,Collective_Learning,  R-squared:         ,   0.025
 Model:           ,OLS                ,  Adj. R-squared:    ,   0.019
 Method:          ,Least Squares      ,  F-statistic:       ,   3.667
 Date:            ,Fri, 31 Mar 2023   ,  Prob (F-statistic):,0.000152
-Time:            ,11:46:26           ,  Log-Likelihood:    , -272.12
+Time:            ,11:52:09           ,  Log-Likelihood:    , -272.12
 No. Observations:,  1273             ,  AIC:               ,   564.2
 Df Residuals:    ,  1263             ,  BIC:               ,   615.7
 Df Model:        ,     9             ,                     ,        
