@@ -116,6 +116,14 @@ We can then use these to see how students responses depend on their demographic 
  - Course: 105M, 105N
  - Intervention: Control, Collaborative Comparison, Partner Agreements
 
+Any statistically significant differences are marked by its respective indicator.
+- <0.05: *
+- <0.01: **
+- <0.001: ***
+- <0.0001: ****
+
+If there are 3 things that are being compared, the first line of significance is between the first two, and the second line of significance is between the last two.
+
 ![Factor ratings by Course](ExportedFiles/factor_ratings_course.png)
 ![Factor ratings by Intervention](ExportedFiles/factor_ratings_intervention.png)
 ![Factor ratings by Gender](ExportedFiles/factor_ratings_gender.png)
