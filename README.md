@@ -114,7 +114,7 @@ We can then use these to see how students responses depend on their demographic 
  - Intervention: Control, Collaborative Comparison, Partner Agreements
 
 ![Factor ratings by Course](ExportedFiles/factor_ratings_course.png)
-![Factor ratings by Intervention](ExportedFiles/factor_ratings_Intervention.png)
+![Factor ratings by Intervention](ExportedFiles/factor_ratings_intervention.png)
 ![Factor ratings by Gender](ExportedFiles/factor_ratings_gender.png)
 ![Factor ratings by Raceethnicity](ExportedFiles/factor_ratings_raceethnicity.png)
 ![Factor ratings by Education](ExportedFiles/factor_ratings_education.png)
