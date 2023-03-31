@@ -68,7 +68,8 @@ We can see that there is an ambiguous result as to the number of factors assumin
 8. Change the number of factors and repeat the above steps.
 9. Plot the fit statistic vs the number of factors. The model with the local minimum index is the preferred model.
 
-![Fit statistics vs number of factors](ExportedFiles/fit_stats.png)
+![Fit statistics vs number of factors](ExportedFiles/fit_stats_0.4.png)
+![Fit statistics vs number of factors, duplicates dropped](ExportedFiles/fit_stats_0.4dropped.png)
 
 Here we can see that the optimal number of factors is 6, 8, or 10 because they are the local minimum of the fit statistic (meaning it explains the most amount of variance). If we compare the three models, only n=10 has a Comparative Fit Index (CFI) over 0.9 but includes several factors with only one (or none) item loading, which doesn't help with the reduction to factors. Therefore, we choose 6 factors.
 
@@ -115,13 +116,13 @@ We can then use these to see how students responses depend on their demographic 
 ![Factor ratings by Course](ExportedFiles/factor_ratings_course.png)
 ![Factor ratings by Intervention](ExportedFiles/factor_ratings_Intervention.png)
 ![Factor ratings by Gender](ExportedFiles/factor_ratings_gender.png)
-![Factor ratings by Raceethnicity](ExportedFiles/factor_ratings_racethnicity.png)
+![Factor ratings by Raceethnicity](ExportedFiles/factor_ratings_raceethnicity.png)
 ![Factor ratings by Education](ExportedFiles/factor_ratings_education.png)
 
 We can also see how interventions change these factors
 ![Factor ratings by Course](ExportedFiles/factor_ratings_coursebyintervention.png)
 ![Factor ratings by Gender](ExportedFiles/factor_ratings_genderbyintervention.png)
-![Factor ratings by Raceethnicity](ExportedFiles/factor_ratings_racethnicitybyintervention.png)
+![Factor ratings by Raceethnicity](ExportedFiles/factor_ratings_raceethnicitybyintervention.png)
 ![Factor ratings by Education](ExportedFiles/factor_ratings_educationbyintervention.png)
 
 Finally, we can separate the students based on their mindset to see if there are differences in the other factors. There are two ways for determining mindset:
