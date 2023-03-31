@@ -3,8 +3,8 @@
 Dep. Variable:           Frustrations   R-squared:                       0.040
 Model:                            OLS   Adj. R-squared:                  0.033
 Method:                 Least Squares   F-statistic:                     5.799
-Date:                Thu, 30 Mar 2023   Prob (F-statistic):           6.17e-08
-Time:                        11:20:54   Log-Likelihood:                -793.05
+Date:                Fri, 31 Mar 2023   Prob (F-statistic):           6.17e-08
+Time:                        11:46:26   Log-Likelihood:                -793.05
 No. Observations:                1273   AIC:                             1606.
 Df Residuals:                    1263   BIC:                             1658.
 Df Model:                           9                                         

@@ -2,8 +2,8 @@
 Dep. Variable:   ,Individual_Belonging,  R-squared:         ,   0.027
 Model:           ,OLS                 ,  Adj. R-squared:    ,   0.021
 Method:          ,Least Squares       ,  F-statistic:       ,   3.967
-Date:            ,Thu, 30 Mar 2023    ,  Prob (F-statistic):,5.26e-05
-Time:            ,11:20:54            ,  Log-Likelihood:    , -439.58
+Date:            ,Fri, 31 Mar 2023    ,  Prob (F-statistic):,5.26e-05
+Time:            ,11:46:26            ,  Log-Likelihood:    , -439.58
 No. Observations:,  1273              ,  AIC:               ,   899.2
 Df Residuals:    ,  1263              ,  BIC:               ,   950.6
 Df Model:        ,     9              ,                     ,        
