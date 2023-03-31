@@ -3,8 +3,8 @@
 Dep. Variable:                Mindset   R-squared:                       0.016
 Model:                            OLS   Adj. R-squared:                  0.009
 Method:                 Least Squares   F-statistic:                     2.295
-Date:                Mon, 20 Mar 2023   Prob (F-statistic):             0.0148
-Time:                        09:57:34   Log-Likelihood:                -591.94
+Date:                Thu, 30 Mar 2023   Prob (F-statistic):             0.0148
+Time:                        11:20:54   Log-Likelihood:                -591.94
 No. Observations:                1273   AIC:                             1204.
 Df Residuals:                    1263   BIC:                             1255.
 Df Model:                           9                                         

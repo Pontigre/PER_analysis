@@ -1,32 +1,32 @@
                              OLS Regression Results                             
 ================================================================================
-Dep. Variable:     Individual_Belonging   R-squared:                       0.028
+Dep. Variable:     Individual_Belonging   R-squared:                       0.027
 Model:                              OLS   Adj. R-squared:                  0.021
-Method:                   Least Squares   F-statistic:                     3.977
-Date:                  Mon, 06 Mar 2023   Prob (F-statistic):           5.07e-05
-Time:                          13:37:28   Log-Likelihood:                -340.99
-No. Observations:                  1273   AIC:                             702.0
-Df Residuals:                      1263   BIC:                             753.5
+Method:                   Least Squares   F-statistic:                     3.967
+Date:                  Thu, 30 Mar 2023   Prob (F-statistic):           5.26e-05
+Time:                          11:20:54   Log-Likelihood:                -439.58
+No. Observations:                  1273   AIC:                             899.2
+Df Residuals:                      1263   BIC:                             950.6
 Df Model:                             9                                         
 Covariance Type:              nonrobust                                         
 ==================================================================================================================================================
                                                                                      coef    std err          t      P>|t|      [0.025      0.975]
 --------------------------------------------------------------------------------------------------------------------------------------------------
-Intercept                                                                          0.6495      0.019     33.999      0.000       0.612       0.687
-C(Intervention, Treatment(reference='Control'))[T.Collaborative Comparison]        0.0074      0.022      0.336      0.737      -0.036       0.050
-C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]              0.0069      0.021      0.322      0.748      -0.035       0.049
-C(Course)[T.PHY105N]                                                               0.0239      0.018      1.301      0.194      -0.012       0.060
-C(Gender_C, Treatment(reference='Female'))[T.Male]                                 0.0066      0.019      0.348      0.728      -0.030       0.043
-C(Gender_C, Treatment(reference='Female'))[T.Other]                               -0.1147      0.057     -1.997      0.046      -0.227      -0.002
-C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]              -0.2977      0.081     -3.695      0.000      -0.456      -0.140
-C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]    -0.0131      0.019     -0.678      0.498      -0.051       0.025
-C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                        -0.0097      0.022     -0.435      0.664      -0.054       0.034
-C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]          -0.1024      0.084     -1.214      0.225      -0.268       0.063
+Intercept                                                                          0.6470      0.021     31.344      0.000       0.607       0.688
+C(Intervention, Treatment(reference='Control'))[T.Collaborative Comparison]       -0.0051      0.024     -0.214      0.830      -0.051       0.041
+C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]             -0.0026      0.023     -0.111      0.912      -0.048       0.043
+C(Course)[T.PHY105N]                                                               0.0309      0.020      1.555      0.120      -0.008       0.070
+C(Gender_C, Treatment(reference='Female'))[T.Male]                                 0.0113      0.020      0.556      0.579      -0.029       0.051
+C(Gender_C, Treatment(reference='Female'))[T.Other]                               -0.0792      0.062     -1.276      0.202      -0.201       0.043
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]              -0.2987      0.087     -3.430      0.001      -0.469      -0.128
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]    -0.0162      0.021     -0.774      0.439      -0.057       0.025
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                        -0.0114      0.024     -0.471      0.638      -0.059       0.036
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]          -0.1501      0.091     -1.647      0.100      -0.329       0.029
 ==============================================================================
-Omnibus:                      109.412   Durbin-Watson:                   1.947
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              136.684
-Skew:                          -0.792   Prob(JB):                     2.09e-30
-Kurtosis:                       3.256   Cond. No.                         15.3
+Omnibus:                      146.907   Durbin-Watson:                   1.927
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              199.274
+Skew:                          -0.906   Prob(JB):                     5.35e-44
+Kurtosis:                       3.687   Cond. No.                         15.3
 ==============================================================================
 
 Notes:

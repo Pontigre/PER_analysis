@@ -13,6 +13,7 @@ import researchpy as rp
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import cm
+import matplotlib.patheffects as path_effects
 import seaborn as sns
 
 # FOR FACTOR ANALYSIS
@@ -53,9 +54,9 @@ def main():
     with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
         warnings.simplefilter("ignore")
         EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
-    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-        warnings.simplefilter("ignore")
-        Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
+    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+    #     warnings.simplefilter("ignore")
+    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -321,7 +322,8 @@ def EFA_alternate(df_norm):
 
     # BARTLETT'S TEST
     chi_square_value, p_value = calculate_bartlett_sphericity(df_SAGE)
-    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.2E}'.format(p_value))
+    print('Bartletts Chi Square =', chi_square_value, '; p-value: {0:.3E}'.format(p_value))
+    print('Degrees of freedom =', len(labels)*(len(labels)-1)/2)
 
     # Scree Plot
     print('Scree Plot')
@@ -494,14 +496,14 @@ def EFA_alternate(df_norm):
     # fit_stats_rmsea = [0.101, 0.070, 0.063, 0.053, 0.058, 0.059, 0.058, 0.059, 0.058, 0.059, 0.055, 0.054]
 
     # >0.4
-    fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
-    fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
-    fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
+    # fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
+    # fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
+    # fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
 
     # >0.45
-    # fit_stats_cfi = [0.735, 0.870, 0.902, 0.895, 0.891, 0.893, 0.892, 0.882, 0.909, 0.893, 0.879, 0.929]
-    # fit_stats_aic = [26238.613, 25641.484, 24265.990, 27286.532, 26800.021, 25915.938, 24075.208, 28043.943, 19382.200, 27742.007, 34306.088, 21131.969]
-    # fit_stats_rmsea = [0.108, 0.075, 0.067, 0.067, 0.068, 0.071, 0.075, 0.067, 0.070, 0.066, 0.062, 0.062]
+    fit_stats_cfi = [0.735, 0.870, 0.902, 0.895, 0.891, 0.893, 0.892, 0.882, 0.909, 0.893, 0.879, 0.929]
+    fit_stats_aic = [26238.613, 25641.484, 24265.990, 27286.532, 26800.021, 25915.938, 24075.208, 28043.943, 19382.200, 27742.007, 34306.088, 21131.969]
+    fit_stats_rmsea = [0.108, 0.075, 0.067, 0.067, 0.068, 0.071, 0.075, 0.067, 0.070, 0.066, 0.062, 0.062]
 
     # >0.5
     # fit_stats_cfi = [0.744, 0.919, 0.923, 0.912, 0.952, 0, 0.920, 0.926, 0.909, 0.909, 0.926, 0.959]
@@ -515,8 +517,9 @@ def EFA_alternate(df_norm):
 
     p1, = ax.plot(fit_stats_x, fit_stats_aic, marker='.', ls='None', color = 'black', label='AIC')
     p2, = twin1.plot(fit_stats_x, fit_stats_cfi, marker='^', ls='None', color = 'r', label='CFI')
-    # ax.set_ylim(10000, 30000)
-    twin1.set_ylim(0.75, 1.25)
+    ax.set_xlim(1.8,9.2)
+    ax.set_ylim(20000, 35000)
+    twin1.set_ylim(0.85, 1)
 
     ax.tick_params(axis='both', direction='in', top=True)
     twin1.tick_params(axis='y', direction='in')
@@ -533,8 +536,8 @@ def EFA_alternate(df_norm):
     ax.legend(handles=[p1,p2])
 
     plt.tight_layout()
-    save_fig(fig, 'fit_stats')
-    plt.clf()
+    save_fig(fig, 'fit_stats_0.45')
+    plt.clf()   
 
 def factor_scores(df_norm,number_of_factors):
     # Simplified version of EFA_alternate to get factor scores for a single number of factors
@@ -588,7 +591,7 @@ def factor_scores(df_norm,number_of_factors):
 
     loads = pd.DataFrame(efa.loadings_)
     loads[loads < min_loadings] = 0
-    # loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
+    loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
 
     for index, row in loads.iterrows():
         if abs(row).max() > min_loadings:
@@ -643,6 +646,10 @@ def Factor_dependences(df_norm):
     df1['Mindset_C2'] = np.select(conditions, choices, default='Neutral')
     df1.to_csv('ExportedFiles/StudentRatings.csv', encoding = "utf-8", index=False)
 
+    # df1.groupby(level=0).apply(lambda t: stats.mannwhitneyu(t.course1, t.course2))
+    # res = scipy.stats.mannwhitneyu(x,y)
+    # print(res)
+
     Make_BoxandWhisker_Plots(df1,fs) # I got tired of scrolling paast it all
 
     # Linear regression
@@ -668,7 +675,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     palette = {course_list[0]: colors[1], course_list[1]: colors[2]}
     hue_order = [course_list[0],course_list[1]]
     fig, ax = plt.subplots()
-    g = sns.violinplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
     plt.title('Course')
     plt.xlabel('Factor')
@@ -677,8 +684,31 @@ def Make_BoxandWhisker_Plots(df1,fs):
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
     for t, l in zip(L.get_texts(), course_count_list):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
+    ax.tick_params(axis='both', direction='in', right=True)
     plt.tight_layout()
+    # add_median_labels(g)
+
+    for i in range(len(fs.columns)):
+        print(fs.columns[i])
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Course']=='PHY105M'],df1[fs.columns[i]].loc[df1['Course']=='PHY105N'],nan_policy='omit')
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white')
+            print('*')
+
     save_fig(g,'factor_ratings_course')
     plt.clf()
 
@@ -696,7 +726,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     palette ={intervention_list[0]: colors[1], intervention_list[1]: colors[2], intervention_list[2]: colors[3]}
     hue_order = [intervention_list[0],intervention_list[1],intervention_list[2]]
     fig, ax = plt.subplots()
-    g = sns.violinplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
     plt.title('Intervention')
     plt.xlabel('Factor')
@@ -707,6 +737,46 @@ def Make_BoxandWhisker_Plots(df1,fs):
         t.set_text(l)
     ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
+
+    # add_median_labels(g)
+
+    for i in range(len(fs.columns)):
+        print(fs.columns[i])
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Intervention']=='Control'],df1[fs.columns[i]].loc[df1['Intervention']=='Partner Agreements'],nan_policy='omit')
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white')
+            print('*')
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Intervention']=='Control'],df1[fs.columns[i]].loc[df1['Intervention']=='Collaborative Comparison'],nan_policy='omit')
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,-0.5,'****', ha='center', va='center', fontweight='bold', color='white')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,-0.5,'***', ha='center', va='center', fontweight='bold', color='white')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,-0.5,'**', ha='center', va='center', fontweight='bold', color='white')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,-0.5,'*', ha='center', va='center', fontweight='bold', color='white')
+            print('*')
     save_fig(g,'factor_ratings_intervention')
     plt.clf()
 
@@ -725,7 +795,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     palette ={gender_list[0]: colors[1], gender_list[1]: colors[2], gender_list[2]: colors[3]}
     hue_order = [gender_list[0],gender_list[1], gender_list[2]]
     fig, ax = plt.subplots()
-    g = sns.violinplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
     plt.title('Gender')
     plt.xlabel('Factor')
@@ -736,6 +806,48 @@ def Make_BoxandWhisker_Plots(df1,fs):
         t.set_text(l)
     ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
+
+    # add_median_labels(g)
+    print('Gender')
+    for i in range(len(fs.columns)):
+        print(fs.columns[i])
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Gender_C']=='Male'],df1[fs.columns[i]].loc[df1['Gender_C']=='Female'],nan_policy='omit')
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('*')
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Gender_C']=='Male'],df1[fs.columns[i]].loc[df1['Gender_C']=='Other'],nan_policy='omit')
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,-0.5,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,-0.5,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,-0.5,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,-0.5,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('*')
+ 
     save_fig(g,'factor_ratings_gender')
     plt.clf()
 
@@ -754,7 +866,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
     hue_order = [raceethnicity_list[0],raceethnicity_list[1]]
     fig, ax = plt.subplots()
-    g = sns.violinplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
     plt.title('Race/ethnicity')
     plt.xlabel('Factor')
@@ -765,7 +877,29 @@ def Make_BoxandWhisker_Plots(df1,fs):
         t.set_text(l)
     ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
-    save_fig(g,'factor_ratings_racethnicity')
+
+    for i in range(len(fs.columns)):
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Raceethnicity_C']=='Wellrepresented'],df1[fs.columns[i]].loc[df1['Raceethnicity_C']=='Underrepresented'],nan_policy='omit')
+        print(fs.columns[i])
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('*')
+
+    save_fig(g,'factor_ratings_raceethnicity')
     plt.clf()
 
     # Plot (box and whisker) averages for each factor by education
@@ -783,7 +917,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     palette ={education_list[0]: colors[1], education_list[1]: colors[2]}
     hue_order = [education_list[0],education_list[1]]
     fig, ax = plt.subplots()
-    g = sns.violinplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Education_C', hue_order=hue_order, palette=palette)
     plt.title('Education')
     plt.xlabel('Factor')
@@ -794,6 +928,28 @@ def Make_BoxandWhisker_Plots(df1,fs):
         t.set_text(l)
     ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
+
+    for i in range(len(fs.columns)):
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Education_C']=='1stGen'],df1[fs.columns[i]].loc[df1['Education_C']=='Not1stGen'],nan_policy='omit')
+        print(fs.columns[i])
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('*')
+
     save_fig(g,'factor_ratings_education')
     plt.clf()
 
@@ -811,7 +967,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     palette ={mindset_list[0]: colors[1], mindset_list[1]: colors[2]}
     hue_order = [mindset_list[0],mindset_list[1]]
     fig, ax = plt.subplots()
-    g = sns.violinplot(data=df_bnw.melt(id_vars=['Mindset_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Mindset_C', hue_order=hue_order, palette=palette)
     plt.title('Mindset')
     plt.xlabel('Factor')
@@ -822,6 +978,28 @@ def Make_BoxandWhisker_Plots(df1,fs):
         t.set_text(l)
     ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
+
+    for i in range(len(fs.columns)):
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Mindset_C']=='Fixed'],df1[fs.columns[i]].loc[df1['Mindset_C']=='Growth'],nan_policy='omit')
+        print(fs.columns[i])
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('*')
+
     save_fig(g,'factor_ratings_mindset')
     plt.clf()
 
@@ -839,7 +1017,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     palette ={mindset_list[0]: colors[1], mindset_list[1]: colors[2]}
     hue_order = [mindset_list[0],mindset_list[1]]
     fig, ax = plt.subplots()
-    g = sns.violinplot(data=df_bnw.melt(id_vars=['Mindset_C2'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C2'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Mindset_C2', hue_order=hue_order, palette=palette)
     plt.title('Mindset2')
     plt.xlabel('Factor')
@@ -850,9 +1028,30 @@ def Make_BoxandWhisker_Plots(df1,fs):
         t.set_text(l)
     ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
+
+    for i in range(len(fs.columns)):
+        print(fs.columns[i])
+        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Mindset_C2']=='Fixed'],df1[fs.columns[i]].loc[df1['Mindset_C2']=='Growth'],nan_policy='omit')
+        print(res[1])
+        if res[1] <= 0.0001:
+            #Annotate **** to plot
+            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('****')
+        elif res[1] <= 0.001:
+            #Annotate *** to plot
+            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('***')
+        elif res[1] <= 0.01:
+            #Annotate ** to plot
+            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('**')
+        elif res[1] <= 0.05:
+            #Annotate * to plot
+            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
+            print('*')
+
     save_fig(g,'factor_ratings_mindset2')
     plt.clf()
-
 
     # SPLIT THE BOXPLOTS BY INTERVENTION
 
@@ -956,6 +1155,20 @@ def Make_BoxandWhisker_Plots(df1,fs):
     g.fig.tight_layout()
     save_fig(g,'factor_ratings_mindset2byintervention')
     plt.clf()
+
+def add_median_labels(ax, fmt='.2f'):
+        lines = ax.get_lines()
+        boxes = [c for c in ax.get_children() if type(c).__name__ == 'PathPatch']
+        lines_per_box = int(len(lines) / len(boxes))
+        for median in lines[4:len(lines):lines_per_box]:
+            x, y = (data.mean() for data in median.get_data())
+            text = ax.text(x, y, f'{y:{fmt}}', ha='center', va='center', fontsize=8,
+                           fontweight='bold', color='white')
+            # create median-colored border around white text for contrast
+            text.set_path_effects([
+                path_effects.Stroke(linewidth=3, foreground=median.get_color()),
+                path_effects.Normal(),
+            ])
 
 def OldFunctionRepository():
     # res = scipy.stats.mannwhitneyu(x,y) #,nan_policy='omit'
