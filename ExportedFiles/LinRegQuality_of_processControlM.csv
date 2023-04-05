@@ -1,0 +1,25 @@
+                       OLS Regression Results                      
+Dep. Variable:   ,Quality_of_process,  R-squared:         ,   0.030
+Model:           ,OLS               ,  Adj. R-squared:    ,   0.011
+Method:          ,Least Squares     ,  F-statistic:       ,   1.595
+Date:            ,Wed, 05 Apr 2023  ,  Prob (F-statistic):, 0.148  
+Time:            ,09:17:13          ,  Log-Likelihood:    , -150.13
+No. Observations:,   319            ,  AIC:               ,   314.3
+Df Residuals:    ,   312            ,  BIC:               ,   340.6
+Df Model:        ,     6            ,                     ,        
+Covariance Type: ,nonrobust         ,                     ,        
+                                                                              ,   coef   , std err ,    t    ,P>|t| ,  [0.025 ,  0.975] 
+Intercept                                                                     ,   -0.1777,    0.035,   -5.011, 0.000,   -0.247,   -0.108
+C(Gender_C, Treatment(reference='Female'))[T.Male]                            ,   -0.0010,    0.047,   -0.021, 0.983,   -0.093,    0.091
+C(Gender_C, Treatment(reference='Female'))[T.Other]                           ,    0.0491,    0.122,    0.404, 0.687,   -0.190,    0.289
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]          ,    0.1178,    0.214,    0.549, 0.583,   -0.304,    0.540
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented],   -0.0971,    0.047,   -2.070, 0.039,   -0.189,   -0.005
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                    ,    0.0481,    0.053,    0.901, 0.368,   -0.057,    0.153
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]      ,    0.3479,    0.163,    2.128, 0.034,    0.026,    0.670
+Omnibus:      ,15.416,  Durbin-Watson:     ,   1.978
+Prob(Omnibus):, 0.000,  Jarque-Bera (JB):  ,  16.285
+Skew:         , 0.539,  Prob(JB):          ,0.000291
+Kurtosis:     , 3.251,  Cond. No.          ,    12.5
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

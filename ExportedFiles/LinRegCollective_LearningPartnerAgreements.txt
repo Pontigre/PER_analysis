@@ -1,0 +1,31 @@
+                             OLS Regression Results                            
+===============================================================================
+Dep. Variable:     Collective_Learning   R-squared:                       0.035
+Model:                             OLS   Adj. R-squared:                  0.018
+Method:                  Least Squares   F-statistic:                     2.097
+Date:                 Wed, 05 Apr 2023   Prob (F-statistic):             0.0429
+Time:                         09:17:12   Log-Likelihood:                -77.055
+No. Observations:                  409   AIC:                             170.1
+Df Residuals:                      401   BIC:                             202.2
+Df Model:                            7                                         
+Covariance Type:             nonrobust                                         
+==================================================================================================================================================
+                                                                                     coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                          0.4877      0.025     19.212      0.000       0.438       0.538
+C(Course)[T.PHY105N]                                                              -0.0125      0.030     -0.418      0.676      -0.071       0.046
+C(Gender_C, Treatment(reference='Female'))[T.Male]                                -0.0012      0.031     -0.039      0.969      -0.063       0.060
+C(Gender_C, Treatment(reference='Female'))[T.Other]                               -0.1570      0.096     -1.643      0.101      -0.345       0.031
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]              -0.1620      0.134     -1.210      0.227      -0.425       0.101
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]     0.0193      0.032      0.607      0.544      -0.043       0.082
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                         0.0862      0.038      2.243      0.025       0.011       0.162
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]          -0.1930      0.163     -1.184      0.237      -0.514       0.128
+==============================================================================
+Omnibus:                       16.427   Durbin-Watson:                   1.931
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               17.680
+Skew:                          -0.499   Prob(JB):                     0.000145
+Kurtosis:                       2.797   Cond. No.                         15.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

@@ -2,8 +2,8 @@
 Dep. Variable:   ,Impact_on_Individual,  R-squared:         ,   0.019
 Model:           ,OLS                 ,  Adj. R-squared:    ,   0.012
 Method:          ,Least Squares       ,  F-statistic:       ,   2.760
-Date:            ,Fri, 31 Mar 2023    ,  Prob (F-statistic):,0.00336 
-Time:            ,11:52:09            ,  Log-Likelihood:    , -617.80
+Date:            ,Wed, 05 Apr 2023    ,  Prob (F-statistic):,0.00336 
+Time:            ,09:17:12            ,  Log-Likelihood:    , -617.80
 No. Observations:,  1273              ,  AIC:               ,   1256.
 Df Residuals:    ,  1263              ,  BIC:               ,   1307.
 Df Model:        ,     9              ,                     ,        

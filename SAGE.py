@@ -51,9 +51,9 @@ def main():
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the string responses into numbers and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Prepares files for Confirmatory factor analysis on questions taken from SAGE run in R
-    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-    #     warnings.simplefilter("ignore")
-    #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
+    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+        warnings.simplefilter("ignore")
+        EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
         warnings.simplefilter("ignore")
         Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
@@ -393,7 +393,7 @@ def EFA_alternate(df_norm):
                 #     print("Bartlett's Chi Square =", chi_square_value, "; p-value: {0:.3E}".format(p_value))
 
                 # 3. EFA
-                efa = FactorAnalyzer(n_factors=n, rotation='varimax')
+                efa = FactorAnalyzer(n_factors=n, method='minres', rotation='varimax')
                 efa.fit(dfn)
 
                 # 4. Communalities
@@ -444,7 +444,7 @@ def EFA_alternate(df_norm):
 
         loads = pd.DataFrame(efa.loadings_)
         loads[abs(loads) < min_loadings] = 0
-        # loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
+        loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
 
         for index, row in loads.iterrows():
             if abs(row).max() > min_loadings:
@@ -491,9 +491,9 @@ def EFA_alternate(df_norm):
     fit_stats_x = [2,3,4,5,6,7,8,9,10,11,12,13]
 
     #>0.4 dropped multi loadings
-    # fit_stats_cfi = [0.749, 0.866, 0.887, 0.915, 0.903, 0.891, 0.900, 0.892, 0.917, 0.886, 0.903, 0.920]
-    # fit_stats_aic = [26984.664, 28609.788, 29635.652, 30486.064, 31500.537, 33498.759, 33146.545, 32774.801, 26922.132, 35217.072, 33630.630, 31440.705]
-    # fit_stats_rmsea = [0.101, 0.070, 0.063, 0.053, 0.058, 0.059, 0.058, 0.059, 0.058, 0.059, 0.055, 0.054]
+    fit_stats_cfi = [0.749, 0.866, 0.887, 0.915, 0.903, 0.891, 0.900, 0.892, 0.917, 0.886, 0.903, 0.920]
+    fit_stats_aic = [26984.664, 28609.788, 29635.652, 30486.064, 31500.537, 33498.759, 33146.545, 32774.801, 26922.132, 35217.072, 33630.630, 31440.705]
+    fit_stats_rmsea = [0.101, 0.070, 0.063, 0.053, 0.058, 0.059, 0.058, 0.059, 0.058, 0.059, 0.055, 0.054]
 
     # >0.4
     # fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
@@ -501,9 +501,9 @@ def EFA_alternate(df_norm):
     # fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
 
     # >0.45
-    fit_stats_cfi = [0.735, 0.870, 0.902, 0.895, 0.891, 0.893, 0.892, 0.882, 0.909, 0.893, 0.879, 0.929]
-    fit_stats_aic = [26238.613, 25641.484, 24265.990, 27286.532, 26800.021, 25915.938, 24075.208, 28043.943, 19382.200, 27742.007, 34306.088, 21131.969]
-    fit_stats_rmsea = [0.108, 0.075, 0.067, 0.067, 0.068, 0.071, 0.075, 0.067, 0.070, 0.066, 0.062, 0.062]
+    # fit_stats_cfi = [0.735, 0.870, 0.902, 0.895, 0.891, 0.893, 0.892, 0.882, 0.909, 0.893, 0.879, 0.929]
+    # fit_stats_aic = [26238.613, 25641.484, 24265.990, 27286.532, 26800.021, 25915.938, 24075.208, 28043.943, 19382.200, 27742.007, 34306.088, 21131.969]
+    # fit_stats_rmsea = [0.108, 0.075, 0.067, 0.067, 0.068, 0.071, 0.075, 0.067, 0.070, 0.066, 0.062, 0.062]
 
     # >0.5
     # fit_stats_cfi = [0.744, 0.919, 0.923, 0.912, 0.952, 0, 0.920, 0.926, 0.909, 0.909, 0.926, 0.959]
@@ -536,7 +536,7 @@ def EFA_alternate(df_norm):
     ax.legend(handles=[p1,p2])
 
     plt.tight_layout()
-    save_fig(fig, 'fit_stats_0.45')
+    save_fig(fig, 'fit_stats_0.4dropped')
     plt.clf()   
 
 def factor_scores(df_norm,number_of_factors):
@@ -566,7 +566,7 @@ def factor_scores(df_norm,number_of_factors):
             if p_value > 0.2:
                 print("Bartlett's Test of Sphericity failed with p-value", p_value)
 
-            efa = FactorAnalyzer(n_factors=number_of_factors, rotation='varimax')
+            efa = FactorAnalyzer(n_factors=number_of_factors, method='minres', rotation='varimax')
             efa.fit(dfn)
             df_loadings = pd.DataFrame(efa.loadings_)
 
@@ -590,8 +590,24 @@ def factor_scores(df_norm,number_of_factors):
         numb += 1
 
     loads = pd.DataFrame(efa.loadings_)
-    loads[loads < min_loadings] = 0
-    loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
+    loads[abs(loads) < min_loadings] = 0
+    # loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
+
+    loads_1 = pd.DataFrame(efa.loadings_, index=list(dfn))
+    loads1 = loads_1.reindex(index=list(df_norm), fill_value=0).drop(Demo_Qs)
+    loads1[abs(loads1) < min_loadings] = 0
+    # loads1.iloc[np.where(loads1.ne(0).sum(axis=1) > 1)[0]] = 0
+
+    truncm = loads1[abs(loads1)>=0.001]
+    fig, ax = plt.subplots()
+    plt.imshow(truncm, cmap="viridis", vmin=-1, vmax=1)
+    plt.colorbar()
+    ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    ax.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
+    plt.tight_layout()
+    save_fig(fig, 'SAGE_EFA')
+    plt.clf()
+    loads1.round(decimals = 4).to_csv('ExportedFiles/SAGE_factors.csv', encoding = "utf-8", index=True)
 
     for index, row in loads.iterrows():
         if abs(row).max() > min_loadings:
@@ -658,6 +674,67 @@ def Factor_dependences(df_norm):
         with open(('ExportedFiles/LinReg' + str(i) +'.txt'), 'w') as fh:
             fh.write(res.summary().as_text())
         with open(('ExportedFiles/LinReg' + str(i) +'.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1[df1['Intervention'] == 'Control']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'Control.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'Control.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1[df1['Intervention'] == 'Partner Agreements']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreements.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreements.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1[df1['Intervention'] == 'Collaborative Comparison']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparison.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparison.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+
+    dfM = df1[df1['Course'] == 'PHY105M']
+    for i in list(fs):
+        res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'M.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'M.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Control']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'ControlM.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'ControlM.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Partner Agreements']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsM.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsM.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Collaborative Comparison']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonM.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonM.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+
+    dfN = df1[df1['Course'] == 'PHY105N']
+    for i in list(fs):
+        res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'N.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'N.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Control']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'ControlN.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'ControlN.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Partner Agreements']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsN.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsN.csv'), 'w') as fh:
+            fh.write(res.summary().as_csv())
+        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Collaborative Comparison']).fit()
+        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonN.txt'), 'w') as fh:
+            fh.write(res.summary().as_text())
+        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonN.csv'), 'w') as fh:
             fh.write(res.summary().as_csv())
 
 def Make_BoxandWhisker_Plots(df1,fs):

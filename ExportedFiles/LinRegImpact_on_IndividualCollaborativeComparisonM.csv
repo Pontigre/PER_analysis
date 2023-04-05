@@ -1,0 +1,25 @@
+                        OLS Regression Results                       
+Dep. Variable:   ,Impact_on_Individual,  R-squared:         ,   0.041
+Model:           ,OLS                 ,  Adj. R-squared:    ,   0.013
+Method:          ,Least Squares       ,  F-statistic:       ,   1.450
+Date:            ,Wed, 05 Apr 2023    ,  Prob (F-statistic):, 0.197  
+Time:            ,09:17:13            ,  Log-Likelihood:    , -101.82
+No. Observations:,   211              ,  AIC:               ,   217.6
+Df Residuals:    ,   204              ,  BIC:               ,   241.1
+Df Model:        ,     6              ,                     ,        
+Covariance Type: ,nonrobust           ,                     ,        
+                                                                              ,   coef   , std err ,    t    ,P>|t| ,  [0.025 ,  0.975] 
+Intercept                                                                     ,    0.4479,    0.042,   10.678, 0.000,    0.365,    0.531
+C(Gender_C, Treatment(reference='Female'))[T.Male]                            ,   -0.1067,    0.060,   -1.785, 0.076,   -0.225,    0.011
+C(Gender_C, Treatment(reference='Female'))[T.Other]                           ,   -0.2719,    0.233,   -1.166, 0.245,   -0.732,    0.188
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]          ,   -0.3267,    0.233,   -1.401, 0.163,   -0.787,    0.133
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented],    0.0304,    0.059,    0.518, 0.605,   -0.085,    0.146
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                    ,   -0.0591,    0.066,   -0.895, 0.372,   -0.189,    0.071
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]      ,   -0.1554,    0.232,   -0.669, 0.504,   -0.613,    0.302
+Omnibus:      , 4.403,  Durbin-Watson:     ,   2.023
+Prob(Omnibus):, 0.111,  Jarque-Bera (JB):  ,   4.421
+Skew:         ,-0.352,  Prob(JB):          ,   0.110
+Kurtosis:     , 2.908,  Cond. No.          ,    12.2
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

@@ -1,0 +1,32 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                Mindset   R-squared:                       0.016
+Model:                            OLS   Adj. R-squared:                  0.006
+Method:                 Least Squares   F-statistic:                     1.556
+Date:                Wed, 05 Apr 2023   Prob (F-statistic):              0.135
+Time:                        09:17:13   Log-Likelihood:                -347.85
+No. Observations:                 765   AIC:                             713.7
+Df Residuals:                     756   BIC:                             755.5
+Df Model:                           8                                         
+Covariance Type:            nonrobust                                         
+==================================================================================================================================================
+                                                                                     coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                          0.4919      0.028     17.606      0.000       0.437       0.547
+C(Intervention, Treatment(reference='Control'))[T.Collaborative Comparison]       -0.0203      0.034     -0.594      0.553      -0.087       0.047
+C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]             -0.0435      0.033     -1.312      0.190      -0.109       0.022
+C(Gender_C, Treatment(reference='Female'))[T.Male]                                 0.0746      0.030      2.484      0.013       0.016       0.134
+C(Gender_C, Treatment(reference='Female'))[T.Other]                                0.0296      0.092      0.321      0.748      -0.152       0.211
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]               0.0934      0.127      0.737      0.461      -0.155       0.342
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]    -0.0327      0.030     -1.107      0.269      -0.091       0.025
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                         0.0321      0.034      0.941      0.347      -0.035       0.099
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]          -0.1248      0.117     -1.064      0.288      -0.355       0.106
+==============================================================================
+Omnibus:                       36.529   Durbin-Watson:                   2.071
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               40.451
+Skew:                          -0.552   Prob(JB):                     1.65e-09
+Kurtosis:                       2.778   Cond. No.                         13.3
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

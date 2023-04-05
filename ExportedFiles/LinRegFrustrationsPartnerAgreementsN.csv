@@ -1,0 +1,25 @@
+                      OLS Regression Results                     
+Dep. Variable:   ,Frustrations    ,  R-squared:         ,   0.093
+Model:           ,OLS             ,  Adj. R-squared:    ,   0.060
+Method:          ,Least Squares   ,  F-statistic:       ,   2.840
+Date:            ,Wed, 05 Apr 2023,  Prob (F-statistic):,0.0117  
+Time:            ,09:17:14        ,  Log-Likelihood:    , -98.571
+No. Observations:,   174          ,  AIC:               ,   211.1
+Df Residuals:    ,   167          ,  BIC:               ,   233.3
+Df Model:        ,     6          ,                     ,        
+Covariance Type: ,nonrobust       ,                     ,        
+                                                                              ,   coef   , std err ,    t    ,P>|t| ,  [0.025 ,  0.975] 
+Intercept                                                                     ,   -0.2536,    0.052,   -4.874, 0.000,   -0.356,   -0.151
+C(Gender_C, Treatment(reference='Female'))[T.Male]                            ,    0.0350,    0.068,    0.512, 0.610,   -0.100,    0.170
+C(Gender_C, Treatment(reference='Female'))[T.Other]                           ,    0.0210,    0.184,    0.114, 0.909,   -0.342,    0.384
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]          ,    0.6181,    0.316,    1.955, 0.052,   -0.006,    1.242
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented],   -0.1285,    0.075,   -1.708, 0.090,   -0.277,    0.020
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                    ,   -0.1868,    0.093,   -2.010, 0.046,   -0.370,   -0.003
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]      ,    0.6110,    0.442,    1.383, 0.169,   -0.261,    1.483
+Omnibus:      ,12.814,  Durbin-Watson:     ,   2.291
+Prob(Omnibus):, 0.002,  Jarque-Bera (JB):  ,   4.991
+Skew:         , 0.070,  Prob(JB):          ,  0.0824
+Kurtosis:     , 2.182,  Cond. No.          ,    16.1
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

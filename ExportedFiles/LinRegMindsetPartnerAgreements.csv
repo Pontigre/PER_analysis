@@ -1,0 +1,26 @@
+                      OLS Regression Results                     
+Dep. Variable:   ,Mindset         ,  R-squared:         ,   0.053
+Model:           ,OLS             ,  Adj. R-squared:    ,   0.037
+Method:          ,Least Squares   ,  F-statistic:       ,   3.209
+Date:            ,Wed, 05 Apr 2023,  Prob (F-statistic):,0.00255 
+Time:            ,09:17:12        ,  Log-Likelihood:    , -185.84
+No. Observations:,   409          ,  AIC:               ,   387.7
+Df Residuals:    ,   401          ,  BIC:               ,   419.8
+Df Model:        ,     7          ,                     ,        
+Covariance Type: ,nonrobust       ,                     ,        
+                                                                              ,   coef   , std err ,    t    ,P>|t| ,  [0.025 ,  0.975] 
+Intercept                                                                     ,    0.4170,    0.033,   12.591, 0.000,    0.352,    0.482
+C(Course)[T.PHY105N]                                                          ,    0.0685,    0.039,    1.761, 0.079,   -0.008,    0.145
+C(Gender_C, Treatment(reference='Female'))[T.Male]                            ,    0.1165,    0.041,    2.852, 0.005,    0.036,    0.197
+C(Gender_C, Treatment(reference='Female'))[T.Other]                           ,    0.0776,    0.125,    0.622, 0.534,   -0.168,    0.323
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]          ,    0.0637,    0.175,    0.365, 0.716,   -0.280,    0.407
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented],   -0.0271,    0.041,   -0.655, 0.513,   -0.108,    0.054
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                    ,    0.1216,    0.050,    2.427, 0.016,    0.023,    0.220
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]      ,   -0.3094,    0.213,   -1.454, 0.147,   -0.728,    0.109
+Omnibus:      ,26.310,  Durbin-Watson:     ,   2.082
+Prob(Omnibus):, 0.000,  Jarque-Bera (JB):  ,  29.730
+Skew:         ,-0.654,  Prob(JB):          ,3.50e-07
+Kurtosis:     , 3.189,  Cond. No.          ,    15.5
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
