@@ -54,9 +54,9 @@ def main():
     with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
         warnings.simplefilter("ignore")
         EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
-    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-        warnings.simplefilter("ignore")
-        Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
+    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+    #     warnings.simplefilter("ignore")
+    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -491,14 +491,14 @@ def EFA_alternate(df_norm):
     fit_stats_x = [2,3,4,5,6,7,8,9,10,11,12,13]
 
     #>0.4 dropped multi loadings
-    fit_stats_cfi = [0.749, 0.866, 0.887, 0.915, 0.903, 0.891, 0.900, 0.892, 0.917, 0.886, 0.903, 0.920]
-    fit_stats_aic = [26984.664, 28609.788, 29635.652, 30486.064, 31500.537, 33498.759, 33146.545, 32774.801, 26922.132, 35217.072, 33630.630, 31440.705]
-    fit_stats_rmsea = [0.101, 0.070, 0.063, 0.053, 0.058, 0.059, 0.058, 0.059, 0.058, 0.059, 0.055, 0.054]
+    # fit_stats_cfi = [0.749, 0.866, 0.887, 0.915, 0.903, 0.891, 0.900, 0.892, 0.917, 0.886, 0.903, 0.920]
+    # fit_stats_aic = [26984.664, 28609.788, 29635.652, 30486.064, 31500.537, 33498.759, 33146.545, 32774.801, 26922.132, 35217.072, 33630.630, 31440.705]
+    # fit_stats_rmsea = [0.101, 0.070, 0.063, 0.053, 0.058, 0.059, 0.058, 0.059, 0.058, 0.059, 0.055, 0.054]
 
-    # >0.4
-    # fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
-    # fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
-    # fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
+    # # >0.4 minres factoring
+    fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
+    fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
+    fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
 
     # >0.45
     # fit_stats_cfi = [0.735, 0.870, 0.902, 0.895, 0.891, 0.893, 0.892, 0.882, 0.909, 0.893, 0.879, 0.929]
@@ -509,6 +509,31 @@ def EFA_alternate(df_norm):
     # fit_stats_cfi = [0.744, 0.919, 0.923, 0.912, 0.952, 0, 0.920, 0.926, 0.909, 0.909, 0.926, 0.959]
     # fit_stats_aic = [18421.318, 19339.369, 20325.490, 22875.203, 21216.331, 0, 22075.066, 21556.533, 19382.200, 25617.265, 19049.394, 9880.362]
     # fit_stats_rmsea = [0.132, 0.072, 0.068, 0.067, 0.052, 0, 0.070, 0.065, 0.070, 0.063, 0.072, 0.078]
+
+    # >0.4 principal axis factoring
+    # fit_stats_cfi = [0.744, 0.853, 0.848, 0.853, 0.869, 0.889, 0.876, 0.900, 0.915, 0.895, 0.889, 0.901]
+    # fit_stats_aic = [36785.799, 33048.111, 38921.059, 37827.959, 36387.090, 34932.983, 42099.834, 38007.856, 35414.681, 39775.987, 42159.633, 42614.275]
+    # fit_stats_rmsea = [0.084, 0.066, 0.061, 0.059, 0.059, 0.055, 0.053, 0.049, 0.048, 0.052, 0.052, 0.050]
+
+    # # >0.4 principal axis factoring, oblimin rotation
+    # fit_stats_cfi = [0.742, 0.851, 0.854, 0.844, 0.859, 0.843, 0.886, 0.887, 0.877, 0.893, 0.887, 0.903]
+    # fit_stats_aic = [34963.108, 32820.964, 38354.429, 40450.617, 39938.855, 43865.028, 34667.657, 37298.599, 37465.952, 40850.335, 43815.261, 41599.902]
+    # fit_stats_rmsea = [0.087, 0.068, 0.060, 0.060, 0.058, 0.059, 0.057, 0.054, 0.059, 0.052, 0.052, 0.051]
+
+    # # >0.4 minres factoring, oblimin rotation
+    # fit_stats_cfi = [0.735, 0.876, 0.907, 0.895, 0.913, 0.981, 0.886, 0.928, 0.957, 0.933, 0.934, 0.989]
+    # fit_stats_aic = [26238.613, 26125.849, 24205.310, 28121.677, 28345.578, 12278.196, 34667.657, 22316.908, 17478.230, 14912.115, 25411.775, 8695.152]
+    # fit_stats_rmsea = [0.108, 0.071, 0.065, 0.062, 0.059, 0.054, 0.057, 0.070, 0.058, 0.076, 0.070, 0.036]
+
+    # >0.4 minres factoring, promax rotation
+    # fit_stats_cfi = [0.735, 0.884, 0.883, 0.912, 0.904, 0.908, 0.894, 0.893, 0.905, 0.928, 0.951, 0.957]
+    # fit_stats_aic = [26238.613, 26506.597, 29128.450, 27683.023, 29791.958, 25347.142, 30469.837, 32697.601, 30499.639, 25531.259, 26400.484, 23966.355]
+    # fit_stats_rmsea = [0.108, 0.068, 0.064, 0.056, 0.059, 0.067, 0.059, 0.060, 0.061, 0.061, 0.052, 0.057]
+
+    # # >0.4 principal axis factoring, promax rotation
+    # fit_stats_cfi = [0.747, 0.846, 0.854, 0.856, 0.855, 0.850, 0.878, 0.877, 0.907, 0.904, 0.895, 0.957]
+    # fit_stats_aic = [32235.822, 34019.724, 38354.429, 37811.160, 38971.628, 39655.241, 39770.818, 39468.707, 39308.744, 39498.471, 41458.399, 23966.355]
+    # fit_stats_rmsea = [0.090, 0.068, 0.060, 0.059, 0.060, 0.061, 0.054, 0.056, 0.047, 0.050, 0.051, 0.057]
 
     fig, ax = plt.subplots()
     fig.subplots_adjust(right=0.75)
@@ -536,7 +561,7 @@ def EFA_alternate(df_norm):
     ax.legend(handles=[p1,p2])
 
     plt.tight_layout()
-    save_fig(fig, 'fit_stats_0.4dropped')
+    save_fig(fig, 'fit_stats_0.4')
     plt.clf()   
 
 def factor_scores(df_norm,number_of_factors):

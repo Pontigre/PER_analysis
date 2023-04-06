@@ -1,0 +1,136 @@
+lavaan 0.6.13 ended normally after 151 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        72
+
+  Number of observations                          1273
+
+Model Test User Model:
+                                                      
+  Test statistic                              1003.121
+  Degrees of freedom                               204
+  P-value (Chi-square)                           0.000
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  f1 =~                                               
+    W.I......I....    1.000                           
+    T........I....    0.961       NA                  
+    My.......I....   -0.778       NA                  
+    T.......I.....   -0.871       NA                  
+    Th......I.....   -0.928       NA                  
+    I.d.nt.t......    0.810       NA                  
+    I.fl.w........    0.996       NA                  
+    Wh.I..........   -1.018       NA                  
+  f2 =~                                               
+    I............I    1.000                           
+    I.......I.....   -0.089       NA                  
+    I.b...........    1.036       NA                  
+  f3 =~                                               
+    Y.............    1.000                           
+    Yr.p..........    0.588       NA                  
+    Y.............    1.054       NA                  
+  f4 =~                                               
+    I.prfr........    1.000                           
+    I.tr..........    1.436       NA                  
+    I.lr..........    1.686       NA                  
+    I.............    0.942       NA                  
+    I....I........    1.403       NA                  
+    Ev............    2.130       NA                  
+  f5 =~                                               
+    I.prfr........    1.000                           
+    I.tr..........    1.594       NA                  
+    I.lr..........    1.702       NA                  
+    I.............    1.332       NA                  
+    I....I........    1.577       NA                  
+    Ev............    1.934       NA                  
+  f6 =~                                               
+    M.............    1.000                           
+  f7 =~                                               
+    I.lt.t........    1.000                           
+    W.I...........    0.782       NA                  
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+  f1 ~~                                               
+    f2                0.081       NA                  
+    f3               -0.024       NA                  
+    f4               -0.064       NA                  
+    f5                0.028       NA                  
+    f6               -0.035       NA                  
+    f7                0.027       NA                  
+  f2 ~~                                               
+    f3               -0.045       NA                  
+    f4               -0.060       NA                  
+    f5                0.028       NA                  
+    f6               -0.013       NA                  
+    f7                0.034       NA                  
+  f3 ~~                                               
+    f4               -0.025       NA                  
+    f5                0.045       NA                  
+    f6                0.005       NA                  
+    f7               -0.039       NA                  
+  f4 ~~                                               
+    f5               -0.144       NA                  
+    f6                0.031       NA                  
+    f7                0.017       NA                  
+  f5 ~~                                               
+    f6               -0.013       NA                  
+    f7               -0.037       NA                  
+  f6 ~~                                               
+    f7               -0.009       NA                  
+
+Variances:
+                   Estimate  Std.Err  z-value  P(>|z|)
+   .W.I......I....    0.181       NA                  
+   .T........I....    0.216       NA                  
+   .My.......I....    0.141       NA                  
+   .T.......I.....    0.123       NA                  
+   .Th......I.....    0.160       NA                  
+   .I.d.nt.t......    0.230       NA                  
+   .I.fl.w........    0.132       NA                  
+   .Wh.I..........    0.198       NA                  
+   .I............I    0.184       NA                  
+   .I.......I.....    0.165       NA                  
+   .I.b...........    0.203       NA                  
+   .Y.............    0.044       NA                  
+   .Yr.p..........    0.193       NA                  
+   .Y.............    0.057       NA                  
+   .I.prfr........    0.213       NA                  
+   .I.tr..........    0.153       NA                  
+   .I.lr..........    0.108       NA                  
+   .I.............    0.132       NA                  
+   .I....I........    0.106       NA                  
+   .Ev............    0.131       NA                  
+   .M.............    0.000                           
+   .I.lt.t........    0.189       NA                  
+   .W.I...........    0.188       NA                  
+    f1                0.126       NA                  
+    f2                0.110       NA                  
+    f3                0.145       NA                  
+    f4                0.154       NA                  
+    f5                0.160       NA                  
+    f6                0.242       NA                  
+    f7                0.060       NA                  
+
+                 npar                  fmin                 chisq                    df                pvalue        baseline.chisq           baseline.df 
+               72.000                 0.394              1003.121               204.000                 0.000              7478.818               253.000 
+      baseline.pvalue                   cfi                   tli                  nnfi                   rfi                   nfi                  pnfi 
+                0.000                 0.889                 0.863                 0.863                 0.834                 0.866                 0.698 
+                  ifi                   rni                  logl     unrestricted.logl                   aic                   bic                ntotal 
+                0.890                 0.889            -17394.491            -16892.931             34932.983             35303.720              1273.000 
+                 bic2                 rmsea        rmsea.ci.lower        rmsea.ci.upper        rmsea.ci.level          rmsea.pvalue        rmsea.close.h0 
+            35075.013                 0.055                 0.052                 0.059                 0.900                 0.004                 0.050 
+rmsea.notclose.pvalue     rmsea.notclose.h0                   rmr            rmr_nomean                  srmr          srmr_bentler   srmr_bentler_nomean 
+                0.000                 0.080                 0.012                 0.012                 0.050                 0.050                 0.050 
+                 crmr           crmr_nomean            srmr_mplus     srmr_mplus_nomean                 cn_05                 cn_01                   gfi 
+                0.052                 0.052                 0.050                 0.050               303.440               323.220                 0.929 
+                 agfi                  pgfi                   mfi                  ecvi 
+                0.904                 0.687                 0.731                 0.901 
