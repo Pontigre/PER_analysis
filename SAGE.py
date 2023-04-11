@@ -51,12 +51,12 @@ def main():
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the string responses into numbers and combines inversely worded questions into one
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # SAGE_validation(df_norm) # Prepares files for Confirmatory factor analysis on questions taken from SAGE run in R
-    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-        warnings.simplefilter("ignore")
-        EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
     #     warnings.simplefilter("ignore")
-    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
+    #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
+    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+        warnings.simplefilter("ignore")
+        Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -665,7 +665,7 @@ def Factor_dependences(df_norm):
     # Raceethnicity -> Wellrepresented (white, asian), underrepresented
     df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
     conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian,White'),
-                (~df1['Raceethnicity'].str.contains('Asian')) | (~df1['Raceethnicity'].str.contains('White')) | (~df1['Raceethnicity'].str.contains('Prefer not')),
+                ((~df1['Raceethnicity'].str.contains('Asian')) & (~df1['Raceethnicity'].str.contains('White')) & ~df1['Raceethnicity'].str.contains('Prefer not')),
                 (df1['Raceethnicity'].str.contains('Prefer not'))]
     choices = ['Wellrepresented','Underrepresented','Prefer not to disclose']
     df1['Raceethnicity_C'] = np.select(conditions, choices, default='Mixed')
@@ -685,6 +685,7 @@ def Factor_dependences(df_norm):
     conditions = [df[df[Phys_Int_Cols]<-0.5].count(axis=1) > 1,  df[df[Phys_Int_Cols]>0.5].count(axis=1) > 1]
     choices = ['Fixed','Growth']
     df1['Mindset_C2'] = np.select(conditions, choices, default='Neutral')
+    print(df1[df1['Raceethnicity_C']=='Mixed'])
     df1.to_csv('ExportedFiles/StudentRatings.csv', encoding = "utf-8", index=False)
 
     # df1.groupby(level=0).apply(lambda t: stats.mannwhitneyu(t.course1, t.course2))
@@ -697,70 +698,37 @@ def Factor_dependences(df_norm):
     for i in list(fs):
         res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1[df1['Intervention'] == 'Control']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'Control.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'Control.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1[df1['Intervention'] == 'Partner Agreements']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreements.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreements.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1[df1['Intervention'] == 'Collaborative Comparison']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparison.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparison.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
 
     dfM = df1[df1['Course'] == 'PHY105M']
     for i in list(fs):
         res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'M.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'M.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Control']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'ControlM.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'ControlM.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Partner Agreements']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsM.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsM.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Collaborative Comparison']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonM.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonM.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
 
     dfN = df1[df1['Course'] == 'PHY105N']
     for i in list(fs):
         res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'N.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'N.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Control']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'ControlN.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'ControlN.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Partner Agreements']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsN.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsN.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Collaborative Comparison']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonN.txt'), 'w') as fh:
-            fh.write(res.summary().as_text())
-        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonN.csv'), 'w') as fh:
-            fh.write(res.summary().as_csv())
+            fh.write(res.summary2().as_text())
 
 def Make_BoxandWhisker_Plots(df1,fs):
     # Plot (box and whisker) averages for each factor by course

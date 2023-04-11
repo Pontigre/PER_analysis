@@ -1,0 +1,30 @@
+                                                  Results: Ordinary least squares
+====================================================================================================================================
+Model:                                    OLS                                    Adj. R-squared:                           0.032    
+Dependent Variable:                       Frustrations                           AIC:                                      1608.7575
+Date:                                     2023-04-10 11:51                       BIC:                                      1670.5471
+No. Observations:                         1273                                   Log-Likelihood:                           -792.38  
+Df Model:                                 11                                     F-statistic:                              4.864    
+Df Residuals:                             1261                                   Prob (F-statistic):                       2.14e-07 
+R-squared:                                0.041                                  Scale:                                    0.20525  
+------------------------------------------------------------------------------------------------------------------------------------
+                                                                                      Coef.  Std.Err.    t    P>|t|   [0.025  0.975]
+------------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                            -0.1944   0.0273 -7.1307 0.0000 -0.2479 -0.1409
+C(Intervention, Treatment(reference='Control'))[T.Collaborative Comparison]          -0.0357   0.0313 -1.1402 0.2544 -0.0970  0.0257
+C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]                -0.0515   0.0305 -1.6892 0.0914 -0.1114  0.0083
+C(Course)[T.PHY105N]                                                                 -0.0153   0.0262 -0.5819 0.5607 -0.0667  0.0362
+C(Gender_C, Treatment(reference='Female'))[T.Male]                                    0.0498   0.0269  1.8544 0.0639 -0.0029  0.1025
+C(Gender_C, Treatment(reference='Female'))[T.Other]                                   0.0766   0.0820  0.9345 0.3502 -0.0842  0.2375
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]                  0.3230   0.1210  2.6683 0.0077  0.0855  0.5605
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Mixed]                  -0.1091   0.0486 -2.2438 0.0250 -0.2045 -0.0137
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Prefer not to disclose] -0.0292   0.0963 -0.3034 0.7617 -0.2181  0.1597
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]       -0.1357   0.0309 -4.3897 0.0000 -0.1964 -0.0751
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                           -0.0636   0.0326 -1.9495 0.0515 -0.1276  0.0004
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]              0.0148   0.1335  0.1110 0.9116 -0.2470  0.2767
+------------------------------------------------------------------------------------------------------------------------------------
+Omnibus:                                     42.495                             Durbin-Watson:                                2.073 
+Prob(Omnibus):                               0.000                              Jarque-Bera (JB):                             22.947
+Skew:                                        0.144                              Prob(JB):                                     0.000 
+Kurtosis:                                    2.409                              Condition No.:                                15    
+====================================================================================================================================

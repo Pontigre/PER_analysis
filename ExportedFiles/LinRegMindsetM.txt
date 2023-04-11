@@ -1,0 +1,29 @@
+                                                  Results: Ordinary least squares
+===================================================================================================================================
+Model:                                    OLS                                    Adj. R-squared:                           0.003   
+Dependent Variable:                       Mindset                                AIC:                                      717.5033
+Date:                                     2023-04-10 11:51                       BIC:                                      768.5420
+No. Observations:                         765                                    Log-Likelihood:                           -347.75 
+Df Model:                                 10                                     F-statistic:                              1.260   
+Df Residuals:                             754                                    Prob (F-statistic):                       0.249   
+R-squared:                                0.016                                  Scale:                                    0.14745 
+-----------------------------------------------------------------------------------------------------------------------------------
+                                                                                      Coef.  Std.Err.    t    P>|t|   [0.025 0.975]
+-----------------------------------------------------------------------------------------------------------------------------------
+Intercept                                                                             0.4921   0.0280 17.5762 0.0000  0.4371 0.5471
+C(Intervention, Treatment(reference='Control'))[T.Collaborative Comparison]          -0.0214   0.0343 -0.6229 0.5335 -0.0887 0.0460
+C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]                -0.0442   0.0332 -1.3293 0.1842 -0.1094 0.0211
+C(Gender_C, Treatment(reference='Female'))[T.Male]                                    0.0749   0.0301  2.4885 0.0130  0.0158 0.1339
+C(Gender_C, Treatment(reference='Female'))[T.Other]                                   0.0292   0.0925  0.3151 0.7527 -0.1525 0.2108
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]                  0.1081   0.1314  0.8227 0.4109 -0.1498 0.3659
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Mixed]                  -0.0273   0.0525 -0.5192 0.6038 -0.1303 0.0758
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Prefer not to disclose] -0.0750   0.1034 -0.7255 0.4684 -0.2781 0.1280
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]       -0.0315   0.0329 -0.9555 0.3396 -0.0961 0.0332
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                            0.0321   0.0347  0.9242 0.3557 -0.0361 0.1003
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]             -0.0977   0.1336 -0.7313 0.4648 -0.3599 0.1646
+-----------------------------------------------------------------------------------------------------------------------------------
+Omnibus:                                    36.668                             Durbin-Watson:                                2.072 
+Prob(Omnibus):                              0.000                              Jarque-Bera (JB):                             40.642
+Skew:                                       -0.554                             Prob(JB):                                     0.000 
+Kurtosis:                                   2.780                              Condition No.:                                13    
+===================================================================================================================================
