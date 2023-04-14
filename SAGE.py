@@ -64,7 +64,7 @@ def complete(text, state):
 
 def save_fig(fig, figure_name):
     fname = os.path.expanduser(f'{image_dir}/{figure_name}')
-    plt.savefig(fname + '.png')
+    plt.savefig(fname + '.png',dpi=600, bbox_inches='tight')
     # plt.savefig(fname + '.svg')
 
 def Prepare_data(df):
@@ -329,16 +329,33 @@ def EFA_alternate(df_norm):
     print('Scree Plot')
     fa = FactorAnalyzer(rotation=None)
     fa.fit(df_SAGE)
+
     ev, v = fa.get_eigenvalues()
+    plt.rcParams['font.family'] = 'serif'
+    params = {'axes.labelsize': 10,
+           'legend.fontsize': 10,
+           'xtick.labelsize': 8,
+           'ytick.labelsize': 8,
+           'xtick.bottom': True,
+           'xtick.top': True,
+           'ytick.left': True,
+           'ytick.right': True,
+           'xtick.direction': 'in',
+           'ytick.direction': 'in',
+           'font.weight': 'bold',
+           'axes.labelweight': 'bold'
+           }
+    plt.rcParams.update(params)
+
+    sns.set_context("paper")
 
     fig, ax = plt.subplots()
     plt.plot(ev, '.-', linewidth=2, color='blue')
     plt.hlines(1, 0, 22, linestyle='dashed')
-    plt.title('Factor Analysis Scree Plot')
     plt.xlabel('Factor')
     plt.ylabel('Eigenvalue')
-    plt.xlim(-0.5,22)
-    plt.ylim(0,5.5)
+    plt.xlim(-0.5,15)
+    plt.ylim(0,8)
     plt.xticks(range(0,20))
     save_fig(fig, 'SAGE_Scree')
     plt.clf()
@@ -357,7 +374,7 @@ def EFA_alternate(df_norm):
 
     fit_stats_x = []
     fit_stats_y = []
-    for n in range(2,14):
+    for n in range(2,3):
         print('Number of factors:', n)
         # fit_stats_x.append(n)
         # Create a copy of the data so that we don't remove data when dropping columns
@@ -444,7 +461,7 @@ def EFA_alternate(df_norm):
 
         loads = pd.DataFrame(efa.loadings_)
         loads[abs(loads) < min_loadings] = 0
-        loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
+        # loads.iloc[np.where(loads.ne(0).sum(axis=1) > 1)[0]] = 0
 
         for index, row in loads.iterrows():
             if abs(row).max() > min_loadings:
@@ -562,7 +579,50 @@ def EFA_alternate(df_norm):
 
     plt.tight_layout()
     save_fig(fig, 'fit_stats_0.4')
-    plt.clf()   
+    plt.clf()
+
+    # Combined scree and AIC plot
+    fa = FactorAnalyzer(rotation=None)
+    fa.fit(df_SAGE)
+    ev, v = fa.get_eigenvalues()
+
+    plt.rcParams['font.family'] = 'serif'
+    params = {'axes.labelsize': 10,
+           'legend.fontsize': 10,
+           'xtick.labelsize': 8,
+           'ytick.labelsize': 8,
+           'xtick.bottom': True,
+           'xtick.top': True,
+           'ytick.left': True,
+           'ytick.right': True,
+           'xtick.direction': 'in',
+           'ytick.direction': 'in',
+           'font.weight': 'bold',
+           'axes.labelweight': 'bold'
+           }
+    plt.rcParams.update(params)
+
+    sns.set_context("paper")
+    f, (ax1, ax2) = plt.subplots(2, sharex=True)#, sharey=True)
+    p1, = ax1.plot(ev, '.-', linewidth=2, color='blue')
+    p2, = ax2.plot(fit_stats_x, fit_stats_aic, marker='o', ls='None', color = 'black', label='AIC')
+    f.subplots_adjust(hspace=0)
+    plt.setp([a.get_xticklabels() for a in f.axes[:-1]], visible=False)
+    ax1.hlines(1, 0, 22, linestyle='dashed')
+
+    plt.xlabel('Number of factors')
+    ax1.yaxis.label.set_color(p1.get_color())
+    ax1.tick_params(axis='y', colors=p1.get_color(), direction='in')
+    ax1.set_ylabel(r'$\epsilon$')
+    ax2.set_ylabel('AIC')
+
+    plt.xticks(np.arange(0, 22, 1.0))
+    plt.xlim(-0.5,13.5)
+    ax1.set_ylim(0.1,8)
+    ax2.set_ylim(25000, 39000)
+
+    save_fig(fig, 'Scree_AIC')
+    plt.clf()
 
 def factor_scores(df_norm,number_of_factors):
     # Simplified version of EFA_alternate to get factor scores for a single number of factors
@@ -647,6 +707,59 @@ def factor_scores(df_norm,number_of_factors):
     return norm_scores, model_dict
 
 def Factor_dependences(df_norm):
+    # >0.4 minres factoring
+    fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
+    fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
+    fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
+    fit_stats_x = [2,3,4,5,6,7,8,9,10,11,12,13]
+    sns.set_context("paper")
+    plt.rcParams['font.family'] = 'serif'
+    params = {'axes.labelsize': 20,
+           'legend.fontsize': 20,
+           'xtick.labelsize': 18,
+           'ytick.labelsize': 18,
+           'xtick.direction': 'in',
+           }
+    plt.rcParams.update(params)
+    fig, ax = plt.subplots()
+    p1, = ax.plot(fit_stats_x, fit_stats_aic, marker='o', ls='None', color = 'black', label='AIC')
+    ax.set_ylim(25000, 38000)
+    ax.tick_params(axis='both', direction='in', top=True)
+    plt.xlabel('Number of factors')
+    ax.set_ylabel('Akaike information criterion')
+    plt.xticks(np.arange(min(fit_stats_x), max(fit_stats_x)+1, 1.0))
+    ax.set_xlim(1.5,9.5)
+    ax.tick_params(axis='y', colors=p1.get_color(), direction='in', right=True)
+    ax.tick_params(axis='x', direction='in', top=True)
+
+    # fig.subplots_adjust(right=0.75)
+
+    # twin1 = ax.twinx()
+
+    # p1, = ax.plot(fit_stats_x, fit_stats_aic, marker='.', ls='None', color = 'black', label='AIC')
+    # p2, = twin1.plot(fit_stats_x, fit_stats_cfi, marker='^', ls='None', color = 'r', label='CFI')
+    # ax.set_xlim(1.5,9.5)
+    # ax.set_ylim(25000, 38000)
+    # twin1.set_ylim(0.85, 1)
+
+    # ax.tick_params(axis='both', direction='in', top=True)
+    # twin1.tick_params(axis='y', direction='in')
+    # plt.xlabel('Number of factors')
+    # ax.set_ylabel('Akaike information criterion')
+    # twin1.set_ylabel('Comparative Fit Index')
+
+    # ax.yaxis.label.set_color(p1.get_color())
+    # twin1.yaxis.label.set_color(p2.get_color())
+
+    # ax.tick_params(axis='y', colors=p1.get_color(), direction='in')
+    # twin1.tick_params(axis='y', colors=p2.get_color(), direction='in')
+    # ax.tick_params(axis='x', direction='in', top=True)
+    # ax.legend(handles=[p1,p2])
+
+    plt.tight_layout()
+    save_fig(fig, 'fit_stats')
+    plt.clf()
+
     # This code looks at the loading of each student onto each factor, then uses linear regression to see if demos or intervention affect these
     df = df_norm.copy()
     fs, model = factor_scores(df,6)
@@ -671,7 +784,7 @@ def Factor_dependences(df_norm):
     df1['Raceethnicity_C'] = np.select(conditions, choices, default='Mixed')
     df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
 
-    # Edcuation -> 1st gen, not 1st gen
+    # Education -> 1st gen, not 1st gen
     df1.insert(df1.columns.get_loc('Education')+1, 'Education_C', 0)
     df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if 'Prefer not' in str(x) else 'Not1stGen' for x in df['Education']]
     df1.drop(columns=['Education'], axis=1, inplace = True)
@@ -685,14 +798,23 @@ def Factor_dependences(df_norm):
     conditions = [df[df[Phys_Int_Cols]<-0.5].count(axis=1) > 1,  df[df[Phys_Int_Cols]>0.5].count(axis=1) > 1]
     choices = ['Fixed','Growth']
     df1['Mindset_C2'] = np.select(conditions, choices, default='Neutral')
-    print(df1[df1['Raceethnicity_C']=='Mixed'])
+    df1 = df1[df1['Intervention']!='Collaborative Comparison']
     df1.to_csv('ExportedFiles/StudentRatings.csv', encoding = "utf-8", index=False)
 
-    # df1.groupby(level=0).apply(lambda t: stats.mannwhitneyu(t.course1, t.course2))
-    # res = scipy.stats.mannwhitneyu(x,y)
-    # print(res)
+    # total_count = len(df1.index)
+    # course_count = df1.groupby(['Course'])['Course'].describe()['count']
+    # intervention_count = df1.groupby(['Intervention'])['Intervention'].describe()['count']
+    # gender_count = df1.groupby(['Gender_C'])['Gender_C'].describe()['count']
+    # raceethnicity_count = df1.groupby(['Raceethnicity_C'])['Raceethnicity_C'].describe()['count']
+    # education_count = df1.groupby(['Education_C'])['Education_C'].describe()['count']
+    # print('Total Count:', total_count)
+    # print('Course Count:', course_count)
+    # print('Intervention Count:', intervention_count)
+    # print('Gender Count:', gender_count)
+    # print('Race/Ethnicity Count:', raceethnicity_count)
+    # print('Education Count:', education_count)
 
-    Make_BoxandWhisker_Plots(df1,fs) # I got tired of scrolling paast it all
+    Make_BoxandWhisker_Plots(df1,fs) # I got tired of scrolling past it all
 
     # Linear regression
     for i in list(fs):
@@ -711,9 +833,6 @@ def Factor_dependences(df_norm):
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Partner Agreements']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsM.txt'), 'w') as fh:
             fh.write(res.summary2().as_text())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Collaborative Comparison']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonM.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
 
     dfN = df1[df1['Course'] == 'PHY105N']
     for i in list(fs):
@@ -726,59 +845,53 @@ def Factor_dependences(df_norm):
         res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Partner Agreements']).fit()
         with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsN.txt'), 'w') as fh:
             fh.write(res.summary2().as_text())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Female')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Collaborative Comparison']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'CollaborativeComparisonN.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
 
 def Make_BoxandWhisker_Plots(df1,fs):
+    sns.set_context("paper")
+    sns.set(style="whitegrid")
+    palette1 = sns.color_palette("colorblind")
+    palette2 = sns.color_palette("colorblind")
+    palette1[0] = "#1f78b4"
+    palette1[1] = "#33a02c"
+    palette2[0] = "#a6cee3"
+    palette2[1] = "#b2df8a"
+    palette2[2] = "#fb9a99"
+    plt.rcParams['font.family'] = 'serif'
+    params = {'axes.labelsize': 10,
+           'legend.fontsize': 10,
+           'xtick.labelsize': 8,
+           'ytick.labelsize': 8,
+           'xtick.bottom': True,
+           'xtick.direction': 'in',
+           'font.weight': 'bold',
+           'axes.labelweight': 'bold'
+           }
+    plt.rcParams.update(params)
+    goldenRatioInverse = ((5**.5 - 1) / 2)
+    Factorlabels=['Quality\nof\nProcess', 'Collective\nLearning','Individual\nBelonging','Mindset','Impact\non\nIndividual','Frustrations']
+
     # Plot (box and whisker) averages for each factor by course
     df_bnw = df1.drop(['Mindset_C','Mindset_C2','Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
     course_count =  df_bnw.groupby(['Course']).count()
     course_list = []
     course_count_list = []
+    courselabels = ['Physics I Lab', 'Physics II Lab']
     for i in list(course_count.index):
         course_list.append(i)
         string = i + ' (n = ' + str(course_count.loc[i]['Mindset']) + ')'
         course_count_list.append(string)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette = {course_list[0]: colors[1], course_list[1]: colors[2]}
+    palette = {course_list[0]: palette2[0], course_list[1]: palette2[1]}
     hue_order = [course_list[0],course_list[1]]
-    fig, ax = plt.subplots()
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
-    plt.title('Course')
     plt.xlabel('Factor')
     plt.ylabel('Rating')
-    plt.xticks(ha='right',rotation=45)
+    g.set_xticklabels(Factorlabels)
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    for t, l in zip(L.get_texts(), course_count_list):
+    for t, l in zip(L.get_texts(), courselabels):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', right=True)
     plt.tight_layout()
-    # add_median_labels(g)
-
-    for i in range(len(fs.columns)):
-        print(fs.columns[i])
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Course']=='PHY105M'],df1[fs.columns[i]].loc[df1['Course']=='PHY105N'],nan_policy='omit')
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white')
-            print('*')
-
     save_fig(g,'factor_ratings_course')
     plt.clf()
 
@@ -791,62 +904,20 @@ def Make_BoxandWhisker_Plots(df1,fs):
         intervention_list.append(i)
         string = i + ' (n = ' + str(intervention_count.loc[i]['Mindset']) + ')'
         intervention_count_list.append(string)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={intervention_list[0]: colors[1], intervention_list[1]: colors[2], intervention_list[2]: colors[3]}
-    hue_order = [intervention_list[0],intervention_list[1],intervention_list[2]]
-    fig, ax = plt.subplots()
+    palette ={intervention_list[0]: palette2[0], intervention_list[1]: palette2[1]}
+    hue_order = [intervention_list[0],intervention_list[1]]
+    interventionlabels = ['Control','Partner Agreements']
+
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
-    plt.title('Intervention')
     plt.xlabel('Factor')
     plt.ylabel('Rating')
-    plt.xticks(ha='right',rotation=45)
+    g.set_xticklabels(Factorlabels)
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    for t, l in zip(L.get_texts(), intervention_count_list):
+    for t, l in zip(L.get_texts(), interventionlabels):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
-
-    # add_median_labels(g)
-
-    for i in range(len(fs.columns)):
-        print(fs.columns[i])
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Intervention']=='Control'],df1[fs.columns[i]].loc[df1['Intervention']=='Partner Agreements'],nan_policy='omit')
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white')
-            print('*')
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Intervention']=='Control'],df1[fs.columns[i]].loc[df1['Intervention']=='Collaborative Comparison'],nan_policy='omit')
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,-0.5,'****', ha='center', va='center', fontweight='bold', color='white')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,-0.5,'***', ha='center', va='center', fontweight='bold', color='white')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,-0.5,'**', ha='center', va='center', fontweight='bold', color='white')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,-0.5,'*', ha='center', va='center', fontweight='bold', color='white')
-            print('*')
     save_fig(g,'factor_ratings_intervention')
     plt.clf()
 
@@ -856,68 +927,23 @@ def Make_BoxandWhisker_Plots(df1,fs):
     gender_count =  df_bnw.groupby(['Gender_C']).count()
     gender_list = []
     gender_count_list = []
+    genderlabels = ['Female', 'Male', 'Non-binary/Other']
     for i in list(gender_count.index):
         gender_list.append(i)
         string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
         gender_count_list.append(string)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={gender_list[0]: colors[1], gender_list[1]: colors[2], gender_list[2]: colors[3]}
+    palette ={gender_list[0]: palette2[1], gender_list[1]: palette2[0], gender_list[2]: palette2[2]}
     hue_order = [gender_list[0],gender_list[1], gender_list[2]]
-    fig, ax = plt.subplots()
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
-    plt.title('Gender')
     plt.xlabel('Factor')
     plt.ylabel('Rating')
-    plt.xticks(ha='right',rotation=45)
+    g.set_xticklabels(Factorlabels)
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    for t, l in zip(L.get_texts(), gender_count_list):
+    for t, l in zip(L.get_texts(), genderlabels):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
-
-    # add_median_labels(g)
-    print('Gender')
-    for i in range(len(fs.columns)):
-        print(fs.columns[i])
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Gender_C']=='Male'],df1[fs.columns[i]].loc[df1['Gender_C']=='Female'],nan_policy='omit')
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('*')
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Gender_C']=='Male'],df1[fs.columns[i]].loc[df1['Gender_C']=='Other'],nan_policy='omit')
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,-0.5,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,-0.5,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,-0.5,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,-0.5,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('*')
- 
     save_fig(g,'factor_ratings_gender')
     plt.clf()
 
@@ -927,48 +953,25 @@ def Make_BoxandWhisker_Plots(df1,fs):
     raceethnicity_count =  df_bnw.groupby(['Raceethnicity_C']).count()
     raceethnicity_list = []
     raceethnicity_count_list = []
+    raceethnicitylabels = ['No', 'Yes']
     for i in list(raceethnicity_count.index):
         raceethnicity_list.append(i)
         string = i + ' (n = ' + str(raceethnicity_count.loc[i]['Mindset']) + ')'
         raceethnicity_count_list.append(string)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
-    hue_order = [raceethnicity_list[0],raceethnicity_list[1]]
-    fig, ax = plt.subplots()
+    palette ={raceethnicity_list[2]: palette2[0], raceethnicity_list[1]: palette2[1]}
+    hue_order = [raceethnicity_list[2],raceethnicity_list[1]]
+
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
-    plt.title('Race/ethnicity')
     plt.xlabel('Factor')
     plt.ylabel('Rating')
-    plt.xticks(ha='right',rotation=45)
+    g.set_xticklabels(Factorlabels)
     L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    for t, l in zip(L.get_texts(), raceethnicity_count_list):
+    L.set_title('URM status?')
+    for t, l in zip(L.get_texts(), raceethnicitylabels):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
-
-    for i in range(len(fs.columns)):
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Raceethnicity_C']=='Wellrepresented'],df1[fs.columns[i]].loc[df1['Raceethnicity_C']=='Underrepresented'],nan_policy='omit')
-        print(fs.columns[i])
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('*')
-
     save_fig(g,'factor_ratings_raceethnicity')
     plt.clf()
 
@@ -978,48 +981,24 @@ def Make_BoxandWhisker_Plots(df1,fs):
     education_count =  df_bnw.groupby(['Education_C']).count()
     education_list = []
     education_count_list = []
+    educationlabels = ['Yes', 'No']
     for i in list(education_count.index):
         education_list.append(i)
         string = i + ' (n = ' + str(education_count.loc[i]['Mindset']) + ')'
         education_count_list.append(string)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={education_list[0]: colors[1], education_list[1]: colors[2]}
+    palette ={education_list[0]: palette2[0], education_list[1]: palette2[1]}
     hue_order = [education_list[0],education_list[1]]
-    fig, ax = plt.subplots()
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Education_C', hue_order=hue_order, palette=palette)
-    plt.title('Education')
     plt.xlabel('Factor')
     plt.ylabel('Rating')
-    plt.xticks(ha='right',rotation=45)
-    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    for t, l in zip(L.get_texts(), education_count_list):
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols = 2, fancybox=True, shadow=False)
+    L.set_title('1st generation student?')
+    for t, l in zip(L.get_texts(), educationlabels):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
-
-    for i in range(len(fs.columns)):
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Education_C']=='1stGen'],df1[fs.columns[i]].loc[df1['Education_C']=='Not1stGen'],nan_policy='omit')
-        print(fs.columns[i])
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('*')
-
     save_fig(g,'factor_ratings_education')
     plt.clf()
 
@@ -1032,43 +1011,18 @@ def Make_BoxandWhisker_Plots(df1,fs):
         mindset_list.append(i)
         string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
         mindset_count_list.append(string)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={mindset_list[0]: colors[1], mindset_list[1]: colors[2]}
+    palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
     hue_order = [mindset_list[0],mindset_list[1]]
-    fig, ax = plt.subplots()
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Mindset_C', hue_order=hue_order, palette=palette)
-    plt.title('Mindset')
     plt.xlabel('Factor')
     plt.ylabel('Rating')
-    plt.xticks(ha='right',rotation=45)
-    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    for t, l in zip(L.get_texts(), mindset_count_list):
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+    for t, l in zip(L.get_texts(), mindset_list):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
-
-    for i in range(len(fs.columns)):
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Mindset_C']=='Fixed'],df1[fs.columns[i]].loc[df1['Mindset_C']=='Growth'],nan_policy='omit')
-        print(fs.columns[i])
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('*')
 
     save_fig(g,'factor_ratings_mindset')
     plt.clf()
@@ -1082,163 +1036,52 @@ def Make_BoxandWhisker_Plots(df1,fs):
         mindset_list.append(i)
         string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
         mindset_count_list.append(string)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={mindset_list[0]: colors[1], mindset_list[1]: colors[2]}
+    palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
     hue_order = [mindset_list[0],mindset_list[1]]
-    fig, ax = plt.subplots()
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
     g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C2'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
                     x='Rating', y='Factor', hue='Mindset_C2', hue_order=hue_order, palette=palette)
-    plt.title('Mindset2')
     plt.xlabel('Factor')
     plt.ylabel('Rating')
-    plt.xticks(ha='right',rotation=45)
-    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    for t, l in zip(L.get_texts(), mindset_count_list):
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+    for t, l in zip(L.get_texts(), mindset_list):
         t.set_text(l)
-    ax.tick_params(axis='both', direction='in', top=True, right=True)
     plt.tight_layout()
-
-    for i in range(len(fs.columns)):
-        print(fs.columns[i])
-        res = scipy.stats.mannwhitneyu(df1[fs.columns[i]].loc[df1['Mindset_C2']=='Fixed'],df1[fs.columns[i]].loc[df1['Mindset_C2']=='Growth'],nan_policy='omit')
-        print(res[1])
-        if res[1] <= 0.0001:
-            #Annotate **** to plot
-            ax.text(i,0,'****', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('****')
-        elif res[1] <= 0.001:
-            #Annotate *** to plot
-            ax.text(i,0,'***', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('***')
-        elif res[1] <= 0.01:
-            #Annotate ** to plot
-            ax.text(i,0,'**', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('**')
-        elif res[1] <= 0.05:
-            #Annotate * to plot
-            ax.text(i,0,'*', ha='center', va='center', fontweight='bold', color='white', backgroundcolor='k')
-            print('*')
 
     save_fig(g,'factor_ratings_mindset2')
     plt.clf()
 
     # SPLIT THE BOXPLOTS BY INTERVENTION
-
-    # Plot (box and whisker) averages for each factor by course
-    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Gender_C','Raceethnicity_C','Education_C'],axis=1)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette = {course_list[0]: colors[1], course_list[1]: colors[2]}
-    hue_order = [course_list[0],course_list[1]]
-
-    melt_df = df_bnw.melt(id_vars=['Course','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Course', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
-    for ax in g.axes.ravel():
-        ax.tick_params(axis='both', direction='in',labelbottom=True)
-        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
-    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
-    g.fig.tight_layout()
-    save_fig(g,'factor_ratings_coursebyintervention')
-    plt.clf()
-
     # Plot (box and whisker) averages for each factor by gender
     df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Raceethnicity_C','Education_C'],axis=1)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={gender_list[0]: colors[1], gender_list[1]: colors[2], gender_list[2]: colors[3]}
+    palette ={gender_list[0]: palette2[1], gender_list[1]: palette2[0], gender_list[2]: palette2[2]}
     hue_order = [gender_list[0],gender_list[1], gender_list[2]]
-    
+    ax = plt.figure(figsize=(7.16, 3.404*1.5))
     melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Gender_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
-    for ax in g.axes.ravel():
-        ax.tick_params(axis='both', direction='in',labelbottom=True)
-        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
-    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
+    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', row='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, kind='box', legend=False)
+    g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='lower center', bbox_to_anchor=(0.5, 1), ncols=3, frameon=True, fancybox=True, shadow=False)
+    axes = g.axes.flatten()
+    axes[0].set_title("Control",fontweight='bold')
+    axes[1].set_title("Partner Agreements",fontweight='bold')
+    axes[0].set_xticklabels(Factorlabels)
     g.fig.tight_layout()
-    save_fig(g,'factor_ratings_genderbyintervention')
+    save_fig(g,'factor_ratings_genderbyintervention2')
     plt.clf()
 
-    # Plot (box and whisker) averages for each factor by race and ethnicity
-    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Education_C'],axis=1)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={raceethnicity_list[0]: colors[1], raceethnicity_list[1]: colors[2]}
-    hue_order = [raceethnicity_list[0],raceethnicity_list[1]]
-    
-    melt_df = df_bnw.melt(id_vars=['Raceethnicity_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Raceethnicity_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
-    for ax in g.axes.ravel():
-        ax.tick_params(axis='both', direction='in',labelbottom=True)
-        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
-    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
+    # NOW SIDE BY SIDE
+    ax = plt.figure(figsize=(7.16, 3.404*1.5))
+    melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', col='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, kind='box', legend=False)
+    g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='lower center', bbox_to_anchor=(0.5, 1), ncols=3, frameon=True, fancybox=True, shadow=False)
+    plt.subplots_adjust(hspace=-0.4, wspace=0)
+    axes = g.axes.flatten()
+    axes[0].set_title("Control",fontweight='bold')
+    axes[1].set_title("Partner Agreements",fontweight='bold')
+    axes[0].set_xticklabels(Factorlabels)
     g.fig.tight_layout()
-    save_fig(g,'factor_ratings_raceethnicitybyintervention')
+    save_fig(g,'factor_ratings_genderbyintervention3')
     plt.clf()
-
-    # Plot (box and whisker) averages for each factor by education
-    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Raceethnicity_C'],axis=1)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={education_list[0]: colors[1], education_list[1]: colors[2]}
-    hue_order = [education_list[0],education_list[1]]
-    
-    melt_df = df_bnw.melt(id_vars=['Education_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Education_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
-    for ax in g.axes.ravel():
-        ax.tick_params(axis='both', direction='in',labelbottom=True)
-        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
-    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
-    g.fig.tight_layout()
-    save_fig(g,'factor_ratings_educationbyintervention')
-    plt.clf()
-
-    # Plot (box and whisker) averages for each factor by mindset (method 1)
-    df_bnw = df1.drop(['Education_C','Mindset_C2','Course','Gender_C','Raceethnicity_C'],axis=1)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={'Fixed': colors[1], 'Growth': colors[2]}
-    hue_order = ['Fixed','Growth']
-    
-    melt_df = df_bnw.melt(id_vars=['Mindset_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Mindset_C', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
-    for ax in g.axes.ravel():
-        ax.tick_params(axis='both', direction='in',labelbottom=True)
-        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
-    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
-    g.fig.tight_layout()
-    save_fig(g,'factor_ratings_mindsetbyintervention')
-    plt.clf()
-
-    df_bnw = df1.drop(['Education_C','Mindset_C','Course','Gender_C','Raceethnicity_C'],axis=1)
-    cmap = cm.get_cmap('viridis')
-    colors = cmap(np.linspace(0,1,4))
-    palette ={'Fixed': colors[1], 'Growth': colors[2]}
-    hue_order = ['Fixed','Growth']
-
-    melt_df = df_bnw.melt(id_vars=['Mindset_C2','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Intervention', y='Rating', hue='Mindset_C2', col='Factor', col_wrap=3, hue_order=hue_order, palette=palette, kind='box', legend=False)
-    for ax in g.axes.ravel():
-        ax.tick_params(axis='both', direction='in',labelbottom=True)
-        ax.set_xticklabels(ax.get_xticklabels(), ha='right', rotation=45)
-    g.add_legend(loc=4, frameon=True, fancybox=True, shadow=True)
-    g.fig.tight_layout()
-    save_fig(g,'factor_ratings_mindset2byintervention')
-    plt.clf()
-
-def add_median_labels(ax, fmt='.2f'):
-        lines = ax.get_lines()
-        boxes = [c for c in ax.get_children() if type(c).__name__ == 'PathPatch']
-        lines_per_box = int(len(lines) / len(boxes))
-        for median in lines[4:len(lines):lines_per_box]:
-            x, y = (data.mean() for data in median.get_data())
-            text = ax.text(x, y, f'{y:{fmt}}', ha='center', va='center', fontsize=8,
-                           fontweight='bold', color='white')
-            # create median-colored border around white text for contrast
-            text.set_path_effects([
-                path_effects.Stroke(linewidth=3, foreground=median.get_color()),
-                path_effects.Normal(),
-            ])
 
 def OldFunctionRepository():
     # res = scipy.stats.mannwhitneyu(x,y) #,nan_policy='omit'
@@ -1626,6 +1469,20 @@ def OldFunctionRepository():
         mod = smf.ols(formula='Mindset1 ~ C(Intervention) + Course + Gender + C(Raceethnicity) + Education', data=df)
         res = mod.fit()
         print(res.summary().as_latex())
+
+    def add_median_labels(ax, fmt='.2f'):
+        lines = ax.get_lines()
+        boxes = [c for c in ax.get_children() if type(c).__name__ == 'PathPatch']
+        lines_per_box = int(len(lines) / len(boxes))
+        for median in lines[4:len(lines):lines_per_box]:
+            x, y = (data.mean() for data in median.get_data())
+            text = ax.text(x, y, f'{y:{fmt}}', ha='center', va='center', fontsize=8,
+                           fontweight='bold', color='white')
+            # create median-colored border around white text for contrast
+            text.set_path_effects([
+                path_effects.Stroke(linewidth=3, foreground=median.get_color()),
+                path_effects.Normal(),
+            ])
 
 Demo_dict = {'Which course are you currently enrolled in?':'Course',
         "What is your section's unique number?":'Unique',

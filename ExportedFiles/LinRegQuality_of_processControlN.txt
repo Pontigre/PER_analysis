@@ -2,7 +2,7 @@
 ====================================================================================================================================
 Model:                                     OLS                                     Adj. R-squared:                          -0.010  
 Dependent Variable:                        Quality_of_process                      AIC:                                     197.8705
-Date:                                      2023-04-10 11:51                        BIC:                                     226.1455
+Date:                                      2023-04-14 15:26                        BIC:                                     226.1455
 No. Observations:                          171                                     Log-Likelihood:                          -89.935 
 Df Model:                                  8                                       F-statistic:                             0.7846  
 Df Residuals:                              162                                     Prob (F-statistic):                      0.617   

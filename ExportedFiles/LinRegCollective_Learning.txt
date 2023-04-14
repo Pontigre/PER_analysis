@@ -1,30 +1,29 @@
                                                   Results: Ordinary least squares
 ====================================================================================================================================
-Model:                                    OLS                                      Adj. R-squared:                          0.018   
-Dependent Variable:                       Collective_Learning                      AIC:                                     460.4563
-Date:                                     2023-04-10 11:51                         BIC:                                     522.2458
-No. Observations:                         1273                                     Log-Likelihood:                          -218.23 
-Df Model:                                 11                                       F-statistic:                             3.061   
-Df Residuals:                             1261                                     Prob (F-statistic):                      0.000461
-R-squared:                                0.026                                    Scale:                                   0.083280
+Model:                                    OLS                                      Adj. R-squared:                          0.017   
+Dependent Variable:                       Collective_Learning                      AIC:                                     325.6232
+Date:                                     2023-04-14 15:26                         BIC:                                     378.4373
+No. Observations:                         899                                      Log-Likelihood:                          -151.81 
+Df Model:                                 10                                       F-statistic:                             2.570   
+Df Residuals:                             888                                      Prob (F-statistic):                      0.00456 
+R-squared:                                0.028                                    Scale:                                   0.083090
 ------------------------------------------------------------------------------------------------------------------------------------
                                                                                       Coef.  Std.Err.    t    P>|t|   [0.025  0.975]
 ------------------------------------------------------------------------------------------------------------------------------------
-Intercept                                                                             0.5161   0.0174 29.7219 0.0000  0.4821  0.5502
-C(Intervention, Treatment(reference='Control'))[T.Collaborative Comparison]           0.0028   0.0199  0.1398 0.8888 -0.0363  0.0419
-C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]                -0.0024   0.0194 -0.1230 0.9021 -0.0405  0.0357
-C(Course)[T.PHY105N]                                                                 -0.0266   0.0167 -1.5942 0.1111 -0.0594  0.0061
-C(Gender_C, Treatment(reference='Female'))[T.Male]                                   -0.0219   0.0171 -1.2824 0.1999 -0.0555  0.0116
-C(Gender_C, Treatment(reference='Female'))[T.Other]                                  -0.1777   0.0522 -3.4018 0.0007 -0.2801 -0.0752
-C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]                 -0.1643   0.0771 -2.1310 0.0333 -0.3156 -0.0130
-C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Mixed]                   0.0207   0.0310  0.6692 0.5035 -0.0400  0.0815
-C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Prefer not to disclose] -0.0210   0.0613 -0.3424 0.7321 -0.1413  0.0993
-C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]        0.0261   0.0197  1.3231 0.1860 -0.0126  0.0647
-C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                            0.0146   0.0208  0.7032 0.4820 -0.0262  0.0554
-C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]             -0.0853   0.0850 -1.0035 0.3158 -0.2521  0.0815
+Intercept                                                                             0.5080   0.0189 26.8656 0.0000  0.4709  0.5451
+C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]                -0.0018   0.0194 -0.0919 0.9268 -0.0400  0.0364
+C(Course)[T.PHY105N]                                                                 -0.0238   0.0200 -1.1920 0.2336 -0.0630  0.0154
+C(Gender_C, Treatment(reference='Female'))[T.Male]                                   -0.0197   0.0204 -0.9673 0.3337 -0.0597  0.0203
+C(Gender_C, Treatment(reference='Female'))[T.Other]                                  -0.1715   0.0580 -2.9568 0.0032 -0.2853 -0.0576
+C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]                 -0.1995   0.0900 -2.2165 0.0269 -0.3761 -0.0228
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Mixed]                   0.0259   0.0364  0.7126 0.4763 -0.0455  0.0974
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Prefer not to disclose] -0.0052   0.0706 -0.0732 0.9416 -0.1438  0.1334
+C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]        0.0329   0.0233  1.4122 0.1582 -0.0128  0.0785
+C(Education_C, Treatment(reference='Not1stGen'))[T.1stGen]                            0.0285   0.0249  1.1432 0.2532 -0.0204  0.0774
+C(Education_C, Treatment(reference='Not1stGen'))[T.Prefer not to answer]             -0.0546   0.1021 -0.5353 0.5926 -0.2550  0.1457
 ------------------------------------------------------------------------------------------------------------------------------------
-Omnibus:                                     46.077                             Durbin-Watson:                                1.968 
-Prob(Omnibus):                               0.000                              Jarque-Bera (JB):                             50.209
-Skew:                                        -0.472                             Prob(JB):                                     0.000 
-Kurtosis:                                    3.238                              Condition No.:                                15    
+Omnibus:                                     38.322                             Durbin-Watson:                                1.936 
+Prob(Omnibus):                               0.000                              Jarque-Bera (JB):                             42.315
+Skew:                                        -0.503                             Prob(JB):                                     0.000 
+Kurtosis:                                    3.344                              Condition No.:                                15    
 ====================================================================================================================================
