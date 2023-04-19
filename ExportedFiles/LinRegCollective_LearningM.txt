@@ -2,7 +2,7 @@
 ====================================================================================================================================
 Model:                                    OLS                                      Adj. R-squared:                          0.005   
 Dependent Variable:                       Collective_Learning                      AIC:                                     155.9421
-Date:                                     2023-04-14 15:26                         BIC:                                     199.1137
+Date:                                     2023-04-18 14:48                         BIC:                                     199.1137
 No. Observations:                         554                                      Log-Likelihood:                          -67.971 
 Df Model:                                 9                                        F-statistic:                             1.279   
 Df Residuals:                             544                                      Prob (F-statistic):                      0.245   

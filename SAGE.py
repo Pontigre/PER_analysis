@@ -204,6 +204,7 @@ def Data_statistics(df_norm):
     df_summary.round(decimals = 4).to_csv('ExportedFiles/SAGE_Stats.csv', encoding = "utf-8", index=True)
 
     total_count = len(df_norm.index)
+    print(total_count)
     intervention_count = df_norm.groupby(['Intervention'])['Intervention'].describe()['count']
     course_count = df_norm.groupby(['Course'])['Course'].describe()['count']
     gender_count = df_norm.groupby(['Gender'])['Gender'].describe()['count']
@@ -604,16 +605,16 @@ def EFA_alternate(df_norm):
 
     sns.set_context("paper")
     f, (ax1, ax2) = plt.subplots(2, sharex=True)#, sharey=True)
-    p1, = ax1.plot(ev, '.-', linewidth=2, color='blue')
+    p1, = ax1.plot(ev, marker='o', linestyle='solid', linewidth=2, color='black', markeredgecolor='blue', markerfacecolor='blue')
     p2, = ax2.plot(fit_stats_x, fit_stats_aic, marker='o', ls='None', color = 'black', label='AIC')
     f.subplots_adjust(hspace=0)
     plt.setp([a.get_xticklabels() for a in f.axes[:-1]], visible=False)
     ax1.hlines(1, 0, 22, linestyle='dashed')
 
     plt.xlabel('Number of factors')
-    ax1.yaxis.label.set_color(p1.get_color())
-    ax1.tick_params(axis='y', colors=p1.get_color(), direction='in')
-    ax1.set_ylabel(r'$\epsilon$')
+    # ax1.yaxis.label.set_color(p1.get_color())
+    # ax1.tick_params(axis='y', colors=p1.get_color(), direction='in')
+    ax1.set_ylabel(r'Eigenvalues')
     ax2.set_ylabel('AIC')
 
     plt.xticks(np.arange(0, 22, 1.0))
@@ -868,7 +869,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
            }
     plt.rcParams.update(params)
     goldenRatioInverse = ((5**.5 - 1) / 2)
-    Factorlabels=['Quality\nof\nProcess', 'Collective\nLearning','Individual\nBelonging','Mindset','Impact\non\nIndividual','Frustrations']
+    Factorlabels=['QP','CL','IB','M','II','F']
 
     # Plot (box and whisker) averages for each factor by course
     df_bnw = df1.drop(['Mindset_C','Mindset_C2','Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
@@ -1052,6 +1053,17 @@ def Make_BoxandWhisker_Plots(df1,fs):
     save_fig(g,'factor_ratings_mindset2')
     plt.clf()
 
+    params = {'axes.labelsize': 14,
+           'legend.fontsize': 10,
+           'xtick.labelsize': 12,
+           'ytick.labelsize': 12,
+           'xtick.bottom': True,
+           'xtick.direction': 'in',
+           'font.weight': 'bold',
+           'axes.labelweight': 'bold'
+           }
+    plt.rcParams.update(params)
+
     # SPLIT THE BOXPLOTS BY INTERVENTION
     # Plot (box and whisker) averages for each factor by gender
     df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Raceethnicity_C','Education_C'],axis=1)
@@ -1080,6 +1092,7 @@ def Make_BoxandWhisker_Plots(df1,fs):
     axes[1].set_title("Partner Agreements",fontweight='bold')
     axes[0].set_xticklabels(Factorlabels)
     g.fig.tight_layout()
+    sns.despine(right=False, top=False)
     save_fig(g,'factor_ratings_genderbyintervention3')
     plt.clf()
 

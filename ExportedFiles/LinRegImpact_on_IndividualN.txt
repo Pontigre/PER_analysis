@@ -2,7 +2,7 @@
 ====================================================================================================================================
 Model:                                   OLS                                       Adj. R-squared:                          0.002   
 Dependent Variable:                      Impact_on_Individual                      AIC:                                     371.6103
-Date:                                    2023-04-14 15:26                          BIC:                                     410.0458
+Date:                                    2023-04-18 14:48                          BIC:                                     410.0458
 No. Observations:                        345                                       Log-Likelihood:                          -175.81 
 Df Model:                                9                                         F-statistic:                             1.062   
 Df Residuals:                            335                                       Prob (F-statistic):                      0.391   

@@ -2,7 +2,7 @@
 ===================================================================================================================================
 Model:                                    OLS                                    Adj. R-squared:                           -0.019  
 Dependent Variable:                       Mindset                                AIC:                                      173.0977
-Date:                                     2023-04-14 15:26                       BIC:                                      201.5292
+Date:                                     2023-04-18 14:48                       BIC:                                      201.5292
 No. Observations:                         174                                    Log-Likelihood:                           -77.549 
 Df Model:                                 8                                      F-statistic:                              0.5989  
 Df Residuals:                             165                                    Prob (F-statistic):                       0.778   

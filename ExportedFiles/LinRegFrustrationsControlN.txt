@@ -2,7 +2,7 @@
 ====================================================================================================================================
 Model:                                     OLS                                    Adj. R-squared:                           0.004   
 Dependent Variable:                        Frustrations                           AIC:                                      241.8390
-Date:                                      2023-04-14 15:26                       BIC:                                      270.1139
+Date:                                      2023-04-18 14:48                       BIC:                                      270.1139
 No. Observations:                          171                                    Log-Likelihood:                           -111.92 
 Df Model:                                  8                                      F-statistic:                              1.077   
 Df Residuals:                              162                                    Prob (F-statistic):                       0.382   
