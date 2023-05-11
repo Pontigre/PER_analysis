@@ -2,7 +2,7 @@
 ====================================================================================================================================
 Model:                                   OLS                                       Adj. R-squared:                          0.038   
 Dependent Variable:                      Individual_Belonging                      AIC:                                     164.6462
-Date:                                    2023-04-18 14:48                          BIC:                                     203.0817
+Date:                                    2023-04-28 16:22                          BIC:                                     203.0817
 No. Observations:                        345                                       Log-Likelihood:                          -72.323 
 Df Model:                                9                                         F-statistic:                             2.527   
 Df Residuals:                            335                                       Prob (F-statistic):                      0.00816 
@@ -12,9 +12,9 @@ R-squared:                               0.064                                  
 ------------------------------------------------------------------------------------------------------------------------------------
 Intercept                                                                             0.6276   0.0306 20.5401 0.0000  0.5675  0.6877
 C(Intervention, Treatment(reference='Control'))[T.Partner Agreements]                -0.0143   0.0328 -0.4348 0.6640 -0.0787  0.0502
-C(Gender_C, Treatment(reference='Female'))[T.Male]                                   -0.0272   0.0339 -0.8039 0.4220 -0.0939  0.0394
-C(Gender_C, Treatment(reference='Female'))[T.Other]                                  -0.1025   0.0946 -1.0836 0.2793 -0.2885  0.0835
-C(Gender_C, Treatment(reference='Female'))[T.Prefer not to disclose]                 -0.3614   0.1503 -2.4044 0.0167 -0.6570 -0.0657
+C(Gender_C, Treatment(reference='Women'))[T.Men]                                     -0.0272   0.0339 -0.8039 0.4220 -0.0939  0.0394
+C(Gender_C, Treatment(reference='Women'))[T.Other]                                   -0.1025   0.0946 -1.0836 0.2793 -0.2885  0.0835
+C(Gender_C, Treatment(reference='Women'))[T.Prefer not to disclose]                  -0.3614   0.1503 -2.4044 0.0167 -0.6570 -0.0657
 C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Mixed]                   0.0408   0.0634  0.6437 0.5202 -0.0839  0.1655
 C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Prefer not to disclose]  0.0985   0.1239  0.7952 0.4271 -0.1452  0.3423
 C(Raceethnicity_C, Treatment(reference='Wellrepresented'))[T.Underrepresented]       -0.0142   0.0411 -0.3453 0.7301 -0.0951  0.0667
