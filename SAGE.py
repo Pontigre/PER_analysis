@@ -170,12 +170,6 @@ def Prepare_data(df):
     df_norm.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
     return df_norm
 
-def Export_to_R(df_norm):
-    ddf = df_norm.copy()
-    ddf.columns = range(ddf.columns.size)
-    print(ddf)
-    ddf.to_csv('ExportedFiles/R_data.csv', encoding = "utf-8", index=True)
-
 def Data_statistics(df_norm):
     Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
@@ -373,7 +367,7 @@ def EFA_alternate(df_norm):
                 #     print("Bartlett's Chi Square =", chi_square_value, "; p-value: {0:.3E}".format(p_value))
 
                 # 3. EFA
-                efa = FactorAnalyzer(n_factors=n, method='minres', rotation='varimax')
+                efa = FactorAnalyzer(n_factors=n, method='minres', rotation='oblimin')
                 efa.fit(dfn)
 
                 # 4. Communalities

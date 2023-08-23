@@ -1,0 +1,150 @@
+---
+title: "SAGE"
+author: "Gregorio Ponti"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, warning = FALSE, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+# Intro
+
+## Import Libraries
+
+```{r, message=FALSE}
+library(tidyverse)
+library(ggpubr)
+library(sjPlot)
+theme_set(theme_pubr())
+
+#for statistics
+library(car)
+library(lme4)
+library(lmerTest)
+
+# for EFA
+library(psych) #Main FA work
+library(corrplot)
+library(nFactors) #Help with number of factors to extract
+library(FactoMineR) #Additional functions
+library(lavaan) #For CFA?
+library(sem) #Structural Equation Modeling (used for CFA)
+```
+
+## Summary
+
+Import -\> Tidy Data -\> Transform into what we want -\> Analyze
+
+### EFA process
+
+1.  Calculate the Kaiser-Meyer-Olkin (KMO) values for every item. If any items have a KMO below the cutoff value, then the item with the lowest value is removed and the step is repeated. KMO values above 0.6 are kept, though above 0.8 are preferred. KMO measures the suitability for factor analysis by estimating the proportion of variance among all observed variables.
+2.  Check whether the items can be factored using Bartlett's test of sphericity. A low p-score indicates that factor analysis can be performed. Compares the correlation matrix to the identity matrix (checks whether there are correlations)
+3.  Calculate the EFA model using factoring and a specified number of factors.
+4.  Calculate the commonalities, which are the proportion of the item's variance explained by the factors. If any item is below the cutoff (\<0.2), then the item with the lowest value is dropped and then restart at Step 1.
+5.  Calculate the item loadings. If there are items that fail to load to any factor, then remove the item with the smallest max loading and then restart at Step 1.
+6.  Create a model for the CFA by placing each item onto the factor that contains the item's largest loading. If any items load equally onto more than one factor, then add to all factors where this is the case.
+7.  Fit this model using Confirmatory Factor Analysis to the original data and extract a fit statistic (Akaike information criterion, or similar) to be used as a comparison for the ideal number of factors.
+8.  Change the number of factors and repeat the above steps.
+9.  Plot the fit statistic vs the number of factors. The model with the local minimum index is the preferred model.
+
+# Data Prep
+
+## Import Data
+
+```{r}
+raw_df <- read.csv(file = "./ExportedFiles/SAGE_Raw.csv")
+head(raw_df)
+```
+
+## Process Data
+
+Columns 1, 2, 54, 55 (intervention) are course information Columns 3 - 34 are the questions from SAGE Columns 35 - 53 are demographics questions
+
+```{r}
+dat <- raw_df[,3:34]
+sample_dat <- sample_frac(dat, 0.5)
+```
+
+# EFA
+
+## Correlations
+
+```{r}
+M = cor(dat)
+corrplot(M, method = 'color', tl.pos='n')
+```
+
+## KMO Test
+
+-   0.00 to 0.49 unacceptable
+-   0.50 to 0.59 miserable
+-   0.60 to 0.69 mediocre
+-   0.70 to 0.79 middling
+-   0.80 to 0.89 meritorious
+-   0.90 to 1.00 marvelous
+
+```{r}
+KMO(dat)
+dat <- dat[, KMO(dat)$MSAi>0.6]
+```
+
+## Bartlett's Test of Sphericity
+
+```{r}
+cortest.bartlett(dat)
+```
+
+## Scree Plot
+
+```{r}
+ev <- eigen(M)
+ev$values
+plot(ev$values)
+scree(dat, pc=FALSE)
+fa.parallel(dat, fa="fa")
+```
+
+## EFA
+
+```{r}
+Nfacs <- 7
+df.efa <- fa(dat, nfactors = Nfacs, rotate = "oblimin")
+df.efa$communality
+test <- print(df.efa$loadings, digits = 3, cutoff = 0.1)
+```
+
+## EFA loop
+
+```{r}
+for (Nfacs in 3:9){
+  df <- raw_df[,3:34]
+  loadings_test = TRUE
+  while (loadings_test) {
+    communs_test = TRUE
+    while (communs_test){
+      df <- df[, KMO(df)$MSAi>0.6]
+      #if (cortest.bartlett(df)$p.value > 0.05){break}
+      df.efa <- fa(df, nfactors = Nfacs, rotate = "oblimin")
+      if (min(abs(df.efa$communality))<0.2) {
+        df <- df[, -c(which.min(abs(df.efa$communality)))]
+      }
+      else {
+        print("communality test passed")
+        communs_test = FALSE
+        }
+    # SOMETHING AROUND HERE IS NOT WOKRING
+    if (min(abs(df.efa$loadings))<0.5) { 
+      break
+    }  
+    else {
+      print("loadings test passed")
+      loadings_test = FALSE
+      }
+    }
+  }
+  df.efa$loadings
+}
+
+```
