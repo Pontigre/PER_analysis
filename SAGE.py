@@ -49,14 +49,14 @@ def main():
     # dfR = df[df['Raceethnicity']== 'White'].copy()
 
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the string responses into numbers and combines inversely worded questions into one
+    Export_to_R(df_norm)
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
-    # SAGE_validation(df_norm) # Prepares files for Confirmatory factor analysis on questions taken from SAGE run in R
     # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
     #     warnings.simplefilter("ignore")
     #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
-    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-        warnings.simplefilter("ignore")
-        Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
+    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+    #     warnings.simplefilter("ignore")
+    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -170,6 +170,12 @@ def Prepare_data(df):
     df_norm.to_csv('ExportedFiles/SAGE_Raw.csv', encoding = "utf-8", index=False)
     return df_norm
 
+def Export_to_R(df_norm):
+    ddf = df_norm.copy()
+    ddf.columns = range(ddf.columns.size)
+    print(ddf)
+    ddf.to_csv('ExportedFiles/R_data.csv', encoding = "utf-8", index=True)
+
 def Data_statistics(df_norm):
     Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
         'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
@@ -226,50 +232,6 @@ def Data_statistics(df_norm):
     full_counts = pd.concat([pd.Series(x) for x in lists])
     top_level_counts.reset_index().to_csv('ExportedFiles/Sage_Counts1.csv', encoding = "utf-8", index=True)
     full_counts.reset_index().to_csv('ExportedFiles/Sage_Counts2.csv', encoding = "utf-8", index=True)
-
-def SAGE_validation(df_norm):
-    # REMOVE DEMOGRAPHIC QUESTIONS
-    Demo_Qs = ['Intervention Number', 'Intervention', 'Course', 'Unique', 'Gender', 'Gender - Text', 'Raceethnicity', 'Raceethnicity - Text', 'Native', 'Asian', 'Asian - Text', 'Black', 'Black - Text', 'Latino', 'Latino - Text', 
-        'MiddleEast', 'MiddleEast - Text', 'Pacific', 'Pacific - Text', 'White', 'White - Text', 'Education', 'Education - Text']
-    df = df_norm.drop(columns=Demo_Qs, axis=1)
-
-    # FIRST VALIDATE THE SAGE QUESTIONS
-    not_SAGE = ['My group did higher quality work when my group members worked on tasks together.', 
-    'My group did higher quality work when group members worked on different tasks at the same time.', 
-    'You have a certain amount of physics intelligence, and you can’t really do much to change it.', 
-    'Your physics intelligence is something about you that you can change.',
-    'You can learn new things, but you can’t really change your basic physics intelligence.',
-    'I prefer to take on tasks that I’m already good at.',
-    'I prefer to take on tasks that will help me better learn the material.',
-    'I prefer when one student regularly takes on a leadership role.',
-    'I prefer when the leadership role rotates between students.']
-    df_SAGE = df.drop(not_SAGE, axis=1)
-
-    not_cfa = ['When I work in a group, I end up doing most of the work.', 'I do not think a group grade is fair.',
-    'I try to make sure my group members learn the material.',  'When I work with other students the work is divided equally.']
-    df_SAGE_cfa = df_SAGE.drop(not_cfa, axis=1)
-
-    # EXPORTS FILE FOR R
-    df_SAGE_cfa.to_csv('ExportedFiles/CFA_file.csv', encoding = "utf-8", index=False)
-
-    # CONFIRMATORY FACTOR ANALYSIS
-    # FIRST DEFINE WHICH QUESTIONS SHOULD READ INTO EACH FACTOR, TAKEN FROM KOUROS AND ABRAMI 2006
-
-    model_dict = {
-    'F1': ['When I work in a group I do higher quality work.', 'The material is easier to understand when I work with other students.',
-            'My group members help explain things that I do not understand.', 'I feel working in groups is a waste of time.', 'The work takes more time to complete when I work with other students.',
-            'The workload is usually less when I work with other students.'], 
-            # [1, 12, 8, 30, 5, 16]
-    'F2': ['My group members respect my opinions.', 'My group members make me feel that I am not as smart as they are.', 'My group members do not care about my feelings.',
-            'I feel I am part of what is going on in the group.', 'When I work in a group, I am able to share my ideas.'], 
-            # [6, 11, 26, 17, 10]
-    'F3': ['Everyone’s ideas are needed if we are going to be successful.', 'We cannot complete the assignment unless everyone contributes.', 'I let the other students do most of the work.',
-            'I also learn when I teach the material to my group members.', 'I learn to work with students who are different from me.'], 
-            # [52, 36, 28, 49, 25]
-    'F4': ['I become frustrated when my group members do not understand the material.', 'When I work with other students, we spend too much time talking about other things.',
-            'I have to work with students who are not as smart as I am.']
-            # [50, 53, 33]
-    }
 
 def EFA_alternate(df_norm):
     min_kmo = 0.6
