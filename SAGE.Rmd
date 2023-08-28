@@ -2,7 +2,12 @@
 title: "SAGE"
 author: "Gregorio Ponti"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: 
+  pdf_document: 
+    fig_width: 7
+    fig_caption: yes
+    fig_crop: no
+    number_sections: yes
 ---
 
 ```{r setup, warning = FALSE, include=FALSE}
@@ -15,6 +20,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 
 ```{r, message=FALSE}
 library(tidyverse)
+library(tidymodels)
 library(ggpubr)
 library(sjPlot)
 theme_set(theme_pubr())
@@ -29,8 +35,8 @@ library(psych) #Main FA work
 library(corrplot)
 library(nFactors) #Help with number of factors to extract
 library(FactoMineR) #Additional functions
-library(lavaan) #For CFA?
-library(sem) #Structural Equation Modeling (used for CFA)
+library(parameters)
+library(lavaan) #For CFA
 ```
 
 ## Summary
@@ -55,7 +61,6 @@ Import -\> Tidy Data -\> Transform into what we want -\> Analyze
 
 ```{r}
 raw_df <- read.csv(file = "./ExportedFiles/SAGE_Raw.csv")
-head(raw_df)
 ```
 
 ## Process Data
@@ -64,7 +69,10 @@ Columns 1, 2, 54, 55 (intervention) are course information Columns 3 - 34 are th
 
 ```{r}
 dat <- raw_df[,3:34]
-sample_dat <- sample_frac(dat, 0.5)
+set.seed(42)
+df_split <- initial_split(raw_df, prop = 0.5)
+train_data <- training(df_split)
+test_data <- testing(df_split)
 ```
 
 # EFA
@@ -92,7 +100,7 @@ dat <- dat[, KMO(dat)$MSAi>0.6]
 
 ## Bartlett's Test of Sphericity
 
-```{r}
+```{r, message = FALSE}
 cortest.bartlett(dat)
 ```
 
@@ -101,50 +109,64 @@ cortest.bartlett(dat)
 ```{r}
 ev <- eigen(M)
 ev$values
-plot(ev$values)
-scree(dat, pc=FALSE)
+scree(dat)
 fa.parallel(dat, fa="fa")
-```
-
-## EFA
-
-```{r}
-Nfacs <- 7
-df.efa <- fa(dat, nfactors = Nfacs, rotate = "oblimin")
-df.efa$communality
-test <- print(df.efa$loadings, digits = 3, cutoff = 0.1)
 ```
 
 ## EFA loop
 
-```{r}
+Uses the training data set
+
+```{r, message = FALSE, warning = FALSE}
 for (Nfacs in 3:9){
-  df <- raw_df[,3:34]
+  df <- train_data[,3:34]
   loadings_test = TRUE
   while (loadings_test) {
     communs_test = TRUE
     while (communs_test){
       df <- df[, KMO(df)$MSAi>0.6]
-      #if (cortest.bartlett(df)$p.value > 0.05){break}
+      if (cortest.bartlett(df)$p.value > 0.05){print("Bartlett test failed")}
       df.efa <- fa(df, nfactors = Nfacs, rotate = "oblimin")
       if (min(abs(df.efa$communality))<0.2) {
         df <- df[, -c(which.min(abs(df.efa$communality)))]
       }
       else {
-        print("communality test passed")
         communs_test = FALSE
-        }
-    # SOMETHING AROUND HERE IS NOT WOKRING
-    if (min(abs(df.efa$loadings))<0.5) { 
-      break
-    }  
-    else {
-      print("loadings test passed")
-      loadings_test = FALSE
       }
     }
+    cutoff <- 0.1
+    Lambda <- unclass(df.efa$loadings)
+    p <- nrow(Lambda)
+    fx <- setNames(Lambda, NULL)
+    fx[abs(Lambda) < cutoff] <- NA_real_
+    fx <- as.data.frame(fx)
+    fx$max <- do.call(pmax, c(abs(fx), na.rm = TRUE))
+    if (min(fx$max)<0.3) { 
+      df <- df[, -which.min(fx$max)]
+    }  
+    else {
+      loadings_test = FALSE
+      }
   }
-  df.efa$loadings
+  str <- paste0("cfa.fit",Nfacs)
+  model <- efa_to_cfa(df.efa)
+  cfa.fit <- cfa(model = model, data = test_data)
+  assign(str,cfa.fit)
 }
 
+```
+
+## CFA
+
+Now we need to compare the CFA outputs of each and determine which is the optimal model
+
+```{r}
+anova(cfa.fit3, cfa.fit4, cfa.fit5, cfa.fit6, cfa.fit7, cfa.fit8, cfa.fit9)
+```
+
+From this, both 7 and 9 factors are near equivalent with n=7 to have a lower AIC and n=9 to have a lower Chisq.
+
+```{r}
+df.efa <- fa(dat, nfactors = 7, rotate = "oblimin")
+df.efa$loadings
 ```

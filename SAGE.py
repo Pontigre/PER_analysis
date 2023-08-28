@@ -49,14 +49,13 @@ def main():
     # dfR = df[df['Raceethnicity']== 'White'].copy()
 
     df_norm = Prepare_data(df) # Takes the raw csv file and converts the string responses into numbers and combines inversely worded questions into one
-    Export_to_R(df_norm)
     # Data_statistics(df_norm) # Tabulates counts and calcualtes statistics on responses to each question 
     # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
     #     warnings.simplefilter("ignore")
     #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
-    # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
-    #     warnings.simplefilter("ignore")
-    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
+    with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
+        warnings.simplefilter("ignore")
+        Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
 def complete(text, state):
@@ -667,10 +666,10 @@ def factor_scores(df_norm,number_of_factors):
 
 def Factor_dependences(df_norm):
     # >0.4 minres factoring
-    fit_stats_cfi = [0.737, 0.852, 0.868, 0.876, 0.893, 0.887, 0.895, 0.873, 0.912, 0.876, 0.876, 0.907]
-    fit_stats_aic = [28363.591, 30992.473, 32137.870, 33494.822, 32211.446, 34176.652, 33811.093, 34864.240, 30362.595, 35926.155, 35926.155, 33983.052]
-    fit_stats_rmsea = [0.102, 0.072, 0.066, 0.063, 0.060, 0.059, 0.058, 0.062, 0.057, 0.061, 0.061, 0.057]
-    fit_stats_x = [2,3,4,5,6,7,8,9,10,11,12,13]
+    fit_stats_cfi = []
+    fit_stats_aic = [16194, 17402, 17333, 17198, 16534, 18594, 16786]
+    fit_stats_rmsea = []
+    fit_stats_x = [3,4,5,6,7,8,9]
     sns.set_context("paper")
     plt.rcParams['font.family'] = 'serif'
     params = {'axes.labelsize': 20,
@@ -682,7 +681,7 @@ def Factor_dependences(df_norm):
     plt.rcParams.update(params)
     fig, ax = plt.subplots()
     p1, = ax.plot(fit_stats_x, fit_stats_aic, marker='o', ls='None', color = 'k', label='AIC')
-    ax.set_ylim(25000, 38000)
+    ax.set_ylim(15000, 20000)
     ax.tick_params(axis='both', direction='in', top=True)
     plt.xlabel('Number of factors')
     ax.set_ylabel('Akaike information criterion')
@@ -719,91 +718,91 @@ def Factor_dependences(df_norm):
     save_fig(fig, 'fit_stats')
     plt.clf()
 
-    # This code looks at the loading of each student onto each factor, then uses linear regression to see if demos or intervention affect these
-    df = df_norm.copy()
-    fs, model = factor_scores(df,6)
-    fs.columns =['Quality_of_process', 'Collective_Learning', 'Individual_Belonging', 'Mindset', 'Impact_on_Individual', 'Frustrations']
+    # # This code looks at the loading of each student onto each factor, then uses linear regression to see if demos or intervention affect these
+    # df = df_norm.copy()
+    # fs, model = factor_scores(df,6)
+    # fs.columns =['Quality_of_process', 'Collective_Learning', 'Individual_Belonging', 'Mindset', 'Impact_on_Individual', 'Frustrations']
 
-    # Create a dataframe that has the factor scores and the demographics of each student
-    Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
-    df1 = pd.concat([fs,df[Demo_Qs].set_index(fs.index)], axis=1)
+    # # Create a dataframe that has the factor scores and the demographics of each student
+    # Demo_Qs = ['Intervention', 'Course', 'Gender', 'Raceethnicity', 'Education']
+    # df1 = pd.concat([fs,df[Demo_Qs].set_index(fs.index)], axis=1)
 
-    ##Condenses demographics
-    # Gender -> Men, Women, Other
-    df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
-    df1['Gender_C'] = ['Men' if x == 'Male' else 'Women' if x == 'Female' else 'Prefer not to disclose' if 'Prefer not' in str(x) else 'Other' for x in df['Gender']]
-    df1.drop(columns=['Gender'], axis=1, inplace = True)
+    # ##Condenses demographics
+    # # Gender -> Men, Women, Other
+    # df1.insert(df1.columns.get_loc('Gender'), 'Gender_C', 0)
+    # df1['Gender_C'] = ['Men' if x == 'Male' else 'Women' if x == 'Female' else 'Prefer not to disclose' if 'Prefer not' in str(x) else 'Other' for x in df['Gender']]
+    # df1.drop(columns=['Gender'], axis=1, inplace = True)
 
-    # Raceethnicity -> Wellrepresented (white, asian), underrepresented
-    df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
-    conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian,White'),
-                ((~df1['Raceethnicity'].str.contains('Asian')) & (~df1['Raceethnicity'].str.contains('White')) & ~df1['Raceethnicity'].str.contains('Prefer not')),
-                (df1['Raceethnicity'].str.contains('Prefer not'))]
-    choices = ['Wellrepresented','Underrepresented','Prefer not to disclose']
-    df1['Raceethnicity_C'] = np.select(conditions, choices, default='Mixed')
-    df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
+    # # Raceethnicity -> Wellrepresented (white, asian), underrepresented
+    # df1.insert(df1.columns.get_loc('Raceethnicity'), 'Raceethnicity_C', 0)
+    # conditions = [(df1['Raceethnicity'] == 'Asian') | (df1['Raceethnicity'] == 'White') | (df1['Raceethnicity'] == 'Asian,White'),
+    #             ((~df1['Raceethnicity'].str.contains('Asian')) & (~df1['Raceethnicity'].str.contains('White')) & ~df1['Raceethnicity'].str.contains('Prefer not')),
+    #             (df1['Raceethnicity'].str.contains('Prefer not'))]
+    # choices = ['Wellrepresented','Underrepresented','Prefer not to disclose']
+    # df1['Raceethnicity_C'] = np.select(conditions, choices, default='Mixed')
+    # df1.drop(columns=['Raceethnicity'], axis=1, inplace = True)
 
-    # Education -> 1st gen, not 1st gen
-    df1.insert(df1.columns.get_loc('Education')+1, 'Education_C', 0)
-    df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if 'Prefer not' in str(x) else 'Not1stGen' for x in df['Education']]
-    df1.drop(columns=['Education'], axis=1, inplace = True)
+    # # Education -> 1st gen, not 1st gen
+    # df1.insert(df1.columns.get_loc('Education')+1, 'Education_C', 0)
+    # df1['Education_C'] = ['1stGen' if (x == 'Other') | (x == 'High school') | (x == 'Some college but no degree') | (x == "Associate's or technical degree") else 'Prefer not to answer' if 'Prefer not' in str(x) else 'Not1stGen' for x in df['Education']]
+    # df1.drop(columns=['Education'], axis=1, inplace = True)
 
-    # Determine mindset of each student
-    df1.insert(df1.columns.get_loc('Mindset'), 'Mindset_C', 0)
-    df1['Mindset_C'] = ['Growth' if x > 0.4 else 'Fixed' if x < -0.4 else 'Neutral' for x in df1['Mindset']]
+    # # Determine mindset of each student
+    # df1.insert(df1.columns.get_loc('Mindset'), 'Mindset_C', 0)
+    # df1['Mindset_C'] = ['Growth' if x > 0.4 else 'Fixed' if x < -0.4 else 'Neutral' for x in df1['Mindset']]
 
-    Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
-    df1.insert(df1.columns.get_loc('Mindset'), 'Mindset_C2', 0)
-    conditions = [df[df[Phys_Int_Cols]<-0.5].count(axis=1) > 1,  df[df[Phys_Int_Cols]>0.5].count(axis=1) > 1]
-    choices = ['Fixed','Growth']
-    df1['Mindset_C2'] = np.select(conditions, choices, default='Neutral')
-    df1 = df1[df1['Intervention']!='Collaborative Comparison']
-    df1.to_csv('ExportedFiles/StudentRatings.csv', encoding = "utf-8", index=False)
+    # Phys_Int_Cols = [col for col in df.columns if 'physics intelligence' in col]
+    # df1.insert(df1.columns.get_loc('Mindset'), 'Mindset_C2', 0)
+    # conditions = [df[df[Phys_Int_Cols]<-0.5].count(axis=1) > 1,  df[df[Phys_Int_Cols]>0.5].count(axis=1) > 1]
+    # choices = ['Fixed','Growth']
+    # df1['Mindset_C2'] = np.select(conditions, choices, default='Neutral')
+    # df1 = df1[df1['Intervention']!='Collaborative Comparison']
+    # df1.to_csv('ExportedFiles/StudentRatings.csv', encoding = "utf-8", index=False)
 
-    # total_count = len(df1.index)
-    # course_count = df1.groupby(['Course'])['Course'].describe()['count']
-    # intervention_count = df1.groupby(['Intervention'])['Intervention'].describe()['count']
-    # gender_count = df1.groupby(['Gender_C'])['Gender_C'].describe()['count']
-    # raceethnicity_count = df1.groupby(['Raceethnicity_C'])['Raceethnicity_C'].describe()['count']
-    # education_count = df1.groupby(['Education_C'])['Education_C'].describe()['count']
-    # print('Total Count:', total_count)
-    # print('Course Count:', course_count)
-    # print('Intervention Count:', intervention_count)
-    # print('Gender Count:', gender_count)
-    # print('Race/Ethnicity Count:', raceethnicity_count)
-    # print('Education Count:', education_count)
+    # # total_count = len(df1.index)
+    # # course_count = df1.groupby(['Course'])['Course'].describe()['count']
+    # # intervention_count = df1.groupby(['Intervention'])['Intervention'].describe()['count']
+    # # gender_count = df1.groupby(['Gender_C'])['Gender_C'].describe()['count']
+    # # raceethnicity_count = df1.groupby(['Raceethnicity_C'])['Raceethnicity_C'].describe()['count']
+    # # education_count = df1.groupby(['Education_C'])['Education_C'].describe()['count']
+    # # print('Total Count:', total_count)
+    # # print('Course Count:', course_count)
+    # # print('Intervention Count:', intervention_count)
+    # # print('Gender Count:', gender_count)
+    # # print('Race/Ethnicity Count:', raceethnicity_count)
+    # # print('Education Count:', education_count)
 
-    Make_BoxandWhisker_Plots(df1,fs) # I got tired of scrolling past it all
+    # Make_BoxandWhisker_Plots(df1,fs) # I got tired of scrolling past it all
 
-    # Linear regression
-    for i in list(fs):
-        res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
+    # # Linear regression
+    # for i in list(fs):
+    #     res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=df1).fit()
+    #     with open(('ExportedFiles/LinReg' + str(i) +'.txt'), 'w') as fh:
+    #         fh.write(res.summary2().as_text())
 
-    dfM = df1[df1['Course'] == 'PHY105M']
-    for i in list(fs):
-        res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'M.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Control']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'ControlM.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Partner Agreements']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsM.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
+    # dfM = df1[df1['Course'] == 'PHY105M']
+    # for i in list(fs):
+    #     res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM).fit()
+    #     with open(('ExportedFiles/LinReg' + str(i) +'M.txt'), 'w') as fh:
+    #         fh.write(res.summary2().as_text())
+    #     res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Control']).fit()
+    #     with open(('ExportedFiles/LinReg' + str(i) +'ControlM.txt'), 'w') as fh:
+    #         fh.write(res.summary2().as_text())
+    #     res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfM[dfM['Intervention'] == 'Partner Agreements']).fit()
+    #     with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsM.txt'), 'w') as fh:
+    #         fh.write(res.summary2().as_text())
 
-    dfN = df1[df1['Course'] == 'PHY105N']
-    for i in list(fs):
-        res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'N.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Control']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'ControlN.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
-        res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Partner Agreements']).fit()
-        with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsN.txt'), 'w') as fh:
-            fh.write(res.summary2().as_text())
+    # dfN = df1[df1['Course'] == 'PHY105N']
+    # for i in list(fs):
+    #     res = smf.ols((str(i) + "~ C(Intervention, Treatment(reference='Control')) + C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN).fit()
+    #     with open(('ExportedFiles/LinReg' + str(i) +'N.txt'), 'w') as fh:
+    #         fh.write(res.summary2().as_text())
+    #     res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Control']).fit()
+    #     with open(('ExportedFiles/LinReg' + str(i) +'ControlN.txt'), 'w') as fh:
+    #         fh.write(res.summary2().as_text())
+    #     res = smf.ols((str(i) + "~ C(Course) + C(Gender_C, Treatment(reference='Women')) + C(Raceethnicity_C, Treatment(reference='Wellrepresented')) + C(Education_C, Treatment(reference='Not1stGen'))"), data=dfN[dfN['Intervention'] == 'Partner Agreements']).fit()
+    #     with open(('ExportedFiles/LinReg' + str(i) +'PartnerAgreementsN.txt'), 'w') as fh:
+    #         fh.write(res.summary2().as_text())
 
 def Make_BoxandWhisker_Plots(df1,fs):
     sns.set_context("paper")
