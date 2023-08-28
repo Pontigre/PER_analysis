@@ -35,8 +35,39 @@ library(psych) #Main FA work
 library(corrplot)
 library(nFactors) #Help with number of factors to extract
 library(FactoMineR) #Additional functions
+library(GPArotation)
 library(parameters)
 library(lavaan) #For CFA
+
+getS3method("print","loadings") #get the hidden method and modify it
+printLoadings <- function (x, digits = 3, cutoff = 0.1, sort = FALSE, ...) 
+{
+   Lambda <- unclass(x)
+   p <- nrow(Lambda)
+   factors <- ncol(Lambda)
+   if (sort) {
+      mx <- max.col(abs(Lambda))
+      ind <- cbind(1L:p, mx)
+      mx[abs(Lambda[ind]) < 0.5] <- factors + 1
+      Lambda <- Lambda[order(mx, 1L:p), ]
+   }
+   cat("\nLoadings:\n")
+   fx <- format(round(Lambda, digits))
+   names(fx) <- NULL
+   nc <- nchar(fx[1L], type = "c")
+   fx[abs(Lambda) < cutoff] <- paste(rep(" ", nc), collapse = "")
+   newx <- print(fx, quote = FALSE, ...) # I assigned this to a variable
+   vx <- colSums(x^2)
+   varex <- rbind(`SS loadings` = vx)
+   if (is.null(attr(x, "covariance"))) {
+      varex <- rbind(varex, `Proportion Var` = vx/p)
+      if (factors > 1) 
+         varex <- rbind(varex, `Cumulative Var` = cumsum(vx/p))
+   }
+   cat("\n")
+   print(round(varex, digits))
+   invisible(newx) #previously returned x
+}
 ```
 
 ## Summary
@@ -164,9 +195,33 @@ Now we need to compare the CFA outputs of each and determine which is the optima
 anova(cfa.fit3, cfa.fit4, cfa.fit5, cfa.fit6, cfa.fit7, cfa.fit8, cfa.fit9)
 ```
 
-From this, both 7 and 9 factors are near equivalent with n=7 to have a lower AIC and n=9 to have a lower Chisq.
+From this, both 7 - 9 factors are near equivalent with n=7 to have a lower AIC and n=9 to have a lower Chisq.
 
 ```{r}
 df.efa <- fa(dat, nfactors = 7, rotate = "oblimin")
-df.efa$loadings
+df.out1 <- fa.sort(df.efa)
+
+mmm <- printLoadings(df.efa$loadings)
+as.table(mmm)
+write.csv(as.table(mmm),"R_factors.csv")
+```
+
+## Cronbach Alpha
+
+```{r}
+f1 <- dat[, c("The.material.is.easier.to.understand.when.I.work.with.other.students.", "The.work.takes.more.time.to.complete.when.I.work.with.other.students.", "The.workload.is.usually.less.when.I.work.with.other.students.", "I.feel.working.in.groups.is.a.waste.of.time.", "When.I.work.in.a.group..I.do.higher.quality.work.",  "My.group.members.help.explain.things.that.I.do.not.understand.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together.")]
+f2 <- dat[, c("You.have.a.certain.amount.of.physics.intelligence..and.you.can.t.really.do.much.to.change.it.", "Your.physics.intelligence.is.something.about.you.that.you.can.change.", "You.can.learn.new.things..but.you.can.t.really.change.your.basic.physics.intelligence.")]
+f3 <- dat[, c("I.have.to.work.with.students.who.are.not.as.smart.as.I.am.", "I.become.frustrated.when.my.group.members.do.not.understand.the.material.")]
+f4 <- dat[, c("When.I.work.in.a.group..I.am.able.to.share.my.ideas.", "My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are.", "My.group.members.respect.my.opinions.", "I.feel.I.am.part.of.what.is.going.on.in.the.group.", "My.group.members.do.not.care.about.my.feelings.", "I.let.the.other.students.do.most.of.the.work.", "When.I.work.with.other.students..we.spend.too.much.time.talking.about.other.things.")]
+f5 <- dat[, c("I.prefer.when.the.leadership.role.rotates.between.students.", "I.try.to.make.sure.my.group.members.learn.the.material.", "I.prefer.to.take.on.tasks.that.will.help.me.better.learn.the.material.", "Everyone.s.ideas.are.needed.if.we.are.going.to.be.successful.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together.")]
+f6 <- dat[, c("When.I.work.in.a.group..I.end.up.doing.most.of.the.work.", "When.I.work.with.other.students.the.work.is.divided.equally.", "We.cannot.complete.the.assignment.unless.everyone.contributes.")]
+f7 <- dat[, c("I.learn.to.work.with.students.who.are.different.from.me.", "I.also.learn.when.I.teach.the.material.to.my.group.members.")]
+
+alpha(f1, check.keys=TRUE)$total[1]
+alpha(f2, check.keys=TRUE)$total[1]
+alpha(f3, check.keys=TRUE)$total[1]
+alpha(f4, check.keys=TRUE)$total[1]
+alpha(f5, check.keys=TRUE)$total[1]
+alpha(f6, check.keys=TRUE)$total[1]
+alpha(f7, check.keys=TRUE)$total[1]
 ```
