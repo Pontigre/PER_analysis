@@ -106,6 +106,38 @@ train_data <- training(df_split)
 test_data <- testing(df_split)
 ```
 
+## Reduce the demographic questions
+Gender -> Man, Woman, Other, Prefer not to disclose
+Raceethnicity -> Systemically Dominant [SD] (white, asian), Systemically Non Dominant [SND], Mixed, Prefer not to disclose
+Education -> 1st gen, not 1st gen, Prefer not to disclose
+
+```{r}
+raw_df <- raw_df %>%
+  mutate(Gender_group = case_when(Gender== 'Male' ~ 'Man',
+                                   Gender == 'Female' ~ 'Woman',
+                                   str_detect(Gender, 'Prefer') ~ 'Drop',
+                                   TRUE ~ 'Other'))
+
+raw_df <- raw_df %>%
+  mutate(Raceethnicity_group = case_when(Raceethnicity == 'Asian' ~ 'SD',
+                                         Raceethnicity == 'Asian,White' ~ 'SD',
+                                         Raceethnicity == 'White' ~ 'SD',
+                                         str_detect(Raceethnicity, 'Prefer') ~ 'Drop',
+                                         str_detect(Raceethnicity, ',White') ~ 'Mixed',
+                                         str_detect(Raceethnicity, 'Asian,') ~ 'Mixed',
+                                         TRUE ~ 'SND'))
+
+raw_df <- raw_df %>%
+  mutate(Education_group = case_when(Education == 'Other' ~ '1stGen',
+                                     Education== 'High school' ~ '1stGen',
+                                     Education == 'Some college but no degree' ~ '1stGen',
+                                     Education == "Associate's or technical degree" ~ '1stGen',
+                                     str_detect(Education, 'Prefer') ~ 'Drop',
+                                     TRUE ~ 'Not1stGen'))
+
+```
+
+
 # EFA
 
 ## Correlations
@@ -180,7 +212,7 @@ for (Nfacs in 3:9){
       }
   }
   str <- paste0("cfa.fit",Nfacs)
-  model <- efa_to_cfa(df.efa)
+  model <- efa_to_cfa(df.efa, threshold = 0.3)
   cfa.fit <- cfa(model = model, data = test_data)
   assign(str,cfa.fit)
 }
@@ -195,27 +227,25 @@ Now we need to compare the CFA outputs of each and determine which is the optima
 anova(cfa.fit3, cfa.fit4, cfa.fit5, cfa.fit6, cfa.fit7, cfa.fit8, cfa.fit9)
 ```
 
-From this, both 7 - 9 factors are near equivalent with n=7 to have a lower AIC and n=9 to have a lower Chisq.
+From this, 7 - 9 factors are near equivalent with n=7 to have a lower AIC and n=9 to have a lower Chisq.
 
 ```{r}
 df.efa <- fa(dat, nfactors = 7, rotate = "oblimin")
-df.out1 <- fa.sort(df.efa)
 
-mmm <- printLoadings(df.efa$loadings)
-as.table(mmm)
+mmm <- printLoadings(df.efa$loadings, cutoff = 0.3)
 write.csv(as.table(mmm),"R_factors.csv")
 ```
 
 ## Cronbach Alpha
 
 ```{r}
-f1 <- dat[, c("The.material.is.easier.to.understand.when.I.work.with.other.students.", "The.work.takes.more.time.to.complete.when.I.work.with.other.students.", "The.workload.is.usually.less.when.I.work.with.other.students.", "I.feel.working.in.groups.is.a.waste.of.time.", "When.I.work.in.a.group..I.do.higher.quality.work.",  "My.group.members.help.explain.things.that.I.do.not.understand.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together.")]
+f1 <- dat[, c("When.I.work.in.a.group..I.do.higher.quality.work.", "The.work.takes.more.time.to.complete.when.I.work.with.other.students.", "My.group.members.help.explain.things.that.I.do.not.understand.", "The.material.is.easier.to.understand.when.I.work.with.other.students.", "The.workload.is.usually.less.when.I.work.with.other.students.", "The.workload.is.usually.less.when.I.work.with.other.students.", "I.feel.working.in.groups.is.a.waste.of.time.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together.")]
 f2 <- dat[, c("You.have.a.certain.amount.of.physics.intelligence..and.you.can.t.really.do.much.to.change.it.", "Your.physics.intelligence.is.something.about.you.that.you.can.change.", "You.can.learn.new.things..but.you.can.t.really.change.your.basic.physics.intelligence.")]
 f3 <- dat[, c("I.have.to.work.with.students.who.are.not.as.smart.as.I.am.", "I.become.frustrated.when.my.group.members.do.not.understand.the.material.")]
-f4 <- dat[, c("When.I.work.in.a.group..I.am.able.to.share.my.ideas.", "My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are.", "My.group.members.respect.my.opinions.", "I.feel.I.am.part.of.what.is.going.on.in.the.group.", "My.group.members.do.not.care.about.my.feelings.", "I.let.the.other.students.do.most.of.the.work.", "When.I.work.with.other.students..we.spend.too.much.time.talking.about.other.things.")]
-f5 <- dat[, c("I.prefer.when.the.leadership.role.rotates.between.students.", "I.try.to.make.sure.my.group.members.learn.the.material.", "I.prefer.to.take.on.tasks.that.will.help.me.better.learn.the.material.", "Everyone.s.ideas.are.needed.if.we.are.going.to.be.successful.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together.")]
-f6 <- dat[, c("When.I.work.in.a.group..I.end.up.doing.most.of.the.work.", "When.I.work.with.other.students.the.work.is.divided.equally.", "We.cannot.complete.the.assignment.unless.everyone.contributes.")]
-f7 <- dat[, c("I.learn.to.work.with.students.who.are.different.from.me.", "I.also.learn.when.I.teach.the.material.to.my.group.members.")]
+f4 <- dat[, c("My.group.members.respect.my.opinions.", "My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are.", "My.group.members.do.not.care.about.my.feelings.", "I.feel.I.am.part.of.what.is.going.on.in.the.group.", "When.I.work.in.a.group..I.am.able.to.share.my.ideas.", "I.let.the.other.students.do.most.of.the.work.")]
+f5 <- dat[, c("I.try.to.make.sure.my.group.members.learn.the.material.", "I.prefer.when.the.leadership.role.rotates.between.students.", "I.prefer.to.take.on.tasks.that.will.help.me.better.learn.the.material.", "Everyone.s.ideas.are.needed.if.we.are.going.to.be.successful.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together.")]
+f6 <- dat[, c("When.I.work.with.other.students.the.work.is.divided.equally.", "When.I.work.in.a.group..I.end.up.doing.most.of.the.work.", "We.cannot.complete.the.assignment.unless.everyone.contributes.")]
+f7 <- dat[, c("I.learn.to.work.with.students.who.are.different.from.me.", "I.also.learn.when.I.teach.the.material.to.my.group.members.", "My.group.did.higher.quality.work.when.group.members.worked.on.different.tasks.at.the.same.time.")]
 
 alpha(f1, check.keys=TRUE)$total[1]
 alpha(f2, check.keys=TRUE)$total[1]
@@ -225,3 +255,43 @@ alpha(f5, check.keys=TRUE)$total[1]
 alpha(f6, check.keys=TRUE)$total[1]
 alpha(f7, check.keys=TRUE)$total[1]
 ```
+## Rating Scale
+Now we want to give each student a rating for each factor based on their responses
+
+```{r}
+key.list <- list(
+  f1=c("When.I.work.in.a.group..I.do.higher.quality.work.", "The.work.takes.more.time.to.complete.when.I.work.with.other.students.", "My.group.members.help.explain.things.that.I.do.not.understand.", "The.material.is.easier.to.understand.when.I.work.with.other.students.", "The.workload.is.usually.less.when.I.work.with.other.students.", "The.workload.is.usually.less.when.I.work.with.other.students.", "I.feel.working.in.groups.is.a.waste.of.time.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together."),
+  f2=c("You.have.a.certain.amount.of.physics.intelligence..and.you.can.t.really.do.much.to.change.it.", "Your.physics.intelligence.is.something.about.you.that.you.can.change.", "You.can.learn.new.things..but.you.can.t.really.change.your.basic.physics.intelligence."),
+  f3=c("I.have.to.work.with.students.who.are.not.as.smart.as.I.am.", "I.become.frustrated.when.my.group.members.do.not.understand.the.material."),
+  f4=c("My.group.members.respect.my.opinions.", "My.group.members.make.me.feel.that.I.am.not.as.smart.as.they.are.", "My.group.members.do.not.care.about.my.feelings.", "I.feel.I.am.part.of.what.is.going.on.in.the.group.", "When.I.work.in.a.group..I.am.able.to.share.my.ideas.", "I.let.the.other.students.do.most.of.the.work."),
+  f5=c("I.try.to.make.sure.my.group.members.learn.the.material.", "I.prefer.when.the.leadership.role.rotates.between.students.", "I.prefer.to.take.on.tasks.that.will.help.me.better.learn.the.material.", "Everyone.s.ideas.are.needed.if.we.are.going.to.be.successful.", "My.group.did.higher.quality.work.when.my.group.members.worked.on.tasks.together."),
+  f6=c("When.I.work.with.other.students.the.work.is.divided.equally.", "When.I.work.in.a.group..I.end.up.doing.most.of.the.work.", "We.cannot.complete.the.assignment.unless.everyone.contributes."),
+  f7=c("I.learn.to.work.with.students.who.are.different.from.me.", "I.also.learn.when.I.teach.the.material.to.my.group.members.", "My.group.did.higher.quality.work.when.group.members.worked.on.different.tasks.at.the.same.time.")
+)
+
+keys <- make.keys(dat,key.list,item.labels=colnames(dat))
+keys.list <- keys2list(keys,sign=TRUE)
+scores <- scoreItems(keys.list,dat)
+```
+
+# Linear Regression
+First need to combine the item scores with the demographic info. (Columns 1, 55 (intervention) are course information, Columns 56-58 are demographics questions)
+
+```{r}
+df.lr <- cbind(scores$scores,raw_df[,c(1,55,56,57,58)])
+df.lr <- df.lr[-(which(df.lr$Gender_group %in% "Drop")),]
+df.lr <- df.lr[-(which(df.lr$Raceethnicity_group %in% "Drop")),]
+df.lr <- df.lr[-(which(df.lr$Education_group %in% "Drop")),]
+```
+
+## Plots
+```{r, dpi=500, echo=FALSE}
+ggplot(df.lr, aes(x=Gender_group, y=f1, fill=Gender_group)) + geom_boxplot()
+```
+
+## Models
+```{r}
+f1.model <- lm(f1 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
+summary(f1.model)
+```
+
