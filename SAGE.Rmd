@@ -91,7 +91,7 @@ Import -\> Tidy Data -\> Transform into what we want -\> Analyze
 ## Import Data
 
 ```{r}
-raw_df <- read.csv(file = "./ExportedFiles/SAGE_Raw.csv")
+raw_df <- read.csv(file = "./ExportedFiles/SAGE_Raw_EFA.csv")
 ```
 
 ## Process Data
@@ -107,9 +107,8 @@ test_data <- testing(df_split)
 ```
 
 ## Reduce the demographic questions
-Gender -> Man, Woman, Other, Prefer not to disclose
-Raceethnicity -> Systemically Dominant [SD] (white, asian), Systemically Non Dominant [SND], Mixed, Prefer not to disclose
-Education -> 1st gen, not 1st gen, Prefer not to disclose
+
+Gender -\> Man, Woman, Other, Prefer not to disclose Raceethnicity -\> Systemically Dominant [SD] (white, asian), Systemically Non Dominant [SND], Mixed, Prefer not to disclose Education -\> 1st gen, not 1st gen, Prefer not to disclose
 
 ```{r}
 raw_df <- raw_df %>%
@@ -136,7 +135,6 @@ raw_df <- raw_df %>%
                                      TRUE ~ 'Not1stGen'))
 
 ```
-
 
 # EFA
 
@@ -255,7 +253,9 @@ alpha(f5, check.keys=TRUE)$total[1]
 alpha(f6, check.keys=TRUE)$total[1]
 alpha(f7, check.keys=TRUE)$total[1]
 ```
+
 ## Rating Scale
+
 Now we want to give each student a rating for each factor based on their responses
 
 ```{r}
@@ -275,6 +275,7 @@ scores <- scoreItems(keys.list,dat)
 ```
 
 # Linear Regression
+
 First need to combine the item scores with the demographic info. (Columns 1, 55 (intervention) are course information, Columns 56-58 are demographics questions)
 
 ```{r}
@@ -282,16 +283,18 @@ df.lr <- cbind(scores$scores,raw_df[,c(1,55,56,57,58)])
 df.lr <- df.lr[-(which(df.lr$Gender_group %in% "Drop")),]
 df.lr <- df.lr[-(which(df.lr$Raceethnicity_group %in% "Drop")),]
 df.lr <- df.lr[-(which(df.lr$Education_group %in% "Drop")),]
+write.csv(df.lr,"R_scores.csv")
 ```
 
 ## Plots
+
 ```{r, dpi=500, echo=FALSE}
 ggplot(df.lr, aes(x=Gender_group, y=f1, fill=Gender_group)) + geom_boxplot()
 ```
 
 ## Models
+
 ```{r}
 f1.model <- lm(f1 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
 summary(f1.model)
 ```
-
