@@ -930,155 +930,157 @@ def Make_BoxandWhisker_Plots():
     goldenRatioInverse = ((5**.5 - 1) / 2)
     
     #READ IN DATA FROM R
-    my_file = 'R_scores.csv'
-    df_scores = pd.read_csv(my_file, encoding = "utf-8")
+    my_file = 'ExportedFiles/R_scores.csv'
+    df1 = pd.read_csv(my_file, encoding = "utf-8")
+    print(df1)
 
-    # # Plot (box and whisker) averages for each factor by course
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
-    # course_count =  df_bnw.groupby(['Course']).count()
-    # course_list = []
-    # course_count_list = []
-    # courselabels = ['Physics I Lab', 'Physics II Lab']
-    # for i in list(course_count.index):
-    #     course_list.append(i)
-    #     string = i + ' (n = ' + str(course_count.loc[i]['Mindset']) + ')'
-    #     course_count_list.append(string)
-    # palette = {course_list[0]: palette2[0], course_list[1]: palette2[1]}
-    # hue_order = [course_list[0],course_list[1]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
+    fs = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7']
+    Factorlabels = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7']
+
+    # Plot (box and whisker) averages for each factor by course
+    df_bnw = df1.drop(['Intervention','Gender_group','Raceethnicity_group','Education_group'],axis=1)
+    course_count =  df_bnw.groupby(['Course']).count()
+    course_list = []
+    course_count_list = []
+    courselabels = ['Physics I Lab', 'Physics II Lab']
+    for i in list(course_count.index):
+        course_list.append(i)
+        string = i + ' (n = ' + str(course_count.loc[i]['f2']) + ')'
+        course_count_list.append(string)
+    palette = {course_list[0]: palette2[0], course_list[1]: palette2[1]}
+    hue_order = [course_list[0],course_list[1]]
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
     # for t, l in zip(L.get_texts(), courselabels):
     #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_course')
-    # plt.clf()
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_course')
+    plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by intervention
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Raceethnicity_C','Education_C'],axis=1)
-    # intervention_count =  df_bnw.groupby(['Intervention']).count()
-    # intervention_list = []
-    # intervention_count_list = []
-    # for i in list(intervention_count.index):
-    #     intervention_list.append(i)
-    #     string = i + ' (n = ' + str(intervention_count.loc[i]['Mindset']) + ')'
-    #     intervention_count_list.append(string)
-    # palette ={intervention_list[0]: palette2[0], intervention_list[1]: palette2[1]}
-    # hue_order = [intervention_list[0],intervention_list[1]]
-    # interventionlabels = ['Control','Partner Agreements']
+    # Plot (box and whisker) averages for each factor by intervention
+    df_bnw = df1.drop(['Course','Gender_group','Raceethnicity_group','Education_group'],axis=1)
+    intervention_count =  df_bnw.groupby(['Intervention']).count()
+    intervention_list = []
+    intervention_count_list = []
+    for i in list(intervention_count.index):
+        intervention_list.append(i)
+        string = i + ' (n = ' + str(intervention_count.loc[i]['f2']) + ')'
+        intervention_count_list.append(string)
+    palette ={intervention_list[0]: palette2[0], intervention_list[1]: palette2[1],  intervention_list[2]: palette2[2]}
+    hue_order = [intervention_list[0],intervention_list[1],intervention_list[2]]
+    interventionlabels = ['Control','Partner Agreements']
 
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
     # for t, l in zip(L.get_texts(), interventionlabels):
     #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_intervention')
-    # plt.clf()
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_intervention')
+    plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by gender
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Raceethnicity_C','Education_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Gender_C']=='Prefer not to disclose'].index, inplace=True)
-    # gender_count =  df_bnw.groupby(['Gender_C']).count()
-    # gender_list = []
-    # gender_count_list = []
-    # genderlabels = ['Women', 'Men', 'Non-binary/Other']
-    # for i in list(gender_count.index):
-    #     gender_list.append(i)
-    #     string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
-    #     gender_count_list.append(string)
-    # palette ={gender_list[0]: palette2[1], gender_list[1]: palette2[0], gender_list[2]: palette2[2]}
-    # hue_order = [gender_list[0],gender_list[1], gender_list[2]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), genderlabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_gender')
-    # plt.clf()
+    # Plot (box and whisker) averages for each factor by gender
+    df_bnw = df1.drop(['Course','Intervention','Raceethnicity_group','Education_group'],axis=1)
+    df_bnw.drop(df_bnw.loc[df_bnw['Gender_group']=='Prefer not to disclose'].index, inplace=True)
+    gender_count =  df_bnw.groupby(['Gender_group']).count()
+    gender_list = []
+    gender_count_list = []
+    genderlabels = ['Woman', 'Man', 'Non-binary/Other']
+    for i in list(gender_count.index):
+        gender_list.append(i)
+        string = i + ' (n = ' + str(gender_count.loc[i]['f2']) + ')'
+        gender_count_list.append(string)
+    palette ={gender_list[0]: palette2[1], gender_list[1]: palette2[0], gender_list[2]: palette2[2]}
+    hue_order = [gender_list[2],gender_list[0], gender_list[1]]
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_group'], value_vars=fs, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Gender_group', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
+    for t, l in zip(L.get_texts(), genderlabels):
+        t.set_text(l)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_gender')
+    plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by race and ethnicity
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Education_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Raceethnicity_C']=='Prefer not to disclose'].index, inplace=True)
-    # raceethnicity_count =  df_bnw.groupby(['Raceethnicity_C']).count()
-    # raceethnicity_list = []
-    # raceethnicity_count_list = []
-    # raceethnicitylabels = ['No', 'Yes']
-    # for i in list(raceethnicity_count.index):
-    #     raceethnicity_list.append(i)
-    #     string = i + ' (n = ' + str(raceethnicity_count.loc[i]['Mindset']) + ')'
-    #     raceethnicity_count_list.append(string)
-    # palette ={raceethnicity_list[2]: palette2[0], raceethnicity_list[1]: palette2[1]}
-    # hue_order = [raceethnicity_list[2],raceethnicity_list[1]]
+    # Plot (box and whisker) averages for each factor by race and ethnicity
+    df_bnw = df1.drop(['Course','Intervention','Gender_group','Education_group'],axis=1)
+    raceethnicity_count =  df_bnw.groupby(['Raceethnicity_group']).count()
+    raceethnicity_list = []
+    raceethnicity_count_list = []
+    raceethnicitylabels = ['Yes', 'No']
+    for i in list(raceethnicity_count.index):
+        raceethnicity_list.append(i)
+        string = i + ' (n = ' + str(raceethnicity_count.loc[i]['f2']) + ')'
+        raceethnicity_count_list.append(string)
+    palette ={raceethnicity_list[2]: palette2[0], raceethnicity_list[1]: palette2[1]}
+    hue_order = [raceethnicity_list[2],raceethnicity_list[1]]
 
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    # L.set_title('URM status?')
-    # for t, l in zip(L.get_texts(), raceethnicitylabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_raceethnicity')
-    # plt.clf()
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_group'], value_vars=fs, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Raceethnicity_group', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+    L.set_title('Systematically Non Dominant?')
+    for t, l in zip(L.get_texts(), raceethnicitylabels):
+        t.set_text(l)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_raceethnicity')
+    plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by education
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Education_C']=='Prefer not to answer'].index, inplace=True)
-    # education_count =  df_bnw.groupby(['Education_C']).count()
-    # education_list = []
-    # education_count_list = []
-    # educationlabels = ['Yes', 'No']
-    # for i in list(education_count.index):
-    #     education_list.append(i)
-    #     string = i + ' (n = ' + str(education_count.loc[i]['Mindset']) + ')'
-    #     education_count_list.append(string)
-    # palette ={education_list[0]: palette2[0], education_list[1]: palette2[1]}
-    # hue_order = [education_list[0],education_list[1]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Education_C', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols = 2, fancybox=True, shadow=False)
-    # L.set_title('1st generation student?')
-    # for t, l in zip(L.get_texts(), educationlabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_education')
-    # plt.clf()
+    # Plot (box and whisker) averages for each factor by education
+    df_bnw = df1.drop(['Course','Intervention','Gender_group','Raceethnicity_group'],axis=1)
+    education_count =  df_bnw.groupby(['Education_group']).count()
+    education_list = []
+    education_count_list = []
+    educationlabels = ['Yes', 'No']
+    for i in list(education_count.index):
+        education_list.append(i)
+        string = i + ' (n = ' + str(education_count.loc[i]['f2']) + ')'
+        education_count_list.append(string)
+    palette ={education_list[0]: palette2[0], education_list[1]: palette2[1]}
+    hue_order = [education_list[0],education_list[1]]
+    ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+    g = sns.boxplot(data=df_bnw.melt(id_vars=['Education_group'], value_vars=fs, var_name='Rating', value_name='Factor'), 
+                    x='Rating', y='Factor', hue='Education_group', hue_order=hue_order, palette=palette)
+    plt.xlabel('Factor')
+    plt.ylabel('Rating')
+    g.set_xticklabels(Factorlabels)
+    L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols = 2, fancybox=True, shadow=False)
+    L.set_title('1st generation student?')
+    for t, l in zip(L.get_texts(), educationlabels):
+        t.set_text(l)
+    plt.tight_layout()
+    save_fig(g,'factor_ratings_education')
+    plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by mindset (method 1)
-    # df_bnw = df1.drop(['Mindset_C2','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
-    # mindset_count =  df_bnw.groupby(['Mindset_C']).count()
+    # # Plot (box and whisker) averages for each factor by mindset
+    # df_bnw = df1.drop(['Education_group','Course','Intervention','Gender_group','Raceethnicity_group'],axis=1)
+    # mindset_count =  df_bnw.groupby(['f2']).count()
     # mindset_list = []
     # mindset_count_list = []
     # for i in list(mindset_count.index):
     #     mindset_list.append(i)
-    #     string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
+    #     string = i + ' (n = ' + str(mindset_count.loc[i]['f2']) + ')'
     #     mindset_count_list.append(string)
     # palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
     # hue_order = [mindset_list[0],mindset_list[1]]
     # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Mindset_C', hue_order=hue_order, palette=palette)
+    # g = sns.boxplot(data=df_bnw.melt(id_vars=['f2'], value_vars=fs, var_name='Rating', value_name='Factor'), 
+    #                 x='Rating', y='Factor', hue='f2', hue_order=hue_order, palette=palette)
     # plt.xlabel('Factor')
     # plt.ylabel('Rating')
     # g.set_xticklabels(Factorlabels)
@@ -1088,31 +1090,6 @@ def Make_BoxandWhisker_Plots():
     # plt.tight_layout()
 
     # save_fig(g,'factor_ratings_mindset')
-    # plt.clf()
-
-    # # Plot (box and whisker) averages for each factor by mindset (method 2)
-    # df_bnw = df1.drop(['Mindset_C','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
-    # mindset_count =  df_bnw.groupby(['Mindset_C2']).count()
-    # mindset_list = []
-    # mindset_count_list = []
-    # for i in list(mindset_count.index):
-    #     mindset_list.append(i)
-    #     string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
-    #     mindset_count_list.append(string)
-    # palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
-    # hue_order = [mindset_list[0],mindset_list[1]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C2'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Mindset_C2', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), mindset_list):
-    #     t.set_text(l)
-    # plt.tight_layout()
-
-    # save_fig(g,'factor_ratings_mindset2')
     # plt.clf()
 
     params = {'axes.labelsize': 14,
@@ -1128,20 +1105,20 @@ def Make_BoxandWhisker_Plots():
 
     # SPLIT THE BOXPLOTS BY INTERVENTION
     # Plot (box and whisker) averages for each factor by gender
-    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Raceethnicity_C','Education_C'],axis=1)
-    gender_count =  df_bnw.groupby(['Gender_C']).count()
+    df_bnw = df1.drop(['Course','Raceethnicity_group','Education_group'],axis=1)
+    gender_count =  df_bnw.groupby(['Gender_group']).count()
     gender_list = []
     gender_count_list = []
-    genderlabels = ['Men', 'Women', 'Non-binary/Other']
+    genderlabels = ['Woman', 'Man', 'Non-binary/Other']
     for i in list(gender_count.index):
         gender_list.append(i)
-        string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
+        string = i + ' (n = ' + str(gender_count.loc[i]['f2']) + ')'
         gender_count_list.append(string)
-    palette ={gender_list[0]: palette2[0], gender_list[3]: palette2[1], gender_list[1]: palette2[2]}
-    hue_order = [gender_list[0],gender_list[3], gender_list[1]]
+    palette ={gender_list[0]: palette2[1], gender_list[1]: palette2[0], gender_list[2]: palette2[2]}
+    hue_order = [gender_list[2],gender_list[0], gender_list[1]]
     ax = plt.figure(figsize=(7.16, 3.404*1.5))
-    melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', row='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, kind='box', legend=False)
+    melt_df = df_bnw.melt(id_vars=['Gender_group','Intervention'], value_vars=fs, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_group', row='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, kind='box', legend=False)
     g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='lower center', bbox_to_anchor=(0.5, 1), ncols=3, frameon=True, fancybox=True, shadow=False)
     axes = g.axes.flatten()
     axes[0].set_title("Control",fontweight='normal')
@@ -1153,8 +1130,8 @@ def Make_BoxandWhisker_Plots():
 
     # NOW SIDE BY SIDE
     ax = plt.figure(figsize=(7.057*1.5, 7.057*1.5*((5**.5 - 1) / 2)))
-    melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', col='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, saturation=1, kind='box', legend=False)
+    melt_df = df_bnw.melt(id_vars=['Gender_group','Intervention'], value_vars=fs, var_name='Factor', value_name='Rating')
+    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_group', col='Intervention', col_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, saturation=1, kind='box', legend=False)
     g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='upper center', bbox_to_anchor=(0.4, 1.05), ncols=3, frameon=True, fancybox=True, shadow=False)
     plt.subplots_adjust(hspace=0, wspace=0.02)
     axes = g.axes.flatten()
@@ -1583,275 +1560,275 @@ def OldFunctionRepository():
                 path_effects.Normal(),
             ])
     def Make_BoxandWhisker_Plots_old(df1,fs):
-    sns.set_context("paper")
-    sns.set(style="whitegrid")
-    palette1 = sns.color_palette("colorblind")
-    palette2 = sns.color_palette("colorblind")
-    palette2[0] = "#fdb863"
-    palette2[1] = "#b2abd2"
-    palette2[2] = "#a3ffb7"
-    plt.rcParams['font.family'] = 'serif'
-    params = {'axes.labelsize': 10,
-           'legend.fontsize': 10,
-           'xtick.labelsize': 8,
-           'ytick.labelsize': 8,
-           'xtick.bottom': True,
-           'xtick.direction': 'in',
-           'font.weight': 'normal',
-           'axes.labelweight': 'normal'
-           }
-    plt.rcParams.update(params)
-    goldenRatioInverse = ((5**.5 - 1) / 2)
-    Factorlabels=['QP','CL','IB','M','II','F']
+        sns.set_context("paper")
+        sns.set(style="whitegrid")
+        palette1 = sns.color_palette("colorblind")
+        palette2 = sns.color_palette("colorblind")
+        palette2[0] = "#fdb863"
+        palette2[1] = "#b2abd2"
+        palette2[2] = "#a3ffb7"
+        plt.rcParams['font.family'] = 'serif'
+        params = {'axes.labelsize': 10,
+               'legend.fontsize': 10,
+               'xtick.labelsize': 8,
+               'ytick.labelsize': 8,
+               'xtick.bottom': True,
+               'xtick.direction': 'in',
+               'font.weight': 'normal',
+               'axes.labelweight': 'normal'
+               }
+        plt.rcParams.update(params)
+        goldenRatioInverse = ((5**.5 - 1) / 2)
+        Factorlabels=['QP','CL','IB','M','II','F']
 
-    # # Plot (box and whisker) averages for each factor by course
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
-    # course_count =  df_bnw.groupby(['Course']).count()
-    # course_list = []
-    # course_count_list = []
-    # courselabels = ['Physics I Lab', 'Physics II Lab']
-    # for i in list(course_count.index):
-    #     course_list.append(i)
-    #     string = i + ' (n = ' + str(course_count.loc[i]['Mindset']) + ')'
-    #     course_count_list.append(string)
-    # palette = {course_list[0]: palette2[0], course_list[1]: palette2[1]}
-    # hue_order = [course_list[0],course_list[1]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), courselabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_course')
-    # plt.clf()
+        # # Plot (box and whisker) averages for each factor by course
+        # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Intervention','Gender_C','Raceethnicity_C','Education_C'],axis=1)
+        # course_count =  df_bnw.groupby(['Course']).count()
+        # course_list = []
+        # course_count_list = []
+        # courselabels = ['Physics I Lab', 'Physics II Lab']
+        # for i in list(course_count.index):
+        #     course_list.append(i)
+        #     string = i + ' (n = ' + str(course_count.loc[i]['Mindset']) + ')'
+        #     course_count_list.append(string)
+        # palette = {course_list[0]: palette2[0], course_list[1]: palette2[1]}
+        # hue_order = [course_list[0],course_list[1]]
+        # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+        # g = sns.boxplot(data=df_bnw.melt(id_vars=['Course'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+        #                 x='Rating', y='Factor', hue='Course', hue_order=hue_order, palette=palette)
+        # plt.xlabel('Factor')
+        # plt.ylabel('Rating')
+        # g.set_xticklabels(Factorlabels)
+        # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
+        # for t, l in zip(L.get_texts(), courselabels):
+        #     t.set_text(l)
+        # plt.tight_layout()
+        # save_fig(g,'factor_ratings_course')
+        # plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by intervention
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Raceethnicity_C','Education_C'],axis=1)
-    # intervention_count =  df_bnw.groupby(['Intervention']).count()
-    # intervention_list = []
-    # intervention_count_list = []
-    # for i in list(intervention_count.index):
-    #     intervention_list.append(i)
-    #     string = i + ' (n = ' + str(intervention_count.loc[i]['Mindset']) + ')'
-    #     intervention_count_list.append(string)
-    # palette ={intervention_list[0]: palette2[0], intervention_list[1]: palette2[1]}
-    # hue_order = [intervention_list[0],intervention_list[1]]
-    # interventionlabels = ['Control','Partner Agreements']
+        # # Plot (box and whisker) averages for each factor by intervention
+        # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Gender_C','Raceethnicity_C','Education_C'],axis=1)
+        # intervention_count =  df_bnw.groupby(['Intervention']).count()
+        # intervention_list = []
+        # intervention_count_list = []
+        # for i in list(intervention_count.index):
+        #     intervention_list.append(i)
+        #     string = i + ' (n = ' + str(intervention_count.loc[i]['Mindset']) + ')'
+        #     intervention_count_list.append(string)
+        # palette ={intervention_list[0]: palette2[0], intervention_list[1]: palette2[1]}
+        # hue_order = [intervention_list[0],intervention_list[1]]
+        # interventionlabels = ['Control','Partner Agreements']
 
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), interventionlabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_intervention')
-    # plt.clf()
+        # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+        # g = sns.boxplot(data=df_bnw.melt(id_vars=['Intervention'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+        #                 x='Rating', y='Factor', hue='Intervention', hue_order=hue_order, palette=palette)
+        # plt.xlabel('Factor')
+        # plt.ylabel('Rating')
+        # g.set_xticklabels(Factorlabels)
+        # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+        # for t, l in zip(L.get_texts(), interventionlabels):
+        #     t.set_text(l)
+        # plt.tight_layout()
+        # save_fig(g,'factor_ratings_intervention')
+        # plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by gender
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Raceethnicity_C','Education_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Gender_C']=='Prefer not to disclose'].index, inplace=True)
-    # gender_count =  df_bnw.groupby(['Gender_C']).count()
-    # gender_list = []
-    # gender_count_list = []
-    # genderlabels = ['Women', 'Men', 'Non-binary/Other']
-    # for i in list(gender_count.index):
-    #     gender_list.append(i)
-    #     string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
-    #     gender_count_list.append(string)
-    # palette ={gender_list[0]: palette2[1], gender_list[1]: palette2[0], gender_list[2]: palette2[2]}
-    # hue_order = [gender_list[0],gender_list[1], gender_list[2]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), genderlabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_gender')
-    # plt.clf()
+        # # Plot (box and whisker) averages for each factor by gender
+        # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Raceethnicity_C','Education_C'],axis=1)
+        # df_bnw.drop(df_bnw.loc[df_bnw['Gender_C']=='Prefer not to disclose'].index, inplace=True)
+        # gender_count =  df_bnw.groupby(['Gender_C']).count()
+        # gender_list = []
+        # gender_count_list = []
+        # genderlabels = ['Women', 'Men', 'Non-binary/Other']
+        # for i in list(gender_count.index):
+        #     gender_list.append(i)
+        #     string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
+        #     gender_count_list.append(string)
+        # palette ={gender_list[0]: palette2[1], gender_list[1]: palette2[0], gender_list[2]: palette2[2]}
+        # hue_order = [gender_list[0],gender_list[1], gender_list[2]]
+        # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+        # g = sns.boxplot(data=df_bnw.melt(id_vars=['Gender_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+        #                 x='Rating', y='Factor', hue='Gender_C', hue_order=hue_order, palette=palette)
+        # plt.xlabel('Factor')
+        # plt.ylabel('Rating')
+        # g.set_xticklabels(Factorlabels)
+        # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=3, fancybox=True, shadow=False)
+        # for t, l in zip(L.get_texts(), genderlabels):
+        #     t.set_text(l)
+        # plt.tight_layout()
+        # save_fig(g,'factor_ratings_gender')
+        # plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by race and ethnicity
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Education_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Raceethnicity_C']=='Prefer not to disclose'].index, inplace=True)
-    # raceethnicity_count =  df_bnw.groupby(['Raceethnicity_C']).count()
-    # raceethnicity_list = []
-    # raceethnicity_count_list = []
-    # raceethnicitylabels = ['No', 'Yes']
-    # for i in list(raceethnicity_count.index):
-    #     raceethnicity_list.append(i)
-    #     string = i + ' (n = ' + str(raceethnicity_count.loc[i]['Mindset']) + ')'
-    #     raceethnicity_count_list.append(string)
-    # palette ={raceethnicity_list[2]: palette2[0], raceethnicity_list[1]: palette2[1]}
-    # hue_order = [raceethnicity_list[2],raceethnicity_list[1]]
+        # # Plot (box and whisker) averages for each factor by race and ethnicity
+        # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Education_C'],axis=1)
+        # df_bnw.drop(df_bnw.loc[df_bnw['Raceethnicity_C']=='Prefer not to disclose'].index, inplace=True)
+        # raceethnicity_count =  df_bnw.groupby(['Raceethnicity_C']).count()
+        # raceethnicity_list = []
+        # raceethnicity_count_list = []
+        # raceethnicitylabels = ['No', 'Yes']
+        # for i in list(raceethnicity_count.index):
+        #     raceethnicity_list.append(i)
+        #     string = i + ' (n = ' + str(raceethnicity_count.loc[i]['Mindset']) + ')'
+        #     raceethnicity_count_list.append(string)
+        # palette ={raceethnicity_list[2]: palette2[0], raceethnicity_list[1]: palette2[1]}
+        # hue_order = [raceethnicity_list[2],raceethnicity_list[1]]
 
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    # L.set_title('URM status?')
-    # for t, l in zip(L.get_texts(), raceethnicitylabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_raceethnicity')
-    # plt.clf()
+        # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+        # g = sns.boxplot(data=df_bnw.melt(id_vars=['Raceethnicity_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+        #                 x='Rating', y='Factor', hue='Raceethnicity_C', hue_order=hue_order, palette=palette)
+        # plt.xlabel('Factor')
+        # plt.ylabel('Rating')
+        # g.set_xticklabels(Factorlabels)
+        # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+        # L.set_title('URM status?')
+        # for t, l in zip(L.get_texts(), raceethnicitylabels):
+        #     t.set_text(l)
+        # plt.tight_layout()
+        # save_fig(g,'factor_ratings_raceethnicity')
+        # plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by education
-    # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
-    # df_bnw.drop(df_bnw.loc[df_bnw['Education_C']=='Prefer not to answer'].index, inplace=True)
-    # education_count =  df_bnw.groupby(['Education_C']).count()
-    # education_list = []
-    # education_count_list = []
-    # educationlabels = ['Yes', 'No']
-    # for i in list(education_count.index):
-    #     education_list.append(i)
-    #     string = i + ' (n = ' + str(education_count.loc[i]['Mindset']) + ')'
-    #     education_count_list.append(string)
-    # palette ={education_list[0]: palette2[0], education_list[1]: palette2[1]}
-    # hue_order = [education_list[0],education_list[1]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Education_C', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols = 2, fancybox=True, shadow=False)
-    # L.set_title('1st generation student?')
-    # for t, l in zip(L.get_texts(), educationlabels):
-    #     t.set_text(l)
-    # plt.tight_layout()
-    # save_fig(g,'factor_ratings_education')
-    # plt.clf()
+        # # Plot (box and whisker) averages for each factor by education
+        # df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
+        # df_bnw.drop(df_bnw.loc[df_bnw['Education_C']=='Prefer not to answer'].index, inplace=True)
+        # education_count =  df_bnw.groupby(['Education_C']).count()
+        # education_list = []
+        # education_count_list = []
+        # educationlabels = ['Yes', 'No']
+        # for i in list(education_count.index):
+        #     education_list.append(i)
+        #     string = i + ' (n = ' + str(education_count.loc[i]['Mindset']) + ')'
+        #     education_count_list.append(string)
+        # palette ={education_list[0]: palette2[0], education_list[1]: palette2[1]}
+        # hue_order = [education_list[0],education_list[1]]
+        # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+        # g = sns.boxplot(data=df_bnw.melt(id_vars=['Education_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+        #                 x='Rating', y='Factor', hue='Education_C', hue_order=hue_order, palette=palette)
+        # plt.xlabel('Factor')
+        # plt.ylabel('Rating')
+        # g.set_xticklabels(Factorlabels)
+        # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols = 2, fancybox=True, shadow=False)
+        # L.set_title('1st generation student?')
+        # for t, l in zip(L.get_texts(), educationlabels):
+        #     t.set_text(l)
+        # plt.tight_layout()
+        # save_fig(g,'factor_ratings_education')
+        # plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by mindset (method 1)
-    # df_bnw = df1.drop(['Mindset_C2','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
-    # mindset_count =  df_bnw.groupby(['Mindset_C']).count()
-    # mindset_list = []
-    # mindset_count_list = []
-    # for i in list(mindset_count.index):
-    #     mindset_list.append(i)
-    #     string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
-    #     mindset_count_list.append(string)
-    # palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
-    # hue_order = [mindset_list[0],mindset_list[1]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Mindset_C', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), mindset_list):
-    #     t.set_text(l)
-    # plt.tight_layout()
+        # # Plot (box and whisker) averages for each factor by mindset (method 1)
+        # df_bnw = df1.drop(['Mindset_C2','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
+        # mindset_count =  df_bnw.groupby(['Mindset_C']).count()
+        # mindset_list = []
+        # mindset_count_list = []
+        # for i in list(mindset_count.index):
+        #     mindset_list.append(i)
+        #     string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
+        #     mindset_count_list.append(string)
+        # palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
+        # hue_order = [mindset_list[0],mindset_list[1]]
+        # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+        # g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+        #                 x='Rating', y='Factor', hue='Mindset_C', hue_order=hue_order, palette=palette)
+        # plt.xlabel('Factor')
+        # plt.ylabel('Rating')
+        # g.set_xticklabels(Factorlabels)
+        # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+        # for t, l in zip(L.get_texts(), mindset_list):
+        #     t.set_text(l)
+        # plt.tight_layout()
 
-    # save_fig(g,'factor_ratings_mindset')
-    # plt.clf()
+        # save_fig(g,'factor_ratings_mindset')
+        # plt.clf()
 
-    # # Plot (box and whisker) averages for each factor by mindset (method 2)
-    # df_bnw = df1.drop(['Mindset_C','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
-    # mindset_count =  df_bnw.groupby(['Mindset_C2']).count()
-    # mindset_list = []
-    # mindset_count_list = []
-    # for i in list(mindset_count.index):
-    #     mindset_list.append(i)
-    #     string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
-    #     mindset_count_list.append(string)
-    # palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
-    # hue_order = [mindset_list[0],mindset_list[1]]
-    # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
-    # g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C2'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
-    #                 x='Rating', y='Factor', hue='Mindset_C2', hue_order=hue_order, palette=palette)
-    # plt.xlabel('Factor')
-    # plt.ylabel('Rating')
-    # g.set_xticklabels(Factorlabels)
-    # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
-    # for t, l in zip(L.get_texts(), mindset_list):
-    #     t.set_text(l)
-    # plt.tight_layout()
+        # # Plot (box and whisker) averages for each factor by mindset (method 2)
+        # df_bnw = df1.drop(['Mindset_C','Education_C','Course','Intervention','Gender_C','Raceethnicity_C'],axis=1)
+        # mindset_count =  df_bnw.groupby(['Mindset_C2']).count()
+        # mindset_list = []
+        # mindset_count_list = []
+        # for i in list(mindset_count.index):
+        #     mindset_list.append(i)
+        #     string = i + ' (n = ' + str(mindset_count.loc[i]['Mindset']) + ')'
+        #     mindset_count_list.append(string)
+        # palette ={mindset_list[0]: palette2[0], mindset_list[1]: palette2[1]}
+        # hue_order = [mindset_list[0],mindset_list[1]]
+        # ax = plt.figure(figsize=(3.404*1.5, 3.404*1.5*goldenRatioInverse))
+        # g = sns.boxplot(data=df_bnw.melt(id_vars=['Mindset_C2'], value_vars=fs.columns, var_name='Rating', value_name='Factor'), 
+        #                 x='Rating', y='Factor', hue='Mindset_C2', hue_order=hue_order, palette=palette)
+        # plt.xlabel('Factor')
+        # plt.ylabel('Rating')
+        # g.set_xticklabels(Factorlabels)
+        # L = plt.legend(loc='lower center', bbox_to_anchor=(0.5, 1.05), ncols=2, fancybox=True, shadow=False)
+        # for t, l in zip(L.get_texts(), mindset_list):
+        #     t.set_text(l)
+        # plt.tight_layout()
 
-    # save_fig(g,'factor_ratings_mindset2')
-    # plt.clf()
+        # save_fig(g,'factor_ratings_mindset2')
+        # plt.clf()
 
-    params = {'axes.labelsize': 14,
-           'legend.fontsize': 10,
-           'xtick.labelsize': 12,
-           'ytick.labelsize': 12,
-           'xtick.bottom': True,
-           'xtick.direction': 'in',
-           'font.weight': 'normal',
-           'axes.labelweight': 'normal'
-           }
-    plt.rcParams.update(params)
+        params = {'axes.labelsize': 14,
+               'legend.fontsize': 10,
+               'xtick.labelsize': 12,
+               'ytick.labelsize': 12,
+               'xtick.bottom': True,
+               'xtick.direction': 'in',
+               'font.weight': 'normal',
+               'axes.labelweight': 'normal'
+               }
+        plt.rcParams.update(params)
 
-    # SPLIT THE BOXPLOTS BY INTERVENTION
-    # Plot (box and whisker) averages for each factor by gender
-    df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Raceethnicity_C','Education_C'],axis=1)
-    gender_count =  df_bnw.groupby(['Gender_C']).count()
-    gender_list = []
-    gender_count_list = []
-    genderlabels = ['Men', 'Women', 'Non-binary/Other']
-    for i in list(gender_count.index):
-        gender_list.append(i)
-        string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
-        gender_count_list.append(string)
-    palette ={gender_list[0]: palette2[0], gender_list[3]: palette2[1], gender_list[1]: palette2[2]}
-    hue_order = [gender_list[0],gender_list[3], gender_list[1]]
-    ax = plt.figure(figsize=(7.16, 3.404*1.5))
-    melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', row='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, kind='box', legend=False)
-    g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='lower center', bbox_to_anchor=(0.5, 1), ncols=3, frameon=True, fancybox=True, shadow=False)
-    axes = g.axes.flatten()
-    axes[0].set_title("Control",fontweight='normal')
-    axes[1].set_title("Partner Agreements",fontweight='normal')
-    axes[0].set_xticklabels(Factorlabels)
-    g.fig.tight_layout()
-    save_fig(g,'factor_ratings_genderbyintervention2')
-    plt.clf()
+        # SPLIT THE BOXPLOTS BY INTERVENTION
+        # Plot (box and whisker) averages for each factor by gender
+        df_bnw = df1.drop(['Mindset_C','Mindset_C2','Course','Raceethnicity_C','Education_C'],axis=1)
+        gender_count =  df_bnw.groupby(['Gender_C']).count()
+        gender_list = []
+        gender_count_list = []
+        genderlabels = ['Men', 'Women', 'Non-binary/Other']
+        for i in list(gender_count.index):
+            gender_list.append(i)
+            string = i + ' (n = ' + str(gender_count.loc[i]['Mindset']) + ')'
+            gender_count_list.append(string)
+        palette ={gender_list[0]: palette2[0], gender_list[3]: palette2[1], gender_list[1]: palette2[2]}
+        hue_order = [gender_list[0],gender_list[3], gender_list[1]]
+        ax = plt.figure(figsize=(7.16, 3.404*1.5))
+        melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+        g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', row='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, kind='box', legend=False)
+        g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='lower center', bbox_to_anchor=(0.5, 1), ncols=3, frameon=True, fancybox=True, shadow=False)
+        axes = g.axes.flatten()
+        axes[0].set_title("Control",fontweight='normal')
+        axes[1].set_title("Partner Agreements",fontweight='normal')
+        axes[0].set_xticklabels(Factorlabels)
+        g.fig.tight_layout()
+        save_fig(g,'factor_ratings_genderbyintervention2')
+        plt.clf()
 
-    # NOW SIDE BY SIDE
-    ax = plt.figure(figsize=(7.057*1.5, 7.057*1.5*((5**.5 - 1) / 2)))
-    melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
-    g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', col='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, saturation=1, kind='box', legend=False)
-    g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='upper center', bbox_to_anchor=(0.4, 1.05), ncols=3, frameon=True, fancybox=True, shadow=False)
-    plt.subplots_adjust(hspace=0, wspace=0.02)
-    axes = g.axes.flatten()
+        # NOW SIDE BY SIDE
+        ax = plt.figure(figsize=(7.057*1.5, 7.057*1.5*((5**.5 - 1) / 2)))
+        melt_df = df_bnw.melt(id_vars=['Gender_C','Intervention'], value_vars=fs.columns, var_name='Factor', value_name='Rating')
+        g = sns.catplot(data=melt_df, x='Factor', y='Rating', hue='Gender_C', col='Intervention', row_order=['Control', 'Partner Agreements'], hue_order=hue_order, palette=palette, saturation=1, kind='box', legend=False)
+        g.add_legend(legend_data={key: value for key, value in zip(genderlabels, g._legend_data.values())}, loc='upper center', bbox_to_anchor=(0.4, 1.05), ncols=3, frameon=True, fancybox=True, shadow=False)
+        plt.subplots_adjust(hspace=0, wspace=0.02)
+        axes = g.axes.flatten()
 
-    # hatches = ['', '', '...']
-    # for ax in g.axes.flat:
-    #     # select the correct patches
-    #     patches = [patch for patch in ax.patches if type(patch) == matplotlib.patches.PathPatch]
-    #     # the number of patches should be evenly divisible by the number of hatches
-    #     h = hatches * (len(patches) // len(hatches))
-    #     # iterate through the patches for each subplot
-    #     for patch, hatch in zip(patches, h):
-    #         patch.set_hatch(hatch)
-    #         fc = patch.get_facecolor()
-    #         # patch.set_edgecolor(fc)
-    # for lp, hatch in zip(g.legend.get_patches(), hatches):
-    #     lp.set_hatch(hatch)
-    #     fc = lp.get_facecolor()
-    #     # lp.set_edgecolor(fc)
-    #     #lp.set_facecolor('none')
-    axes[0].set_title("Control",fontweight='normal')
-    axes[1].set_title("Partner Agreements",fontweight='normal')
-    axes[0].set_xticklabels(Factorlabels)
-    sns.despine(right=False, top=False)
-    save_fig(g,'factor_ratings_genderbyintervention3')
-    plt.clf()
+        # hatches = ['', '', '...']
+        # for ax in g.axes.flat:
+        #     # select the correct patches
+        #     patches = [patch for patch in ax.patches if type(patch) == matplotlib.patches.PathPatch]
+        #     # the number of patches should be evenly divisible by the number of hatches
+        #     h = hatches * (len(patches) // len(hatches))
+        #     # iterate through the patches for each subplot
+        #     for patch, hatch in zip(patches, h):
+        #         patch.set_hatch(hatch)
+        #         fc = patch.get_facecolor()
+        #         # patch.set_edgecolor(fc)
+        # for lp, hatch in zip(g.legend.get_patches(), hatches):
+        #     lp.set_hatch(hatch)
+        #     fc = lp.get_facecolor()
+        #     # lp.set_edgecolor(fc)
+        #     #lp.set_facecolor('none')
+        axes[0].set_title("Control",fontweight='normal')
+        axes[1].set_title("Partner Agreements",fontweight='normal')
+        axes[0].set_xticklabels(Factorlabels)
+        sns.despine(right=False, top=False)
+        save_fig(g,'factor_ratings_genderbyintervention3')
+        plt.clf()
 
 Demo_dict = {'Which course are you currently enrolled in?':'Course',
         "What is your section's unique number?":'Unique',
