@@ -43,6 +43,3 @@ Follows Section II.A from Eaton et al. 2019
 7. Fit this model to the original data using CFA and extract a fit statistic (confirmatory fit index, Akaike information criterion, or similar).
 8. Change the number of factors and repeat the above steps.
 9. Plot the fit statistic vs the number of factors. The model with the local minimum index is the preferred model.
-
-## Principal Component Analysis
-- Not currently used

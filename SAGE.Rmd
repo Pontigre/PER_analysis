@@ -22,6 +22,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 library(tidyverse)
 library(tidymodels)
 library(ggpubr)
+library(texreg)
 library(sjPlot)
 theme_set(theme_pubr())
 
@@ -222,10 +223,15 @@ for (Nfacs in 3:9){
 Now we need to compare the CFA outputs of each and determine which is the optimal model
 
 ```{r}
-anova(cfa.fit3, cfa.fit4, cfa.fit5, cfa.fit6, cfa.fit7, cfa.fit8, cfa.fit9)
+df_an <- anova(cfa.fit3, cfa.fit4, cfa.fit5, cfa.fit6, cfa.fit7, cfa.fit8, cfa.fit9)
+
+df_an <- df_an[order(row.names(df_an)), ]
+
+ggplot(df_an, aes(x = row.names(df_an), y = df_an$AIC))  + 
+  geom_point()
 ```
 
-From this, 7 - 9 factors are near equivalent with n=7 to have a lower AIC and n=9 to have a lower Chisq.
+From this, 7 or 9 factors are near equivalent with n=7 to have a lower AIC and n=9 to have a lower Chisq.
 
 ```{r}
 df.efa <- fa(dat, nfactors = 7, rotate = "oblimin")
@@ -286,15 +292,22 @@ df.lr <- df.lr[-(which(df.lr$Education_group %in% "Drop")),]
 write.csv(df.lr,"R_scores.csv")
 ```
 
-## Plots
-
-```{r, dpi=500, echo=FALSE}
-ggplot(df.lr, aes(x=Gender_group, y=f1, fill=Gender_group)) + geom_boxplot()
-```
-
 ## Models
 
 ```{r}
 f1.model <- lm(f1 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
 summary(f1.model)
+f2.model <- lm(f2 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
+summary(f2.model)
+f3.model <- lm(f3 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
+summary(f3.model)
+f4.model <- lm(f4 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
+summary(f4.model)
+f5.model <- lm(f5 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
+summary(f5.model)
+f6.model <- lm(f6 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
+summary(f6.model)
+f7.model <- lm(f7 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
+summary(f7.model)
+screenreg(list(f1.model,f2.model,f3.model,f4.model,f5.model,f6.model,f7.model),digits=4)
 ```
