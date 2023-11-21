@@ -56,7 +56,7 @@ def main():
     #     EFA_alternate(df_norm) # Exploratory factor analysis on questions taken from SAGE ##CFA package doesn't converge, export files to R.
     # with warnings.catch_warnings(): # Included because a warning during factor analysis about using a different method of diagnolization is annoying
     #     warnings.simplefilter("ignore")
-    #     Factor_dependences(df_norm) # Performs linear regression and other comparisons for how the demographics affect the factors
+    Factor_dependences() # Performs linear regression and other comparisons for how the demographics affect the factors
     Make_BoxandWhisker_Plots()
 
 # ALLOWS THE USER TO TAB-AUTOCOMPLETE IN COMMANDLINE
@@ -330,12 +330,14 @@ def Data_statistics(df_norm):
     top_level_counts.reset_index().to_csv('ExportedFiles/Sage_Counts1.csv', encoding = "utf-8", index=True)
     full_counts.reset_index().to_csv('ExportedFiles/Sage_Counts2.csv', encoding = "utf-8", index=True)
 
-def Factor_dependences(df_norm):
-    # >0.4 minres factoring
-    fit_stats_cfi = []
-    fit_stats_aic = [16194, 17402, 17333, 17198, 16534, 18594, 16786]
-    fit_stats_rmsea = []
-    fit_stats_x = [3,4,5,6,7,8,9]
+def Factor_dependences():
+    ev = [7.3116232, 2.6028414, 1.7870438, 1.5517266, 1.2405477, 1.0768273, 1.0348560, 0.9694283,
+    0.9545786, 0.9031255, 0.8509518, 0.8297582, 0.7570119, 0.7333450, 0.7006816, 0.6811850, 0.6608574,
+    0.6319138, 0.6229019, 0.6049351, 0.5871973, 0.5802351, 0.5415617, 0.5302511, 0.5190530, 0.4776188,
+    0.4498368, 0.4198294, 0.4020717, 0.3834987, 0.3715396, 0.2311666]
+    ev_x = range(1,33)
+    fit_stats_aic = [16591, 16033, 17358, 17316, 17198, 16522, 18553, 16742, 19180, 19910, 19860, 19457]
+    fit_stats_x = [2,3,4,5,6,7,8,9,10,11,12,13]
     sns.set_context("paper")
     plt.rcParams['font.family'] = 'serif'
     params = {'axes.labelsize': 20,
@@ -345,7 +347,9 @@ def Factor_dependences(df_norm):
            'xtick.direction': 'in',
            }
     plt.rcParams.update(params)
+
     fig, ax = plt.subplots()
+
     p1, = ax.plot(fit_stats_x, fit_stats_aic, marker='o', ls='None', color = 'k', label='AIC')
     ax.set_ylim(15000, 20000)
     ax.tick_params(axis='both', direction='in', top=True)
@@ -356,33 +360,42 @@ def Factor_dependences(df_norm):
     ax.tick_params(axis='y', colors=p1.get_color(), direction='in', right=True)
     ax.tick_params(axis='x', direction='in', top=True)
 
-    # fig.subplots_adjust(right=0.75)
-
-    # twin1 = ax.twinx()
-
-    # p1, = ax.plot(fit_stats_x, fit_stats_aic, marker='.', ls='None', color = 'black', label='AIC')
-    # p2, = twin1.plot(fit_stats_x, fit_stats_cfi, marker='^', ls='None', color = 'r', label='CFI')
-    # ax.set_xlim(1.5,9.5)
-    # ax.set_ylim(25000, 38000)
-    # twin1.set_ylim(0.85, 1)
-
-    # ax.tick_params(axis='both', direction='in', top=True)
-    # twin1.tick_params(axis='y', direction='in')
-    # plt.xlabel('Number of factors')
-    # ax.set_ylabel('Akaike information criterion')
-    # twin1.set_ylabel('Comparative Fit Index')
-
-    # ax.yaxis.label.set_color(p1.get_color())
-    # twin1.yaxis.label.set_color(p2.get_color())
-
-    # ax.tick_params(axis='y', colors=p1.get_color(), direction='in')
-    # twin1.tick_params(axis='y', colors=p2.get_color(), direction='in')
-    # ax.tick_params(axis='x', direction='in', top=True)
-    # ax.legend(handles=[p1,p2])
-
-    plt.tight_layout()
-    save_fig(fig, 'fit_stats')
+    fig, ax = plt.subplots()
+    plt.plot(ev_x, ev, 'o-', linewidth=2, color='black')
+    plt.hlines(1, 0, 31, linestyle='dashed')
+    plt.title('Factor Analysis Scree Plot')
+    plt.xlabel('Factor')
+    plt.ylabel('Eigenvalue')
+    plt.xlim(0.5,11)
+    plt.ylim(0,8)
+    plt.xticks(range(1,11))
+    save_fig(fig, 'SAGE_Scree')
     plt.clf()
+
+    fig = plt.figure()
+    gs = fig.add_gridspec(2, hspace=0)
+    axs = gs.subplots(sharex=True)
+    axs[1].plot(fit_stats_x, fit_stats_aic, marker='o', ls='None', color = 'k', label='AIC')
+    axs[1].set_ylim(15000, 21000)
+    axs[1].set_ylabel('AIC')
+    axs[0].plot(ev_x, ev, 'o-', linewidth=2, color='black', label='Eigenvalues')
+    axs[0].hlines(1, 0, 31, linestyle='dashed')
+    axs[0].set_ylim(0,8)
+    axs[0].set_ylabel('Eigenvalue')
+    axs[0].set_yticks([1,3,5,7])
+    axs[0].tick_params(axis='y', direction='in', right=True)
+    axs[0].tick_params(axis='x', direction='in', top=True)
+    axs[1].tick_params(axis='y', direction='in', right=True)
+    axs[1].tick_params(axis='x', direction='in', top=True)
+    plt.xticks(range(0,13))
+    plt.xlim(0.5,13)
+    plt.xlabel('Number of Factors')
+    save_fig(fig, 'Scree_AIC')
+    plt.clf()
+
+    # Hide x labels and tick labels for all but bottom plot.
+    for ax in axs:
+        ax.label_outer()
 
 def Make_BoxandWhisker_Plots():
     sns.set_context("paper")

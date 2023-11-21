@@ -1,0 +1,35 @@
+---
+title: "AI Tutor"
+author: "Gregorio Ponti"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Import packages
+
+```{r, warning = FALSE, include=FALSE}
+library(readstata13) # for reading in files
+library(dplyr) # for data manipulation
+library(tidyr)
+library(tidyverse)
+library(tidymodels)
+library(psych)
+library(texreg)
+library(sjPlot)
+library(ggplot2) # for plotting
+library(ggpubr)
+library(RColorBrewer)
+theme_set(theme_pubr())
+```
+
+## Import Data
+
+```{r}
+df_raw <- read.dta13('./week1_before_after_combined.dta')
+print(df_raw)
+```
+

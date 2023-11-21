@@ -180,7 +180,7 @@ fa.parallel(dat, fa="fa")
 Uses the training data set
 
 ```{r, message = FALSE, warning = FALSE}
-for (Nfacs in 3:9){
+for (Nfacs in 1:13){
   df <- train_data[,3:34]
   loadings_test = TRUE
   while (loadings_test) {
@@ -223,9 +223,11 @@ for (Nfacs in 3:9){
 Now we need to compare the CFA outputs of each and determine which is the optimal model
 
 ```{r}
-df_an <- anova(cfa.fit3, cfa.fit4, cfa.fit5, cfa.fit6, cfa.fit7, cfa.fit8, cfa.fit9)
+df_an <- anova(cfa.fit1, cfa.fit2, cfa.fit3, cfa.fit4, cfa.fit5, cfa.fit6, cfa.fit7, cfa.fit8, cfa.fit9, cfa.fit10, cfa.fit11, cfa.fit12, cfa.fit13)
 
 df_an <- df_an[order(row.names(df_an)), ]
+
+print(df_an)
 
 ggplot(df_an, aes(x = row.names(df_an), y = df_an$AIC))  + 
   geom_point()
@@ -309,5 +311,5 @@ f6.model <- lm(f6 ~ Course + Gender_group + Education_group + Intervention, data
 summary(f6.model)
 f7.model <- lm(f7 ~ Course + Gender_group + Education_group + Intervention, data = df.lr)
 summary(f7.model)
-screenreg(list(f1.model,f2.model,f3.model,f4.model,f5.model,f6.model,f7.model),digits=4)
+texreg(list(f1.model,f2.model,f3.model,f4.model,f5.model,f6.model,f7.model),digits=4)
 ```
